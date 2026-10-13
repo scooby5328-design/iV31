@@ -8,8 +8,36 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Planned
 - macOS and Linux builds
-- Hidden Power calculator
 - Side-by-side comparison of saved Pokémon
+
+## [1.1.0] - 2026-10-13
+
+### Added
+- EV calculator next to the IV readout:
+  - Track EVs per stat, with the 510 total and per-stat limits (255 in Gen III to V, 252 from Gen VI).
+  - Shows the stat points the EVs give at the Pokémon's level and at level 100, the EVs needed for the next point, and any wasted EVs.
+  - Add EVs by Pokémon defeated, with Macho Brace, Power items and Pokérus, or by vitamins.
+  - Load EVs from, or send them to, the Summary screen.
+  - A table showing how many stat points a number of EVs gives at different levels.
+- Hidden Power calculator:
+  - Type, power, and (in Gen III) physical or special category for any six IVs.
+  - Can load IVs from the IV readout.
+  - Table of the highest IVs that give each type.
+- Secret Power tab:
+  - Every area in Ruby/Sapphire, Emerald and FireRed/LeafGreen, with the ground types it has and the move Secret Power turns into there, worked out from the games' map data.
+  - Terrain tables for Gen IV to VII.
+- New guide sections for the EV calculator, Hidden Power and Secret Power.
+
+### Changed
+- The "EVs" tab is now called "EV yield".
+
+### Installer checksum
+
+`iv31-Setup-1.1.0.exe` SHA-256:
+
+```
+b61a5022c4b213000bb7940ee3b56d3b22eaf8bfe7e1be721102c2fcb42b3c03
+```
 
 ## [1.0.0] - 2026-10-12
 
@@ -37,5 +65,6 @@ aef35b57155124b152c1d4c0558ec121ae7dd1b68b1f11e2d5181897a34cc4b8
 - Expanded from the original Gen III (Hoenn) Pokédex to the full National Pokédex
 - Renamed from "Pokédex IV Checker" to iv31
 
-[Unreleased]: ../../compare/v1.0.0...HEAD
+[Unreleased]: ../../compare/v1.1.0...HEAD
+[1.1.0]: ../../releases/tag/v1.1.0
 [1.0.0]: ../../releases/tag/v1.0.0

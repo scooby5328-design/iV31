@@ -6,7 +6,8 @@ Only the latest release receives security fixes. Please update before reporting.
 
 | Version | Supported |
 | ------- | --------- |
-| 1.0.x   | ✅        |
+| 1.1.x   | ✅        |
+| 1.0.x   | ❌        |
 | < 1.0   | ❌        |
 
 ## Reporting a vulnerability
@@ -70,7 +71,7 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 The SHA-256 checksum for each installer is listed in [CHANGELOG.md](CHANGELOG.md). To check yours, open **PowerShell** in the folder with the installer and run:
 
 ```powershell
-Get-FileHash .\iv31-Setup-1.0.0.exe -Algorithm SHA256
+Get-FileHash .\iv31-Setup-1.1.0.exe -Algorithm SHA256
 ```
 
 The result should match the checksum exactly. If it doesn't, delete the file and download it again from this repository.

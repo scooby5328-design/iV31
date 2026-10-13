@@ -4,14 +4,14 @@
 
 **A fast, offline Pokémon IV calculator for the whole National Pokédex.**
 
-Pick a Pokémon, enter its level and stats, and iv31 tells you its individual values, the nature that suits it best, and which stats matter most. A second tab holds a full EV yield table so you always know what to battle for training.
+Pick a Pokémon, enter its level and stats, and iv31 tells you its individual values, the nature that suits it best, and which stats matter most. It also has an EV calculator, a Hidden Power calculator, a full EV yield table, and a Secret Power guide that lists every area in the Gen 3 games.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-f5c2e7)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.1.0-f5c2e7)](CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-89b4fa)](#install)
 [![License: MIT](https://img.shields.io/badge/license-MIT-a6e3a1)](LICENSE)
 [![Offline](https://img.shields.io/badge/works-offline-cba6f7)](#privacy)
 
-[Download](iv31-Setup-1.0.0.exe.zip?raw=true) · [Report a bug](../../issues/new?template=bug_report.yml) · [Request a feature](../../issues/new?template=feature_request.yml)
+[Download](iv31-Setup-1.1.0.exe.zip?raw=true) · [Report a bug](../../issues/new?template=bug_report.yml) · [Request a feature](../../issues/new?template=feature_request.yml)
 
 </div>
 
@@ -36,7 +36,10 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 - **IV calculation** from level, nature and current stats, with the possible IV range shown when a single value can't be pinned down.
 - **Suggested natures** for each Pokémon, based on its strongest stats.
 - **Key stat highlighting** so you can see at a glance which stats a Pokémon is built around.
+- **EV calculator** right next to the IV readout. Track EVs per stat, add them by Pokémon defeated (with Macho Brace, Power items and Pokérus) or by vitamins, and see how many stat points they give at your level and at level 100. It keeps you inside the 510 total and per-stat limits and warns about wasted EVs.
+- **Hidden Power calculator** that shows the type, power and (in Gen III) physical/special category for any six IVs, plus a table of the best IVs for every type.
 - **EV yield tab** with a sortable table of the effort values every Pokémon gives when defeated.
+- **Secret Power guide** listing every area in Ruby, Sapphire, Emerald, FireRed and LeafGreen with the ground types it has and what Secret Power turns into there, worked out from the games' map data. Later generations show the terrain table.
 - **Saves your work** between sessions on your own computer.
 - **Fully offline.** No account, no ads, no tracking, no internet connection needed after install.
 - **Tiny.** The installer is about 1.3 MB because it uses the web engine already built into Windows.
@@ -46,8 +49,8 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 
 ### Windows 10 / 11 (64-bit)
 
-1. Download **[iv31-Setup-1.0.0.exe.zip](iv31-Setup-1.0.0.exe.zip?raw=true)**.
-2. Right-click the downloaded zip → **Extract All** → **Extract**, then double-click **iv31-Setup-1.0.0.exe**.
+1. Download **[iv31-Setup-1.1.0.exe.zip](iv31-Setup-1.1.0.exe.zip?raw=true)**.
+2. Right-click the downloaded zip → **Extract All** → **Extract**, then double-click **iv31-Setup-1.1.0.exe**.
 3. Windows may show **"Windows protected your PC"**. This appears because the installer isn't signed with a paid code-signing certificate. Click **More info → Run anyway**.
 4. Follow the setup screens. No administrator password is needed; iv31 installs for your user account only.
 5. Launch iv31 from the Start menu or the desktop shortcut.
@@ -67,7 +70,10 @@ Native builds are planned. See the [roadmap](#roadmap).
 3. Enter the six stats shown on its summary screen (HP, Attack, Defense, Sp. Atk, Sp. Def, Speed).
 4. If it has received EVs, enter those too. For a freshly caught Pokémon, leave them at 0.
 5. Read the IV for each stat. A range like `24–27` means more data is needed; level the Pokémon up once and enter the new stats to narrow it down.
-6. Open the **EV Yield** tab to see which Pokémon to battle to train a specific stat.
+6. Use the **EV calc** panel to plan or track EV training. Add each Pokémon you defeat and it tallies the EVs and stat points for you. Click **Send EVs to Summary** so the IV readout accounts for them.
+7. Use the **Hidden Power** panel to check a Pokémon's Hidden Power, or load the IVs you need for a type.
+8. Open the **EV yield** tab to see which Pokémon to battle to train a specific stat.
+9. Open the **Secret Power** tab, pick your game, and search an area to see what Secret Power turns into there.
 
 ## How the math works
 
@@ -87,6 +93,17 @@ Stat = floor((floor((2 × Base + IV + floor(EV / 4)) × Level / 100) + 5) × Nat
 
 `Nature` is 1.1 for a boosted stat, 0.9 for a lowered stat, and 1.0 otherwise. iv31 tests every IV from 0 to 31 against your numbers and shows each value that fits. Shedinja's HP is always 1 and is handled as a special case.
 
+### Hidden Power
+
+Each IV's lowest bit (odd or even) sets the type, and in Gen III to V each IV's second-lowest bit sets the power:
+
+```
+Type  = floor((a + 2b + 4c + 8d + 16e + 32f) × 15 / 63)
+Power = floor((u + 2v + 4w + 8x + 16y + 32z) × 40 / 63) + 30
+```
+
+The letters go in the order HP, Attack, Defense, Speed, Sp. Atk, Sp. Def. From Gen VI on, the power is always 60.
+
 ## Privacy
 
 iv31 does not collect, send or share any data.
@@ -100,7 +117,8 @@ iv31 does not collect, send or share any data.
 
 ```
 .
-├── iv31-Setup-1.0.0.exe.zip   Windows installer
+├── iv31-Setup-1.1.0.exe.zip   Windows installer (latest)
+├── iv31-Setup-1.0.0.exe.zip   Previous version
 ├── .github/                   Issue forms and pull request template
 ├── CHANGELOG.md               Version history
 ├── CODE_OF_CONDUCT.md         Community rules
@@ -116,11 +134,13 @@ iv31 does not collect, send or share any data.
 - [x] Suggested natures and key stat highlighting
 - [x] EV yield tab
 - [x] Windows installer
+- [x] EV calculator
+- [x] Hidden Power type and power calculator
+- [x] Secret Power area guide for the Gen 3 games
 - [ ] Publish the full source code
 - [ ] GitHub Releases with checksums
 - [ ] macOS build (Intel and Apple Silicon)
 - [ ] Linux AppImage
-- [ ] Hidden Power type and power calculator
 - [ ] Save and compare multiple Pokémon side by side
 - [ ] Optional Catppuccin flavour switcher (Latte, Frappé, Macchiato, Mocha)
 - [ ] Signed Windows installer
