@@ -1,0 +1,16 @@
+node_modules/
+dist/
+bin/
+pkg/
+.tmp/
+.storage/
+neutralinojs.log
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+.env
+.env.*
