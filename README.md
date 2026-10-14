@@ -117,8 +117,7 @@ iv31 does not collect, send or share any data.
 
 ```
 .
-├── iv31-Setup-1.1.0.exe.zip   Windows installer (latest)
-├── iv31-Setup-1.0.0.exe.zip   Previous version
+├── iv31-Setup-1.1.0.exe.zip   Windows installer
 ├── .github/                   Issue forms and pull request template
 ├── CHANGELOG.md               Version history
 ├── CODE_OF_CONDUCT.md         Community rules
