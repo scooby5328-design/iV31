@@ -1239,13 +1239,13 @@ function runCalcCore(){
 }
 
 
-const PARTY_DESKTOP_MAX = 30, PARTY_PHONE_MAX = 3, PARTY_KEY = "iv31-party";
+const PARTY_DESKTOP_MAX = 30, PARTY_KEY = "iv31-party";
 const ANDROID = typeof window.iv31Android !== "undefined";
-const tier = () => !ANDROID ? "full" : (window.iv31Android.isPro() ? "pro" : "free");
+const onPhone = () => !ANDROID && !inApp() && window.matchMedia("(pointer:coarse)").matches && Math.min(screen.width, screen.height) < 820;
+const tier = () => ANDROID ? (window.iv31Android.isPro() ? "pro" : "free") : onPhone() ? "free" : "full";
 const partyCards = $("partyCards");
 let partyId = 0, partyEi = -1;
-const onPhone = () => !inApp() && window.matchMedia("(pointer:coarse)").matches && Math.min(screen.width, screen.height) < 820;
-const partyMax = () => ANDROID ? (tier() === "pro" ? PARTY_DESKTOP_MAX : 0) : onPhone() ? PARTY_PHONE_MAX : PARTY_DESKTOP_MAX;
+const partyMax = () => tier() === "free" ? 0 : PARTY_DESKTOP_MAX;
 const natureOptions = `<option value="">Nature…</option>` + NATURES.map((n,i) => `<option value="${i}">${n[1] ? `${n[0]} (+${SHORT[n[1]]} −${SHORT[n[2]]})` : `${n[0]} (neutral)`}</option>`).join("");
 
 function solveMember(num, natIdx, entries, g){
@@ -1352,7 +1352,7 @@ function partyLimitNote(hit){
   $("partyCopy").disabled = n >= max;
   $("partyClear").hidden = n < 2;
   const msg = $("partyMsg");
-  if (n >= max && max) msg.innerHTML = `<div class="verdict">${max === PARTY_PHONE_MAX ? `On a phone you can compare up to ${PARTY_PHONE_MAX} Pokémon. The iv31 desktop app compares up to ${PARTY_DESKTOP_MAX}.` : `That's the most iv31 compares at once (${PARTY_DESKTOP_MAX}). Remove one to add another.`}</div>`;
+  if (n >= max && max) msg.innerHTML = `<div class="verdict">That's the most iv31 compares at once (${PARTY_DESKTOP_MAX}). Remove one to add another.</div>`;
   else msg.innerHTML = "";
   if (hit) msg.scrollIntoView({block:"nearest"});
 }
@@ -1387,6 +1387,8 @@ function applyTier(){
   $("introSub").innerHTML = t === "free" ? INTRO_FREE : INTRO_FULL;
   document.body.classList.toggle("tier-free", t === "free");
   document.body.classList.toggle("tier-pro", t === "pro");
+  $("proBuy").hidden = $("proRestore").hidden = !ANDROID;
+  if (!ANDROID) $("proNote").textContent = "iv31 Full is a one-time purchase in the iv31 Android app from Google Play. The desktop app for Windows, Mac and Linux has everything for free.";
   if (ANDROID){
     let price = "";
     try { price = window.iv31Android.price() || ""; } catch(_) {}

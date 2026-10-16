@@ -86,7 +86,7 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 
 **apt repository.** Served from the `apt` branch at `https://raw.githubusercontent.com/scooby5328-design/iV31/apt`, suite `stable`, component `main`, architectures `amd64 arm64`. `publish-apt.sh` rebuilds it with the last three versions' `.deb` files and force-pushes the branch. Signed with key `85840C540F38B42EAECBC17A6DB7B8ABE65CE7B9`; the private key is the `APT_SIGNING_KEY` Actions secret. Losing it means every Linux user has to install a new key.
 
-**Android.** `android/` is a Kotlin app (package `com.chili.iv31`, min Android 7, target API 36) that shows the same page from its assets in a WebView. `tools/build_android.py` copies the built page in. The page sees `window.iv31Android` and switches tiers: free = one IV calculation, EV table and Favorites without locations; Full = everything plus party comparison (30) saved in the app. Full is the one-time Google Play product `iv31_full` (Play Billing 8, `Billing.kt`). The desktop app and web page are never limited by tier. The **Android** workflow builds a test APK and a Play bundle on every push, runs both tiers on an emulator and posts screenshots to the `android-ci` pre-release. Debug builds accept `--es tier free|pro` to force a tier. Play bundles are signed only when the `ANDROID_*` secrets are set. Android updates come from Google Play, so the in-app updater is off there.
+**Android.** `android/` is a Kotlin app (package `com.chili.iv31`, min Android 7, target API 36) that shows the same page from its assets in a WebView. `tools/build_android.py` copies the built page in. The page sees `window.iv31Android` and switches tiers: free = one IV calculation, EV table and Favorites without locations; Full = everything plus party comparison (30) saved in the app. Full is the one-time Google Play product `iv31_full` (Play Billing 8, `Billing.kt`). The desktop app is never limited; the web page opened on a phone gets the free tier, with a note pointing to the Android app. The **Android** workflow builds a test APK and a Play bundle on every push, runs both tiers on an emulator and posts screenshots to the `android-ci` pre-release. Debug builds accept `--es tier free|pro` to force a tier. Play bundles are signed only when the `ANDROID_*` secrets are set. Android updates come from Google Play, so the in-app updater is off there.
 
 ## Testing
 
@@ -111,4 +111,4 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.4.0 Gen I–II, single game list, Nature Power, Secret Power fix.
 - 1.4.1 First Mac release, Mac menu bar.
 - 1.4.2 Linux packages and apt repository, macOS back to 10.15, color fallbacks.
-- 1.4.3 Party comparison (30 on desktop, 3 on phones; `PARTY_DESKTOP_MAX` / `PARTY_PHONE_MAX` in `src/index.html`).
+- 1.4.3 Party comparison (30 on desktop; `PARTY_DESKTOP_MAX` in `src/index.html`). Since then the web page on phones uses the Android free tier.
