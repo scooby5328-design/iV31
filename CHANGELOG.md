@@ -18,6 +18,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Note
 - If you have 1.3.0, it can't install this update by itself. Download the 1.3.1 installer from the Releases page and run it once; it installs over 1.3.0 and keeps your saved data. People on 1.2.0 update straight to 1.3.1 from inside the app.
 
+### Installer checksum
+
+`iv31-Setup-1.3.1.exe` SHA-256:
+
+```
+75336b4776bbf7f4e7574cf284bd3e7241536fa03cc56016e72babfbb0644b35
+```
+
 ## [1.3.0] - 2026-10-16
 
 ### Added
