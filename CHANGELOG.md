@@ -18,6 +18,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The web page opened on a phone uses the same free tier as the Android app (one IV calculation, EV table without locations).
 - All packages take their program file from `updates/runtime/` instead of downloading it at build time.
 
+### Checksums (SHA-256)
+
+```
+a7e6a69c3ee53f8ad4c756772dcae5b4d22c8ab9c61c74df7e99986c96d55d60  iv31-Setup-1.5.0.exe
+e23f549a956f0d628d67cbb5a4f651e3546a5f3d4083c715772316b834df735d  iv31-1.5.0-mac.zip
+d5e9f391360dd7ed94934ab7b98daa7c4ffdbc8263bced82ada38aecd851807f  iv31-1.5.0-linux-x64.tar.gz
+497d52137de2df68009edf9fb697f42a2419b7aac9dc2796fc4177e3afe370c3  iv31-1.5.0-linux-arm64.tar.gz
+1c1bdb87590f1763712a78dcfb90e3af562af4f2b70b9f5e47228e9410f44110  iv31_1.5.0_amd64.deb
+4e14415f1fd5d15adc34bd8d1e26040922638ab0be5cda23555aa9ce02563fe1  iv31_1.5.0_arm64.deb
+7c2bec85cce29ff46c48a461ef936bd2619b7403354aae35cc9698b3eede8077  iv31-1.5.0-x86_64.AppImage
+c64fce63264a8459118fe8c4dc79b91a74b5d9717b765e03c60d2107a4f055b0  iv31-1.5.0-aarch64.AppImage
+```
+
 ## [1.4.4] - 2026-10-16
 
 ### Fixed
