@@ -6,7 +6,8 @@ Only the latest release receives security fixes. Please update before reporting.
 
 | Version | Supported |
 | ------- | --------- |
-| 1.1.x   | ✅        |
+| 1.2.x   | ✅        |
+| 1.1.x   | ❌        |
 | 1.0.x   | ❌        |
 | < 1.0   | ❌        |
 
@@ -48,6 +49,7 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 - The Windows installer and uninstaller
 - The app's local web server and its configuration
 - The installer published in this repository
+- The built-in updater and the update files in the `updates/` folder
 
 **Out of scope**
 
@@ -59,9 +61,11 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 
 ## How iv31 is built to stay safe
 
-- **No network access.** The app makes no outside connections: no analytics, no telemetry, no update checks.
+- **One outside connection: update checks.** The only thing iv31 downloads is its own update information from `raw.githubusercontent.com/scooby5328-design/iv31`. It sends nothing about you: no analytics, no telemetry, no accounts. You can turn automatic checks off in the Guide.
+- **Updates are verified before they're installed.** An update is only accepted from this repository's `updates/` folder, and the downloaded file's SHA-256 fingerprint must match the one published in `updates/manifest.json`. If it doesn't match, nothing is changed.
+- **Tight native permissions.** The app can use only three native functions: write its own `resources.neu` file (writing anywhere else is blocked), relaunch itself after an update (the only program it's allowed to start is one named `iv31.exe`), and exit. Every other native function, including reading files, is blocked.
+- **Locked-down page.** A Content Security Policy only lets the page load its own files and connect to the local app server and GitHub's raw file host.
 - **Local only.** The internal web server listens on `127.0.0.1` only, so other devices on your network can't reach it.
-- **Native access turned off.** The Neutralino native API is disabled, so the page can't run programs or read files on your computer.
 - **One-time access token.** The runtime uses one-time token security for its local connection.
 - **Per-user install.** The installer doesn't ask for administrator rights and only writes to your user folder and your user's registry keys.
 - **Clean uninstall.** The uninstaller removes the app files, shortcuts and registry entries it created.
@@ -71,7 +75,7 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 The SHA-256 checksum for each installer is listed in [CHANGELOG.md](CHANGELOG.md). To check yours, open **PowerShell** in the folder with the installer and run:
 
 ```powershell
-Get-FileHash .\iv31-Setup-1.1.0.exe -Algorithm SHA256
+Get-FileHash .\iv31-Setup-1.2.0.exe -Algorithm SHA256
 ```
 
 The result should match the checksum exactly. If it doesn't, delete the file and download it again from this repository.

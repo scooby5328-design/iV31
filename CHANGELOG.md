@@ -10,6 +10,31 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - macOS and Linux builds
 - Side-by-side comparison of saved Pokémon
 
+## [1.2.0] - 2026-10-15
+
+### Added
+- Auto-updater:
+  - Checks GitHub for a newer version a few seconds after iv31 starts. This can be turned off in the Guide.
+  - Shows a bar with the new version and its notes, with **Update now**, **Skip this version** and **Later**.
+  - Downloads the update, checks its SHA-256 fingerprint, installs it and restarts iv31. Saved favorites and EVs are kept.
+  - Click the version number in the top bar to check for updates any time.
+- `updates/` folder in the repository with the update information (`manifest.json`) and update files.
+
+### Changed
+- The app can now use three native functions (write its own app file, relaunch itself, exit). Everything else stays blocked.
+- The page's Content Security Policy is now applied (it was being ignored before) and allows connecting to GitHub for updates.
+
+### Note
+- Version 1.1.0 can't update itself. Install 1.2.0 once with the installer; updates after that happen inside the app.
+
+### Installer checksum
+
+`iv31-Setup-1.2.0.exe` SHA-256:
+
+```
+401be5f6f8763d35d72fe75acbead2ed73fa83a9d1d22466562e0042f49a018f
+```
+
 ## [1.1.0] - 2026-10-13
 
 ### Added

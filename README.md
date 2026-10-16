@@ -6,12 +6,12 @@
 
 Pick a Pokémon, enter its level and stats, and iv31 tells you its individual values, the nature that suits it best, and which stats matter most. It also has an EV calculator, a Hidden Power calculator, a full EV yield table, and a Secret Power guide that lists every area in the Gen 3 games.
 
-[![Version](https://img.shields.io/badge/version-1.1.0-f5c2e7)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-1.2.0-f5c2e7)](CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-89b4fa)](#install)
 [![License: MIT](https://img.shields.io/badge/license-MIT-a6e3a1)](LICENSE)
 [![Offline](https://img.shields.io/badge/works-offline-cba6f7)](#privacy)
 
-[Download](iv31-Setup-1.1.0.exe.zip?raw=true) · [Report a bug](../../issues/new?template=bug_report.yml) · [Request a feature](../../issues/new?template=feature_request.yml)
+[Download](iv31-Setup-1.2.0.exe.zip?raw=true) · [Report a bug](../../issues/new?template=bug_report.yml) · [Request a feature](../../issues/new?template=feature_request.yml)
 
 </div>
 
@@ -41,7 +41,8 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 - **EV yield tab** with a sortable table of the effort values every Pokémon gives when defeated.
 - **Secret Power guide** listing every area in Ruby, Sapphire, Emerald, FireRed and LeafGreen with the ground types it has and what Secret Power turns into there, worked out from the games' map data. Later generations show the terrain table.
 - **Saves your work** between sessions on your own computer.
-- **Fully offline.** No account, no ads, no tracking, no internet connection needed after install.
+- **Updates itself.** iv31 checks GitHub for a new version when it starts and can install it with one click. Updates are verified before they're installed, and you can turn the check off.
+- **Works offline.** No account, no ads, no tracking. The only time it goes online is to check for updates.
 - **Tiny.** The installer is about 1.3 MB because it uses the web engine already built into Windows.
 - **Clean desktop look** inspired by modern Linux desktop setups, using the Catppuccin colour palette.
 
@@ -49,8 +50,8 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 
 ### Windows 10 / 11 (64-bit)
 
-1. Download **[iv31-Setup-1.1.0.exe.zip](iv31-Setup-1.1.0.exe.zip?raw=true)**.
-2. Right-click the downloaded zip → **Extract All** → **Extract**, then double-click **iv31-Setup-1.1.0.exe**.
+1. Download **[iv31-Setup-1.2.0.exe.zip](iv31-Setup-1.2.0.exe.zip?raw=true)**.
+2. Right-click the downloaded zip → **Extract All** → **Extract**, then double-click **iv31-Setup-1.2.0.exe**.
 3. Windows may show **"Windows protected your PC"**. This appears because the installer isn't signed with a paid code-signing certificate. Click **More info → Run anyway**.
 4. Follow the setup screens. No administrator password is needed; iv31 installs for your user account only.
 5. Launch iv31 from the Start menu or the desktop shortcut.
@@ -58,6 +59,18 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 **Requirement:** Microsoft Edge WebView2 Runtime. Almost every Windows 10/11 PC already has it. If yours doesn't, the installer offers to open Microsoft's download page.
 
 **Uninstall:** Settings → Apps → Installed apps → iv31 → Uninstall.
+
+### Updating
+
+From version 1.2.0 on, iv31 updates itself:
+
+1. A few seconds after it starts, iv31 checks GitHub for a newer version.
+2. If there is one, a bar appears at the top with what's new. Click **Update now**.
+3. iv31 downloads the update, checks its fingerprint, installs it and restarts. Your saved favorites and EVs are kept.
+
+Click the version number in the top bar to check any time. To stop the automatic check, untick **Check for updates when iv31 starts** in the Guide.
+
+If you have **1.1.0 or older**, install 1.2.0 once with the installer above. It installs over the old version and keeps your saved data.
 
 ### macOS and Linux
 
@@ -106,18 +119,20 @@ The letters go in the order HP, Attack, Defense, Speed, Sp. Atk, Sp. Def. From G
 
 ## Privacy
 
-iv31 does not collect, send or share any data.
+iv31 does not collect, send or share any data about you.
 
 - Everything runs locally on your computer.
 - Saved entries are stored in the app's local browser storage on your machine only.
 - The app's internal web server listens only on your own computer (`127.0.0.1`), never on your network.
-- There are no analytics, telemetry, ads or update checks.
+- There are no analytics, telemetry or ads.
+- The only internet connection is the update check, which downloads a small version file from this repository. Nothing about you is sent. You can turn it off in the Guide.
 
 ## What's in this repository
 
 ```
 .
-├── iv31-Setup-1.1.0.exe.zip   Windows installer
+├── iv31-Setup-1.2.0.exe.zip   Windows installer
+├── updates/                   Update information and files the app downloads
 ├── .github/                   Issue forms and pull request template
 ├── CHANGELOG.md               Version history
 ├── CODE_OF_CONDUCT.md         Community rules
@@ -133,6 +148,7 @@ iv31 does not collect, send or share any data.
 - [x] Suggested natures and key stat highlighting
 - [x] EV yield tab
 - [x] Windows installer
+- [x] Auto-updater
 - [x] EV calculator
 - [x] Hidden Power type and power calculator
 - [x] Secret Power area guide for the Gen 3 games

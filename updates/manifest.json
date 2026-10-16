@@ -1,0 +1,10 @@
+{
+  "applicationId": "com.chili.iv31",
+  "version": "1.2.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.2.0.neu",
+  "data": {
+    "sha256": "9f2baf5d09592379fb8aa5dc6136667084dd191e872cc04b2b49c915df90b199",
+    "size": 682371,
+    "notes": "Adds the auto-updater: iv31 can now check GitHub for new versions and install them with one click."
+  }
+}

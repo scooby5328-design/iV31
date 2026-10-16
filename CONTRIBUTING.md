@@ -32,10 +32,12 @@ The app's source code isn't published in this repository yet. Once it is, this s
 
 ## Releases (maintainer)
 
-1. Update the version number in the installer and in `CHANGELOG.md`.
+1. Update the version number in the app (`neutralino.config.json` and `APP_VERSION`) and in `CHANGELOG.md`.
 2. Move the **Unreleased** notes under a new version heading with the date.
-3. Zip the new installer and upload it to the repository, replacing the old one.
-4. Create a GitHub release tagged `v1.x.x`, attach the installer, and paste its SHA-256 checksum into the notes.
+3. Build the app files (`resources.neu`) and the installer.
+4. Put the new `resources.neu` in `updates/` as `iv31-<version>.neu`. Then update `updates/manifest.json` with the new version, the file's link, its SHA-256 fingerprint and short notes. Installed copies pick this up automatically.
+5. If the update needs a new app engine (not just new app files), set `"installer": true` in the manifest's `data` so people are sent to the installer instead.
+6. Zip the new installer and upload it, replacing the old one, and add its SHA-256 checksum to the changelog.
 
 ## License
 
