@@ -49,8 +49,8 @@ button{font:inherit}
 .mods select{font-family:var(--mono);font-size:12.5px;padding:3px 8px;border-radius:8px;width:auto;max-width:44vw;background:var(--base);color:var(--mauve);font-weight:700}
 .mods optgroup{color:var(--overlay);font-style:normal}
 .mods option{color:var(--text)}
-#entries.g1 .stat[data-k="spd"]{display:none}
-#entries.g1 .stats{grid-template-columns:repeat(5,minmax(0,1fr))}
+#entries.g1 .stat[data-k="spd"],#partyCards.g1 .stat[data-k="spd"]{display:none}
+#entries.g1 .stats,#partyCards.g1 .stats{grid-template-columns:repeat(5,minmax(0,1fr))}
 @media (max-width:420px){#entries.g1 .stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .oldnote{margin:0}
 .nature-off{opacity:.55}
@@ -182,6 +182,32 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .subtabs button:hover{color:var(--text)}
 .subtabs button[aria-selected="true"]{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
 .titlebar.withtabs{padding-block:6px}
+.partycount{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--overlay);margin-left:auto}
+.party-actions{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 12px}
+.party-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.pcard{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:10px 12px;min-width:0;scroll-margin-top:80px}
+.pcard.flash{border-color:var(--mauve)}
+.pcard-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.pnum{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--crust);background:var(--mauve);border-radius:6px;padding:1px 7px;flex:none}
+.pname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px}
+.pcard input[type=search],.pcard select{margin-bottom:6px;background:var(--base)}
+.pcard input[type=number]{background:var(--base)}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) 76px;gap:6px}
+.prow label,.pcard .stat label{font-size:11px;color:var(--overlay)}
+.pcard .stats{gap:4px}
+.pcard details.evs{margin-top:6px}
+.pres{margin-top:8px;font-size:12px;color:var(--subtext);line-height:1.5}
+.pres .r-err{font-weight:600}
+.ptable{margin-top:14px}
+.ptable th,.ptable td{text-align:center;white-space:nowrap;padding:7px 6px}
+.ptable th:nth-child(2),.ptable td.pk{text-align:left}
+.ptable td.pk{font-weight:600;cursor:pointer}
+.ptable td.pk small{font-family:var(--mono);color:var(--overlay);font-weight:500;margin-right:6px}
+.ptable td.v{font-family:var(--mono);font-weight:700}
+.ptable td.v.kst{background:var(--keybg)}
+.ptable td.v.best{text-decoration:underline;text-underline-offset:3px}
+.ptable td.nat{font-size:12.5px;color:var(--subtext)}
+.ptable tr:hover td{background:color-mix(in srgb,var(--surface0) 45%,var(--base))}
 
 .tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:12px}
 .tools .grow{flex:1 1 240px;min-width:0}
@@ -444,7 +470,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
         <div class="logo" aria-hidden="true">IV<span>/</span>31</div>
         <div>
           <h1 id="appTitle">iv<span>31</span> · Pokédex IV Checker</h1>
-          <p class="sub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below are the EV and Hidden Power calculators. The game picker in the top bar sets base stats, types and locations everywhere in the app.</p>
+          <p class="sub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below you can compare several party members side by side, and use the EV and Hidden Power calculators. The game picker in the top bar sets base stats, types and locations everywhere in the app.</p>
         </div>
       </div>
     </div>
@@ -500,6 +526,25 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
       </div>
     </section>
   </div>
+
+  <section class="win" id="party" aria-labelledby="party-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="party-h">Party comparison</span><span class="partycount" id="partyCount"></span></div>
+      <div class="pane">
+        <p class="tip" id="partyIntro" style="margin-top:0">Compare the IVs of several Pokémon side by side. Press <b>+ Add party member</b> and fill in its Summary screen, or copy the Pokémon you entered above.</p>
+        <div class="party-actions">
+          <button class="btn primary small" id="partyAdd" type="button">+ Add party member</button>
+          <button class="btn small" id="partyCopy" type="button">Copy from Summary screen</button>
+          <button class="btn small" id="partyClear" type="button" hidden>Clear all</button>
+        </div>
+        <div class="party-cards" id="partyCards"></div>
+        <div class="scroll" id="partyTableWrap" hidden>
+          <table class="ptable"><thead id="partyHead"></thead><tbody id="partyBody"></tbody></table>
+        </div>
+        <div id="partyMsg"></div>
+      </div>
+    </div>
+  </section>
 
   <div class="tiles tools2">
     <section class="win" id="evcalc" aria-labelledby="evc-h">
@@ -979,7 +1024,7 @@ function weakLine(ts, g){
   return [part("Weak to", [...m.x4, ...m.x2]), part("Immune to", m.z)].filter(Boolean).join(" ");
 }
 
-function runCalc(){ runCalcCore(); if (extrasReady && era().g >= 3){ renderEvc(); renderHp(); } }
+function runCalc(){ runCalcCore(); renderParty(); if (extrasReady && era().g >= 3){ renderEvc(); renderHp(); } }
 let extrasReady = false;
 function setCalcMode(g){
   const old = g <= 2;
@@ -1166,6 +1211,198 @@ function runCalcCore(){
     msg.innerHTML = `<div class="verdict">Strongest IV: <b>${LABEL[best[0][0]]}</b>. Weakest: <b>${LABEL[best[best.length-1][0]]}</b>. Key stat IVs: <b>${keyIv}</b>. ${lean} ${entries.length===1 && entries[0].lv<30 ? "Add its stats again after a few level-ups to narrow these ranges." : ""}</div>`;
   } else msg.innerHTML = "";
 }
+
+
+const PARTY_DESKTOP_MAX = 30, PARTY_PHONE_MAX = 3;
+const partyCards = $("partyCards");
+let partyId = 0, partyEi = -1;
+const onPhone = () => !inApp() && window.matchMedia("(pointer:coarse)").matches && Math.min(screen.width, screen.height) < 820;
+const partyMax = () => onPhone() ? PARTY_PHONE_MAX : PARTY_DESKTOP_MAX;
+const natureOptions = `<option value="">Nature…</option>` + NATURES.map((n,i) => `<option value="${i}">${n[1] ? `${n[0]} (+${SHORT[n[1]]} −${SHORT[n[2]]})` : `${n[0]} (neutral)`}</option>`).join("");
+
+function solveMember(num, natIdx, entries, g){
+  const base = baseStats(num, g), name = DEX[num-1][0];
+  if (g <= 2){
+    const spc = g === 1 ? ["spa"] : ["spa","spd"];
+    const groups = {hp:["hp"], atk:["atk"], def:["def"], spe:["spe"], spc};
+    const cand = {}, entered = {};
+    Object.entries(groups).forEach(([gk, keys]) => {
+      entered[gk] = entries.some(x => keys.some(k => Number.isFinite(x.s[k])));
+      cand[gk] = [...Array(16).keys()].filter(dv => entries.every(x => keys.every(k => !Number.isFinite(x.s[k]) || calcOld(base[k], dv, x.e[k], x.lv, k) === x.s[k])));
+    });
+    const combos = [];
+    if (Object.values(cand).every(c => c.length)){
+      const hpSet = new Set(cand.hp);
+      for (const a of cand.atk) for (const d of cand.def) for (const s of cand.spe) for (const c of cand.spc){
+        const h = ((a & 1) << 3) | ((d & 1) << 2) | ((s & 1) << 1) | (c & 1);
+        if (hpSet.has(h)) combos.push({hp:h, atk:a, def:d, spe:s, spc:c});
+      }
+    }
+    const uniq = gk => [...new Set(combos.map(c => c[gk]))].sort((x,y) => x - y);
+    const sets = {hp:uniq("hp"), atk:uniq("atk"), def:uniq("def"), spa:uniq("spc"), spd:uniq("spc"), spe:uniq("spe")};
+    const ent = {hp:entered.hp || Object.values(entered).some(Boolean), atk:entered.atk, def:entered.def, spa:entered.spc, spd:entered.spc, spe:entered.spe};
+    const bad = Object.keys(groups).filter(gk => entered[gk] && !cand[gk].length);
+    const tot = combos.map(c => c.hp + c.atk + c.def + c.spe + c.spc);
+    let hp = "";
+    if (g === 2 && combos.length){
+      const ts = new Set(combos.map(c => HP_TYPES[4 * (c.atk % 4) + (c.def % 4)]));
+      hp = ts.size === 1 ? [...ts][0] : `${ts.size} types`;
+    }
+    return {scale:15, sets, entered:ent, bad:bad.length ? bad : (Object.values(entered).some(Boolean) && !combos.length ? ["combo"] : []), total: combos.length && Object.values(entered).every(Boolean) ? [Math.min(...tot), Math.max(...tot)] : null, max:75, hp};
+  }
+  const nat = NATURES[natIdx], shedinja = name === "Shedinja", sets = {}, entered = {}, bad = [];
+  KEYS.forEach(k => {
+    const used = entries.filter(x => Number.isFinite(x.s[k]));
+    entered[k] = used.length > 0;
+    let ivs = [...Array(32).keys()];
+    used.forEach(x => { ivs = ivs.filter(iv => calc(base[k], iv, x.e[k], x.lv, k, nat, shedinja) === x.s[k]); });
+    sets[k] = ivs;
+    if (entered[k] && !ivs.length) bad.push(k);
+  });
+  const ok = KEYS.every(k => entered[k] && sets[k].length);
+  let hp = "";
+  if (ok && g < 8){ const r = hiddenPower(sets); hp = r.types.length === 1 ? r.types[0] : `${r.types.length} types`; }
+  return {scale:31, sets, entered, bad, total: ok ? [KEYS.reduce((a,k)=>a+sets[k][0],0), KEYS.reduce((a,k)=>a+sets[k][sets[k].length-1],0)] : null, max:186, hp};
+}
+
+function addPartyMember(prefill){
+  if (partyCards.children.length >= partyMax()){ partyLimitNote(true); return null; }
+  const id = ++partyId, d = document.createElement("div");
+  d.className = "pcard"; d.dataset.id = id;
+  const inputs = pre => KEYS.map(k => `<div class="stat" data-k="${k}"><label for="p${pre}${k}-${id}">${SHORT[k]}</label><input type="number" inputmode="numeric" min="0" max="${pre==="e"?255:999}" id="p${pre}${k}-${id}" data-k="${k}" data-role="${pre}"></div>`).join("");
+  d.innerHTML = `
+    <div class="pcard-head"><span class="pnum"></span><b class="pname">New party member</b><button class="btn rm" type="button" aria-label="Remove this party member">Remove</button></div>
+    <input type="search" class="psearch" placeholder="Search by name or number" autocomplete="off" aria-label="Search Pokémon">
+    <select class="pspecies" aria-label="Pokémon"></select>
+    <div class="prow">
+      <select class="pnature" aria-label="Nature">${natureOptions}</select>
+      <input type="number" inputmode="numeric" min="1" max="100" class="plv" placeholder="Lv" aria-label="Level">
+    </div>
+    <div class="stats">${inputs("s")}</div>
+    <details class="evs"><summary class="evsum">EVs (leave blank if unknown or 0)</summary><div class="stats">${inputs("e")}</div></details>
+    <div class="pres"></div>`;
+  partyCards.appendChild(d);
+  const search = d.querySelector(".psearch"), sel = d.querySelector(".pspecies");
+  speciesOptions(sel, search, "Choose a Pokémon…");
+  if (prefill){
+    if (prefill.num && prefill.num <= era().max) sel.value = prefill.num;
+    if (prefill.nat >= 0) d.querySelector(".pnature").value = prefill.nat;
+    if (prefill.entry){
+      d.querySelector(".plv").value = prefill.entry.lv;
+      KEYS.forEach(k => {
+        if (Number.isFinite(prefill.entry.s[k])) d.querySelector(`[data-role="s"][data-k="${k}"]`).value = prefill.entry.s[k];
+        if (prefill.entry.e[k]) d.querySelector(`[data-role="e"][data-k="${k}"]`).value = prefill.entry.e[k];
+      });
+    }
+  }
+  search.addEventListener("input", () => { speciesOptions(sel, search, "Choose a Pokémon…"); renderParty(); });
+  d.addEventListener("input", e => { if (e.target !== search) renderParty(); });
+  d.addEventListener("change", e => { if (e.target.tagName === "SELECT") renderParty(); });
+  d.querySelector(".rm").addEventListener("click", () => { d.remove(); renderParty(); });
+  renderParty();
+  return d;
+}
+
+function readMember(d, g){
+  const num = Number(d.querySelector(".pspecies").value) || 0;
+  const natV = d.querySelector(".pnature").value, natIdx = natV === "" ? -1 : Number(natV);
+  const lv = parseInt(d.querySelector(".plv").value, 10), s = {}, e = {};
+  KEYS.forEach(k => {
+    s[k] = parseInt(d.querySelector(`[data-role="s"][data-k="${k}"]`).value, 10);
+    if (g === 1 && k === "spd") s[k] = NaN;
+    const ev = parseInt(d.querySelector(`[data-role="e"][data-k="${k}"]`).value, 10);
+    e[k] = Number.isFinite(ev) ? Math.min(g <= 2 ? 65535 : 255, Math.max(0, ev)) : 0;
+  });
+  const entries = Number.isFinite(lv) && lv >= 1 && lv <= 100 ? [{lv, s, e}] : [];
+  return {num, natIdx, entries};
+}
+
+function partyLimitNote(hit){
+  const n = partyCards.children.length, max = partyMax();
+  $("partyCount").textContent = n ? `${n} of ${max}` : `Up to ${max}`;
+  $("partyAdd").disabled = n >= max;
+  $("partyCopy").disabled = n >= max;
+  $("partyClear").hidden = n < 2;
+  const msg = $("partyMsg");
+  if (n >= max) msg.innerHTML = `<div class="verdict">${max === PARTY_PHONE_MAX ? `On a phone you can compare up to ${PARTY_PHONE_MAX} Pokémon. The iv31 desktop app compares up to ${PARTY_DESKTOP_MAX}.` : `That's the most iv31 compares at once (${PARTY_DESKTOP_MAX}). Remove one to add another.`}</div>`;
+  else msg.innerHTML = "";
+  if (hit) msg.scrollIntoView({block:"nearest"});
+}
+
+function renderParty(){
+  const E = era(), g = E.g, old = g <= 2, sk = statKeys(g);
+  partyCards.classList.toggle("g1", g === 1);
+  const rebuild = partyEi !== state.ei;
+  partyEi = state.ei;
+  const rows = [];
+  [...partyCards.children].forEach((d, i) => {
+    d.querySelector(".pnum").textContent = i + 1;
+    if (rebuild){
+      const sel = d.querySelector(".pspecies"), keep = Number(sel.value);
+      speciesOptions(sel, d.querySelector(".psearch"), "Choose a Pokémon…");
+      if (keep && keep <= E.max) sel.value = keep;
+    }
+    const natSel = d.querySelector(".pnature");
+    natSel.disabled = old; natSel.hidden = old;
+    d.querySelector(".prow").style.gridTemplateColumns = old ? "76px" : "";
+    d.querySelectorAll('.stat label').forEach(l => { const k = l.parentElement.dataset.k; l.textContent = shortFor(k, g); });
+    d.querySelectorAll('input[data-role="e"]').forEach(x => x.max = old ? 65535 : 255);
+    d.querySelector(".evsum").textContent = old ? "Stat Exp (leave blank if unknown or 0)" : "EVs (leave blank if unknown or 0)";
+    const m = readMember(d, g), res = d.querySelector(".pres"), nameEl = d.querySelector(".pname");
+    if (!m.num){ nameEl.textContent = "New party member"; res.textContent = "Choose a Pokémon."; d.querySelectorAll(".stat label").forEach(l => l.classList.remove("key","up","down")); return; }
+    const name = DEX[m.num-1][0], role = roleFor(m.num, g, E.max), nat = !old && m.natIdx >= 0 ? NATURES[m.natIdx] : ["", null, null];
+    nameEl.textContent = name;
+    d.querySelectorAll(".stat label").forEach(l => { const k = l.parentElement.dataset.k; l.classList.toggle("key", role.key.includes(k)); l.classList.toggle("up", nat[1] === k); l.classList.toggle("down", nat[2] === k); });
+    const row = {i, d, num:m.num, name, key:role.key, nat:old ? "" : (m.natIdx >= 0 ? NATURES[m.natIdx][0] : ""), r:null};
+    rows.push(row);
+    if (!old && m.natIdx < 0){ res.textContent = "Choose its nature."; return; }
+    if (!m.entries.length){ res.textContent = "Enter its level and stats."; return; }
+    const r = solveMember(m.num, m.natIdx, m.entries, g);
+    row.r = r;
+    if (r.bad.length) res.innerHTML = `<span class="r-err">${r.bad[0] === "combo" ? "These DVs don't fit together. Check the stats and level." : `No ${old ? "DV" : "IV"} fits the ${r.bad.map(k => ({spc:"Special"})[k] || labelFor(k, g)).join(", ")} you entered.`}</span>`;
+    else if (r.total) res.innerHTML = `${old ? "DV" : "IV"} total <b>${r.total[0] === r.total[1] ? r.total[0] : `${r.total[0]}–${r.total[1]}`}</b> / ${r.max}${r.hp ? ` · Hidden Power <b>${esc(r.hp)}</b>` : ""}`;
+    else res.textContent = "Fill in all its stats to see the totals.";
+  });
+  partyLimitNote(false);
+  const wrap = $("partyTableWrap");
+  if (!rows.length){ wrap.hidden = true; return; }
+  wrap.hidden = false;
+  const showHp = g === 2 || (g >= 3 && g < 8);
+  $("partyHead").innerHTML = `<tr><th>#</th><th>Pokémon</th>${old ? "" : "<th>Nature</th>"}${sk.map(k => `<th>${shortFor(k, g)}</th>`).join("")}<th>Total</th>${showHp ? "<th>Hidden Power</th>" : ""}</tr>`;
+  const mid = (r, k) => { const s = r && r.entered[k] && r.sets[k]; return s && s.length ? (s[0] + s[s.length-1]) / 2 : -1; };
+  const best = {};
+  sk.forEach(k => { best[k] = Math.max(-1, ...rows.map(x => mid(x.r, k))); });
+  const rate = (lo, hi, scale) => scale === 15 ? ratingDv(lo, hi) : rating(lo, hi);
+  $("partyBody").innerHTML = rows.map(x => {
+    const cells = sk.map(k => {
+      const kst = x.key.includes(k) || (g === 2 && k === "spd" && x.key.includes("spa")) ? " kst" : "";
+      const r = x.r;
+      if (!r || !r.entered[k]) return `<td class="v${kst}">—</td>`;
+      const s = r.sets[k];
+      if (!s.length) return `<td class="v r-err${kst}">✕</td>`;
+      const lo = s[0], hi = s[s.length-1], [, rc] = rate(lo, hi, r.scale);
+      const isBest = rows.length > 1 && mid(r, k) === best[k] && best[k] >= 0 ? " best" : "";
+      return `<td class="v ${rc}${kst}${isBest}" title="${labelFor(k, g)}${kst ? " (key stat)" : ""}">${lo === hi ? lo : `${lo}–${hi}`}</td>`;
+    }).join("");
+    const t = x.r && x.r.total ? (x.r.total[0] === x.r.total[1] ? x.r.total[0] : `${x.r.total[0]}–${x.r.total[1]}`) : "—";
+    return `<tr data-i="${x.i}"><td>${x.i + 1}</td><td class="pk"><small>${dexNo(x.num)}</small>${esc(x.name)}</td>${old ? "" : `<td class="nat">${esc(x.nat) || "—"}</td>`}${cells}<td class="v">${t}</td>${showHp ? `<td class="nat">${x.r && x.r.hp ? esc(x.r.hp) : "—"}</td>` : ""}</tr>`;
+  }).join("");
+}
+
+$("partyAdd").addEventListener("click", () => { const d = addPartyMember(); if (d){ d.querySelector(".psearch").focus(); } });
+$("partyCopy").addEventListener("click", () => {
+  const num = Number(speciesSel.value);
+  if (!num){ $("partyMsg").innerHTML = `<div class="verdict">Pick a Pokémon in the Summary screen first.</div>`; return; }
+  const entries = readEntries();
+  const d = addPartyMember({num, nat: natureSel.value === "" ? -1 : Number(natureSel.value), entry: entries[entries.length-1]});
+  if (d){ d.classList.add("flash"); setTimeout(() => d.classList.remove("flash"), 1200); d.scrollIntoView({block:"nearest", behavior:"smooth"}); }
+});
+$("partyClear").addEventListener("click", () => { partyCards.innerHTML = ""; renderParty(); });
+$("partyBody").addEventListener("click", e => {
+  const tr = e.target.closest("tr[data-i]"); if (!tr) return;
+  const d = partyCards.children[Number(tr.dataset.i)]; if (!d) return;
+  d.scrollIntoView({block:"center", behavior:"smooth"}); d.classList.add("flash"); setTimeout(() => d.classList.remove("flash"), 1200);
+});
 
 const evSearch = $("evSearch"), evFilter = $("evFilter"), evWild = $("evWild"), expanded = new Set();
 const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",nosort:true},...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
@@ -1853,7 +2090,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.4.2";
+const APP_VERSION = "1.4.3";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

@@ -9,6 +9,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.4.3] - 2026-10-16
+
+### Added
+- Party comparison panel in the IV Calculator: add party members with **+**, enter each one's Summary screen, and compare their IVs, totals and Hidden Power in one table. Best value per stat is underlined; key stats are highlighted. Works with Gen I–II DVs too.
+- Up to 30 party members in the desktop app; up to 3 on the web page on a phone.
+
 ## [1.4.2] - 2026-10-16
 
 ### Added

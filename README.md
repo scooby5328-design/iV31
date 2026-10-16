@@ -134,12 +134,13 @@ If iv31 doesn't open, install WebKitGTK: `sudo apt install libwebkit2gtk-4.1-0` 
 4. If it has received EVs, enter those too. For a freshly caught Pokémon, leave them at 0.
 5. Read the IV for each stat. A range like `24–27` means more data is needed; level the Pokémon up once and enter the new stats to narrow it down.
 6. Use the **EV calculator** panel to plan or track EV training. Add each Pokémon you defeat and it tallies the EVs and stat points for you. Click **Send EVs to Summary** so the IV readout accounts for them.
-7. Use the **Hidden Power** panel to check a Pokémon's Hidden Power, or load the IVs you need for a type.
-8. Pick your game in the top bar. Every tab follows it.
-9. Open **EV Training** to see which Pokémon to battle to train a stat and where to find them, or switch to **EV-lowering berries** to undo EVs.
-10. Open **Types** to check what a Pokémon is weak to.
-11. Open **Secret Power** and search an area to see what the move turns into there.
-12. Tap ☆ next to any Pokémon to keep it in **Favorites**.
+7. To compare several Pokémon, press **+ Add party member** in the **Party comparison** panel and fill in each one, or click **Copy from Summary screen**. The table lines up their IVs side by side (up to 30 in the desktop app, 3 on a phone).
+8. Use the **Hidden Power** panel to check a Pokémon's Hidden Power, or load the IVs you need for a type.
+9. Pick your game in the top bar. Every tab follows it.
+10. Open **EV Training** to see which Pokémon to battle to train a stat and where to find them, or switch to **EV-lowering berries** to undo EVs.
+11. Open **Types** to check what a Pokémon is weak to.
+12. Open **Secret Power** and search an area to see what the move turns into there.
+13. Tap ☆ next to any Pokémon to keep it in **Favorites**.
 
 ## How the math works
 

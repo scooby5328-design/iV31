@@ -1,10 +1,10 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.4.2",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.2.neu",
+  "version": "1.4.3",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.3.neu",
   "data": {
-    "sha256": "26aca21370e17ffd7df238f9667d91409e2ca07ea37de841ab286b6931d5bcfd",
-    "size": 760308,
-    "notes": "Adds Linux (.deb with an apt repository, AppImage and .tar.gz), runs on older Macs back to macOS 10.15 Catalina, and fixes colors on older web engines."
+    "sha256": "7f15132e334ed5573443501efc581d1419e8380f369f372ac3ac6116dc62ca62",
+    "size": 777774,
+    "notes": "Adds party comparison: press + to add more Pok\u00e9mon and compare their IVs side by side (up to 30 in the desktop app)."
   }
 }

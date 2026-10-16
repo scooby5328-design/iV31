@@ -107,3 +107,4 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.4.0 Gen I–II, single game list, Nature Power, Secret Power fix.
 - 1.4.1 First Mac release, Mac menu bar.
 - 1.4.2 Linux packages and apt repository, macOS back to 10.15, color fallbacks.
+- 1.4.3 Party comparison (30 on desktop, 3 on phones; `PARTY_DESKTOP_MAX` / `PARTY_PHONE_MAX` in `src/index.html`).
