@@ -15,6 +15,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Updates are written to `resources.neu.new`, size-checked, then renamed over `resources.neu`, so an interrupted update can't leave an empty file (which made the Mac app open the Neutralino website).
 - Relaunch after an update works on Mac and Linux (the command allow list only matched `iv31.exe`), and on Windows paths with backslashes.
 
+### Checksums (SHA-256)
+
+```
+b0ff3eb6c56aa1fab29f50196f6bffc461b22b118672c0d4f4d60b4b8279c3b1  iv31-Setup-1.4.4.exe
+d86aec13e3ab49c9ad1a940ed1ccbc20c9380a77c026c836ad942a74c52f7f2b  iv31-1.4.4-mac.zip
+a61aa675f83f86d688916b4c95611214709b698936b234b9d8e7394845482d9f  iv31-1.4.4-linux-x64.tar.gz
+e7fdf78feb9389377e3d3e99a0160ceaf8ace0c2ddfb66f85a80554b2a35885d  iv31-1.4.4-linux-arm64.tar.gz
+8a6bb8bdb4d391e0db946fc22df121e5e92959966ae1b4fd36f167ca1f8ceeb8  iv31_1.4.4_amd64.deb
+9bbde78ba6eef4ab2da3f8f9a0a7c84447cd6c15bfcd7b6b36915c23320a5537  iv31_1.4.4_arm64.deb
+82be61dc71f7cb474d0ecfa003d0c0a4054a926b291d8d42cd29465df1c81be6  iv31-1.4.4-x86_64.AppImage
+1482d1423e14d7593c3b5ee9895152385b457cb8cbaa4a02b832a96a461681b8  iv31-1.4.4-aarch64.AppImage
+```
+
 ## [1.4.3] - 2026-10-16
 
 ### Added
