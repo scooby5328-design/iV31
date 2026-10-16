@@ -36,6 +36,8 @@ The app's page is `src/index.html`, and its Pokédex, location and Secret Power 
 
 ## Releases (maintainer)
 
+The full maintainer guide, including every platform and the apt repository, is [docs/MAINTAINING.md](docs/MAINTAINING.md).
+
 Releases are published automatically by the **Release** workflow in `.github/workflows/release.yml`. To ship a new version:
 
 1. Raise the version in `app/neutralino.config.json` and `APP_VERSION` in `src/index.html`, write a one-line summary in `src/release.json`, and add a section to `CHANGELOG.md`.
