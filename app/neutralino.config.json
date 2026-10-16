@@ -1,6 +1,6 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "defaultMode": "window",
   "port": 31031,
   "documentRoot": "/resources/",
@@ -36,7 +36,8 @@
   "nativeAllowList": [
     "filesystem.writeBinaryFile",
     "os.execCommand",
-    "app.exit"
+    "app.exit",
+    "window.setMainMenu"
   ],
   "filesystemScopes": {
     "${NL_PATH}/resources.neu": "write"

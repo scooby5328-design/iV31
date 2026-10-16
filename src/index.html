@@ -1837,7 +1837,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.4.0";
+const APP_VERSION = "1.4.1";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -1877,7 +1877,7 @@ function validManifest(m){
 async function checkForUpdates(manual){
   if (updBusy) return;
   if (!inApp()){
-    if (manual) updShow(`You're viewing iv31 as a web page, so it can't update itself. Get the latest installer from <b>github.com/scooby5328-design/iv31</b>.`, [["OK", updHide]]);
+    if (manual) updShow(`You're viewing iv31 as a web page, so it can't update itself. Get the latest version from <b>github.com/scooby5328-design/iV31</b>.`, [["OK", updHide]]);
     return;
   }
   if (manual) updShow("Checking for updates…", []);
@@ -1903,7 +1903,7 @@ async function checkForUpdates(manual){
   if (!manual && lsGet(UPD_SKIP_KEY) === m.version) return;
   const notes = m.data.notes ? `<span class="upd-notes">${escHtml(m.data.notes)}</span>` : "";
   if (m.data.installer){
-    updShow(`<b>iv31 ${escHtml(m.version)} is out</b> (you have ${escHtml(cur)}). This one needs the new installer from <b>github.com/scooby5328-design/iv31</b>. ${notes}`, [["Later", updHide]]);
+    updShow(`<b>iv31 ${escHtml(m.version)} is out</b> (you have ${escHtml(cur)}). This one needs a fresh download from <b>github.com/scooby5328-design/iV31</b>. ${notes}`, [["Later", updHide]]);
     return;
   }
   updShow(`<b>iv31 ${escHtml(m.version)} is available</b> (you have ${escHtml(cur)}). ${notes}`, [
@@ -1932,7 +1932,9 @@ async function installUpdate(m){
     updShow(`Updated to ${escHtml(m.version)}. Restarting…`, [], "ok");
     setTimeout(() => { Neutralino.app.restartProcess().catch(() => updShow("Updated. Close iv31 and open it again to finish.", [["OK", updHide]], "ok")); }, 600);
   } catch(_) {
-    fail("The update couldn't be installed. Nothing was changed. If it keeps happening, download the latest installer from GitHub.");
+    fail(window.NL_OS === "Darwin"
+      ? "The update couldn't be installed. Nothing was changed. Make sure iv31 is in your Applications folder and you opened it from there, then try again."
+      : "The update couldn't be installed. Nothing was changed. If it keeps happening, download the latest installer from GitHub.");
   }
 }
 
@@ -1942,6 +1944,29 @@ $("autoUpd").checked = autoUpdateOn();
 $("autoUpd").addEventListener("change", e => lsSet(UPD_AUTO_KEY, e.target.checked ? null : "off"));
 if (inApp()){
   try { Neutralino.init(); } catch(_) {}
+  if (window.NL_OS === "Darwin"){
+    const macMenu = () => Neutralino.window.setMainMenu([
+      {id:"app", text:"iv31", menuItems:[
+        {text:"Hide iv31", action:"hide:", shortcut:"h"},
+        {text:"Hide Others", action:"hideOtherApplications:"},
+        {text:"Show All", action:"unhideAllApplications:"},
+        {text:"-"},
+        {text:"Quit iv31", action:"terminate:", shortcut:"q"}]},
+      {id:"edit", text:"Edit", menuItems:[
+        {text:"Undo", action:"undo:", shortcut:"z"},
+        {text:"Redo", action:"redo:", shortcut:"Z"},
+        {text:"-"},
+        {text:"Cut", action:"cut:", shortcut:"x"},
+        {text:"Copy", action:"copy:", shortcut:"c"},
+        {text:"Paste", action:"paste:", shortcut:"v"},
+        {text:"Select All", action:"selectAll:", shortcut:"a"}]},
+      {id:"window", text:"Window", menuItems:[
+        {text:"Minimize", action:"performMiniaturize:", shortcut:"m"},
+        {text:"Zoom", action:"performZoom:"},
+        {text:"Close", action:"performClose:", shortcut:"w"}]}
+    ]).catch(() => {});
+    try { Neutralino.events.on("ready", macMenu); } catch(_) {}
+  }
   $("verChip").textContent = "v" + curVersion();
   if (autoUpdateOn()) setTimeout(() => checkForUpdates(false), 2500);
 }

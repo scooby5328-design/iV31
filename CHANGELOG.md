@@ -10,6 +10,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - macOS and Linux builds
 - Side-by-side comparison of saved Pokémon
 
+## [1.4.1] - 2026-10-16
+
+### Added
+- macOS app for macOS 14 or newer (Intel and Apple Silicon), published as `iv31-<version>-mac.zip` on each release. It uses the same update channel as Windows.
+- Standard Mac menu bar (Quit, Hide, Edit with Copy and Paste, Window).
+
+### Changed
+- Update messages no longer mention a Windows installer on a Mac, and a failed update on a Mac explains that iv31 needs to be in the Applications folder.
+
 ## [1.4.0] - 2026-10-16
 
 ### Added

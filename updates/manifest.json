@@ -1,10 +1,10 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.4.0",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.0.neu",
+  "version": "1.4.1",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.1.neu",
   "data": {
-    "sha256": "8d9ac6974f284ce2a1e19ab55303c672f7cfadf77a13a3a6303bc8f580b04c7d",
-    "size": 755908,
+    "sha256": "0afb9b232e1f9abc6fc844c8d64c1da5a7a44b64dba49d470cedc7d56c7081ba",
+    "size": 757235,
     "notes": "Adds Gen I and II (Red, Blue, Yellow, Gold, Silver, Crystal) with DVs and Stat Exp, puts every game in one list, adds Nature Power to the Secret Power tab, and fixes Secret Power on plain ground in Gen III."
   }
 }

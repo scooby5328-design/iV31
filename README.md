@@ -7,7 +7,7 @@
 Pick a Pokémon, enter its level and stats, and iv31 tells you its individual values, the nature that suits it best, and which stats matter most. It also has an EV calculator, a Hidden Power calculator, an EV yield table with wild locations, EV-lowering berries, a type matchup chart, a Secret Power and Nature Power guide for every area in the Gen 3 games, and favorites. It covers every main game from Red, Blue and Yellow to Scarlet and Violet.
 
 [![Latest release](https://img.shields.io/github/v/release/scooby5328-design/iV31?label=latest&color=f5c2e7)](https://github.com/scooby5328-design/iV31/releases/latest)
-[![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-89b4fa)](#install)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS-89b4fa)](#install)
 [![License: MIT](https://img.shields.io/badge/license-MIT-a6e3a1)](LICENSE)
 [![Offline](https://img.shields.io/badge/works-offline-cba6f7)](#privacy)
 
@@ -48,7 +48,7 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 - **Saves your work** between sessions on your own computer.
 - **Updates itself.** iv31 checks GitHub for a new version when it starts and can install it with one click. Updates are verified before they're installed, and you can turn the check off.
 - **Works offline.** No account, no ads, no tracking. The only time it goes online is to check for updates.
-- **Tiny.** The installer is about 1.3 MB because it uses the web engine already built into Windows.
+- **Tiny.** The download is about 1.3 MB on Windows and 2.3 MB on Mac because it uses the web engine already built into the system.
 - **Clean desktop look** inspired by modern Linux desktop setups, using the Catppuccin colour palette.
 
 ## Install
@@ -79,9 +79,27 @@ If you have **1.1.0 or older**, install the latest version once with the install
 
 Older versions are kept on the **[Releases](https://github.com/scooby5328-design/iV31/releases)** page.
 
-### macOS and Linux
+### macOS 14 (Sonoma) or newer, Intel or Apple Silicon
 
-Native builds are planned. See the [roadmap](#roadmap).
+1. Open the **[latest release](https://github.com/scooby5328-design/iV31/releases/latest)** and, under **Assets**, download **iv31-x.y.z-mac.zip**.
+2. Double-click the zip in your Downloads folder. You get **iv31.app**.
+3. Drag **iv31.app** into your **Applications** folder. It has to be there for updates to install.
+4. iv31 isn't signed with a paid Apple developer certificate, so macOS blocks it the first time. Open **Terminal** (Applications → Utilities → Terminal) and paste this line, then press Return:
+
+   ```bash
+   xattr -dr com.apple.quarantine /Applications/iv31.app
+   ```
+
+   This removes the "downloaded from the internet" flag from iv31 only. If you'd rather not use Terminal: try to open iv31 once, then go to **System Settings → Privacy & Security**, scroll down and click **Open Anyway**.
+5. Open iv31 from Applications or Launchpad.
+
+**Uninstall:** quit iv31 and drag **iv31.app** from Applications to the Trash.
+
+The Mac version updates itself the same way as the Windows version.
+
+### Linux
+
+A native build is planned. See the [roadmap](#roadmap).
 
 ## How to use
 
@@ -183,7 +201,7 @@ The build puts the data from `src/data/` into `src/index.html`, packs the app in
 - [x] Nature Power
 - [x] Publish the full source code
 - [x] GitHub Releases with checksums
-- [ ] macOS build (Intel and Apple Silicon)
+- [x] macOS build (Intel and Apple Silicon)
 - [ ] Linux AppImage
 - [ ] Save and compare multiple Pokémon side by side
 - [ ] Optional Catppuccin flavour switcher (Latte, Frappé, Macchiato, Mocha)
