@@ -90,6 +90,7 @@ aef35b57155124b152c1d4c0558ec121ae7dd1b68b1f11e2d5181897a34cc4b8
 - Expanded from the original Gen III (Hoenn) Pokédex to the full National Pokédex
 - Renamed from "Pokédex IV Checker" to iv31
 
-[Unreleased]: ../../compare/v1.1.0...HEAD
+[Unreleased]: ../../compare/v1.2.0...HEAD
+[1.2.0]: ../../releases/tag/v1.2.0
 [1.1.0]: ../../releases/tag/v1.1.0
 [1.0.0]: ../../releases/tag/v1.0.0

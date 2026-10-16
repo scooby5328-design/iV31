@@ -6,12 +6,12 @@
 
 Pick a Pokémon, enter its level and stats, and iv31 tells you its individual values, the nature that suits it best, and which stats matter most. It also has an EV calculator, a Hidden Power calculator, a full EV yield table, and a Secret Power guide that lists every area in the Gen 3 games.
 
-[![Version](https://img.shields.io/badge/version-1.2.0-f5c2e7)](CHANGELOG.md)
+[![Latest release](https://img.shields.io/github/v/release/scooby5328-design/iV31?label=latest&color=f5c2e7)](https://github.com/scooby5328-design/iV31/releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-89b4fa)](#install)
 [![License: MIT](https://img.shields.io/badge/license-MIT-a6e3a1)](LICENSE)
 [![Offline](https://img.shields.io/badge/works-offline-cba6f7)](#privacy)
 
-[Download](iv31-Setup-1.2.0.exe.zip?raw=true) · [Report a bug](../../issues/new?template=bug_report.yml) · [Request a feature](../../issues/new?template=feature_request.yml)
+[Download the latest version](https://github.com/scooby5328-design/iV31/releases/latest) · [Report a bug](../../issues/new?template=bug_report.yml) · [Request a feature](../../issues/new?template=feature_request.yml)
 
 </div>
 
@@ -50,8 +50,8 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 
 ### Windows 10 / 11 (64-bit)
 
-1. Download **[iv31-Setup-1.2.0.exe.zip](iv31-Setup-1.2.0.exe.zip?raw=true)**.
-2. Right-click the downloaded zip → **Extract All** → **Extract**, then double-click **iv31-Setup-1.2.0.exe**.
+1. Open the **[latest release](https://github.com/scooby5328-design/iV31/releases/latest)** and, under **Assets**, download **iv31-Setup-x.y.z.exe.zip** (x.y.z is the version number).
+2. Right-click the downloaded zip → **Extract All** → **Extract**, then double-click the **iv31-Setup** file inside.
 3. Windows may show **"Windows protected your PC"**. This appears because the installer isn't signed with a paid code-signing certificate. Click **More info → Run anyway**.
 4. Follow the setup screens. No administrator password is needed; iv31 installs for your user account only.
 5. Launch iv31 from the Start menu or the desktop shortcut.
@@ -70,7 +70,9 @@ From version 1.2.0 on, iv31 updates itself:
 
 Click the version number in the top bar to check any time. To stop the automatic check, untick **Check for updates when iv31 starts** in the Guide.
 
-If you have **1.1.0 or older**, install 1.2.0 once with the installer above. It installs over the old version and keeps your saved data.
+If you have **1.1.0 or older**, install the latest version once with the installer above. It installs over the old version and keeps your saved data.
+
+Older versions are kept on the **[Releases](https://github.com/scooby5328-design/iV31/releases)** page.
 
 ### macOS and Linux
 
@@ -131,9 +133,10 @@ iv31 does not collect, send or share any data about you.
 
 ```
 .
-├── iv31-Setup-1.2.0.exe.zip   Windows installer
 ├── updates/                   Update information and files the app downloads
-├── .github/                   Issue forms and pull request template
+├── release-notes/             Notes for each release
+├── packaging/                 Files used to build the installer and publish releases
+├── .github/                   Release workflow, issue forms and pull request template
 ├── CHANGELOG.md               Version history
 ├── CODE_OF_CONDUCT.md         Community rules
 ├── CONTRIBUTING.md            How to help

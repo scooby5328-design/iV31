@@ -48,12 +48,12 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 - The iv31 application and its bundled files
 - The Windows installer and uninstaller
 - The app's local web server and its configuration
-- The installer published in this repository
+- The installers published on this repository's Releases page
 - The built-in updater and the update files in the `updates/` folder
 
 **Out of scope**
 
-- Copies of iv31 downloaded from anywhere other than this repository
+- Copies of iv31 downloaded from anywhere other than this repository's Releases page
 - Problems in Windows, WebView2, Neutralinojs or NSIS themselves (please report those to their maintainers)
 - The Windows SmartScreen warning on first install (this happens because the installer is unsigned and is expected)
 - Attacks that need someone to already have full control of your computer
@@ -72,10 +72,10 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 
 ## Verifying your download
 
-The SHA-256 checksum for each installer is listed in [CHANGELOG.md](CHANGELOG.md). To check yours, open **PowerShell** in the folder with the installer and run:
+The SHA-256 checksum for each installer is listed in its release notes and in [CHANGELOG.md](CHANGELOG.md). To check yours, open **PowerShell** in the folder with the installer and run:
 
 ```powershell
 Get-FileHash .\iv31-Setup-1.2.0.exe -Algorithm SHA256
 ```
 
-The result should match the checksum exactly. If it doesn't, delete the file and download it again from this repository.
+The result should match the checksum exactly. If it doesn't, delete the file and download it again from the Releases page.
