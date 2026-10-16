@@ -15,6 +15,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Party comparison panel in the IV Calculator: add party members with **+**, enter each one's Summary screen, and compare their IVs, totals and Hidden Power in one table. Best value per stat is underlined; key stats are highlighted. Works with Gen I–II DVs too.
 - Up to 30 party members in the desktop app; up to 3 on the web page on a phone.
 
+### Checksums (SHA-256)
+
+```
+a175696910e1676392b6a8fd9d1e5bd2148284ed3165cbdcb1acae40e2605559  iv31-Setup-1.4.3.exe
+80030747211bb745cedfed25cfc30353a9128c72329382a78ab56e4fbd58aafc  iv31-1.4.3-mac.zip
+670748db61850026779e2ccccae08ac355479fb919508e4793c7fd0fba23c034  iv31-1.4.3-linux-x64.tar.gz
+537fa79ace18571c9f82bce00162847551c4a56254825eb6d20064a5ed68f64a  iv31-1.4.3-linux-arm64.tar.gz
+034fd562ed16cf39f3a660af08e28f759e2577399f8699b93d9172bb7a666c90  iv31_1.4.3_amd64.deb
+f2e7d784c4dfa7f6d8b8ddd15fb35536685e2655355c2cf413935c74c4d4a6e2  iv31_1.4.3_arm64.deb
+f7d52cda86eff3357a36f188bf96f4b98325841f97b17f134e1945a3d1d7b691  iv31-1.4.3-x86_64.AppImage
+dfbc4772b5ce51ef1159647115f4b93c55b7992a582b4404cdff6349d66aba17  iv31-1.4.3-aarch64.AppImage
+```
+
 ## [1.4.2] - 2026-10-16
 
 ### Added
