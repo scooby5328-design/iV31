@@ -31,3 +31,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: bash packaging/release.sh
+      - name: Update the apt repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APT_SIGNING_KEY: ${{ secrets.APT_SIGNING_KEY }}
+        run: bash packaging/publish-apt.sh

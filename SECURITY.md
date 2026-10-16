@@ -76,13 +76,23 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 The SHA-256 checksum for each installer is listed in its release notes and in [CHANGELOG.md](CHANGELOG.md). To check yours, open **PowerShell** in the folder with the installer and run:
 
 ```powershell
-Get-FileHash .\iv31-Setup-1.4.1.exe -Algorithm SHA256
+Get-FileHash .\iv31-Setup-1.4.2.exe -Algorithm SHA256
 ```
 
 On a Mac, open **Terminal** in your Downloads folder and run:
 
 ```bash
-shasum -a 256 iv31-1.4.1-mac.zip
+shasum -a 256 iv31-1.4.2-mac.zip
 ```
+
+On Linux, run `sha256sum` followed by the file name.
+
+The apt repository is signed with this key:
+
+```
+85840C540F38B42EAECBC17A6DB7B8ABE65CE7B9
+```
+
+apt checks every package against it automatically. The public key is in `packaging/linux/iv31-archive-keyring.asc`.
 
 The result should match the checksum exactly. If it doesn't, delete the file and download it again from the Releases page.

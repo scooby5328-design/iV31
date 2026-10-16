@@ -1,0 +1,14 @@
+Package: iv31
+Version: __VERSION__
+Architecture: __ARCH__
+Maintainer: scooby5328-design <noreply@users.noreply.github.com>
+Installed-Size: __SIZE__
+Depends: libgtk-3-0t64 | libgtk-3-0, libwebkit2gtk-4.1-0 | libwebkit2gtk-4.0-37, libxtst6, libxrandr2, libpng16-16t64 | libpng16-16
+Section: games
+Priority: optional
+Homepage: https://github.com/scooby5328-design/iV31
+Description: Offline Pokémon IV calculator for the whole National Pokédex
+ Pick a Pokémon, enter its level and stats, and iv31 works out its IVs,
+ the natures that suit it, and which stats matter most. Includes EV and
+ Hidden Power calculators, EV yields with wild locations, a type chart,
+ a Secret Power and Nature Power guide, and favorites. Covers Gen I to IX.

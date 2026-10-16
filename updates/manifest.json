@@ -1,10 +1,10 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.4.1",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.1.neu",
+  "version": "1.4.2",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.2.neu",
   "data": {
-    "sha256": "0afb9b232e1f9abc6fc844c8d64c1da5a7a44b64dba49d470cedc7d56c7081ba",
-    "size": 757235,
-    "notes": "Adds Gen I and II (Red, Blue, Yellow, Gold, Silver, Crystal) with DVs and Stat Exp, puts every game in one list, adds Nature Power to the Secret Power tab, and fixes Secret Power on plain ground in Gen III."
+    "sha256": "26aca21370e17ffd7df238f9667d91409e2ca07ea37de841ab286b6931d5bcfd",
+    "size": 760308,
+    "notes": "Adds Linux (.deb with an apt repository, AppImage and .tar.gz), runs on older Macs back to macOS 10.15 Catalina, and fixes colors on older web engines."
   }
 }

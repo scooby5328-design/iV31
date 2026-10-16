@@ -6,6 +6,7 @@ cd "$root"
 latest=$(jq -r .version updates/manifest.json)
 work="$(mktemp -d)"
 mac_since="1.4.1"
+linux_since="1.4.2"
 
 for notes in $(ls release-notes/*.md | sort -V); do
   v=$(basename "$notes" .md)
@@ -16,6 +17,7 @@ for notes in $(ls release-notes/*.md | sort -V); do
 
   zip="iv31-Setup-$v.exe.zip"
   mac=""
+  linux=""
   body="$work/notes-$v.md"
   cp "$notes" "$body"
   commit=$(git log --diff-filter=AM --format=%H -1 -- "$zip" || true)
@@ -31,6 +33,11 @@ for notes in $(ls release-notes/*.md | sort -V); do
       mac="$work/iv31-$v-mac.zip"
       printf '\n**SHA-256 of iv31-%s-mac.zip:**\n\n```\n%s\n```\n' "$v" "$(cat "$work/iv31-$v-mac.sha256")" >> "$body"
     fi
+    if [ "$(printf '%s\n%s\n' "$linux_since" "$v" | sort -V | head -1)" = "$linux_since" ]; then
+      bash packaging/build-linux.sh "$v" "$work"
+      linux="$work/iv31-$v-linux-x64.tar.gz $work/iv31-$v-linux-arm64.tar.gz $work/iv31_${v}_amd64.deb $work/iv31_${v}_arm64.deb $work/iv31-$v-x86_64.AppImage $work/iv31-$v-aarch64.AppImage"
+      printf '\n**SHA-256 of the Linux files:**\n\n```\n%s\n```\n' "$(cat "$work/iv31-$v-linux.sha256")" >> "$body"
+    fi
     target=$(git rev-parse HEAD)
   else
     echo "No installer found for $v, skipping"
@@ -38,6 +45,6 @@ for notes in $(ls release-notes/*.md | sort -V); do
   fi
 
   if [ "$v" = "$latest" ]; then latest_flag="--latest"; else latest_flag="--latest=false"; fi
-  gh release create "v$v" "$work/$zip" ${mac:+"$mac"} --target "$target" --title "iv31 $v" --notes-file "$body" "$latest_flag"
+  gh release create "v$v" "$work/$zip" ${mac:+"$mac"} $linux --target "$target" --title "iv31 $v" --notes-file "$body" "$latest_flag"
   echo "Released v$v"
 done

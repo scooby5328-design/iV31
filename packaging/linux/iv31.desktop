@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=iv31
+GenericName=Pokémon IV Calculator
+Comment=Offline Pokémon IV, EV and type calculator
+Exec=__EXEC__
+Icon=iv31
+Terminal=false
+Categories=Game;
+Keywords=pokemon;iv;ev;calculator;pokedex;

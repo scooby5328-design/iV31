@@ -175,6 +175,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .guide h3{font-size:14px;margin:0 0 4px;color:var(--mauve);font-weight:600}
 .guide p{margin:0 0 14px;color:var(--subtext);font-size:14px}
 .guide code{font-family:var(--mono);font-size:12.5px;color:var(--yellow);overflow-wrap:anywhere}
+.upd code{font-family:var(--mono);font-size:12px;color:var(--yellow);white-space:nowrap}
 
 .subtabs{display:flex;gap:4px;flex-wrap:wrap}
 .subtabs button{border:1px solid var(--surface0);background:var(--base);color:var(--subtext);border-radius:8px;padding:3px 12px;font-size:12.5px;font-weight:600;cursor:pointer}
@@ -1837,7 +1838,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.4.1";
+const APP_VERSION = "1.4.2";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -1848,6 +1849,13 @@ const escHtml = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;"
 const lsGet = k => { try { return localStorage.getItem(k); } catch(_) { return null; } };
 const lsSet = (k, v) => { try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch(_) {} };
 const autoUpdateOn = () => lsGet(UPD_AUTO_KEY) !== "off";
+const installKind = () => {
+  const p = String(window.NL_PATH || "");
+  if (window.NL_OS !== "Linux") return "self";
+  if (p.startsWith("/opt/iv31")) return "apt";
+  if (p.startsWith("/tmp/.mount_")) return "appimage";
+  return "self";
+};
 let updBusy = false;
 
 function updShow(html, actions, tone){
@@ -1902,6 +1910,15 @@ async function checkForUpdates(manual){
   }
   if (!manual && lsGet(UPD_SKIP_KEY) === m.version) return;
   const notes = m.data.notes ? `<span class="upd-notes">${escHtml(m.data.notes)}</span>` : "";
+  const kind = installKind();
+  if (kind === "apt"){
+    updShow(`<b>iv31 ${escHtml(m.version)} is out</b> (you have ${escHtml(cur)}). Install it from Terminal with <code>sudo apt update &amp;&amp; sudo apt upgrade</code>. ${notes}`, [["Skip this version", () => { lsSet(UPD_SKIP_KEY, m.version); updHide(); }], ["Later", updHide]]);
+    return;
+  }
+  if (kind === "appimage"){
+    updShow(`<b>iv31 ${escHtml(m.version)} is out</b> (you have ${escHtml(cur)}). Download the new AppImage from <b>github.com/scooby5328-design/iV31</b> and replace this one. ${notes}`, [["Skip this version", () => { lsSet(UPD_SKIP_KEY, m.version); updHide(); }], ["Later", updHide]]);
+    return;
+  }
   if (m.data.installer){
     updShow(`<b>iv31 ${escHtml(m.version)} is out</b> (you have ${escHtml(cur)}). This one needs a fresh download from <b>github.com/scooby5328-design/iV31</b>. ${notes}`, [["Later", updHide]]);
     return;

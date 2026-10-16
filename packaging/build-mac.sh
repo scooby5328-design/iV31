@@ -5,8 +5,8 @@ v="$1"
 out="$2"
 root="$(cd "$(dirname "$0")/.." && pwd)"
 neu="$root/updates/iv31-$v.neu"
-nl_version="6.10.0"
-nl_sha="e633f480737f229f582d8ec6165a52d789340950aef062560702122389f08329"
+runtime_url="https://github.com/scooby5328-design/iV31/releases/download/runtime-6.10.0-mac10.15/neutralino-mac_universal"
+runtime_sha="e849d345e828d20f4aee1409a6e9e7779cd0e0a19fb2403df19a38bb39cfd54f"
 
 [ -f "$neu" ] || { echo "Missing $neu"; exit 1; }
 want=$(jq -r .data.sha256 "$root/updates/manifest.json")
@@ -14,9 +14,8 @@ have=$(sha256sum "$neu" | cut -d' ' -f1)
 [ "$want" = "$have" ] || { echo "updates/iv31-$v.neu does not match the manifest fingerprint"; exit 1; }
 
 b="$(mktemp -d)"
-curl -fsSL -o "$b/nl.zip" "https://github.com/neutralinojs/neutralinojs/releases/download/v$nl_version/neutralinojs-v$nl_version.zip"
-echo "$nl_sha  $b/nl.zip" | sha256sum -c --quiet
-unzip -q -j "$b/nl.zip" neutralino-mac_universal -d "$b"
+curl -fsSL -o "$b/neutralino-mac_universal" "$runtime_url"
+echo "$runtime_sha  $b/neutralino-mac_universal" | sha256sum -c --quiet
 
 app="$b/dist/iv31.app/Contents"
 mkdir -p "$app/MacOS" "$app/Resources"

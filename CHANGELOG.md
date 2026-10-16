@@ -7,8 +7,18 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ## [Unreleased]
 
 ### Planned
-- macOS and Linux builds
 - Side-by-side comparison of saved Pokémon
+
+## [1.4.2] - 2026-10-16
+
+### Added
+- Linux builds for x64 and arm64: `.deb`, AppImage and `.tar.gz`.
+- A signed apt repository. Installing the `.deb` adds it, so updates come through `apt upgrade`.
+- On Linux, the update bar tells apt and AppImage users how to update instead of offering to install over a read-only copy.
+
+### Changed
+- The Mac app runs on macOS 10.15 Catalina and newer. It uses Neutralino 6.10.0 built from source for older macOS (see the `Mac runtime` workflow).
+- Colors that used `color-mix()` now have fallbacks for older Safari and WebKitGTK.
 
 ## [1.4.1] - 2026-10-16
 

@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -13,8 +14,20 @@ def compact(path):
     return json.dumps(json.loads(path.read_text(encoding="utf-8")), separators=(",", ":"), ensure_ascii=False)
 
 
+HEX_VAR = re.compile(r"--([a-z0-9]+):#([0-9a-fA-F]{6});")
+MIX = re.compile(r"([a-z-]+):([^;{}\"`]*?)color-mix\(in srgb,(var\(--([a-z0-9]+)\)|currentColor) (\d+)%,(?:var\(--[a-z0-9]+\)|transparent)\)([^;{}\"`]*)")
+
+
+def old_engine_fallbacks(page):
+    page = HEX_VAR.sub(lambda m: f"{m.group(0)}--{m.group(1)}-rgb:{int(m.group(2)[0:2],16)},{int(m.group(2)[2:4],16)},{int(m.group(2)[4:6],16)};", page)
+    def mix(m):
+        name = m.group(4) or "text"
+        return f"{m.group(1)}:{m.group(2)}rgba(var(--{name}-rgb),{int(m.group(5)) / 100:g}){m.group(6)};{m.group(0)}"
+    return MIX.sub(mix, page)
+
+
 def build_page(stage):
-    page = (ROOT / "src/index.html").read_text(encoding="utf-8")
+    page = old_engine_fallbacks((ROOT / "src/index.html").read_text(encoding="utf-8"))
     for key, name in (("__LOC__", "locations.json"), ("__DEX__", "pokedex.json"), ("__SP__", "secret-power.json")):
         if page.count(key) != 1:
             sys.exit(f"src/index.html must contain {key} exactly once")
