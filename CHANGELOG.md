@@ -10,6 +10,21 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - macOS and Linux builds
 - Side-by-side comparison of saved Pokémon
 
+## [1.3.0] - 2026-10-16
+
+### Added
+- One game picker in the top bar that sets the generation and version for every tab.
+- Types tab: weakness and resistance chart for the selected generation (with Gen III physical/special marks and no Fairy before Gen VI), and a matchup checker for any Pokémon or pair of types.
+- EV-lowering berries table in EV Training: the stat each berry lowers, how it works in the selected game (not usable in Ruby, Sapphire, FireRed or LeafGreen), the matching vitamin, and where to get them.
+- "Found in" column in the EV yield table with wild locations for the selected version, search by place, and a filter for Pokémon found in that version.
+- Favorites: tap ☆ to save a Pokémon and see all its details on one card.
+- Pokémon types and weaknesses in the IV readout.
+- The app's source code and build script (`src/`, `app/`, `tools/`).
+
+### Changed
+- Five tabs: IV Calculator (with the EV and Hidden Power calculators and a fold-away guide), EV Training, Types, Secret Power and Favorites. The separate generation pickers on each tab are gone.
+- The IV calculator starts empty.
+
 ## [1.2.0] - 2026-10-15
 
 ### Added
@@ -91,7 +106,8 @@ aef35b57155124b152c1d4c0558ec121ae7dd1b68b1f11e2d5181897a34cc4b8
 - Expanded from the original Gen III (Hoenn) Pokédex to the full National Pokédex
 - Renamed from "Pokédex IV Checker" to iv31
 
-[Unreleased]: ../../compare/v1.2.0...HEAD
+[Unreleased]: ../../compare/v1.3.0...HEAD
+[1.3.0]: ../../releases/tag/v1.3.0
 [1.2.0]: ../../releases/tag/v1.2.0
 [1.1.0]: ../../releases/tag/v1.1.0
 [1.0.0]: ../../releases/tag/v1.0.0

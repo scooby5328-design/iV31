@@ -21,7 +21,11 @@ Thanks for wanting to help make iv31 better. Every bug report, data fix and idea
 
 ## Code changes
 
-The app's source code isn't published in this repository yet. Once it is, this section will cover setup, branches and pull requests. Until then, the best way to help is through the issue forms above.
+The app's page is `src/index.html`, and its Pokédex, location and Secret Power data are in `src/data/`. See [Building from source](README.md#building-from-source).
+
+1. Fork the repository and create a branch for your change.
+2. Make the change and run `python tools/build.py` to check it builds.
+3. Open a pull request that says what changed and why. Don't commit the files the build changes in `updates/`; the maintainer updates those when releasing.
 
 ## Writing a good report
 
@@ -34,11 +38,10 @@ The app's source code isn't published in this repository yet. Once it is, this s
 
 Releases are published automatically by the **Release** workflow in `.github/workflows/release.yml`. To ship a new version:
 
-1. Update the version number in the app (`neutralino.config.json` and `APP_VERSION`) and add a section to `CHANGELOG.md`.
-2. Build the app files (`resources.neu`) and add them to `updates/` as `iv31-<version>.neu`.
-3. Update `updates/manifest.json` with the new version, the file's link, its SHA-256 fingerprint and short notes.
-4. Add `release-notes/<version>.md` with what's new.
-5. Commit and push. The workflow builds the installer from `packaging/`, creates the `v<version>` release with the installer attached and marks it as the latest. Installed copies of iv31 pick up the update automatically.
+1. Raise the version in `app/neutralino.config.json` and `APP_VERSION` in `src/index.html`, write a one-line summary in `src/release.json`, and add a section to `CHANGELOG.md`.
+2. Add `release-notes/<version>.md` with what's new.
+3. Run `python tools/build.py`. It writes `updates/iv31-<version>.neu` and updates `updates/manifest.json` with the new version, link, SHA-256 fingerprint and summary.
+4. Commit and push. The workflow builds the installer from `packaging/`, creates the `v<version>` release with the installer attached and marks it as the latest. Installed copies of iv31 pick up the update automatically.
 
 If an update needs a new app engine (not just new app files), set `"installer": true` in the manifest's `data` so people are sent to the installer instead. Installers are never committed to the repository; they only live on the Releases page.
 

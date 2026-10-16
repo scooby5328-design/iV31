@@ -1,10 +1,10 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.2.0",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.2.0.neu",
+  "version": "1.3.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.3.0.neu",
   "data": {
-    "sha256": "9f2baf5d09592379fb8aa5dc6136667084dd191e872cc04b2b49c915df90b199",
-    "size": 682371,
-    "notes": "Adds the auto-updater: iv31 can now check GitHub for new versions and install them with one click."
+    "sha256": "0c6d3e9038fb77f23b3f8a7cdb91817cf76a375e6d457f620cf7363ed69d3779",
+    "size": 707645,
+    "notes": "Adds a Types tab with a weakness and resistance chart, an EV-lowering berries table, wild locations in the EV table, favorites, and one game picker for the whole app."
   }
 }

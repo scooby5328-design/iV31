@@ -1,0 +1,1815 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
+<title>iv31</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:; connect-src 'self' ws://127.0.0.1:* ws://localhost:* http://127.0.0.1:* http://localhost:* https://raw.githubusercontent.com">
+<style>
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/jetbrains-mono-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/jetbrains-mono-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/jetbrains-mono-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:800;font-display:swap;src:url("fonts/jetbrains-mono-latin-800-normal.woff2") format("woff2")}
+@font-face{font-family:"Fira Sans";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/fira-sans-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Fira Sans";font-style:normal;font-weight:500;font-display:swap;src:url("fonts/fira-sans-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"Fira Sans";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/fira-sans-latin-600-normal.woff2") format("woff2")}
+</style>
+<style>
+:root{
+  --crust:#11111b;--mantle:#181825;--base:#1e1e2e;--surface0:#313244;--surface1:#45475a;--overlay:#6c7086;
+  --text:#cdd6f4;--subtext:#a6adc8;--mauve:#cba6f7;--blue:#89b4fa;--sapphire:#74c7ec;--red:#f38ba8;
+  --peach:#fab387;--yellow:#f9e2af;--green:#a6e3a1;--teal:#94e2d5;
+  --glow:rgba(203,166,247,.16);--glow2:rgba(137,180,250,.12);--keybg:rgba(249,226,175,.10);
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --sans:"Fira Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --crust:#dce0e8;--mantle:#e6e9ef;--base:#eff1f5;--surface0:#ccd0da;--surface1:#bcc0cc;--overlay:#8c8fa1;--text:#4c4f69;--subtext:#5c5f77;--mauve:#8839ef;--blue:#1e66f5;--sapphire:#209fb5;--red:#d20f39;--peach:#e2560b;--yellow:#c07a0f;--green:#40a02b;--teal:#179299;--glow:rgba(136,57,239,.12);--glow2:rgba(30,102,245,.10);--keybg:rgba(223,142,29,.13);color-scheme:light}}
+:root[data-theme="light"]{
+  --crust:#dce0e8;--mantle:#e6e9ef;--base:#eff1f5;--surface0:#ccd0da;--surface1:#bcc0cc;--overlay:#8c8fa1;--text:#4c4f69;--subtext:#5c5f77;--mauve:#8839ef;--blue:#1e66f5;--sapphire:#209fb5;--red:#d20f39;--peach:#e2560b;--yellow:#c07a0f;--green:#40a02b;--teal:#179299;--glow:rgba(136,57,239,.12);--glow2:rgba(30,102,245,.10);--keybg:rgba(223,142,29,.13);color-scheme:light}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{background:var(--crust)}
+body{background:var(--crust);background-image:radial-gradient(900px 600px at 12% -10%,var(--glow),transparent 60%),radial-gradient(800px 600px at 100% 110%,var(--glow2),transparent 60%);background-attachment:fixed;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;min-height:100vh}
+a{color:inherit}
+button{font:inherit}
+
+.bar-top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;padding-inline:16px;padding-block:10px 0}
+.bar-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;background:color-mix(in srgb,var(--mantle) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--surface0);border-radius:12px;padding:6px 8px;font-family:var(--mono);font-size:12.5px}
+.ws{display:flex;gap:4px;flex-wrap:wrap}
+.ws a{text-decoration:none;color:var(--subtext);padding:4px 10px;border-radius:8px;display:flex;gap:6px;align-items:center;white-space:nowrap}
+.ws a b{color:var(--overlay);font-weight:700}
+.ws a:hover{background:var(--surface0);color:var(--text)}
+.ws a.on{background:var(--mauve);color:var(--crust)}
+.ws a.on b,.ws a.on .count{color:var(--crust)}
+.ws a .count{font-size:11px;color:var(--yellow);font-weight:700}
+.mods{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.mods select{font-family:var(--mono);font-size:12.5px;padding:3px 8px;border-radius:8px;width:auto;max-width:44vw;background:var(--base);color:var(--mauve);font-weight:700}
+.mods select#gameVer{color:var(--blue)}
+.mod{padding:3px 10px;border-radius:8px;background:var(--base);border:1px solid var(--surface0);white-space:nowrap}
+.mod.clock{color:var(--blue)}
+@media (max-width:640px){.ws a span{display:none}.mod.clock{display:none}}
+
+.desk{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:14px 40px;display:grid;gap:14px}
+.view{display:grid;gap:14px;min-width:0}
+.tiles{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:14px;align-items:start}
+@media (max-width:860px){.tiles{grid-template-columns:minmax(0,1fr)}}
+.win{border-radius:14px;padding:2px;background:var(--surface0);min-width:0;scroll-margin-top:72px}
+.win.active{background:linear-gradient(135deg,var(--mauve),var(--blue) 55%,var(--teal))}
+.win-body{background:var(--base);border-radius:12px;overflow:hidden}
+.titlebar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;background:var(--mantle);border-bottom:1px solid var(--surface0);font-size:13px;font-weight:600;color:var(--text)}
+.titlebar .dot{width:8px;height:8px;border-radius:50%;background:var(--surface1);flex:none}
+.win.active .titlebar .dot{background:var(--mauve)}
+.pane{padding:16px}
+.intro{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
+.logo{font-family:var(--mono);font-weight:800;font-size:26px;line-height:1;letter-spacing:-1px;color:var(--mauve);padding:8px 12px;border:2px solid var(--surface0);border-radius:10px;background:var(--mantle)}
+.logo span{color:var(--blue)}
+h1{font-weight:600;letter-spacing:-.3px;font-size:clamp(20px,3vw,26px);line-height:1.15;margin:0;text-wrap:balance}
+h1 span{color:var(--mauve)}
+.sub{color:var(--subtext);margin:2px 0 0;max-width:70ch;font-size:14px}
+.intro>div:not(.logo){flex:1 1 300px;min-width:0}
+.logo{flex:none}
+
+.lbl,label{display:block;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--overlay);margin-bottom:5px}
+.row2{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12px;margin-bottom:16px}
+@media (max-width:420px){.row2{grid-template-columns:minmax(0,1fr)}}
+.pick{display:grid;gap:6px}
+select,input{font:inherit;font-size:14px;color:var(--text);background:var(--mantle);border:1px solid var(--surface0);border-radius:8px;padding:8px 10px;width:100%}
+input[type=search]{font-family:var(--mono);font-size:13px}
+input::placeholder{color:var(--overlay)}
+input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:center;padding:8px 4px;-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+select:hover,input:hover{border-color:var(--surface1)}
+select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--mauve);outline-offset:2px}
+
+.base{font-family:var(--mono);font-size:12px;color:var(--subtext);margin:-6px 0 14px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.base:empty{display:none}
+.changed{color:var(--red);font-weight:700}
+.plan{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:12px 14px;margin:0 0 6px;display:grid;gap:10px}
+.plan:empty{display:none}
+.k2{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.keychip{font-family:var(--mono);font-size:12px;font-weight:700;padding:3px 9px;border-radius:6px;background:var(--keybg);color:var(--yellow);border:1px solid color-mix(in srgb,var(--yellow) 45%,transparent)}
+.note-sm{font-size:13px;color:var(--overlay)}
+.natchips{display:flex;flex-wrap:wrap;gap:8px}
+.natchip{border:1px solid var(--surface0);background:var(--base);color:var(--text);border-radius:8px;padding:6px 12px;display:grid;gap:1px;min-width:0}
+.natchip.on{border-color:var(--green);background:color-mix(in srgb,var(--green) 10%,var(--base))}
+.natchip b{font-weight:600;font-size:15px}
+.natchip small{font-family:var(--mono);font-size:11px;color:var(--subtext)}
+.natchip .rank{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--mauve);font-weight:700}
+.natchip.on .yours{color:var(--green)}
+
+.entry{border-top:1px dashed var(--surface0);padding-top:14px;margin-top:14px}
+.entry-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.lv{display:flex;align-items:center;gap:8px}
+.lv .lbl{margin:0;font-size:12px;color:var(--subtext)}
+.lv input{width:64px}
+.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+@media (max-width:420px){.stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.stat label{text-align:center;margin-bottom:3px;border-radius:4px;padding:1px 0}
+.stat label.key{background:var(--keybg);color:var(--yellow)}
+.stat label.up{color:var(--peach)}
+.stat label.down{color:var(--sapphire)}
+details.evs{margin-top:10px}
+summary{cursor:pointer;font-size:13px;color:var(--overlay)}
+summary:hover{color:var(--subtext)}
+details.evs .stats{margin-top:8px}
+.btn{font-size:14px;font-weight:600;border-radius:8px;border:1px solid var(--surface0);background:var(--mantle);color:var(--text);padding:7px 12px;cursor:pointer}
+.btn:hover{border-color:var(--mauve);color:var(--mauve)}
+.btn.add{margin-top:16px;width:100%;border-style:dashed;background:transparent}
+.btn.rm{padding:4px 10px;font-size:11px;font-weight:500;color:var(--overlay)}
+.btn.rm:hover{color:var(--red);border-color:var(--red)}
+.btn.small{padding:5px 10px;font-size:12.5px}
+.tip{font-size:13px;color:var(--overlay);margin:14px 0 0}
+
+.readout-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:6px}
+.who{font-weight:600;font-size:24px;display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px}
+.who small{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--overlay)}
+.nat{font-size:13px;color:var(--subtext)}
+.nat b{color:var(--text);font-family:var(--mono)}
+.typeline{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;color:var(--subtext);margin-bottom:8px}
+.typeline:empty{display:none}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{font-size:11.5px;text-transform:uppercase;letter-spacing:.7px;color:var(--overlay);text-align:left;font-weight:700;padding:8px 6px;border-bottom:1px solid var(--surface0)}
+td{padding:9px 6px;border-bottom:1px solid var(--surface0);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+.ivt tr.key td{background:var(--keybg)}
+.ivt tr.key td:first-child{border-radius:8px 0 0 8px}
+.ivt tr.key td:last-child{border-radius:0 8px 8px 0}
+td.name{font-weight:600;white-space:nowrap}
+.ivt tr.key td.name{color:var(--yellow)}
+.ivt tr.key td.name::after{content:" ★"}
+td.name .tag{font-family:var(--mono);font-size:11px;margin-left:4px}
+.tag.up{color:var(--peach)}.tag.down{color:var(--sapphire)}
+td.iv{font-family:var(--mono);font-weight:700;font-size:16px;white-space:nowrap}
+td.barcell{width:42%}
+.bar{position:relative;height:10px;background:var(--surface0);border-radius:5px;overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,var(--blue),var(--mauve));min-width:5px}
+.ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--overlay);margin-top:2px}
+.pill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid color-mix(in srgb,currentColor 50%,transparent);background:color-mix(in srgb,currentColor 10%,transparent);white-space:nowrap}
+.r-low{color:var(--red)}.r-fair{color:var(--peach)}.r-good{color:var(--subtext)}.r-great{color:var(--green)}.r-perfect{color:var(--mauve)}.r-err{color:var(--red)}
+.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
+@media (max-width:420px){.summary{grid-template-columns:minmax(0,1fr)}}
+.sum{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:10px 12px;min-width:0}
+.sum .v{font-family:var(--mono);font-weight:700;font-size:16px;overflow-wrap:anywhere;color:var(--blue)}
+.sum .k{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--overlay)}
+.verdict{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--mantle);border-left:3px solid var(--mauve);font-size:14px}
+.verdict b{color:var(--mauve);font-family:var(--mono);font-weight:700}
+.err{margin-top:14px;padding:12px 14px;border-radius:10px;border:1px solid color-mix(in srgb,var(--red) 60%,transparent);background:color-mix(in srgb,var(--red) 8%,var(--base));color:var(--red);font-size:14px}
+
+details.win>summary{list-style:none;cursor:pointer;color:var(--text)}
+details.win>summary::-webkit-details-marker{display:none}
+details.win>summary .titlebar::after{content:"Show";font-size:12px;font-weight:500;color:var(--overlay);margin-left:auto}
+details.win[open]>summary .titlebar::after{content:"Hide"}
+details.win>summary .titlebar{border-bottom:0}
+details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
+.guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:4px 24px}
+.guide h3{font-size:14px;margin:0 0 4px;color:var(--mauve);font-weight:600}
+.guide p{margin:0 0 14px;color:var(--subtext);font-size:14px}
+.guide code{font-family:var(--mono);font-size:12.5px;color:var(--yellow);overflow-wrap:anywhere}
+
+.subtabs{display:flex;gap:4px;flex-wrap:wrap}
+.subtabs button{border:1px solid var(--surface0);background:var(--base);color:var(--subtext);border-radius:8px;padding:3px 12px;font-size:12.5px;font-weight:600;cursor:pointer}
+.subtabs button:hover{color:var(--text)}
+.subtabs button[aria-selected="true"]{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
+.titlebar.withtabs{padding-block:6px}
+
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:12px}
+.tools .grow{flex:1 1 240px;min-width:0}
+.seg{display:flex;flex-wrap:wrap;gap:4px}
+.seg button{font-size:13px;font-weight:600;border:1px solid var(--surface0);background:var(--mantle);color:var(--subtext);border-radius:8px;padding:6px 10px;cursor:pointer}
+.seg button:hover{color:var(--text);border-color:var(--surface1)}
+.seg button[aria-pressed="true"]{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
+.legend{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:10px 14px;margin-bottom:12px}
+.legend p{margin:0;font-size:13px;color:var(--subtext);flex:1 1 320px;max-width:76ch}
+.legend p b{color:var(--text)}
+.legend-keys{display:flex;flex-wrap:wrap;gap:6px;font-family:var(--mono);font-size:12px}
+.meta{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:6px 16px;font-size:13px;color:var(--overlay);margin-bottom:8px}
+.meta b{color:var(--text);font-family:var(--mono)}
+.toggle{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--subtext);cursor:pointer;margin:0;text-transform:none;letter-spacing:0;font-weight:500}
+.toggle input{width:auto;accent-color:var(--mauve)}
+.datanote{font-size:13px;color:var(--peach);margin-bottom:8px}
+.sheet-wrap{max-height:68vh;overflow:auto;border:1px solid var(--surface0);border-radius:10px;background:var(--mantle)}
+.sheet{min-width:900px;border-collapse:separate;border-spacing:0}
+.sheet th{position:sticky;top:0;z-index:1;background:var(--mantle);padding:0;border-bottom:1px solid var(--surface1)}
+.sheet th button{all:unset;box-sizing:border-box;display:block;width:100%;padding:9px 10px;cursor:pointer;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--overlay);white-space:nowrap}
+.sheet th button:disabled{cursor:default}
+.sheet th button:not(:disabled):hover{color:var(--text)}
+.sheet th button:focus-visible{outline:2px solid var(--mauve);outline-offset:-2px}
+.sheet th[aria-sort] button{color:var(--mauve)}
+.sheet th.n button,.sheet td.n{text-align:center}
+.sheet td{padding:7px 10px;border-bottom:1px solid var(--surface0);background:var(--base)}
+.sheet tr:hover td{background:color-mix(in srgb,var(--surface0) 45%,var(--base))}
+.sheet td.no{font-family:var(--mono);font-size:12px;color:var(--overlay);white-space:nowrap}
+.sheet td.pk{font-weight:600;white-space:nowrap}
+.sheet td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.sheet td.zero{color:var(--surface1)}
+.sheet td.tot{font-weight:700;color:var(--text)}
+.sheet td.fv{width:40px;text-align:center;padding:4px 2px 4px 8px}
+.sheet td.loc{min-width:220px;max-width:320px;font-size:13px;color:var(--subtext);line-height:1.45}
+.place{color:var(--text)}
+.how{color:var(--overlay);font-size:12px}
+.none{color:var(--overlay);font-style:italic}
+.evolve{color:var(--sapphire)}
+.empty{padding:28px;text-align:center;color:var(--overlay)}
+.more{all:unset;cursor:pointer;color:var(--mauve);font-size:12px;font-weight:600;margin-left:4px;white-space:nowrap}
+.more:hover{text-decoration:underline}
+.more:focus-visible{outline:2px solid var(--mauve);outline-offset:2px;border-radius:3px}
+.ev{display:inline-block;min-width:26px;padding:1px 7px;border-radius:6px;font-weight:700;background:color-mix(in srgb,currentColor 14%,transparent);text-align:center}
+.c-hp{color:var(--green)}.c-atk{color:var(--peach)}.c-def{color:var(--yellow)}.c-spa{color:var(--blue)}.c-spd{color:var(--teal)}.c-spe{color:var(--mauve)}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;margin-top:14px}
+.note{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--subtext)}
+.note>b:first-child{display:block;font-size:13px;margin-bottom:2px}
+.note b{color:var(--text)}
+.note.warn{border-color:color-mix(in srgb,var(--peach) 60%,transparent);background:color-mix(in srgb,var(--peach) 8%,var(--mantle))}
+.note.warn>b:first-child{color:var(--peach)}
+
+.berries{min-width:720px}
+.berries td{vertical-align:top}
+.berry{display:flex;align-items:center;gap:8px;font-weight:600;white-space:nowrap}
+.berry i{width:12px;height:12px;border-radius:50%;flex:none;background:currentColor}
+.berries td.where{font-size:13px;color:var(--subtext)}
+.berries td.where b{color:var(--text);font-weight:500}
+.berries .vit{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
+.status{font-family:var(--mono);font-size:12px;font-weight:700;white-space:nowrap}
+.status.no{color:var(--red)}.status.yes{color:var(--green)}
+
+.star{all:unset;cursor:pointer;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;font-size:17px;line-height:1;color:var(--surface1);transition:color .15s,background .15s}
+.star:hover{color:var(--yellow);background:var(--surface0)}
+.star[aria-pressed="true"]{color:var(--yellow)}
+.star:focus-visible{outline:2px solid var(--mauve);outline-offset:1px}
+.who .star{width:32px;height:32px;font-size:20px}
+
+.ty{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.35);white-space:nowrap;line-height:1.5}
+.t0{background:#8f8f6e}.t1{background:#e0682b}.t2{background:#4a7fe0}.t3{background:#d9a90f}.t4{background:#4f9e3a}.t5{background:#3fb3b0}.t6{background:#b8322a}.t7{background:#94449a}.t8{background:#b88f3c}.t9{background:#7f84d8}.t10{background:#e24f7c}.t11{background:#8a9c1d}.t12{background:#a38f3a}.t13{background:#62508f}.t14{background:#5b3fd6}.t15{background:#5e4a3d}.t16{background:#8a8aa3}.t17{background:#d76fa8}
+.mgrid{display:grid;gap:10px}
+.mrow{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:start;font-size:13px}
+.mrow .k{font-family:var(--mono);font-weight:700;padding-top:2px}
+.mrow .chips{display:flex;flex-wrap:wrap;gap:5px}
+.mrow .k.x4{color:var(--red)}.mrow .k.x2{color:var(--peach)}.mrow .k.h{color:var(--green)}.mrow .k.q{color:var(--teal)}.mrow .k.z{color:var(--blue)}
+.typechart-wrap{overflow:auto;border:1px solid var(--surface0);border-radius:10px;background:var(--mantle);max-height:76vh}
+.typechart{border-collapse:separate;border-spacing:0;font-family:var(--mono);font-size:12px;width:auto}
+.typechart th,.typechart td{padding:0;border:0;text-align:center}
+.typechart thead th{position:sticky;top:0;z-index:2;background:var(--mantle);padding:6px 2px;vertical-align:bottom}
+.typechart thead th .ty{writing-mode:vertical-rl;transform:rotate(180deg);padding:6px 2px}
+.typechart tbody th{position:sticky;left:0;z-index:1;background:var(--mantle);padding:2px 8px 2px 6px;text-align:right}
+.typechart thead th.corner{left:0;z-index:3;font-size:10px;color:var(--overlay);text-align:right;padding:6px 8px;font-family:var(--sans);text-transform:uppercase;letter-spacing:.6px;line-height:1.3}
+.typechart td{width:32px;min-width:32px;height:30px;border-right:1px solid var(--base);border-bottom:1px solid var(--base);font-weight:700;color:var(--subtext)}
+.typechart td.e2{background:color-mix(in srgb,var(--green) 30%,var(--mantle));color:var(--text)}
+.typechart td.e5{background:color-mix(in srgb,var(--red) 22%,var(--mantle));color:var(--text)}
+.typechart td.e0{background:var(--crust);color:var(--text)}
+.typechart td.e1{color:transparent}
+.typechart tr:hover td,.typechart td.colhi{box-shadow:inset 0 0 0 999px color-mix(in srgb,var(--mauve) 14%,transparent)}
+.ps{display:block;font-size:9px;color:var(--overlay);margin-top:3px;font-family:var(--sans)}
+.chart-key{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--subtext);margin:10px 0 0}
+.chart-key span{display:inline-flex;align-items:center;gap:6px}
+.chart-key i{width:16px;height:16px;border-radius:4px;display:inline-block;border:1px solid var(--surface0)}
+
+.fav-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.savenote{font-size:12.5px;color:var(--overlay);display:flex;align-items:center;gap:6px}
+.savenote i{width:8px;height:8px;border-radius:50%;background:var(--overlay);display:inline-block}
+.savenote.cloud i{background:var(--green)}
+.savenote.local i{background:var(--peach)}
+.favlist{display:grid;gap:14px}
+.card{border:1px solid var(--surface0);background:var(--mantle);border-radius:12px;overflow:hidden;min-width:0}
+.card-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;padding:10px 14px;border-bottom:1px solid var(--surface0);background:var(--base)}
+.card-name{display:flex;align-items:center;flex-wrap:wrap;gap:6px;min-width:0}
+.card-name h3{margin:0;font-size:20px;font-weight:600}
+.card-name .no{font-family:var(--mono);font-size:13px;color:var(--overlay)}
+.gennote{font-size:12px;color:var(--peach)}
+.card-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:1px;background:var(--surface0)}
+.cell{background:var(--mantle);padding:12px 14px;min-width:0}
+.cell h4{margin:0 0 8px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--overlay)}
+.cell h4+*{margin-bottom:12px}
+.cell>*:last-child{margin-bottom:0}
+.bs{display:grid;grid-template-columns:44px 36px minmax(0,1fr);gap:4px 8px;align-items:center;font-size:13px}
+.bs .k{color:var(--subtext)}
+.bs .k.key{color:var(--yellow);font-weight:600}
+.bs .v{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--text)}
+.bs .track{height:8px;background:var(--surface0);border-radius:4px;overflow:hidden}
+.bs .track i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--mauve))}
+.bs .tot{grid-column:1/-1;font-size:12px;color:var(--overlay);margin-top:2px}
+.bs .tot b{font-family:var(--mono);color:var(--text)}
+.evrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.evrow .ev{font-family:var(--mono);font-size:12px}
+.muted{color:var(--overlay);font-size:13px;margin:0}
+.places{margin:0;padding:0;list-style:none;display:grid;gap:3px;font-size:13px;max-height:220px;overflow:auto}
+.evo{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;font-size:13.5px}
+.evo .stage{padding:2px 8px;border-radius:6px;border:1px solid var(--surface0);background:var(--base)}
+.evo .stage.me{border-color:var(--mauve);color:var(--mauve);font-weight:600}
+.evo .arrow{color:var(--overlay)}
+.hist{font-size:12.5px;color:var(--subtext);margin:8px 0 0}
+.hist b{color:var(--text);font-family:var(--mono);font-weight:600}
+.mini{display:grid;gap:6px;font-size:12.5px}
+.mini div{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.mini .k{font-family:var(--mono);font-weight:700;min-width:30px}
+.fav-empty{border:1px dashed var(--surface1);border-radius:12px;padding:36px 20px;text-align:center;color:var(--subtext)}
+.fav-empty .big{font-size:34px;color:var(--yellow);line-height:1;margin-bottom:8px}
+.fav-empty p{margin:4px auto;max-width:48ch}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:left .25s,width .25s}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.evc-who{font-size:13px;color:var(--subtext);margin:0 0 12px;line-height:1.5}
+.evc-who b{color:var(--text)}
+.evc-top{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.evc-top .lv{flex-wrap:wrap}
+.lvnote{font-size:12px;color:var(--overlay)}
+.lvnote button{all:unset;cursor:pointer;color:var(--mauve);font-weight:600}
+.lvnote button:hover{text-decoration:underline}
+.lvnote button:focus-visible{outline:2px solid var(--mauve);outline-offset:2px;border-radius:3px}
+.evc-actions{display:flex;flex-wrap:wrap;gap:6px}
+.hp-actions{margin-top:10px}
+.evc td{padding:7px 5px}
+.evc td.name{font-size:14px}
+.evc td.name.key{color:var(--yellow)}
+.evc td.name.key::after{content:" ★"}
+.ctl{display:flex;gap:3px;align-items:center}
+.ctl input{width:58px;padding:6px 2px}
+.mini{font-family:var(--sans);font-size:11px;font-weight:600;padding:5px 6px;border-radius:6px;border:1px solid var(--surface0);background:var(--mantle);color:var(--subtext);cursor:pointer;line-height:1}
+.mini:hover{color:var(--mauve);border-color:var(--mauve)}
+.evc td.barcell{width:20%;min-width:80px}
+.evc td.pts{min-width:118px}
+.bar.cap i{background:linear-gradient(90deg,var(--teal),var(--green))}
+.bar.cap i.over{background:var(--red)}
+.evc .pts{font-family:var(--mono);font-weight:700;color:var(--green);white-space:nowrap}
+.evc .pts small{display:block;font-weight:500;color:var(--overlay);font-size:11px;white-space:normal;line-height:1.35}
+.tiles.tools2{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
+@media (max-width:860px){.tiles.tools2{grid-template-columns:minmax(0,1fr)}}
+.evc .nextpt{font-family:var(--mono);font-size:12px;color:var(--subtext);white-space:nowrap}
+.summary.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+@media (max-width:560px){.summary.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.sum .v.bad{color:var(--red)}
+.sum .v.ok{color:var(--green)}
+.panel{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:12px 14px;margin-top:14px;min-width:0}
+.panel h4{margin:0 0 10px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--overlay)}
+.pnote{font-size:13px;color:var(--subtext);margin:0 0 10px;max-width:70ch}
+.addrow{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:flex-end}
+.addrow>div{min-width:0}
+.addrow .grow{flex:1 1 200px}
+.addrow .num{width:76px}
+.addrow .toggle{margin-bottom:9px}
+.addrow.vit{margin-top:12px;padding-top:12px;border-top:1px dashed var(--surface0)}
+.log{font-size:13px;color:var(--subtext);margin-top:10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;min-height:0}
+.log b{color:var(--text)}
+.log .gain{font-family:var(--mono);color:var(--green);font-weight:700}
+.conv th,.conv td{text-align:center;padding:7px 6px}
+.conv th:first-child,.conv td:first-child{text-align:left}
+.conv td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.conv td:first-child{font-family:var(--sans)}
+.conv td small{color:var(--overlay);font-family:var(--sans);font-size:11.5px}
+.conv tr.you td{background:var(--keybg);color:var(--yellow)}
+.conv tr.you td small{color:var(--yellow)}
+.ty.big{font-size:14px;padding:3px 12px}
+.hptable td,.hptable th{text-align:center;padding:6px 5px}
+.hptable td:first-child,.hptable th:first-child{text-align:left}
+.hptable td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.hptable tr.cur td{background:var(--keybg)}
+.iv30{color:var(--peach);font-weight:700;font-family:var(--mono)}
+.hptable .mini{white-space:nowrap}
+.sheet.sp{min-width:860px}
+.sheet.sp th button small{display:block;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--overlay);margin-top:1px}
+.sheet.sp td.kind{font-size:12.5px;color:var(--subtext);white-space:nowrap}
+.sheet.sp td.kind .em{font-size:11px;color:var(--peach);margin-left:4px}
+.spc{display:inline-block;min-width:34px;padding:1px 7px;border-radius:6px;font-family:var(--mono);font-size:12px;font-weight:700;background:color-mix(in srgb,currentColor 15%,transparent)}
+.spc.main{box-shadow:inset 0 0 0 1px currentColor}
+.spdot{color:var(--surface1)}
+.spkey{margin:0 0 12px}
+.spkey .note b{font-size:14px}
+.spkey .note .eff{color:var(--text)}
+.sheet.later{min-width:520px}
+.sheet.later td{font-size:13.5px}
+.sheet.later td.anim{font-weight:600}
+.mod.ver{font:inherit;color:var(--green);cursor:pointer}
+.mod.ver:hover{border-color:var(--green)}
+.upd{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;border:1px solid color-mix(in srgb,var(--mauve) 55%,transparent);background:color-mix(in srgb,var(--mauve) 9%,var(--base));border-radius:12px;padding:10px 14px;font-size:14px}
+.upd.ok{border-color:color-mix(in srgb,var(--green) 55%,transparent);background:color-mix(in srgb,var(--green) 9%,var(--base))}
+.upd.warn{border-color:color-mix(in srgb,var(--peach) 60%,transparent);background:color-mix(in srgb,var(--peach) 9%,var(--base))}
+.upd-text{flex:1 1 320px;min-width:0;color:var(--text)}
+.upd-notes{display:block;color:var(--subtext);font-size:13px;margin-top:2px}
+.upd-actions{display:flex;flex-wrap:wrap;gap:6px}
+.btn.primary{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
+.btn.primary:hover{color:var(--crust);filter:brightness(1.08)}
+.guide .toggle{margin:0 0 12px}
+.upd{max-width:1088px;margin:10px auto 0;box-sizing:border-box}
+@media (max-width:1152px){.upd{margin-inline:16px}}
+.btn:disabled{opacity:.5;cursor:default}
+</style>
+</head>
+<body>
+<nav class="bar-top" aria-label="Workspaces">
+  <div class="bar-inner">
+    <div class="ws">
+      <a href="#calc" data-view="calc"><b>1</b><span>IV Calculator</span></a>
+      <a href="#evs" data-view="evs"><b>2</b><span>EV Training</span></a>
+      <a href="#types" data-view="types"><b>3</b><span>Types</span></a>
+      <a href="#secret" data-view="secret"><b>4</b><span>Secret Power</span></a>
+      <a href="#favs" data-view="favs"><b>5</b><span>Favorites</span> <em class="count" id="favCount"></em></a>
+    </div>
+    <div class="mods">
+      <select id="gameGen" aria-label="Generation"></select>
+      <select id="gameVer" aria-label="Version"></select>
+      <button type="button" class="mod ver" id="verChip" title="Check for updates">v1.3.0</button>
+      <span class="mod clock" id="clock">--:--</span>
+    </div>
+  </div>
+</nav>
+<div class="upd" id="upd" role="status" aria-live="polite" hidden><div class="upd-text" id="updText"></div><div class="upd-actions" id="updActions"></div></div>
+
+<main class="desk">
+
+<div class="view" id="view-calc">
+  <section class="win" id="intro">
+    <div class="win-body">
+      <div class="pane intro">
+        <div class="logo" aria-hidden="true">IV<span>/</span>31</div>
+        <div>
+          <h1>iv<span>31</span> · Pokédex IV Checker</h1>
+          <p class="sub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below are the EV and Hidden Power calculators. The game picker in the top bar sets base stats, types and locations everywhere in the app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tiles">
+    <section class="win" id="summary" aria-labelledby="in-h">
+      <div class="win-body">
+        <div class="titlebar"><span id="in-h">Summary screen</span><span class="dot"></span></div>
+        <div class="pane">
+          <div class="row2">
+            <div class="pick">
+              <label for="search">Pokémon</label>
+              <input type="search" id="search" placeholder="Search by name or number" autocomplete="off">
+              <select id="species" aria-label="Pokémon"></select>
+            </div>
+            <div>
+              <label for="nature">Nature</label>
+              <select id="nature"></select>
+            </div>
+          </div>
+          <div class="base" id="base"></div>
+          <div class="plan" id="plan"></div>
+          <div id="entries"></div>
+          <button class="btn add" id="add" type="button">+ Add stats at another level</button>
+          <p class="tip">Checking again after it levels up narrows the ranges. Enter the numbers exactly as the Summary screen shows them.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="win" id="readout" aria-labelledby="out-h" aria-live="polite">
+      <div class="win-body">
+        <div class="titlebar"><span id="out-h">IV readout</span><span class="dot"></span></div>
+        <div class="pane">
+          <div class="readout-head">
+            <div class="who" id="who"></div>
+            <div class="nat" id="natline"></div>
+          </div>
+          <div class="typeline" id="typeline"></div>
+          <div class="scroll">
+            <table class="ivt">
+              <thead><tr><th>Stat</th><th>IV</th><th>Range on 0–31</th><th>Rating</th></tr></thead>
+              <tbody id="rows"></tbody>
+            </table>
+          </div>
+          <div class="summary">
+            <div class="sum"><div class="k">IV total</div><div class="v" id="total">—</div></div>
+            <div class="sum"><div class="k">Hidden Power type</div><div class="v" id="hptype">—</div></div>
+            <div class="sum"><div class="k">Hidden Power power</div><div class="v" id="hppow">—</div></div>
+          </div>
+          <div id="msg"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="tiles tools2">
+    <section class="win" id="evcalc" aria-labelledby="evc-h">
+      <div class="win-body">
+        <div class="titlebar"><span id="evc-h">EV calculator</span><span class="dot"></span></div>
+        <div class="pane">
+          <p class="evc-who" id="evcWho"></p>
+          <div class="evc-top">
+            <div class="lv"><label class="lbl" for="evcLv">Level</label><input type="number" inputmode="numeric" min="1" max="100" id="evcLv"><span class="lvnote" id="evcLvNote"></span></div>
+            <div class="evc-actions">
+              <button class="btn small" id="evcLoad" type="button">Load EVs from Summary</button>
+              <button class="btn small" id="evcSend" type="button">Send EVs to Summary</button>
+              <button class="btn small" id="evcReset" type="button">Reset</button>
+            </div>
+          </div>
+          <div class="scroll">
+            <table class="evc">
+              <thead><tr><th>Stat</th><th>EVs</th><th class="barcell">Filled</th><th>Stat points</th><th>Next point</th></tr></thead>
+              <tbody id="evcRows"></tbody>
+            </table>
+          </div>
+          <div class="summary four" id="evcSum"></div>
+          <div id="evcMsg"></div>
+          <div class="panel">
+            <h4>Add EVs</h4>
+            <div class="addrow">
+              <div class="grow pick"><label for="evcFoeQ">Defeated Pokémon</label><input type="search" id="evcFoeQ" placeholder="Search name or number" autocomplete="off"><select id="evcFoe" aria-label="Defeated Pokémon"></select></div>
+              <div><label for="evcTimes">Times</label><input type="number" inputmode="numeric" id="evcTimes" class="num" min="1" max="999" value="1"></div>
+              <div><label for="evcItem">Held item</label><select id="evcItem"></select></div>
+              <label class="toggle" for="evcRus"><input type="checkbox" id="evcRus"> Pokérus</label>
+              <button class="btn" id="evcAddFoe" type="button">Add</button>
+            </div>
+            <div class="addrow vit">
+              <div class="grow"><label for="evcVit">Vitamin</label><select id="evcVit"></select></div>
+              <div><label for="evcVitN">How many</label><input type="number" inputmode="numeric" id="evcVitN" class="num" min="1" max="26" value="1"></div>
+              <button class="btn" id="evcAddVit" type="button">Use</button>
+            </div>
+            <div class="log" id="evcLog"></div>
+          </div>
+          <div class="panel">
+            <h4>How many stat points EVs give</h4>
+            <p class="pnote" id="evcConvNote"></p>
+            <div class="scroll">
+              <table class="conv">
+                <thead id="evcConvHead"></thead>
+                <tbody id="evcConv"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="win" id="hpcalc" aria-labelledby="hpc-h">
+      <div class="win-body">
+        <div class="titlebar"><span id="hpc-h">Hidden Power calculator</span><span class="dot"></span></div>
+        <div class="pane">
+          <p class="evc-who">Enter six IVs to see the Hidden Power they make, or pick a type below to get the IVs you need.</p>
+          <div class="stats" id="hpIvs"></div>
+          <div class="evc-actions hp-actions">
+            <button class="btn small" id="hpFromReadout" type="button">Use IVs from the readout</button>
+            <button class="btn small" id="hpAll31" type="button">Set all to 31</button>
+          </div>
+          <div id="hpMsg"></div>
+          <div class="summary" id="hpOut"></div>
+          <div id="hpNote"></div>
+          <div class="panel">
+            <h4>Aim for a type</h4>
+            <p class="pnote">The highest IVs that give each type. A <span class="iv30">30</span> marks a stat that has to be even. Pick a row to load it.</p>
+            <div class="scroll">
+              <table class="hptable">
+                <thead><tr><th>Type</th><th>HP</th><th>Atk</th><th>Def</th><th>SpA</th><th>SpD</th><th>Spe</th><th><span class="sr">Load</span></th></tr></thead>
+                <tbody id="hpBest"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <details class="win" id="guide">
+    <summary><div class="titlebar"><span>How the IV calculator works</span></div></summary>
+    <div class="win-body" style="border-radius:0 0 12px 12px">
+      <div class="pane guide">
+        <div><h3>The basics</h3><p>Every stat since Ruby comes from the species' base stat, the Pokémon's IV, its EVs (points earned from battles and vitamins), its level and its nature. The calculator tries every IV from 0 to 31 and keeps the ones that match your numbers.</p></div>
+        <div><h3>The formula</h3><p><code>HP = ⌊(2×Base + IV + ⌊EV/4⌋) × Level/100⌋ + Level + 10</code><br><code>Other = ⌊(⌊(2×Base + IV + ⌊EV/4⌋) × Level/100⌋ + 5) × Nature⌋</code><br>Nature is 1.1 for the raised stat, 0.9 for the lowered one, otherwise 1.</p></div>
+        <div><h3>Key stats and natures</h3><p>Starred stats (★) are the two this Pokémon relies on most, judged from its final evolution in the selected generation. The suggested natures raise one of them and lower the attacking stat it doesn't use. HP is never starred because no nature changes it.</p></div>
+        <div><h3>EV calculator</h3><p>Type the EVs your Pokémon has, or add them as you train: pick what you defeated, how many times, and any Macho Brace, Power item or Pokérus. It keeps you inside the limits (510 in total, and 252 per stat from Gen VI on, 255 before that) and shows the stat points the EVs give at its level and at level 100. Use "Send EVs to Summary" so the IV readout accounts for them.</p></div>
+        <div><h3>Hidden Power</h3><p>Hidden Power's type comes from whether each IV is odd or even, and in Gen III to V its power (30 to 70) comes from the second-lowest bit of each IV. The "Aim for a type" table lists the highest IVs that give each type, which is handy when breeding.</p></div>
+        <div><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number in the top bar to check any time. Nothing about you is sent; it only downloads a small version file.</p>
+        <label class="toggle" for="autoUpd"><input type="checkbox" id="autoUpd" checked> Check for updates when iv31 starts</label></div>
+        <div><h3>Getting accurate results</h3><p>Ranges are widest at low levels. A freshly caught Pokémon has 0 EVs, so check it before it battles. Changed base stats from older games show in red. Let's Go Pikachu/Eevee and Legends: Arceus use different stat systems and aren't supported.</p></div>
+      </div>
+    </div>
+  </details>
+
+</div>
+
+<div class="view" id="view-evs" hidden>
+  <section class="win active">
+    <div class="win-body">
+      <div class="titlebar withtabs">
+        <div class="subtabs" role="tablist" aria-label="EV training">
+          <button type="button" role="tab" id="tab-yields" aria-controls="pane-yields" aria-selected="true">EV yields</button>
+          <button type="button" role="tab" id="tab-berries" aria-controls="pane-berries" aria-selected="false">EV-lowering berries</button>
+        </div>
+        <span class="dot"></span>
+      </div>
+
+      <div class="pane" id="pane-yields" role="tabpanel" aria-labelledby="tab-yields">
+        <div class="tools">
+          <div class="grow"><label for="evSearch">Search</label><input type="search" id="evSearch" placeholder="Name, number, or place (e.g. Route 110)" autocomplete="off"></div>
+          <div><span class="lbl" id="evFilterLbl">Gives EVs in</span><div class="seg" id="evFilter" role="group" aria-labelledby="evFilterLbl"></div></div>
+        </div>
+        <div class="legend">
+          <p><b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.</p>
+          <div class="legend-keys" aria-hidden="true"><span class="ev c-hp">HP</span><span class="ev c-atk">Atk</span><span class="ev c-def">Def</span><span class="ev c-spa">SpA</span><span class="ev c-spd">SpD</span><span class="ev c-spe">Spe</span></div>
+        </div>
+        <div class="meta"><span id="evCount"></span><label class="toggle" for="evWild"><input type="checkbox" id="evWild"> Only Pokémon found in this version</label><span>Click a column heading to sort</span></div>
+        <div class="datanote" id="evDataNote" hidden></div>
+        <div class="sheet-wrap">
+          <table class="sheet">
+            <thead><tr id="evHead"></tr></thead>
+            <tbody id="evBody"></tbody>
+          </table>
+        </div>
+        <div class="notes" id="evNotes"></div>
+      </div>
+
+      <div class="pane" id="pane-berries" role="tabpanel" aria-labelledby="tab-berries" hidden>
+        <div class="notes" id="berryRule" style="margin:0 0 14px"></div>
+        <div class="scroll">
+          <table class="berries">
+            <thead><tr><th>Berry</th><th>Lowers</th><th>In this game</th><th>Raise it instead</th><th id="berryWhereHead">Where to get it</th></tr></thead>
+            <tbody id="berryBody"></tbody>
+          </table>
+        </div>
+        <div class="notes" id="berryNotes"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="view" id="view-types" hidden>
+  <div class="tiles">
+    <section class="win active" aria-labelledby="mc-h">
+      <div class="win-body">
+        <div class="titlebar"><span id="mc-h">Matchup checker</span><span class="dot"></span></div>
+        <div class="pane">
+          <div class="row2">
+            <div class="pick">
+              <label for="mcSearch">Pokémon</label>
+              <input type="search" id="mcSearch" placeholder="Search by name or number" autocomplete="off">
+              <select id="mcSpecies" aria-label="Pokémon for matchups"></select>
+            </div>
+            <div class="pick">
+              <span class="lbl">Or pick types</span>
+              <select id="mcT1" aria-label="First type"></select>
+              <select id="mcT2" aria-label="Second type"></select>
+            </div>
+          </div>
+          <div id="mcOut"></div>
+        </div>
+      </div>
+    </section>
+    <section class="win" aria-labelledby="tn-h">
+      <div class="win-body">
+        <div class="titlebar"><span id="tn-h">Type notes for this game</span><span class="dot"></span></div>
+        <div class="pane"><div class="notes" id="typeNotes" style="margin:0"></div></div>
+      </div>
+    </section>
+  </div>
+  <section class="win" aria-labelledby="tc-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="tc-h">Weakness and resistance chart</span><span class="dot"></span></div>
+      <div class="pane">
+        <div class="typechart-wrap"><table class="typechart" id="typeChart"></table></div>
+        <div class="chart-key">
+          <span><i style="background:color-mix(in srgb,var(--green) 30%,var(--mantle))"></i>2× super effective</span>
+          <span><i style="background:color-mix(in srgb,var(--red) 22%,var(--mantle))"></i>½× not very effective</span>
+          <span><i style="background:var(--crust)"></i>0× no effect</span>
+          <span>Blank = normal damage. Rows attack, columns defend. Dual types multiply.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="view" id="view-secret" hidden>
+  <section class="win active" aria-labelledby="sp-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="sp-h">Secret Power by area</span><span class="dot"></span></div>
+      <div class="pane">
+        <div class="tools">
+          <div class="grow" id="spSearchBox"><label for="spSearch">Area</label><input type="search" id="spSearch" placeholder="Search an area (e.g. Route 119)" autocomplete="off"></div>
+          <div id="spFilterBox"><span class="lbl" id="spFilterLbl">Shows up as</span><div class="seg" id="spFilter" role="group" aria-labelledby="spFilterLbl"></div></div>
+        </div>
+        <div class="legend">
+          <p id="spLegend"></p>
+        </div>
+        <div class="notes spkey" id="spKey"></div>
+        <div class="meta" id="spMeta"></div>
+        <div class="sheet-wrap" id="spWrap">
+          <table class="sheet sp">
+            <thead><tr id="spHead"></tr></thead>
+            <tbody id="spBody"></tbody>
+          </table>
+        </div>
+        <div class="notes" id="spNotes"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="view" id="view-favs" hidden>
+  <section class="win active" aria-labelledby="fav-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="fav-h">Favorites</span><span class="dot"></span></div>
+      <div class="pane">
+        <div class="fav-head">
+          <span class="note-sm" id="favGame"></span>
+          <span class="savenote" id="saveNote"><i></i><span>Checking where favorites are saved…</span></span>
+        </div>
+        <div class="favlist" id="favList"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<script src="__neutralino_globals.js"></script>
+<script src="js/neutralino.js"></script>
+<script>
+const LOCDATA = __LOC__;
+const SP = __SP__;
+const DATA = __DEX__;
+const DEX = DATA.dex, ERA_STATS = DATA.eras, PRE6 = DATA.pre6;
+const ERAS = [
+  {g:3, max:386, label:"Gen 3", vers:["Ruby","Sapphire","Emerald","FireRed","LeafGreen"]},
+  {g:4, max:493, label:"Gen 4", vers:["Diamond","Pearl","Platinum","HeartGold","SoulSilver"]},
+  {g:5, max:649, label:"Gen 5", vers:["Black","White","Black 2","White 2"]},
+  {g:6, max:721, label:"Gen 6", vers:["X","Y","Omega Ruby","Alpha Sapphire"]},
+  {g:7, max:809, label:"Gen 7", vers:["Sun","Moon","Ultra Sun","Ultra Moon"]},
+  {g:8, max:905, label:"Gen 8", vers:["Sword","Shield","Brilliant Diamond","Shining Pearl"]},
+  {g:9, max:1025, label:"Gen 9", vers:["Scarlet","Violet"]}
+];
+const PARTIAL = new Set(["Omega Ruby","Alpha Sapphire"]);
+const ROMAN = {3:"III",4:"IV",5:"V",6:"VI",7:"VII",8:"VIII",9:"IX"};
+const KEYS = ["hp","atk","def","spa","spd","spe"];
+const LABEL = {hp:"HP",atk:"Attack",def:"Defense",spa:"Sp. Atk",spd:"Sp. Def",spe:"Speed"};
+const SHORT = {hp:"HP",atk:"Atk",def:"Def",spa:"SpA",spd:"SpD",spe:"Spe"};
+const NATURES = [
+  ["Hardy",null,null],["Lonely","atk","def"],["Brave","atk","spe"],["Adamant","atk","spa"],["Naughty","atk","spd"],
+  ["Bold","def","atk"],["Docile",null,null],["Relaxed","def","spe"],["Impish","def","spa"],["Lax","def","spd"],
+  ["Timid","spe","atk"],["Hasty","spe","def"],["Serious",null,null],["Jolly","spe","spa"],["Naive","spe","spd"],
+  ["Modest","spa","atk"],["Mild","spa","def"],["Quiet","spa","spe"],["Bashful",null,null],["Rash","spa","spd"],
+  ["Calm","spd","atk"],["Gentle","spd","def"],["Sassy","spd","spe"],["Careful","spd","spa"],["Quirky",null,null]
+];
+const HP_TYPES = ["Fighting","Flying","Poison","Ground","Rock","Bug","Ghost","Steel","Fire","Water","Grass","Electric","Psychic","Ice","Dragon","Dark"];
+const PREFER = {Wurmple:"Beautifly",Silcoon:"Beautifly",Cascoon:"Dustox",Oddish:"Vileplume",Gloom:"Vileplume",Clamperl:"Huntail",Nincada:"Ninjask"};
+const ROLE_OVERRIDE = {Shedinja:["atk","spe","spa"],Wobbuffet:["def","spd","atk"],Wynaut:["def","spd","atk"]};
+const TYPES = ["Normal","Fire","Water","Electric","Grass","Ice","Fighting","Poison","Ground","Flying","Psychic","Bug","Rock","Ghost","Dragon","Dark","Steel","Fairy"];
+const SPECIAL_G3 = new Set([1,2,3,4,5,10,14,15]);
+const CHART = (() => {
+  const m = TYPES.map(() => TYPES.map(() => 1));
+  const set = (a, list, v) => list.forEach(d => { m[TYPES.indexOf(a)][TYPES.indexOf(d)] = v; });
+  set("Normal",["Rock","Steel"],.5); set("Normal",["Ghost"],0);
+  set("Fire",["Grass","Ice","Bug","Steel"],2); set("Fire",["Fire","Water","Rock","Dragon"],.5);
+  set("Water",["Fire","Ground","Rock"],2); set("Water",["Water","Grass","Dragon"],.5);
+  set("Electric",["Water","Flying"],2); set("Electric",["Electric","Grass","Dragon"],.5); set("Electric",["Ground"],0);
+  set("Grass",["Water","Ground","Rock"],2); set("Grass",["Fire","Grass","Poison","Flying","Bug","Dragon","Steel"],.5);
+  set("Ice",["Grass","Ground","Flying","Dragon"],2); set("Ice",["Fire","Water","Ice","Steel"],.5);
+  set("Fighting",["Normal","Ice","Rock","Dark","Steel"],2); set("Fighting",["Poison","Flying","Psychic","Bug","Fairy"],.5); set("Fighting",["Ghost"],0);
+  set("Poison",["Grass","Fairy"],2); set("Poison",["Poison","Ground","Rock","Ghost"],.5); set("Poison",["Steel"],0);
+  set("Ground",["Fire","Electric","Poison","Rock","Steel"],2); set("Ground",["Grass","Bug"],.5); set("Ground",["Flying"],0);
+  set("Flying",["Grass","Fighting","Bug"],2); set("Flying",["Electric","Rock","Steel"],.5);
+  set("Psychic",["Fighting","Poison"],2); set("Psychic",["Psychic","Steel"],.5); set("Psychic",["Dark"],0);
+  set("Bug",["Grass","Psychic","Dark"],2); set("Bug",["Fire","Fighting","Poison","Flying","Ghost","Steel","Fairy"],.5);
+  set("Rock",["Fire","Ice","Flying","Bug"],2); set("Rock",["Fighting","Ground","Steel"],.5);
+  set("Ghost",["Psychic","Ghost"],2); set("Ghost",["Dark"],.5); set("Ghost",["Normal"],0);
+  set("Dragon",["Dragon"],2); set("Dragon",["Steel"],.5); set("Dragon",["Fairy"],0);
+  set("Dark",["Psychic","Ghost"],2); set("Dark",["Fighting","Dark","Fairy"],.5);
+  set("Steel",["Ice","Rock","Fairy"],2); set("Steel",["Fire","Water","Electric","Steel"],.5);
+  set("Fairy",["Fighting","Dragon","Dark"],2); set("Fairy",["Fire","Poison","Steel"],.5);
+  return m;
+})();
+const BERRIES = [
+  {name:"Pomeg", stat:"hp", vit:"HP Up", color:"var(--red)",
+   where:{rs:"Routes 119 and 123; more from the Berry Master on Route 123 and in Sootopolis City", e:"Routes 119 and 123; Berry Master (Route 123), Sootopolis City, Dodrio Berry Picking in Mossdeep", dp:"Routes 214 and 226, Fight Area; Berry Master's house (Route 208), Pal Park, Battle Frontier Scratch-Off Card", hgss:"Fuchsia City, Pal Park, Battle Frontier Scratch-Off Card"}},
+  {name:"Kelpsy", stat:"atk", vit:"Protein", color:"var(--blue)",
+   where:{rs:"Route 115; more from the Berry Master on Route 123 and in Sootopolis City", e:"Route 115; Berry Master (Route 123), Sootopolis City", dp:"Routes 225 and 230, Fuego Ironworks; Berry Master's house (Route 208), Pal Park, Battle Frontier Scratch-Off Card"}},
+  {name:"Qualot", stat:"def", vit:"Iron", color:"var(--yellow)",
+   where:{rs:"Route 123; more from the Berry Master on Route 123 and in Sootopolis City", e:"Route 123; Berry Master (Route 123), Sootopolis City", dp:"Routes 222, 226 and 229, Resort Area; Berry Master's house (Route 208), Pal Park, Battle Frontier Scratch-Off Card"}},
+  {name:"Hondew", stat:"spa", vit:"Calcium", color:"var(--green)",
+   where:{rs:"Route 119; more from the Berry Master on Route 123 and in Sootopolis City", e:"Route 119; Berry Master (Route 123), Sootopolis City, Dodrio Berry Picking in Mossdeep", dp:"Routes 221 and 228, Fight Area; Berry Master's house (Route 208), Pal Park, Battle Frontier Scratch-Off Card"}},
+  {name:"Grepa", stat:"spd", vit:"Zinc", color:"var(--peach)",
+   where:{rs:"Route 123; more from the Berry Master on Route 123 and in Sootopolis City", e:"Route 123; Berry Master (Route 123), Sootopolis City, Dodrio Berry Picking in Mossdeep", dp:"Routes 211, 229 and 230, Resort Area; Berry Master's house (Route 208), Pal Park, Battle Frontier Scratch-Off Card"}},
+  {name:"Tamato", stat:"spe", vit:"Carbos", color:"var(--mauve)",
+   where:{rs:"Only from the Berry Master on Route 123 and in Sootopolis City", e:"Berry Master (Route 123), Sootopolis City, Dodrio Berry Picking in Mossdeep", dp:"Routes 212, 225 and 228; Berry Master's house (Route 208), Pal Park, Battle Frontier Scratch-Off Card"}}
+];
+
+const $ = id => document.getElementById(id);
+const IS_APP = typeof window.NL_APPVERSION === "string" && typeof window.Neutralino === "object";
+const dexNo = n => "#" + String(n).padStart(4,"0");
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const nameToNum = {}; DEX.forEach((p,i) => nameToNum[p[0]] = i+1);
+const PREVO = {}; DEX.forEach((p,i) => p[7].forEach(k => { PREVO[k] = i+1; }));
+
+const state = {ei:0, ver:"Ruby", view:"calc", evSub:"yields"};
+const dirty = {evs:true, types:true, favs:true, secret:true};
+const era = () => ERAS[state.ei];
+
+function baseStats(num, g){
+  const hist = ERA_STATS[num];
+  if (hist) for (const [maxG, s] of hist) if (g <= maxG) return Object.fromEntries(KEYS.map((k,i)=>[k,s[i]]));
+  return Object.fromEntries(KEYS.map((k,i)=>[k,DEX[num-1][i+1]]));
+}
+function typesOf(num, g){ return (g < 6 && PRE6[num]) || DEX[num-1][9]; }
+function typeChips(ts){ return ts.map(t => `<span class="ty t${t}">${TYPES[t]}</span>`).join(" "); }
+function eff(a, def, g){
+  return def.reduce((m,d) => {
+    let v = CHART[a][d];
+    if (g < 6 && d === 16 && (a === 13 || a === 15)) v = .5;
+    return m * v;
+  }, 1);
+}
+function attackTypes(g){ return g < 6 ? TYPES.slice(0,17).map((_,i)=>i) : TYPES.map((_,i)=>i); }
+function matchups(def, g){
+  const out = {x4:[],x2:[],h:[],q:[],z:[]};
+  attackTypes(g).forEach(a => { const v = eff(a, def, g); if (v===4) out.x4.push(a); else if (v===2) out.x2.push(a); else if (v===.5) out.h.push(a); else if (v===.25) out.q.push(a); else if (v===0) out.z.push(a); });
+  return out;
+}
+
+function finalForm(num, max){
+  let cur = num, branched = false;
+  const pref = PREFER[DEX[num-1][0]];
+  if (pref && nameToNum[pref] <= max) return {num:nameToNum[pref], branched:true};
+  for (let guard = 0; guard < 5; guard++){
+    const kids = DEX[cur-1][7].filter(k => k <= max);
+    if (!kids.length) break;
+    if (kids.length > 1) branched = true;
+    cur = kids[0];
+  }
+  return {num:cur, branched};
+}
+function roleFor(num, g, max){
+  const name = DEX[num-1][0], fin = finalForm(num, max), finName = DEX[fin.num-1][0];
+  const ov = ROLE_OVERRIDE[name] || ROLE_OVERRIDE[finName];
+  if (ov) return {key:[ov[0],ov[1]], lower:ov[2], fin, finName};
+  const s = baseStats(fin.num, g);
+  const phys = s.atk >= s.spa, k1 = phys ? "atk" : "spa", other = phys ? "spa" : "atk";
+  const hidef = s.def >= s.spd ? "def" : "spd", lodef = hidef === "def" ? "spd" : "def";
+  const k2 = s.spe >= 70 && s.spe >= 0.85*Math.max(s.def,s.spd) ? "spe" : hidef;
+  let lower = Math.abs(s.atk - s.spa) <= 10 && Math.min(s.atk,s.spa) >= 80 ? lodef : other;
+  if (lower === k2) lower = other;
+  return {key:[k1,k2], lower, fin, finName};
+}
+function natureFor(up, down){ return NATURES.findIndex(n => n[1]===up && n[2]===down); }
+
+const placeCache = new Map();
+const routeKey = s => { const m = /^Route (\d+)/.exec(s); return m ? [0, Number(m[1]), s] : [1, 0, s]; };
+function placesFor(ver, n){
+  const key = ver + "|" + n;
+  if (placeCache.has(key)) return placeCache.get(key);
+  const list = (LOCDATA.found[ver] || {})[n];
+  const out = !list ? [] : list.map(([li, mask]) => ({place: LOCDATA.locs[li], how: LOCDATA.methods.filter((m,b) => m && (mask>>b & 1))}))
+    .sort((a,b) => { const x = routeKey(a.place), y = routeKey(b.place); return x[0]-y[0] || x[1]-y[1] || x[2].localeCompare(y[2]); });
+  placeCache.set(key, out);
+  return out;
+}
+function earliestWild(ver, n){ let p = PREVO[n]; while (p && !placesFor(ver, p).length) p = PREVO[p]; return p; }
+
+let favs = new Set(), favDoc = null;
+const FAV_KEY = "pokedex-iv-favorites", GAME_KEY = "pokedex-iv-game";
+try { const raw = localStorage.getItem(FAV_KEY); if (raw) JSON.parse(raw).forEach(n => { if (Number.isInteger(n) && n>=1 && n<=1025) favs.add(n); }); } catch(_) {}
+const starBtn = n => { const on = favs.has(n), nm = DEX[n-1][0]; return `<button type="button" class="star" data-fav="${n}" aria-pressed="${on}" aria-label="${on ? `Remove ${nm} from` : `Add ${nm} to`} favorites" title="${on ? "Remove from" : "Add to"} favorites">${on ? "★" : "☆"}</button>`; };
+
+const gameGen = $("gameGen"), gameVer = $("gameVer");
+ERAS.forEach((e,i) => { const o = document.createElement("option"); o.value = i; o.textContent = e.label; gameGen.appendChild(o); });
+function fillVersions(){
+  gameVer.innerHTML = era().vers.map(v => `<option value="${esc(v)}">${esc(v)}${LOCDATA.found[v] ? "" : " *"}</option>`).join("");
+  if (!era().vers.includes(state.ver)) state.ver = era().vers[0];
+  gameVer.value = state.ver;
+}
+function saveGame(){ try { localStorage.setItem(GAME_KEY, JSON.stringify({ei:state.ei, ver:state.ver})); } catch(_) {} }
+
+function speciesOptions(select, search, placeholder){
+  const max = era().max, raw = search.value.trim(), q = raw.toLowerCase().replace(/^#0*/,"");
+  const prev = Number(select.value) || 0, matches = [];
+  for (let n = 1; n <= max; n++){
+    const name = DEX[n-1][0];
+    if (!q || name.toLowerCase().includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q))) matches.push(n);
+  }
+  select.innerHTML = matches.length ? (q ? "" : `<option value="">${placeholder}</option>`) + matches.map(n => `<option value="${n}">${dexNo(n)} ${esc(DEX[n-1][0])}</option>`).join("") : `<option value="">No Pokémon match "${esc(raw)}"</option>`;
+  if (matches.includes(prev)) select.value = prev; else if (!q) select.value = "";
+}
+
+const speciesSel = $("species"), searchIn = $("search"), natureSel = $("nature"), entriesEl = $("entries");
+let entryId = 0;
+natureSel.innerHTML = `<option value="">Choose a nature…</option>` + NATURES.map((n,i) => `<option value="${i}">${n[1] ? `${n[0]} (+${SHORT[n[1]]} −${SHORT[n[2]]})` : `${n[0]} (neutral)`}</option>`).join("");
+
+function natMult(nat, k){ return nat[1] === k ? 110 : nat[2] === k ? 90 : 100; }
+function calc(base, iv, ev, lv, k, nat, shedinja){
+  const core = Math.floor((2*base + iv + Math.floor(ev/4)) * lv / 100);
+  if (k === "hp") return shedinja ? 1 : core + lv + 10;
+  return Math.floor((core + 5) * natMult(nat,k) / 100);
+}
+function addEntry(){
+  const id = ++entryId, d = document.createElement("div");
+  d.className = "entry";
+  const statInputs = pre => KEYS.map(k => `<div class="stat"><label for="${pre}${k}-${id}" data-k="${k}">${SHORT[k]}</label><input type="number" inputmode="numeric" min="0" max="${pre==="e"?255:999}" id="${pre}${k}-${id}" data-k="${k}" data-role="${pre}"></div>`).join("");
+  d.innerHTML = `
+    <div class="entry-head">
+      <div class="lv"><label class="lbl" for="lv-${id}">Level</label><input type="number" inputmode="numeric" min="1" max="100" id="lv-${id}" data-role="lv"></div>
+      <button class="btn rm" type="button" aria-label="Remove this level">Remove</button>
+    </div>
+    <div class="stats">${statInputs("s")}</div>
+    <details class="evs"><summary>EVs (leave blank if unknown or 0)</summary><div class="stats">${statInputs("e")}</div></details>`;
+  entriesEl.appendChild(d);
+  d.querySelector(".rm").addEventListener("click", () => { d.remove(); syncRemove(); runCalc(); });
+  d.addEventListener("input", runCalc);
+  syncRemove();
+  return d;
+}
+function syncRemove(){ const all = entriesEl.querySelectorAll(".entry"); all.forEach(e => e.querySelector(".rm").hidden = all.length < 2); }
+function readEntries(){
+  return [...entriesEl.querySelectorAll(".entry")].map(d => {
+    const lv = parseInt(d.querySelector('[data-role="lv"]').value,10), s = {}, e = {};
+    KEYS.forEach(k => {
+      s[k] = parseInt(d.querySelector(`[data-role="s"][data-k="${k}"]`).value,10);
+      const ev = parseInt(d.querySelector(`[data-role="e"][data-k="${k}"]`).value,10);
+      e[k] = Number.isFinite(ev) ? Math.min(255,Math.max(0,ev)) : 0;
+    });
+    return {lv,s,e};
+  }).filter(x => Number.isFinite(x.lv) && x.lv>=1 && x.lv<=100);
+}
+function rating(lo,hi){
+  const mid = (lo+hi)/2;
+  if (hi===31 && lo===31) return ["Perfect","r-perfect"];
+  if (mid>=26) return ["Great","r-great"];
+  if (mid>=21) return ["Good","r-good"];
+  if (mid>=11) return ["Fair","r-fair"];
+  return ["Low","r-low"];
+}
+function hiddenPower(sets){
+  const order = ["hp","atk","def","spe","spa","spd"];
+  const lsb = order.map(k => [...new Set(sets[k].map(v=>v&1))]);
+  const b2 = order.map(k => [...new Set(sets[k].map(v=>(v>>1)&1))]);
+  const types = new Set(), pows = new Set();
+  const walk = (opts, i, acc, cb) => { if (i===opts.length) return cb(acc); opts[i].forEach(b => walk(opts, i+1, acc + (b<<i), cb)); };
+  walk(lsb,0,0,v => types.add(HP_TYPES[Math.floor(v*15/63)]));
+  walk(b2,0,0,v => pows.add(Math.floor(v*40/63)+30));
+  return {types:[...types], pows:[...pows].sort((a,b)=>a-b)};
+}
+function resetReadout(text){
+  $("rows").innerHTML = ""; ["total","hptype","hppow"].forEach(id => $(id).textContent = "—");
+  $("msg").innerHTML = `<div class="verdict">${text}</div>`;
+}
+function weakLine(ts, g){
+  const m = matchups(ts, g);
+  const part = (label, list) => list.length ? `<span class="note-sm">${label}</span> ${typeChips(list)}` : "";
+  return [part("Weak to", [...m.x4, ...m.x2]), part("Immune to", m.z)].filter(Boolean).join(" ");
+}
+
+function runCalc(){ runCalcCore(); if (extrasReady){ renderEvc(); renderHp(); } }
+let extrasReady = false;
+function runCalcCore(){
+  const E = era(), g = E.g, num = Number(speciesSel.value);
+  if (!num){
+    $("plan").innerHTML = ""; $("base").textContent = ""; $("who").textContent = ""; $("natline").textContent = ""; $("typeline").innerHTML = "";
+    entriesEl.querySelectorAll('label[data-k]').forEach(l => l.className = "");
+    return resetReadout(searchIn.value.trim() ? "No Pokémon matches that search in this game's Pokédex." : "Pick a Pokémon to start. You can search by name or Pokédex number.");
+  }
+  const natIdx = natureSel.value === "" ? -1 : Number(natureSel.value);
+  const name = DEX[num-1][0], nat = natIdx < 0 ? ["",null,null] : NATURES[natIdx];
+  const base = baseStats(num, g), today = baseStats(num, 9), shedinja = name === "Shedinja";
+  $("base").innerHTML = `Gen ${ROMAN[g]} base stats  ` + KEYS.map(k => base[k] !== today[k] ? `<span class="changed" title="Today: ${today[k]}">${SHORT[k]} ${base[k]}</span>` : `${SHORT[k]} ${base[k]}`).join(" · ");
+  const role = roleFor(num, g, E.max), key = role.key;
+  const sugg = [natureFor(key[0], role.lower), natureFor(key[1], role.lower)];
+  const judged = role.finName !== name ? `judged as ${esc(role.finName)}, ${role.fin.branched ? "one of its possible final evolutions" : "its final evolution"}` : "";
+  $("plan").innerHTML = `
+    <div><div class="lbl">Builds around</div><div class="k2">${key.map(k=>`<span class="keychip">★ ${LABEL[k]}</span>`).join("")}<span class="note-sm">${judged}</span></div></div>
+    <div><div class="lbl">Suggested natures</div><div class="natchips">${sugg.map((ni,i)=>{const n=NATURES[ni];return `<div class="natchip${ni===natIdx?" on":""}"><span class="rank">${i?"Second pick":"First pick"}</span><b>${n[0]}</b><small>+${SHORT[n[1]]} −${SHORT[n[2]]}</small>${ni===natIdx?'<span class="rank yours">✓ Yours</span>':""}</div>`}).join("")}</div></div>`;
+  entriesEl.querySelectorAll('label[data-k]').forEach(l => { const k = l.dataset.k; l.classList.toggle("key", key.includes(k)); l.classList.toggle("up", nat[1]===k); l.classList.toggle("down", nat[2]===k); });
+  const ts = typesOf(num, g);
+  $("who").innerHTML = `${starBtn(num)}<small>${dexNo(num)}</small>${esc(name)} ${typeChips(ts)}`;
+  $("typeline").innerHTML = weakLine(ts, g);
+  $("natline").innerHTML = natIdx < 0 ? "Nature not chosen yet" : nat[1] ? `<b>${nat[0]}</b> · raises ${LABEL[nat[1]]}, lowers ${LABEL[nat[2]]}` : `<b>${nat[0]}</b> · no stat change`;
+  if (natIdx < 0) return resetReadout("Choose its nature, then enter its level and stats from the Summary screen.");
+
+  const entries = readEntries(), sets = {}, entered = {};
+  KEYS.forEach(k => {
+    const used = entries.filter(x => Number.isFinite(x.s[k]));
+    entered[k] = used.length > 0;
+    let ivs = [...Array(32).keys()];
+    used.forEach(x => { ivs = ivs.filter(iv => calc(base[k], iv, x.e[k], x.lv, k, nat, shedinja) === x.s[k]); });
+    sets[k] = ivs;
+  });
+  const bad = [];
+  $("rows").innerHTML = KEYS.map(k => {
+    const ivs = sets[k], kc = key.includes(k) ? ' class="key"' : "";
+    const tag = nat[1]===k ? '<span class="tag up">▲</span>' : nat[2]===k ? '<span class="tag down">▼</span>' : "";
+    if (!entered[k]) return `<tr${kc}><td class="name">${LABEL[k]}${tag}</td><td class="iv">—</td><td class="barcell"><div class="bar"></div></td><td><span class="pill r-good">No data</span></td></tr>`;
+    if (!ivs.length){ bad.push(LABEL[k]); return `<tr${kc}><td class="name">${LABEL[k]}${tag}</td><td class="iv r-err">✕</td><td class="barcell"><div class="bar"></div></td><td><span class="pill r-err">No match</span></td></tr>`; }
+    const lo = ivs[0], hi = ivs[ivs.length-1];
+    const [rt, rc] = shedinja && k==="hp" ? ["Any","r-good"] : rating(lo,hi);
+    return `<tr${kc}><td class="name">${LABEL[k]}${tag}</td><td class="iv">${lo===hi?lo:`${lo}–${hi}`}</td><td class="barcell"><div class="bar"><i style="left:${lo/32*100}%;width:${(hi-lo+1)/32*100}%"></i></div><div class="ticks"><span>0</span><span>15</span><span>31</span></div></td><td><span class="pill ${rc}">${rt}</span></td></tr>`;
+  }).join("");
+  const ok = KEYS.every(k => entered[k] && sets[k].length);
+  if (ok){
+    const tlo = KEYS.reduce((a,k)=>a+sets[k][0],0), thi = KEYS.reduce((a,k)=>a+sets[k][sets[k].length-1],0);
+    $("total").textContent = tlo===thi ? `${tlo} / 186` : `${tlo}–${thi} / 186`;
+    if (g >= 8){ $("hptype").textContent = "Not in this game"; $("hppow").textContent = "Not in this game"; }
+    else {
+      const hp = hiddenPower(sets);
+      $("hptype").textContent = hp.types.length===1 ? hp.types[0] : hp.types.length<=3 ? hp.types.join(", ") : `${hp.types.length} possible`;
+      $("hppow").textContent = g >= 6 ? "Always 60" : hp.pows.length===1 ? hp.pows[0] : `${hp.pows[0]}–${hp.pows[hp.pows.length-1]}`;
+    }
+  } else { ["total","hptype","hppow"].forEach(id => $(id).textContent = "—"); }
+  const msg = $("msg");
+  if (bad.length) msg.innerHTML = `<div class="err">No IV from 0–31 produces the ${bad.join(", ")} you entered. Check the game, the level, the nature, and that the species is right. If it has battled, it has EVs: enter them under "EVs", or check a freshly caught one.</div>`;
+  else if (!entries.length) msg.innerHTML = `<div class="verdict">Enter its level and the six stats from the Summary screen.</div>`;
+  else if (ok){
+    const s1 = NATURES[sugg[0]][0], s2 = NATURES[sugg[1]][0];
+    let lean;
+    if (sugg.includes(natIdx)) lean = `${nat[0]} is one of its suggested natures.`;
+    else if (key.includes(nat[2])) lean = `${nat[0]} lowers ${LABEL[nat[2]]}, one of the stats it relies on. ${s1} or ${s2} would suit it better.`;
+    else if (key.includes(nat[1])) lean = `${nat[0]} boosts ${LABEL[nat[1]]}, which helps, though ${s1} or ${s2} is ideal.`;
+    else lean = `${nat[0]} doesn't help ${LABEL[key[0]]} or ${LABEL[key[1]]}. ${s1} or ${s2} would suit it better.`;
+    const keyIv = key.map(k => `${LABEL[k]} ${sets[k][0]===sets[k][sets[k].length-1] ? sets[k][0] : sets[k][0]+"–"+sets[k][sets[k].length-1]}`).join(", ");
+    const best = KEYS.filter(k=>!(shedinja&&k==="hp")).map(k=>[k,(sets[k][0]+sets[k][sets[k].length-1])/2]).sort((a,b)=>b[1]-a[1]);
+    msg.innerHTML = `<div class="verdict">Strongest IV: <b>${LABEL[best[0][0]]}</b>. Weakest: <b>${LABEL[best[best.length-1][0]]}</b>. Key stat IVs: <b>${keyIv}</b>. ${lean} ${entries.length===1 && entries[0].lv<30 ? "Add its stats again after a few level-ups to narrow these ranges." : ""}</div>`;
+  } else msg.innerHTML = "";
+}
+
+const evSearch = $("evSearch"), evFilter = $("evFilter"), evWild = $("evWild"), expanded = new Set();
+const COLS = [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",nosort:true},...KEYS.map(k=>({id:k,label:SHORT[k],n:true})),{id:"tot",label:"Total",n:true}];
+let sortBy = "no", sortDir = 1, evStat = "all";
+evFilter.innerHTML = [["all","All"],...KEYS.map(k=>[k,SHORT[k]])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v==="all"}">${l}</button>`).join("");
+function foundCell(ver, n){
+  if (!LOCDATA.found[ver]) return `<span class="none">No location data for ${esc(ver)}</span>`;
+  const places = placesFor(ver, n);
+  if (!places.length){ const p = earliestWild(ver, n); return p ? `<span class="evolve">Evolve ${esc(DEX[p-1][0])}</span>` : `<span class="none">Not found in the wild</span>`; }
+  const open = expanded.has(n), shown = open ? places : places.slice(0,3), extra = places.length - 3;
+  return shown.map(x => `<span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}`).join(", ") + (extra > 0 ? `<button type="button" class="more" data-n="${n}">${open ? "show less" : `+${extra} more`}</button>` : "");
+}
+function renderSheet(){
+  const E = era(), ver = state.ver, q = evSearch.value.trim().toLowerCase().replace(/^#0*/,"");
+  const si = evStat === "all" ? -1 : KEYS.indexOf(evStat), rows = [];
+  for (let n = 1; n <= E.max; n++){
+    const p = DEX[n-1], ev = p[8];
+    if (si >= 0 && !ev[si]) continue;
+    if (evWild.checked && !placesFor(ver, n).length) continue;
+    if (q && !(p[0].toLowerCase().includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q)) || placesFor(ver, n).some(x => x.place.toLowerCase().includes(q)))) continue;
+    rows.push({no:n, name:p[0], ev, tot:ev[0]+ev[1]+ev[2]+ev[3]+ev[4]+ev[5]});
+  }
+  const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : r.ev[KEYS.indexOf(sortBy)];
+  rows.sort((a,b) => { const x = val(a), y = val(b); const c = typeof x === "string" ? x.localeCompare(y) : x - y; return c ? c*sortDir : a.no - b.no; });
+  $("evHead").innerHTML = COLS.map(c => c.nosort
+    ? `<th${c.n?' class="n"':""}><button type="button" disabled${c.aria?` aria-label="${c.aria}"`:""}>${c.label}</button></th>`
+    : `<th class="${c.n?"n":""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
+  $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexNo(r.no)}</td><td class="pk">${esc(r.name)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> v ? `<td class="n"><span class="ev c-${KEYS[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="11" class="empty">No Pokémon match these filters.</td></tr>`;
+  $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${si<0 ? "" : ` that give ${LABEL[evStat]} EVs`} · ${esc(ver)}`;
+  const dn = $("evDataNote");
+  dn.hidden = !!LOCDATA.found[ver] && !PARTIAL.has(ver);
+  dn.textContent = !LOCDATA.found[ver] ? `Location data isn't available for ${ver}, so Found in is blank. EV yields are still correct.` : `Location data for ${ver} is incomplete, so some places are missing.`;
+  const cap = E.g >= 6 ? 252 : 255;
+  const items = E.g >= 4 ? `Macho Brace doubles EVs. Power items add ${E.g >= 7 ? 8 : 4} to one stat per battle.` : "Macho Brace doubles the EVs earned. Power items don't exist yet.";
+  $("evNotes").innerHTML = `
+    <div class="note"><b>How EVs are earned</b>Defeating a Pokémon gives every battler the EVs in its row. ${E.g>=6 ? "Catching it gives them too." : "Catching it gives none."}</div>
+    <div class="note"><b>Limits in Gen ${ROMAN[E.g]}</b>Up to ${cap} EVs in one stat and 510 in total. Every 4 EVs adds 1 stat point at level 100.</div>
+    <div class="note"><b>Boosters</b>${items} Pokérus doubles EVs too.</div>`;
+}
+evFilter.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; evStat = b.dataset.v; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x===b)); renderSheet(); });
+$("evHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (sortBy===c) sortDir = -sortDir; else { sortBy = c; sortDir = (c==="no"||c==="name") ? 1 : -1; } renderSheet(); });
+$("evBody").addEventListener("click", e => {
+  const s = e.target.closest(".star"); if (s) return toggleFav(Number(s.dataset.fav));
+  const b = e.target.closest(".more"); if (!b) return;
+  const n = Number(b.dataset.n); expanded.has(n) ? expanded.delete(n) : expanded.add(n); renderSheet();
+});
+let evTimer = 0;
+evSearch.addEventListener("input", () => { clearTimeout(evTimer); evTimer = setTimeout(renderSheet, 120); });
+evWild.addEventListener("change", renderSheet);
+
+function berryRule(ver, g){
+  if (["Ruby","Sapphire","FireRed","LeafGreen"].includes(ver)) return {usable:false, text:`These berries <b>can't be used on Pokémon in ${esc(ver)}</b>. Here they're only for making Pokéblocks or Berry Powder. The EV-lowering effect started in Emerald. To reset EVs in ${esc(ver)}, trade the Pokémon to Emerald, use the berries there, and trade back.`};
+  if (ver === "Emerald") return {usable:true, amount:"−10", text:"Each berry lowers that stat's EVs by 10 (never below 0) and raises friendship."};
+  if (g === 4) return {usable:true, amount:"−10 / to 100", text:"Each berry lowers that stat's EVs by 10. In Gen 4 only, if the stat has more than 110 EVs, one berry drops it straight to 100. Also raises friendship."};
+  return {usable:true, amount:"−10", text:"Each berry lowers that stat's EVs by 10 (never below 0) and raises friendship."};
+}
+function berryWhere(b, ver){
+  if (ver === "Ruby" || ver === "Sapphire") return b.where.rs;
+  if (ver === "Emerald") return b.where.e;
+  if (["Diamond","Pearl","Platinum"].includes(ver)) return b.where.dp;
+  if ((ver === "HeartGold" || ver === "SoulSilver") && b.where.hgss) return b.where.hgss;
+  return null;
+}
+function renderBerries(){
+  const ver = state.ver, g = era().g, rule = berryRule(ver, g), vitCap = g >= 8 ? 252 : 100;
+  $("berryRule").innerHTML = `<div class="note${rule.usable ? "" : " warn"}"><b>${rule.usable ? `How they work in ${esc(ver)}` : `Not usable in ${esc(ver)}`}</b>${rule.text}</div>`;
+  $("berryWhereHead").textContent = `Where to get it in ${ver}`;
+  $("berryBody").innerHTML = BERRIES.map(b => {
+    const w = berryWhere(b, ver);
+    return `<tr>
+      <td><span class="berry" style="color:${b.color}"><i></i><span style="color:var(--text)">${b.name} Berry</span></span></td>
+      <td><span class="ev c-${b.stat}">${LABEL[b.stat]}</span></td>
+      <td><span class="status ${rule.usable?"yes":"no"}">${rule.usable ? rule.amount + " EVs" : "Can't use"}</span></td>
+      <td class="vit">${b.vit} <span class="how">(+10)</span></td>
+      <td class="where">${w ? esc(w) : `<span class="none">Not listed here for ${esc(ver)}. Check Bulbapedia's page for the ${b.name} Berry.</span>`}</td>
+    </tr>`;
+  }).join("");
+  $("berryNotes").innerHTML = `
+    <div class="note"><b>Why lower EVs</b>To undo EVs that went into the wrong stat, for example Attack EVs on a special attacker like Gardevoir, so you can retrain them where they help.</div>
+    <div class="note"><b>Vitamins</b>${g >= 8 ? "Each vitamin adds 10 EVs, up to 252 in that stat." : `Each vitamin adds 10 EVs, but only works until that stat has ${vitCap} EVs. Battles have to do the rest.`} They cost ₽9,800 each at most department stores.</div>
+    <div class="note"><b>Grow more</b>Plant a berry in soft soil to grow a tree. In Ruby and Emerald, water it with the Wailmer Pail and it gives several berries back.</div>`;
+}
+function setEvSub(sub){
+  state.evSub = sub;
+  [["yields","tab-yields","pane-yields"],["berries","tab-berries","pane-berries"]].forEach(([k,t,p]) => { $(t).setAttribute("aria-selected", k===sub); $(p).hidden = k!==sub; });
+  if (sub === "berries") renderBerries(); else renderSheet();
+}
+$("tab-yields").addEventListener("click", () => setEvSub("yields"));
+$("tab-berries").addEventListener("click", () => setEvSub("berries"));
+
+const mcSearch = $("mcSearch"), mcSpecies = $("mcSpecies"), mcT1 = $("mcT1"), mcT2 = $("mcT2");
+function fillTypeSelects(){
+  const g = era().g, list = attackTypes(g), v1 = mcT1.value, v2 = mcT2.value;
+  mcT1.innerHTML = `<option value="">First type…</option>` + list.map(i => `<option value="${i}">${TYPES[i]}</option>`).join("");
+  mcT2.innerHTML = `<option value="">Second type (optional)</option>` + list.map(i => `<option value="${i}">${TYPES[i]}</option>`).join("");
+  if (list.includes(Number(v1)) && v1 !== "") mcT1.value = v1;
+  if (list.includes(Number(v2)) && v2 !== "") mcT2.value = v2;
+}
+function renderMatchups(){
+  const g = era().g, t1 = mcT1.value, t2 = mcT2.value;
+  if (t1 === ""){ $("mcOut").innerHTML = `<div class="verdict">Pick a Pokémon, or choose one or two types, to see what hits it hard and what it shrugs off.</div>`; return; }
+  const def = [Number(t1)]; if (t2 !== "" && t2 !== t1) def.push(Number(t2));
+  const m = matchups(def, g), num = Number(mcSpecies.value);
+  const row = (cls, label, list, emptyTxt) => `<div class="mrow"><span class="k ${cls}">${label}</span><div class="chips">${list.length ? typeChips(list) : `<span class="note-sm">${emptyTxt}</span>`}</div></div>`;
+  const title = num && typesOf(num,g).join() === def.join() ? `${esc(DEX[num-1][0])} · ` : "";
+  $("mcOut").innerHTML = `<p class="note-sm" style="margin:0 0 10px">${title}${typeChips(def)} defending in Gen ${ROMAN[g]}</p><div class="mgrid">
+    ${row("x4","4× weak",m.x4,"None")}${row("x2","2× weak",m.x2,"None")}${row("h","½ resist",m.h,"None")}${row("q","¼ resist",m.q,"None")}${row("z","Immune",m.z,"None")}</div>`;
+}
+function renderTypeChart(){
+  const g = era().g, list = attackTypes(g);
+  const ps = i => g <= 3 ? `<span class="ps">${SPECIAL_G3.has(i) ? "Spec" : "Phys"}</span>` : "";
+  const head = `<thead><tr><th class="corner">Attack ↓<br>Defend →</th>${list.map(d => `<th scope="col" data-col="${d}"><span class="ty t${d}">${TYPES[d]}</span></th>`).join("")}</tr></thead>`;
+  const body = `<tbody>${list.map(a => `<tr><th scope="row"><span class="ty t${a}">${TYPES[a]}</span>${ps(a)}</th>${list.map(d => { const v = eff(a,[d],g); const cls = v===2?"e2":v===.5?"e5":v===0?"e0":"e1"; const txt = v===2?"2":v===.5?"½":v===0?"0":"1"; return `<td class="${cls}" data-col="${d}" title="${TYPES[a]} → ${TYPES[d]}: ${txt}×">${txt}</td>`; }).join("")}</tr>`).join("")}</tbody>`;
+  $("typeChart").innerHTML = head + body;
+}
+$("typeChart").addEventListener("mouseover", e => {
+  const c = e.target.closest("[data-col]"), col = c ? c.dataset.col : null;
+  $("typeChart").querySelectorAll("td.colhi").forEach(x => x.classList.remove("colhi"));
+  if (col !== null) $("typeChart").querySelectorAll(`td[data-col="${col}"]`).forEach(x => x.classList.add("colhi"));
+});
+$("typeChart").addEventListener("mouseleave", () => $("typeChart").querySelectorAll("td.colhi").forEach(x => x.classList.remove("colhi")));
+function renderTypeNotes(){
+  const g = era().g, notes = [];
+  if (g <= 3) notes.push(`<div class="note"><b>Physical or special is set by type</b>In Gen 3 every move of a type uses the same attack stat. Fire, Water, Grass, Electric, Ice, Psychic, Dragon and Dark moves use Sp. Atk; all other types use Attack. The chart marks each row Phys or Spec.</div>`);
+  else notes.push(`<div class="note"><b>Physical or special is set by move</b>From Gen 4 on, each move has its own category, so a Fire move can be physical (Fire Punch) or special (Flamethrower).</div>`);
+  if (g < 6) notes.push(`<div class="note"><b>No Fairy type yet</b>Fairy arrives in Gen 6. Until then Steel also resists Ghost and Dark, and Pokémon like Gardevoir and Azumarill have their older types.</div>`);
+  else notes.push(`<div class="note"><b>Fairy type</b>Fairy beats Dragon, Fighting and Dark. Steel lost its resistance to Ghost and Dark when Fairy was added.</div>`);
+  notes.push(`<div class="note"><b>Dual types multiply</b>A 2× weakness on both types becomes 4×. A weakness on one and a resistance on the other cancels out to normal damage.</div>`);
+  notes.push(`<div class="note"><b>Same-type bonus</b>A move that matches the user's own type does 1.5× damage. Weakness and STAB stack.</div>`);
+  $("typeNotes").innerHTML = notes.join("");
+}
+function renderTypes(){
+  speciesOptions(mcSpecies, mcSearch, "Choose a Pokémon…");
+  fillTypeSelects();
+  const num = Number(mcSpecies.value);
+  if (num){ const ts = typesOf(num, era().g); mcT1.value = ts[0]; mcT2.value = ts[1] ?? ""; }
+  renderMatchups(); renderTypeChart(); renderTypeNotes();
+}
+mcSearch.addEventListener("input", () => { speciesOptions(mcSpecies, mcSearch, "Choose a Pokémon…"); const num = Number(mcSpecies.value); if (num){ const ts = typesOf(num, era().g); mcT1.value = ts[0]; mcT2.value = ts[1] ?? ""; } renderMatchups(); });
+mcSpecies.addEventListener("change", () => { const num = Number(mcSpecies.value); if (num){ const ts = typesOf(num, era().g); mcT1.value = ts[0]; mcT2.value = ts[1] ?? ""; } else { mcT1.value = ""; mcT2.value = ""; } renderMatchups(); });
+[mcT1, mcT2].forEach(s => s.addEventListener("change", () => { mcSpecies.value = ""; renderMatchups(); }));
+
+function introEra(n){ return ERAS.findIndex(e => n <= e.max); }
+function evoLine(n, max){
+  let root = n; while (PREVO[root]) root = PREVO[root];
+  const stages = []; let layer = [root];
+  while (layer.length && stages.length < 4){ stages.push(layer); layer = layer.flatMap(x => DEX[x-1][7].filter(k => k <= max)); }
+  if (stages.length === 1) return `<span class="muted">Doesn't evolve</span>`;
+  return stages.map(l => l.map(x => `<span class="stage${x===n?" me":""}">${esc(DEX[x-1][0])}</span>`).join('<span class="arrow">/</span>')).join('<span class="arrow">→</span>');
+}
+function statHistory(n){
+  const hist = ERA_STATS[n]; if (!hist) return "";
+  const today = baseStats(n, 9); let from = 3;
+  const lines = hist.map(([maxG, s]) => { const d = KEYS.map((k,i) => s[i] !== today[k] ? `${SHORT[k]} ${s[i]}` : null).filter(Boolean).join(", "); const line = `Gen ${from}${maxG>from?"–"+maxG:""}: <b>${d}</b>`; from = maxG + 1; return line; });
+  return `<p class="hist">Older base stats: ${lines.join(" · ")}</p>`;
+}
+function favCard(n){
+  const ei = state.ei, ver = state.ver, E = ERAS[ei], useEi = n <= E.max ? ei : introEra(n), EE = ERAS[useEi], g = EE.g, name = DEX[n-1][0];
+  const base = baseStats(n, g), today = baseStats(n, 9), role = roleFor(n, g, EE.max), key = role.key;
+  const sugg = [natureFor(key[0], role.lower), natureFor(key[1], role.lower)];
+  const bst = KEYS.reduce((a,k)=>a+base[k],0), ev = DEX[n-1][8], ts = typesOf(n, g), m = matchups(ts, g);
+  const gennote = useEi !== ei ? `<span class="gennote">Not in Gen ${ROMAN[E.g]} · showing Gen ${ROMAN[g]}</span>` : "";
+  const bars = KEYS.map(k => `<span class="k${key.includes(k)?" key":""}">${SHORT[k]}${key.includes(k)?" ★":""}</span><span class="v${base[k]!==today[k]?" changed":""}"${base[k]!==today[k]?` title="Today: ${today[k]}"`:""}>${base[k]}</span><span class="track"><i style="width:${Math.min(100,base[k]/255*100)}%"></i></span>`).join("");
+  const evs = ev.some(Boolean) ? ev.map((v,i) => v ? `<span class="ev c-${KEYS[i]}">${v} ${SHORT[KEYS[i]]}</span>` : "").join("") + `<span class="muted">· ${ev.reduce((a,b)=>a+b,0)} per defeat</span>` : `<span class="muted">Gives no EVs</span>`;
+  let found;
+  if (n > E.max) found = `<p class="muted">Doesn't exist in ${esc(ver)}.</p>`;
+  else if (!LOCDATA.found[ver]) found = `<p class="muted">No location data for ${esc(ver)}.</p>`;
+  else {
+    const places = placesFor(ver, n);
+    if (places.length) found = `<ul class="places">${places.map(x => `<li><span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}</li>`).join("")}</ul>`;
+    else { const p = earliestWild(ver, n); found = p ? `<p class="muted">Not found in the wild. Evolve ${esc(DEX[p-1][0])}, found at ${placesFor(ver,p).slice(0,3).map(x=>esc(x.place)).join(", ")}${placesFor(ver,p).length>3?" and more":""}.</p>` : `<p class="muted">Not found in the wild in ${esc(ver)}.</p>`; }
+  }
+  const mini = (label, cls, list) => list.length ? `<div><span class="k" style="color:var(--${cls})">${label}</span>${typeChips(list)}</div>` : "";
+  return `<article class="card" aria-labelledby="fav-${n}">
+    <div class="card-head">
+      <div class="card-name">${starBtn(n)}<span class="no">${dexNo(n)}</span><h3 id="fav-${n}">${esc(name)}</h3>${typeChips(ts)}${gennote}</div>
+      <button type="button" class="btn small" data-open="${n}" data-era="${useEi}">Open in IV calculator</button>
+    </div>
+    <div class="card-body">
+      <div class="cell"><h4>Base stats · Gen ${ROMAN[g]}</h4><div class="bs">${bars}<span class="tot">Total <b>${bst}</b></span></div>${statHistory(n)}</div>
+      <div class="cell"><h4>Builds around</h4><div class="k2">${key.map(k=>`<span class="keychip">★ ${LABEL[k]}</span>`).join("")}</div>
+        <h4>Suggested natures</h4><div class="natchips">${sugg.map((ni,i)=>{const nt=NATURES[ni];return `<div class="natchip"><span class="rank">${i?"Second pick":"First pick"}</span><b>${nt[0]}</b><small>+${SHORT[nt[1]]} −${SHORT[nt[2]]}</small></div>`}).join("")}</div></div>
+      <div class="cell"><h4>Weak and resistant · Gen ${ROMAN[g]}</h4><div class="mini">${mini("4×","red",m.x4)}${mini("2×","peach",m.x2)}${mini("½","green",m.h)}${mini("¼","teal",m.q)}${mini("0×","blue",m.z)}</div></div>
+      <div class="cell"><h4>EV yield</h4><div class="evrow">${evs}</div><h4>Evolution line</h4><div class="evo">${evoLine(n, EE.max)}</div></div>
+      <div class="cell"><h4>Found in · ${esc(ver)}</h4>${found}</div>
+    </div>
+  </article>`;
+}
+function renderFavs(){
+  $("favGame").textContent = `Showing details for Gen ${ROMAN[era().g]} · ${state.ver}. Change the game in the top bar.`;
+  const nums = [...favs].sort((a,b)=>a-b);
+  $("favList").innerHTML = nums.length ? nums.map(favCard).join("") : `<div class="fav-empty"><div class="big">☆</div><p><b>No favorites yet.</b></p><p>Tap the ☆ next to any Pokémon in EV Training, or next to its name in the IV readout. It shows up here with all its details on one card.</p></div>`;
+}
+$("favList").addEventListener("click", e => {
+  const s = e.target.closest(".star"); if (s) return toggleFav(Number(s.dataset.fav));
+  const o = e.target.closest("[data-open]"); if (!o) return;
+  const n = Number(o.dataset.open);
+  if (Number(o.dataset.era) !== state.ei) setGame(Number(o.dataset.era), null);
+  searchIn.value = ""; speciesOptions(speciesSel, searchIn, "Choose a Pokémon…"); speciesSel.value = n; runCalc();
+  showView("calc");
+});
+function persistFavs(){
+  const nums = [...favs].sort((a,b)=>a-b);
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(nums)); } catch(_) {}
+  if (favDoc) favDoc.set({nums}).catch(() => { favDoc = null; setSaveNote("local"); });
+}
+function setSaveNote(mode){
+  const el = $("saveNote"); el.className = "savenote " + mode;
+  el.querySelector("span").textContent = mode === "cloud" ? "Saved to your account, so they follow you to other devices" : mode === "local" ? (IS_APP ? "Saved on this computer" : "Saved in this browser only") : "Checking where favorites are saved…";
+}
+function favsChanged(){
+  $("favCount").textContent = favs.size ? `(${favs.size})` : "";
+  dirty.evs = dirty.favs = true;
+  runCalc();
+  renderActive();
+}
+function toggleFav(n){ if (!n) return; favs.has(n) ? favs.delete(n) : favs.add(n); persistFavs(); favsChanged(); }
+$("who").addEventListener("click", e => { const s = e.target.closest(".star"); if (s) toggleFav(Number(s.dataset.fav)); });
+
+const VIEWS = ["calc","evs","types","secret","favs"];
+const wsLinks = [...document.querySelectorAll(".ws a")];
+function renderActive(){
+  const v = state.view;
+  if (v === "evs" && dirty.evs){ dirty.evs = false; state.evSub === "berries" ? renderBerries() : renderSheet(); }
+  if (v === "types" && dirty.types){ dirty.types = false; renderTypes(); }
+  if (v === "favs" && dirty.favs){ dirty.favs = false; renderFavs(); }
+  if (v === "secret" && dirty.secret){ dirty.secret = false; renderSecret(); }
+}
+function showView(v){
+  if (!VIEWS.includes(v)) v = "calc";
+  state.view = v;
+  VIEWS.forEach(x => { $("view-" + x).hidden = x !== v; });
+  wsLinks.forEach(a => a.classList.toggle("on", a.dataset.view === v));
+  renderActive();
+  window.scrollTo(0,0);
+  try { history.replaceState(null, "", "#" + (v === "evs" && state.evSub === "berries" ? "berries" : v)); } catch(_) {}
+}
+wsLinks.forEach(a => a.addEventListener("click", e => { e.preventDefault(); showView(a.dataset.view); }));
+const calcWins = [...document.querySelectorAll("#view-calc .win")];
+function focusWin(w){ calcWins.forEach(x => x.classList.toggle("active", x === w)); }
+calcWins.forEach(w => { w.addEventListener("focusin", () => focusWin(w)); w.addEventListener("pointerdown", () => focusWin(w)); });
+
+function setGame(ei, ver){
+  state.ei = ei; gameGen.value = ei;
+  if (ver) state.ver = ver;
+  fillVersions(); saveGame();
+  speciesOptions(speciesSel, searchIn, "Choose a Pokémon…");
+  dirty.evs = dirty.types = dirty.favs = dirty.secret = true;
+  runCalc(); renderActive();
+}
+gameGen.addEventListener("change", () => setGame(Number(gameGen.value), null));
+gameVer.addEventListener("change", () => { state.ver = gameVer.value; saveGame(); dirty.evs = dirty.favs = dirty.secret = true; renderActive(); });
+searchIn.addEventListener("input", () => { speciesOptions(speciesSel, searchIn, "Choose a Pokémon…"); runCalc(); });
+speciesSel.addEventListener("change", runCalc);
+natureSel.addEventListener("change", runCalc);
+$("add").addEventListener("click", () => { const d = addEntry(); d.querySelector('[data-role="lv"]').focus(); runCalc(); });
+
+(async () => {
+  try {
+    const user = await window.claude?.use?.("user");
+    const db = await window.claude?.use?.("db");
+    const id = user ? await user.id() : null;
+    if (!db || !id) { setSaveNote("local"); return; }
+    favDoc = db.doc(`data/users/${id}/favorites`);
+    favDoc.onSnapshot(snap => {
+      setSaveNote("cloud");
+      if (!snap.exists) return;
+      const nums = snap.data()?.nums;
+      if (!Array.isArray(nums)) return;
+      favs = new Set(nums.filter(n => Number.isInteger(n) && n>=1 && n<=1025));
+      try { localStorage.setItem(FAV_KEY, JSON.stringify([...favs])); } catch(_) {}
+      favsChanged();
+    }, () => { favDoc = null; setSaveNote("local"); });
+  } catch(_) { setSaveNote("local"); }
+})();
+
+const SPECIAL_G3_NAMES = new Set(["Fire","Water","Grass","Electric","Psychic","Ice","Dragon","Dark"]);
+const HP_ORDER = ["hp","atk","def","spe","spa","spd"];
+const tchip = (t, sm) => `<span class="ty t${TYPES.indexOf(t)}${sm ? "" : " big"}">${t}</span>`;
+const clampInt = (v, lo, hi, d) => { const n = parseInt(v, 10); return Number.isFinite(n) ? Math.max(lo, Math.min(hi, n)) : d; };
+
+function calcState(){
+  const E = era(), g = E.g, num = Number(speciesSel.value) || 0;
+  const natIdx = natureSel.value === "" ? -1 : Number(natureSel.value);
+  const st = {g, max:E.max, num, nat: natIdx < 0 ? null : NATURES[natIdx]};
+  const entries = readEntries();
+  st.lv = entries.length ? entries[entries.length-1].lv : null;
+  if (!num) return st;
+  st.name = DEX[num-1][0]; st.base = baseStats(num, g); st.shed = st.name === "Shedinja";
+  st.key = roleFor(num, g, E.max).key;
+  if (st.nat){
+    st.sets = {};
+    KEYS.forEach(k => {
+      const used = entries.filter(x => Number.isFinite(x.s[k]));
+      let ivs = [...Array(32).keys()];
+      used.forEach(x => { ivs = ivs.filter(iv => calc(st.base[k], iv, x.e[k], x.lv, k, st.nat, st.shed) === x.s[k]); });
+      st.sets[k] = used.length && ivs.length ? ivs : null;
+    });
+  }
+  return st;
+}
+
+function hpFromIvs(iv){
+  let a = 0, b = 0;
+  HP_ORDER.forEach((k,i) => { a += (iv[k] & 1) << i; b += ((iv[k] >> 1) & 1) << i; });
+  return {type:HP_TYPES[Math.floor(a*15/63)], power:Math.floor(b*40/63)+30};
+}
+const HP_PENALTY = {hp:2,atk:1,def:2,spa:3,spd:2,spe:3};
+const HP_BEST = (() => {
+  const best = {};
+  for (let m = 0; m < 64; m++){
+    const iv = {};
+    HP_ORDER.forEach((k,i) => iv[k] = (m >> i) & 1 ? 31 : 30);
+    const t = hpFromIvs(iv).type;
+    const pen = KEYS.reduce((a,k) => a + (iv[k] === 30 ? HP_PENALTY[k] : 0), 0);
+    if (!best[t] || pen < best[t].pen) best[t] = {iv, pen};
+  }
+  return best;
+})();
+
+$("hpIvs").innerHTML = KEYS.map(k => `<div class="stat"><label for="hpiv-${k}">${SHORT[k]}</label><input type="number" inputmode="numeric" min="0" max="31" id="hpiv-${k}" data-k="${k}" value="31"></div>`).join("");
+function readHpIvs(){
+  const o = {}; let ok = true;
+  KEYS.forEach(k => { const v = parseInt($("hpiv-"+k).value, 10); if (!Number.isFinite(v) || v < 0 || v > 31) ok = false; o[k] = v; });
+  return ok ? o : null;
+}
+function setHpIvs(iv){ KEYS.forEach(k => { if (Number.isFinite(iv[k])) $("hpiv-"+k).value = iv[k]; }); }
+function renderHp(){
+  const g = era().g, iv = readHpIvs(), out = $("hpOut"), note = $("hpNote");
+  let cur = null;
+  if (!iv){
+    out.innerHTML = "";
+    note.innerHTML = `<div class="err">Each IV has to be a whole number from 0 to 31.</div>`;
+  } else {
+    const r = hpFromIvs(iv); cur = r.type;
+    const pow = g >= 6 ? "60" : String(r.power);
+    const cat = g === 3 ? (SPECIAL_G3_NAMES.has(r.type) ? "Special" : "Physical") : "Special";
+    out.innerHTML = `
+      <div class="sum"><div class="k">Type</div><div class="v">${tchip(r.type)}</div></div>
+      <div class="sum"><div class="k">Power</div><div class="v">${pow}${g >= 6 ? ` <small class="muted">fixed</small>` : ` <small class="muted">of 70</small>`}</div></div>
+      <div class="sum"><div class="k">Category</div><div class="v">${cat}</div></div>`;
+    const bits = [];
+    if (g >= 8) bits.push(`Hidden Power isn't in Gen ${ROMAN[g]} games. This is shown for reference.`);
+    if (g === 3) bits.push(`In Gen III a move's type decides whether it's physical or special, so ${r.type} Hidden Power uses ${cat === "Special" ? "Sp. Atk" : "Attack"}.`);
+    if (g <= 5 && r.power < 70) bits.push(`For the full 70 power, every IV needs to be one of 2, 3, 6, 7, 10, 11, 14, 15, 18, 19, 22, 23, 26, 27, 30 or 31.`);
+    if (g <= 5 && r.power === 70) bits.push(`That's the strongest Hidden Power possible in this generation.`);
+    if (g >= 6 && g <= 7) bits.push(`From Gen VI on, Hidden Power is always 60 power, so only the type depends on IVs.`);
+    note.innerHTML = bits.length ? `<div class="verdict">${bits.join(" ")}</div>` : "";
+  }
+  $("hpBest").innerHTML = HP_TYPES.map(t => {
+    const b = HP_BEST[t].iv;
+    return `<tr${t === cur ? ' class="cur"' : ""}><td>${tchip(t, true)}</td>${KEYS.map(k => `<td${b[k] === 30 ? ' class="iv30"' : ""}>${b[k]}</td>`).join("")}<td><button type="button" class="mini" data-hpt="${t}" aria-label="Load IVs for ${t} Hidden Power">Load</button></td></tr>`;
+  }).join("");
+}
+$("hpIvs").addEventListener("input", () => { $("hpMsg").innerHTML = ""; renderHp(); });
+$("hpAll31").addEventListener("click", () => { setHpIvs(Object.fromEntries(KEYS.map(k => [k,31]))); $("hpMsg").innerHTML = ""; renderHp(); });
+$("hpBest").addEventListener("click", e => { const b = e.target.closest("[data-hpt]"); if (!b) return; setHpIvs(HP_BEST[b.dataset.hpt].iv); $("hpMsg").innerHTML = ""; renderHp(); });
+$("hpFromReadout").addEventListener("click", () => {
+  const st = calcState(), msg = $("hpMsg");
+  if (!st.num || !st.nat || !st.sets){ msg.innerHTML = `<div class="verdict">Pick a Pokémon and its nature in the Summary screen and enter its stats first.</div>`; return; }
+  const exact = {}, ranges = [], missing = [];
+  KEYS.forEach(k => { const s = st.sets[k]; if (!s) missing.push(SHORT[k]); else if (s.length === 1) exact[k] = s[0]; else ranges.push(`${SHORT[k]} ${s[0]}–${s[s.length-1]}`); });
+  setHpIvs(exact);
+  renderHp();
+  if (missing.length) msg.innerHTML = `<div class="verdict">No IV yet for ${missing.join(", ")}. Enter those stats in the Summary screen, or type the IVs here.</div>`;
+  else if (ranges.length) msg.innerHTML = `<div class="verdict">Loaded the exact IVs. These are still ranges: <b>${ranges.join(", ")}</b>. Level it up and add its stats again to pin them down, or type a value here to test.</div>`;
+  else msg.innerHTML = `<div class="verdict">Loaded ${st.name}'s IVs from the readout.</div>`;
+});
+
+const EVC_KEY = "iv31-evcalc";
+let evc = {ev:[0,0,0,0,0,0], lv:null};
+try {
+  const r = JSON.parse(localStorage.getItem(EVC_KEY) || "null");
+  if (r && Array.isArray(r.ev) && r.ev.length === 6) evc = {ev:r.ev.map(v => clampInt(v,0,255,0)), lv:Number.isInteger(r.lv) && r.lv >= 1 && r.lv <= 100 ? r.lv : null};
+} catch(_) {}
+const saveEvc = () => { try { localStorage.setItem(EVC_KEY, JSON.stringify(evc)); } catch(_) {} };
+const evcUndo = [];
+const evCap = g => g >= 6 ? 252 : 255;
+const evTotal = () => evc.ev.reduce((a,b) => a+b, 0);
+const ptsAt = (ev, L) => Math.floor(Math.floor(ev/4) * L / 100);
+const VITAMINS = [["HP Up","hp"],["Protein","atk"],["Iron","def"],["Calcium","spa"],["Zinc","spd"],["Carbos","spe"]];
+const POWER_ITEMS = [["Power Weight","hp"],["Power Bracer","atk"],["Power Belt","def"],["Power Lens","spa"],["Power Band","spd"],["Power Anklet","spe"]];
+
+$("evcRows").innerHTML = KEYS.map((k,i) => `<tr data-k="${k}">
+  <td class="name" id="evcN-${k}">${LABEL[k]}</td>
+  <td><div class="ctl"><input type="number" inputmode="numeric" min="0" max="255" id="evcE-${k}" data-i="${i}" aria-label="${LABEL[k]} EVs"><button type="button" class="mini" data-i="${i}" data-d="-4" aria-label="Remove 4 ${LABEL[k]} EVs">−4</button><button type="button" class="mini" data-i="${i}" data-d="4" aria-label="Add 4 ${LABEL[k]} EVs">+4</button><button type="button" class="mini" data-i="${i}" data-d="max" aria-label="Put as many EVs as useful into ${LABEL[k]}">Max</button></div></td>
+  <td class="barcell"><div class="bar cap"><i id="evcB-${k}" style="left:0;width:0"></i></div><div class="ticks"><span>0</span><span id="evcC-${k}">252</span></div></td>
+  <td class="pts" id="evcP-${k}"></td>
+  <td class="nextpt" id="evcX-${k}"></td>
+</tr>`).join("");
+$("evcVit").innerHTML = VITAMINS.map(([n,k],i) => `<option value="${i}">${n} (+10 ${LABEL[k]})</option>`).join("");
+
+function evGain(st, k, ev, L){
+  if (st.num){
+    if (st.shed && k === "hp") return {lo:0, hi:0, exact:true, stat:null};
+    const nat = st.nat || ["",null,null];
+    const ivs = st.sets && st.sets[k] ? st.sets[k] : null;
+    const pool = ivs || [...Array(32).keys()];
+    let lo = Infinity, hi = -Infinity;
+    pool.forEach(iv => { const d = calc(st.base[k], iv, ev, L, k, nat, false) - calc(st.base[k], iv, 0, L, k, nat, false); lo = Math.min(lo, d); hi = Math.max(hi, d); });
+    let stat = null;
+    if (ivs && st.nat){ const a = calc(st.base[k], ivs[0], ev, L, k, nat, false), b = calc(st.base[k], ivs[ivs.length-1], ev, L, k, nat, false); stat = a === b ? `${a}` : `${a}–${b}`; }
+    return {lo, hi, exact:true, stat};
+  }
+  const p = ptsAt(ev, L);
+  return {lo:p, hi:p, exact:false, stat:null};
+}
+
+function fillFoes(){
+  const max = era().max, q = $("evcFoeQ").value.trim().toLowerCase().replace(/^#0*/,""), sel = $("evcFoe"), prev = Number(sel.value) || 0;
+  const list = [];
+  for (let n = 1; n <= max; n++){
+    const name = DEX[n-1][0];
+    if (!q || name.toLowerCase().includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q))) list.push(n);
+  }
+  const yieldTxt = n => DEX[n-1][8].map((v,i) => v ? `${v} ${SHORT[KEYS[i]]}` : "").filter(Boolean).join(", ") || "no EVs";
+  sel.innerHTML = list.length ? (q ? "" : `<option value="">Choose a Pokémon…</option>`) + list.map(n => `<option value="${n}">${dexNo(n)} ${DEX[n-1][0]} · ${yieldTxt(n)}</option>`).join("") : `<option value="">No Pokémon match</option>`;
+  if (list.includes(prev)) sel.value = prev; else if (q && list.length) sel.value = list[0];
+}
+function fillItems(){
+  const g = era().g, sel = $("evcItem"), prev = sel.value, pw = g >= 7 ? 8 : 4;
+  sel.innerHTML = `<option value="none">None</option><option value="brace">Macho Brace (×2)</option>` + (g >= 4 ? POWER_ITEMS.map(([n,k],i) => `<option value="p${i}">${n} (+${pw} ${SHORT[k]})</option>`).join("") : "");
+  if ([...sel.options].some(o => o.value === prev)) sel.value = prev;
+}
+
+let evcLastG = null;
+function renderEvc(){
+  const st = calcState(), g = st.g, cap = evCap(g);
+  if (evcLastG !== g){ evcLastG = g; fillItems(); fillFoes(); }
+  evc.ev = evc.ev.map(v => Math.min(cap, v));
+  const total = evTotal(), left = Math.max(0, 510 - total);
+  const L = evc.lv || st.lv || 100;
+  const lvIn = $("evcLv");
+  if (document.activeElement !== lvIn) lvIn.value = L;
+  $("evcLvNote").innerHTML = evc.lv ? (st.lv && st.lv !== evc.lv ? `Set by you · <button type="button" id="evcFollow">match Summary (Lv ${st.lv})</button>` : "Set by you") : st.lv ? "Matches the Summary screen" : "No level in the Summary screen yet";
+
+  if (st.num){
+    const ivTxt = !st.nat ? "Choose its nature in the Summary screen for exact stat points." : KEYS.every(k => st.sets && st.sets[k] && st.sets[k].length === 1) ? "Using its exact IVs from the readout." : "Some IVs are still ranges, so a few numbers show a range.";
+    $("evcWho").innerHTML = `Tracking <b>${st.name}</b>${st.nat ? ` · <b>${st.nat[0]}</b>` : ""} · Gen ${ROMAN[g]} rules. ${ivTxt}`;
+  } else {
+    $("evcWho").innerHTML = `Gen ${ROMAN[g]} rules. Pick a Pokémon in the Summary screen to see its exact stat points. Until then the points are estimates.`;
+  }
+
+  KEYS.forEach((k,i) => {
+    const ev = evc.ev[i], inp = $("evcE-"+k);
+    inp.max = cap;
+    if (document.activeElement !== inp) inp.value = ev;
+    $("evcN-"+k).classList.toggle("key", !!(st.key && st.key.includes(k)));
+    $("evcC-"+k).textContent = cap;
+    const bar = $("evcB-"+k);
+    bar.style.width = (ev / cap * 100) + "%";
+    bar.classList.toggle("over", g <= 5 && ev > 252);
+    const gn = evGain(st, k, ev, L), g100 = evGain(st, k, ev, 100);
+    const range = (a,b) => a === b ? `+${a}` : `+${a}–${b}`;
+    const sub = [];
+    if (L !== 100) sub.push(`Lv 100: ${range(g100.lo, g100.hi)}`);
+    if (gn.stat) sub.push(`stat ${gn.stat}`);
+    $("evcP-"+k).innerHTML = `${gn.exact ? "" : "≈"}${range(gn.lo, gn.hi)}${sub.length ? `<small>${sub.join(" · ")}</small>` : ""}`;
+    let next;
+    if (st.shed && k === "hp") next = "HP is always 1";
+    else if (ev >= 252) next = "Maxed";
+    else if (!left) next = "No EVs left";
+    else {
+      const lim = Math.min(252, ev + left), base = gn.lo;
+      next = "Not reachable";
+      for (let e2 = ev + 1; e2 <= lim; e2++){ if (evGain(st, k, e2, L).lo > base){ next = `+${e2 - ev} EVs`; break; } }
+      if (next === "Not reachable" && L < 100) next = "Needs more levels";
+    }
+    $("evcX-"+k).textContent = next;
+  });
+
+  const wasted = evc.ev.reduce((a,v) => a + (v > 252 ? v - 252 : v % 4), 0);
+  $("evcSum").innerHTML = `
+    <div class="sum"><div class="k">EVs used</div><div class="v${total > 510 ? " bad" : ""}">${total} / 510</div></div>
+    <div class="sum"><div class="k">EVs left</div><div class="v${left === 0 ? " ok" : ""}">${left}</div></div>
+    <div class="sum"><div class="k">Points left</div><div class="v">+${splitPts(left, 100)}<small class="muted"> at Lv 100</small></div></div>
+    <div class="sum"><div class="k">Wasted EVs</div><div class="v${wasted ? " bad" : " ok"}">${wasted}</div></div>`;
+  const tips = [];
+  if (total > 510) tips.push(`That's more than the 510 EVs a Pokémon can have in total. Lower some stats.`);
+  if (wasted) tips.push(`${wasted} EV${wasted === 1 ? " isn't" : "s aren't"} adding anything at level 100. Stat points come in steps of 4 EVs${g <= 5 ? ", and anything over 252 in one stat is lost" : ""}.`);
+  $("evcMsg").innerHTML = tips.length ? `<div class="${total > 510 ? "err" : "verdict"}">${tips.join(" ")}</div>` : "";
+  renderConv(L, left, total);
+  saveEvc();
+}
+
+function splitPts(ev, L){
+  let r = ev, p = 0;
+  while (r > 0){ const c = Math.min(252, r); p += ptsAt(c, L); r -= c; }
+  return p;
+}
+function renderConv(L, left, total){
+  const cols = [...new Set([L, 50, 100])].sort((a,b) => a-b);
+  $("evcConvHead").innerHTML = `<tr><th>EVs</th>${cols.map(l => `<th>Lv ${l}${l === L ? " (yours)" : ""}</th>`).join("")}</tr>`;
+  const rows = [[4,"1 step"],[8,""],[20,""],[40,""],[100,""],[128,""],[252,"one stat, maxed"]];
+  const html = rows.map(([e,t]) => `<tr><td>${e}${t ? ` <small>${t}</small>` : ""}</td>${cols.map(l => `<td>+${ptsAt(e,l)}</td>`).join("")}</tr>`);
+  html.push(`<tr><td>510 <small>all of them (252 + 252 + 6)</small></td>${cols.map(l => `<td>+${ptsAt(252,l)*2 + ptsAt(6,l)}</td>`).join("")}</tr>`);
+  html.push(`<tr class="you"><td>${total} <small>your EVs used</small></td>${cols.map(l => `<td>+${evc.ev.reduce((a,v) => a + ptsAt(Math.min(v,252), l), 0)}</td>`).join("")}</tr>`);
+  html.push(`<tr class="you"><td>${left} <small>your EVs left</small></td>${cols.map(l => `<td>+${splitPts(left, l)}</td>`).join("")}</tr>`);
+  $("evcConv").innerHTML = html.join("");
+  $("evcConvNote").textContent = `Every 4 EVs in a stat gives 1 stat point at level 100. Below 100 you get a share of that, and the rest shows up as it levels. These are typical numbers; the real stat can be 1 off because of rounding and nature.`;
+}
+
+function setEv(i, v){
+  const cap = evCap(era().g), others = evTotal() - evc.ev[i];
+  evc.ev[i] = Math.max(0, Math.min(cap, v, 510 - others));
+}
+function pushUndo(){ evcUndo.push(evc.ev.slice()); if (evcUndo.length > 30) evcUndo.shift(); }
+function logLine(html){ $("evcLog").innerHTML = html + (evcUndo.length ? ` <button type="button" class="mini" id="evcUndo">Undo</button>` : ""); }
+
+$("evcRows").addEventListener("input", e => {
+  const inp = e.target.closest("input[data-i]"); if (!inp) return;
+  const i = Number(inp.dataset.i), v = clampInt(inp.value, 0, 255, 0);
+  setEv(i, v);
+  if (evc.ev[i] !== v && inp.value !== "") inp.value = evc.ev[i];
+  renderEvc();
+});
+$("evcRows").addEventListener("change", e => { const inp = e.target.closest("input[data-i]"); if (inp) inp.value = evc.ev[Number(inp.dataset.i)]; });
+$("evcRows").addEventListener("click", e => {
+  const b = e.target.closest("button[data-d]"); if (!b) return;
+  const i = Number(b.dataset.i), d = b.dataset.d;
+  pushUndo();
+  if (d === "max") setEv(i, Math.min(252, evc.ev[i] + Math.max(0, 510 - evTotal())));
+  else setEv(i, evc.ev[i] + Number(d));
+  renderEvc();
+});
+$("evcLv").addEventListener("input", e => { const v = parseInt(e.target.value, 10); if (Number.isFinite(v) && v >= 1 && v <= 100){ evc.lv = v; renderEvc(); } });
+$("evcLv").addEventListener("change", e => { e.target.value = evc.lv || calcState().lv || 100; });
+$("evcLvNote").addEventListener("click", e => { if (e.target.id === "evcFollow"){ evc.lv = null; renderEvc(); } });
+$("evcReset").addEventListener("click", () => { pushUndo(); evc.ev = [0,0,0,0,0,0]; logLine("Cleared all EVs."); renderEvc(); });
+$("evcLog").addEventListener("click", e => { if (e.target.id !== "evcUndo" || !evcUndo.length) return; evc.ev = evcUndo.pop(); logLine("Undone."); renderEvc(); });
+function lastEntry(){ const all = entriesEl.querySelectorAll(".entry"); return all[all.length-1]; }
+$("evcLoad").addEventListener("click", () => {
+  const d = lastEntry(); if (!d) return;
+  pushUndo();
+  const cap = evCap(era().g);
+  evc.ev = KEYS.map(k => clampInt(d.querySelector(`[data-role="e"][data-k="${k}"]`).value, 0, cap, 0));
+  logLine("Loaded the EVs from the last level entry in the Summary screen.");
+  renderEvc();
+});
+$("evcSend").addEventListener("click", () => {
+  const d = lastEntry(); if (!d) return;
+  KEYS.forEach((k,i) => { d.querySelector(`[data-role="e"][data-k="${k}"]`).value = evc.ev[i] || ""; });
+  const det = d.querySelector("details"); if (det) det.open = true;
+  logLine("Sent these EVs to the last level entry in the Summary screen, so the IV readout uses them.");
+  runCalc();
+});
+$("evcFoeQ").addEventListener("input", fillFoes);
+$("evcAddFoe").addEventListener("click", () => {
+  const n = Number($("evcFoe").value);
+  if (!n){ logLine("Choose the Pokémon you defeated first."); return; }
+  const g = era().g, cap = evCap(g), pw = g >= 7 ? 8 : 4, item = $("evcItem").value, rus = $("evcRus").checked;
+  const times = clampInt($("evcTimes").value, 1, 999, 1);
+  const per = DEX[n-1][8].map((v,i) => { let x = v; if (item === "p"+i) x += pw; if (item === "brace") x *= 2; if (rus) x *= 2; return x; });
+  if (!per.some(Boolean)){ logLine(`${DEX[n-1][0]} gives no EVs.`); return; }
+  pushUndo();
+  const before = evc.ev.slice();
+  for (let t = 0; t < times; t++) for (let i = 0; i < 6; i++){ if (!per[i]) continue; const add = Math.min(per[i], cap - evc.ev[i], 510 - evTotal()); if (add > 0) evc.ev[i] += add; }
+  const got = KEYS.map((k,i) => evc.ev[i] - before[i] ? `+${evc.ev[i] - before[i]} ${SHORT[k]}` : "").filter(Boolean);
+  const expected = per.reduce((a,b) => a+b, 0) * times, actual = evc.ev.reduce((a,v,i) => a + v - before[i], 0);
+  const boosts = [item === "brace" ? "Macho Brace" : item.startsWith("p") ? POWER_ITEMS[Number(item.slice(1))][0] : "", rus ? "Pokérus" : ""].filter(Boolean);
+  logLine(`<b>${DEX[n-1][0]} ×${times}</b>${boosts.length ? ` with ${boosts.join(" and ")}` : ""}: <span class="gain">${got.join(", ") || "nothing"}</span>${actual < expected ? ` (${expected - actual} lost to the limits)` : ""}`);
+  renderEvc();
+});
+$("evcAddVit").addEventListener("click", () => {
+  const g = era().g, cap = evCap(g), [vn, k] = VITAMINS[Number($("evcVit").value)], i = KEYS.indexOf(k);
+  const n = clampInt($("evcVitN").value, 1, 26, 1), lim = g <= 7 ? 100 : cap;
+  pushUndo();
+  const before = evc.ev[i]; let used = 0;
+  for (let t = 0; t < n; t++){ if (evc.ev[i] >= lim) break; const add = Math.min(10, lim - evc.ev[i], 510 - evTotal()); if (add <= 0) break; evc.ev[i] += add; used++; }
+  if (!used){ evcUndo.pop(); logLine(`${vn} would have no effect: ${evc.ev[i] >= lim ? (g <= 7 ? `vitamins stop working once a stat has 100 EVs in Gen ${ROMAN[g]}` : "this stat is full") : "there are no EVs left"}.`); return; }
+  logLine(`Used <b>${used} ${vn}</b>: <span class="gain">+${evc.ev[i] - before} ${SHORT[k]}</span>${used < n ? ` (the other ${n - used} would do nothing${g <= 7 ? "; vitamins stop at 100 EVs in a stat" : ""})` : ""}`);
+  renderEvc();
+});
+
+const SP_ENV = [
+  {id:"GRASS", move:"Needle Arm", eff:"May poison", short:"poison", where:"Tall grass", c:"var(--green)"},
+  {id:"LONG_GRASS", move:"Magical Leaf", eff:"May put to sleep", short:"sleep", where:"Long grass, where you can't ride a bike", c:"var(--teal)"},
+  {id:"SAND", move:"Mud Shot", eff:"May lower accuracy", short:"lowers accuracy", where:"Sand, beaches, the desert and Route 113's ash", c:"var(--yellow)"},
+  {id:"WATER", move:"Surf", eff:"May lower Attack", short:"lowers Attack", where:"Surfing on the sea or deep water", c:"var(--blue)"},
+  {id:"POND", move:"Bubble Beam", eff:"May lower Speed", short:"lowers Speed", where:"Ponds, rivers, and water inside caves", c:"var(--sapphire)"},
+  {id:"UNDERWATER", move:"Waterfall", eff:"May lower Defense", short:"lowers Defense", where:"Underwater, after using Dive", c:"var(--mauve)"},
+  {id:"MOUNTAIN", move:"Rock Throw", eff:"May confuse", short:"confusion", where:"Rocky mountain ground", c:"var(--peach)"},
+  {id:"CAVE", move:"Bite", eff:"May make it flinch", short:"flinch", where:"Caves", c:"var(--red)"},
+  {id:"BUILDING", move:"Strength", eff:"May paralyze", short:"paralysis", where:"Inside buildings, Gyms, Secret Bases and link battles", c:"var(--subtext)"},
+  {id:"PLAIN", move:"Slam", eff:"May paralyze", short:"paralysis", where:"Paths, dirt and town streets", c:"var(--text)"}
+];
+const SP_ORDER = ["GRASS","LONG_GRASS","SAND","WATER","POND","UNDERWATER","MOUNTAIN","CAVE","BUILDING","PLAIN"];
+const SP_LATER = {
+  4:[["Most buildings, towns and link battles","Body Slam","May paralyze"],["Most special battle platforms","Pound","No extra effect"],["Plain ground and sand","Mud-Slap","May lower accuracy"],["Caves and rocky areas","Rock Throw","May make it flinch"],["Grassy areas and tall grass","Needle Arm","May put to sleep"],["Water","Water Pulse","May lower Attack"],["Snow","Avalanche","May freeze"],["Ice","Ice Shard","No extra effect"],["Marsh","Mud Shot","May lower Speed"]],
+  5:[["Buildings and towns","Body Slam","May paralyze"],["Sand, plain ground, rock and link battles","Mud-Slap","May lower accuracy"],["Caves","Rock Throw","May make it flinch"],["Tall grass","Needle Arm","May put to sleep"],["Water","Water Pulse","May lower Attack"],["Puddles","Mud Shot","May lower Speed"],["Snow","Avalanche","May freeze"],["Ice","Ice Shard","No extra effect"]],
+  6:[["Buildings, plain ground, Sky Battles and link battles","Body Slam","May paralyze"],["Electric Terrain","Thunder Shock","No extra effect"],["Sand and rock","Mud-Slap","May lower accuracy"],["Caves","Rock Throw","May make it flinch"],["Burial grounds","Shadow Sneak","No extra effect"],["Space","Swift","No extra effect"],["Water and underwater","Water Pulse","May lower Attack"],["Swamp water and marsh","Mud Shot","May lower Speed"],["Soaring in the sky and Sky Pillar","Gust","No extra effect"],["Snow","Avalanche","May freeze"],["Ice","Ice Shard","No extra effect"],["Volcano","Incinerate","May burn"],["Grass and Grassy Terrain","Needle Arm","May put to sleep"],["Misty Terrain","Fairy Wind","May lower Sp. Atk"]],
+  7:[["Buildings, roads, plain ground and link battles","Spit Up","May paralyze"],["Electric Terrain","Thunder Shock","No extra effect"],["Caves","Rock Throw","May make it flinch"],["Sand, dirt and rock","Mud-Slap","May lower accuracy"],["Water","Water Pulse","May lower Attack"],["Snow and ice","Ice Shard","May freeze"],["Volcano","Incinerate","May burn"],["Ultra Space","Psywave","May lower Defense"],["Grass, fields, flowers and Grassy Terrain","Needle Arm","May put to sleep"],["Misty Terrain","Fairy Wind","May lower Sp. Atk"],["Psychic Terrain","Confusion","May lower Speed"]]
+};
+const SP_GAMES = [
+  {label:"Ruby / Sapphire", g:3, data:"hoenn", hideEm:true},
+  {label:"Emerald", g:3, data:"hoenn"},
+  {label:"FireRed / LeafGreen", g:3, data:"kanto"},
+  {label:"Gen 4 · Diamond, Pearl, Platinum, HeartGold, SoulSilver", g:4},
+  {label:"Gen 5 · Black, White, Black 2, White 2", g:5},
+  {label:"Gen 6 · X, Y, Omega Ruby, Alpha Sapphire", g:6},
+  {label:"Gen 7 · Sun, Moon, Ultra Sun, Ultra Moon", g:7}
+];
+const spSearch = $("spSearch");
+let spSort = "area", spDir = 1, spEnv = "all";
+const envById = Object.fromEntries(SP_ENV.map(x => [x.id, x]));
+const areaKey = n => { const m = /^Route (\d+)/.exec(n); return m ? [0, Number(m[1]), n] : [1, 0, n]; };
+function spGameIndex(){
+  const g = era().g, v = state.ver;
+  if (g === 3) return v === "Emerald" ? 1 : (v === "FireRed" || v === "LeafGreen") ? 2 : 0;
+  return SP_GAMES.findIndex(x => x.g === g);
+}
+function renderSecret(){
+  const gi = spGameIndex(), notes = $("spNotes"), head = $("spHead"), body = $("spBody");
+  if (gi < 0){
+    $("spSearchBox").hidden = true; $("spFilterBox").hidden = true; $("spKey").innerHTML = ""; head.innerHTML = ""; body.innerHTML = "";
+    $("spLegend").innerHTML = `<b>Not in Gen ${ROMAN[era().g]}.</b> Secret Power can't be learned or used in ${esc(state.ver)}. Pick a game from Gen 3 to Gen 7 in the top bar to see where it changes.`;
+    $("spMeta").innerHTML = ""; notes.innerHTML = "";
+    return;
+  }
+  const G = SP_GAMES[gi];
+  $("spSearchBox").hidden = G.g !== 3;
+  $("spFilterBox").hidden = G.g !== 3;
+  if (G.g !== 3){
+    $("spLegend").innerHTML = `<b>How it works:</b> Secret Power is a Normal-type move (70 power, 100% accuracy, 20 PP). It looks like a different move depending on where the battle happens, and has a 30% chance of that place's extra effect. In this generation the battle background decides it, so look for the matching ground in each area.`;
+    $("spKey").innerHTML = "";
+    $("spMeta").innerHTML = `<span>${G.label}</span>`;
+    head.innerHTML = `<th><button type="button" disabled>Where you battle</button></th><th><button type="button" disabled>Looks like</button></th><th><button type="button" disabled>Extra effect (30%)</button></th>`;
+    body.innerHTML = SP_LATER[G.g].map(([w,a,e]) => `<tr><td>${w}</td><td class="anim">${a}</td><td>${e}</td></tr>`).join("");
+    head.closest("table").classList.add("later");
+    notes.innerHTML = `<div class="note"><b>Area-by-area list</b>The route-by-route table is available for the Gen 3 games, where it's worked out from the games' own map data. Pick a Gen 3 game in the top bar to see it.</div><div class="note"><b>Getting the move</b>${G.g === 4 ? "TM43 teaches Secret Power." : G.g === 6 ? "In Omega Ruby and Alpha Sapphire it's TM94." : "It isn't a TM in this generation, but Pokémon that learned it earlier can keep it."}</div>`;
+    return;
+  }
+  head.closest("table").classList.remove("later");
+  const rowsAll = SP[G.data].filter(r => !(G.hideEm && r.x));
+  const present = SP_ORDER.filter(id => rowsAll.some(r => r.e.includes(SP_ORDER.indexOf(id))));
+  if (spEnv !== "all" && !present.includes(spEnv)) spEnv = "all";
+  $("spFilter").innerHTML = [["all","All"], ...present.map(id => [id, envById[id].move])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v === spEnv}">${l}</button>`).join("");
+  $("spLegend").innerHTML = `<b>How it works:</b> Secret Power (Normal, 70 power, 100% accuracy, 20 PP, TM43) looks like a different move depending on the ground you're standing on when the battle starts, and has a 30% chance of that ground's extra effect. Each area below lists the ground types it has. The number is how much of the area's walkable ground is that type, and the outlined one is the most common.`;
+  $("spKey").innerHTML = present.map(id => { const x = envById[id]; return `<div class="note"><b style="color:${x.c}">${x.move}</b><span class="eff">${x.eff}</span><br>${x.where}</div>`; }).join("") + (present.includes("BUILDING") ? "" : `<div class="note"><b style="color:${envById.BUILDING.c}">${envById.BUILDING.move}</b><span class="eff">${envById.BUILDING.eff}</span><br>${envById.BUILDING.where}</div>`);
+  const q = spSearch.value.trim().toLowerCase();
+  let rows = rowsAll.filter(r => (!q || r.n.toLowerCase().includes(q) || r.k.toLowerCase().includes(q)) && (spEnv === "all" || r.e.includes(SP_ORDER.indexOf(spEnv))));
+  const share = (r, id) => { const j = r.e.indexOf(SP_ORDER.indexOf(id)); return j < 0 ? -1 : r.p[j]; };
+  rows.sort((a,b) => {
+    let c;
+    if (spSort === "area"){ const x = areaKey(a.n), y = areaKey(b.n); c = x[0]-y[0] || x[1]-y[1] || x[2].localeCompare(y[2]); }
+    else if (spSort === "kind") c = a.k.localeCompare(b.k) || a.n.localeCompare(b.n);
+    else c = share(a, spSort) - share(b, spSort);
+    return c * spDir || a.n.localeCompare(b.n);
+  });
+  const th = (id, label, sub) => `<th${id !== "area" && id !== "kind" ? ' class="n"' : ""}${spSort === id ? ` aria-sort="${spDir > 0 ? "ascending" : "descending"}"` : ""}><button type="button" data-c="${id}">${label}${spSort === id ? (spDir > 0 ? " ▲" : " ▼") : ""}${sub ? `<small>${sub}</small>` : ""}</button></th>`;
+  head.innerHTML = th("area","Area") + th("kind","Kind") + present.map(id => th(id, envById[id].move, envById[id].short)).join("");
+  body.innerHTML = rows.length ? rows.map(r => `<tr><td class="pk">${r.n}</td><td class="kind">${r.k}${r.x ? `<span class="em">Emerald only</span>` : ""}</td>${present.map(id => { const s = share(r, id), x = envById[id]; return s < 0 ? `<td class="n"><span class="spdot" aria-label="none">·</span></td>` : `<td class="n"><span class="spc${SP_ORDER[r.m] === id ? " main" : ""}" style="color:${x.c}" title="${x.where}">${s < 1 ? "<1" : s}%</span></td>`; }).join("")}</tr>`).join("") : `<tr><td colspan="${present.length + 2}" class="empty">No areas match.</td></tr>`;
+  $("spMeta").innerHTML = `<span>Showing <b>${rows.length}</b> of ${rowsAll.length} areas · ${G.label}</span><span>Click a column heading to sort</span>`;
+  const extra = G.data === "hoenn"
+    ? `<div class="note"><b>Route 113 and the desert</b>Everywhere on Route 113 counts as sand because of the falling ash, and so does anywhere in a sandstorm.</div><div class="note"><b>Bridges</b>Surfing under the bridges on Routes 110 and 119 counts as sea water. Under Route 120's bridges it counts as pond water.</div>`
+    : `<div class="note"><b>Shallow water</b>In FireRed and LeafGreen, wading through shallow water counts as sand, so Secret Power looks like Mud Shot there.</div>`;
+  notes.innerHTML = `<div class="note"><b>Trainer battles too</b>It goes by the tile you're on when any battle starts, wild or Trainer. Stand on the ground you want before talking to a Trainer.</div>${extra}<div class="note"><b>Where this comes from</b>Worked out tile by tile from the ${G.data === "hoenn" ? "Ruby, Sapphire and Emerald" : "FireRed and LeafGreen"} map data, using the same rules the game uses to pick the battle background.</div>`;
+}
+$("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
+$("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
+spSearch.addEventListener("input", renderSecret);
+const APP_VERSION = "1.3.0";
+const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
+const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
+const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
+const inApp = () => typeof window.NL_PORT !== "undefined" && typeof window.Neutralino !== "undefined";
+const curVersion = () => (inApp() && window.NL_APPVERSION) || APP_VERSION;
+const cmpVer = (a, b) => { const x = a.split(".").map(Number), y = b.split(".").map(Number); for (let i = 0; i < 3; i++){ const d = (x[i] || 0) - (y[i] || 0); if (d) return d; } return 0; };
+const escHtml = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const lsGet = k => { try { return localStorage.getItem(k); } catch(_) { return null; } };
+const lsSet = (k, v) => { try { v === null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch(_) {} };
+const autoUpdateOn = () => lsGet(UPD_AUTO_KEY) !== "off";
+let updBusy = false;
+
+function updShow(html, actions, tone){
+  const box = $("upd");
+  box.className = "upd" + (tone ? " " + tone : "");
+  $("updText").innerHTML = html;
+  const act = $("updActions");
+  act.innerHTML = "";
+  (actions || []).forEach(([label, fn, primary]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "btn small" + (primary ? " primary" : ""); b.textContent = label;
+    b.addEventListener("click", fn);
+    act.appendChild(b);
+  });
+  box.hidden = false;
+}
+function updHide(){ $("upd").hidden = true; }
+
+function validManifest(m){
+  return m && typeof m === "object"
+    && m.applicationId === window.NL_APPID
+    && typeof m.version === "string" && /^\d+\.\d+\.\d+$/.test(m.version)
+    && typeof m.resourcesURL === "string" && m.resourcesURL.startsWith(UPDATE_BASE)
+    && m.data && typeof m.data.sha256 === "string" && /^[0-9a-f]{64}$/.test(m.data.sha256);
+}
+
+async function checkForUpdates(manual){
+  if (updBusy) return;
+  if (!inApp()){
+    if (manual) updShow(`You're viewing iv31 as a web page, so it can't update itself. Get the latest installer from <b>github.com/scooby5328-design/iv31</b>.`, [["OK", updHide]]);
+    return;
+  }
+  if (manual) updShow("Checking for updates…", []);
+  let m;
+  try {
+    const r = await fetch(UPDATE_MANIFEST + "?t=" + Date.now(), {cache:"no-store"});
+    if (!r.ok) throw new Error("http " + r.status);
+    m = await r.json();
+  } catch(_) {
+    if (manual) updShow("Couldn't reach GitHub to check for updates. Check your internet connection and try again.", [["Try again", () => checkForUpdates(true)], ["Close", updHide]], "warn");
+    return;
+  }
+  if (!validManifest(m)){
+    if (manual) updShow("The update information on GitHub doesn't look right, so nothing was changed.", [["Close", updHide]], "warn");
+    return;
+  }
+  const cur = curVersion();
+  if (cmpVer(m.version, cur) <= 0){
+    if (manual) updShow(`You're up to date. iv31 <b>${escHtml(cur)}</b> is the latest version.`, [["Close", updHide]], "ok");
+    else updHide();
+    return;
+  }
+  if (!manual && lsGet(UPD_SKIP_KEY) === m.version) return;
+  const notes = m.data.notes ? `<span class="upd-notes">${escHtml(m.data.notes)}</span>` : "";
+  if (m.data.installer){
+    updShow(`<b>iv31 ${escHtml(m.version)} is out</b> (you have ${escHtml(cur)}). This one needs the new installer from <b>github.com/scooby5328-design/iv31</b>. ${notes}`, [["Later", updHide]]);
+    return;
+  }
+  updShow(`<b>iv31 ${escHtml(m.version)} is available</b> (you have ${escHtml(cur)}). ${notes}`, [
+    ["Update now", () => installUpdate(m), true],
+    ["Skip this version", () => { lsSet(UPD_SKIP_KEY, m.version); updHide(); }],
+    ["Later", updHide]
+  ]);
+}
+
+async function installUpdate(m){
+  if (updBusy) return;
+  updBusy = true;
+  const fail = msg => { updBusy = false; updShow(msg, [["Try again", () => installUpdate(m)], ["Close", updHide]], "warn"); };
+  try {
+    updShow(`Downloading iv31 ${escHtml(m.version)}…`, []);
+    const r = await fetch(m.resourcesURL + "?t=" + Date.now(), {cache:"no-store"});
+    if (!r.ok) return fail("The download failed. Nothing was changed.");
+    const buf = await r.arrayBuffer();
+    if (!buf.byteLength || buf.byteLength > 20 * 1024 * 1024) return fail("The download wasn't the right size, so it wasn't installed. Nothing was changed.");
+    updShow("Checking the download…", []);
+    const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", buf))].map(b => b.toString(16).padStart(2, "0")).join("");
+    if (hash !== m.data.sha256) return fail("The download didn't match its published fingerprint, so it wasn't installed. Nothing was changed.");
+    updShow("Installing…", []);
+    await Neutralino.filesystem.writeBinaryFile(window.NL_PATH + "/resources.neu", buf);
+    lsSet(UPD_SKIP_KEY, null);
+    updShow(`Updated to ${escHtml(m.version)}. Restarting…`, [], "ok");
+    setTimeout(() => { Neutralino.app.restartProcess().catch(() => updShow("Updated. Close iv31 and open it again to finish.", [["OK", updHide]], "ok")); }, 600);
+  } catch(_) {
+    fail("The update couldn't be installed. Nothing was changed. If it keeps happening, download the latest installer from GitHub.");
+  }
+}
+
+$("verChip").textContent = "v" + curVersion();
+$("verChip").addEventListener("click", () => checkForUpdates(true));
+$("autoUpd").checked = autoUpdateOn();
+$("autoUpd").addEventListener("change", e => lsSet(UPD_AUTO_KEY, e.target.checked ? null : "off"));
+if (inApp()){
+  try { Neutralino.init(); } catch(_) {}
+  $("verChip").textContent = "v" + curVersion();
+  if (autoUpdateOn()) setTimeout(() => checkForUpdates(false), 2500);
+}
+
+function tick(){
+  const d = new Date();
+  $("clock").textContent = d.toLocaleDateString(undefined,{weekday:"short"}) + " " + d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+}
+
+(() => {
+  let saved = null;
+  try { saved = JSON.parse(localStorage.getItem(GAME_KEY) || "null"); } catch(_) {}
+  const ei = saved && ERAS[saved.ei] ? saved.ei : 0;
+  state.ei = ei; state.ver = saved && ERAS[ei].vers.includes(saved.ver) ? saved.ver : ERAS[ei].vers[0];
+  gameGen.value = ei; fillVersions();
+  speciesOptions(speciesSel, searchIn, "Choose a Pokémon…");
+  speciesSel.value = ""; natureSel.value = "";
+  addEntry();
+  $("favCount").textContent = favs.size ? `(${favs.size})` : "";
+  extrasReady = true;
+  runCalc();
+  const h = location.hash.slice(1);
+  if (h === "berries"){ state.evSub = "berries"; $("tab-yields").setAttribute("aria-selected","false"); $("tab-berries").setAttribute("aria-selected","true"); $("pane-yields").hidden = true; $("pane-berries").hidden = false; showView("evs"); }
+  else showView({summary:"calc",readout:"calc",about:"calc",manual:"calc"}[h] || h || "calc");
+  tick(); setInterval(tick, 15000);
+})();
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h === "berries"){ setEvSub("berries"); showView("evs"); } else if (VIEWS.includes(h) && h !== state.view) showView(h); });
+</script>
+</body>
+</html>

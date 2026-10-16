@@ -1,0 +1,47 @@
+{
+  "applicationId": "com.chili.iv31",
+  "version": "1.3.0",
+  "defaultMode": "window",
+  "port": 31031,
+  "documentRoot": "/resources/",
+  "url": "/",
+  "enableServer": true,
+  "enableNativeAPI": true,
+  "tokenSecurity": "one-time",
+  "logging": {
+    "enabled": false,
+    "writeToLogFile": false
+  },
+  "modes": {
+    "window": {
+      "title": "iv31",
+      "width": 1240,
+      "height": 860,
+      "minWidth": 420,
+      "minHeight": 560,
+      "center": true,
+      "icon": "/resources/icon.png",
+      "enableInspector": false,
+      "resizable": true,
+      "exitProcessOnClose": true
+    }
+  },
+  "cli": {
+    "binaryName": "iv31",
+    "resourcesPath": "/resources/",
+    "extensionsPath": "/extensions/",
+    "binaryVersion": "",
+    "clientVersion": ""
+  },
+  "nativeAllowList": [
+    "filesystem.writeBinaryFile",
+    "os.execCommand",
+    "app.exit"
+  ],
+  "filesystemScopes": {
+    "${NL_PATH}/resources.neu": "write"
+  },
+  "commandAllowList": [
+    "*iv31.exe"
+  ]
+}
