@@ -8,6 +8,11 @@ if [ -z "${APT_SIGNING_KEY:-}" ]; then
   exit 0
 fi
 
+if ! printf '%s\n' "$APT_SIGNING_KEY" | grep -q "BEGIN PGP PRIVATE KEY BLOCK"; then
+  APT_SIGNING_KEY="$(printf -- '-----BEGIN PGP PRIVATE KEY BLOCK-----\n\n%s\n-----END PGP PRIVATE KEY BLOCK-----\n' "$(printf '%s\n' "$APT_SIGNING_KEY" | sed '/^[[:space:]]*$/d')")"
+  echo "::notice::APT_SIGNING_KEY was missing its BEGIN/END lines; they were added back."
+fi
+export APT_SIGNING_KEY
 lines=$(printf '%s\n' "$APT_SIGNING_KEY" | wc -l)
 has_begin=$(printf '%s\n' "$APT_SIGNING_KEY" | grep -c "BEGIN PGP PRIVATE KEY BLOCK" || true)
 has_end=$(printf '%s\n' "$APT_SIGNING_KEY" | grep -c "END PGP PRIVATE KEY BLOCK" || true)
