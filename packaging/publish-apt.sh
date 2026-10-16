@@ -8,6 +8,15 @@ if [ -z "${APT_SIGNING_KEY:-}" ]; then
   exit 0
 fi
 
+check="$(mktemp -d)"
+chmod 700 "$check"
+printf '%s\n' "$APT_SIGNING_KEY" | GNUPGHOME="$check" gpg --batch --quiet --import
+fpr=$(GNUPGHOME="$check" gpg --list-secret-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}')
+rm -rf "$check"
+want_fpr=$(gpg --show-keys --with-colons packaging/linux/iv31-archive-keyring.asc | awk -F: '/^fpr/ {print $10; exit}')
+[ -n "$fpr" ] && [ "$fpr" = "$want_fpr" ] || { echo "::error::APT_SIGNING_KEY doesn't match packaging/linux/iv31-archive-keyring.asc"; exit 1; }
+echo "Signing key OK ($fpr)"
+
 latest=$(jq -r .version updates/manifest.json)
 current=$(curl -fsSL "https://raw.githubusercontent.com/$GITHUB_REPOSITORY/apt/version" 2>/dev/null || true)
 if [ "$current" = "$latest" ]; then
