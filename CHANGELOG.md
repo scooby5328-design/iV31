@@ -19,6 +19,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Update messages no longer mention a Windows installer on a Mac, and a failed update on a Mac explains that iv31 needs to be in the Applications folder.
 
+### Checksums
+
+`iv31-Setup-1.4.1.exe` SHA-256:
+
+```
+7fcb792bbbb595643c9fa2bf7cd35d273d9a77506fa541a8ac032693672e1438
+```
+
+`iv31-1.4.1-mac.zip` SHA-256:
+
+```
+b1aa40bfd4f8b8521c545b31144d020676ba28d125e22e1b5fd7085d40f64809
+```
+
 ## [1.4.0] - 2026-10-16
 
 ### Added
