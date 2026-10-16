@@ -24,6 +24,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Fixed
 - Gen III Secret Power on plain ground (Slam) has no extra effect. It was listed as "may paralyze".
 
+### Installer checksum
+
+`iv31-Setup-1.4.0.exe` SHA-256:
+
+```
+5d650e7c0aea9932543290de81e41002540d7676fac00faccddc2cd7c23c9e9c
+```
+
 ## [1.3.1] - 2026-10-16
 
 ### Fixed
