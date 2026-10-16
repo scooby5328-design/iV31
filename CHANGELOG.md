@@ -20,6 +20,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - The Mac app runs on macOS 10.15 Catalina and newer. It uses Neutralino 6.10.0 built from source for older macOS (see the `Mac runtime` workflow).
 - Colors that used `color-mix()` now have fallbacks for older Safari and WebKitGTK.
 
+### Checksums (SHA-256)
+
+```
+947a6a67e8c922d7f3020ccd8f523047f39e423ee3a839565e57b0942db5de34  iv31-Setup-1.4.2.exe
+ac03a6598374eb6842918af2d906e948fba9e710224e09817d4a536367144865  iv31-1.4.2-mac.zip
+263719ba4c58e503cf8dcf54ea1269e6337a1073c3e65d90ed4a787c5a5e635e  iv31-1.4.2-linux-x64.tar.gz
+9b75a93286e0ee00397be8e931c95a2af69bf8fcd89571fee30490fc90fd844d  iv31-1.4.2-linux-arm64.tar.gz
+d5dfa543e7bcda434e67fdd74956c9b48c8d4389cf848c6af300da26610a4844  iv31_1.4.2_amd64.deb
+7889e9d349874a095fe2c0f73cda557211129b44ee54aa972264b6ce27d24ede  iv31_1.4.2_arm64.deb
+e70cececed39bda2dfa91319f4244e1b9aaa2168e7f05d9b6632e6f37a8679c1  iv31-1.4.2-x86_64.AppImage
+95a092c4deddcf8a589c5382eb67d90005dc8d88d2ca02edd4a9dc8beb0f44c9  iv31-1.4.2-aarch64.AppImage
+```
+
 ## [1.4.1] - 2026-10-16
 
 ### Added
