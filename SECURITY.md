@@ -76,7 +76,7 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 The SHA-256 checksum for each installer is listed in its release notes and in [CHANGELOG.md](CHANGELOG.md). To check yours, open **PowerShell** in the folder with the installer and run:
 
 ```powershell
-Get-FileHash .\iv31-Setup-1.3.1.exe -Algorithm SHA256
+Get-FileHash .\iv31-Setup-1.4.0.exe -Algorithm SHA256
 ```
 
 The result should match the checksum exactly. If it doesn't, delete the file and download it again from the Releases page.

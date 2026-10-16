@@ -4,7 +4,7 @@
 
 **A fast, offline Pokémon IV calculator for the whole National Pokédex.**
 
-Pick a Pokémon, enter its level and stats, and iv31 tells you its individual values, the nature that suits it best, and which stats matter most. It also has an EV calculator, a Hidden Power calculator, an EV yield table with wild locations, EV-lowering berries, a type matchup chart, a Secret Power guide for every area in the Gen 3 games, and favorites.
+Pick a Pokémon, enter its level and stats, and iv31 tells you its individual values, the nature that suits it best, and which stats matter most. It also has an EV calculator, a Hidden Power calculator, an EV yield table with wild locations, EV-lowering berries, a type matchup chart, a Secret Power and Nature Power guide for every area in the Gen 3 games, and favorites. It covers every main game from Red, Blue and Yellow to Scarlet and Violet.
 
 [![Latest release](https://img.shields.io/github/v/release/scooby5328-design/iV31?label=latest&color=f5c2e7)](https://github.com/scooby5328-design/iV31/releases/latest)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-89b4fa)](#install)
@@ -35,15 +35,16 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 
 - **Full National Pokédex** listed in Pokédex-number order, from Bulbasaur onward.
 - **IV calculation** from level, nature and current stats, with the possible IV range shown when a single value can't be pinned down.
+- **Gen I and II support** for Red, Blue, Yellow, Gold, Silver and Crystal, using their own rules: DVs from 0 to 15 (with the HP DV worked out from the others), Stat Experience, no natures, Gen I's single Special stat, and Gen II Hidden Power and shiny checks.
 - **Suggested natures** for each Pokémon, based on its strongest stats.
 - **Key stat highlighting** so you can see at a glance which stats a Pokémon is built around.
 - **EV calculator** right next to the IV readout. Track EVs per stat, add them by Pokémon defeated (with Macho Brace, Power items and Pokérus) or by vitamins, and see how many stat points they give at your level and at level 100. It keeps you inside the 510 total and per-stat limits and warns about wasted EVs.
 - **Hidden Power calculator** that shows the type, power and (in Gen III) physical/special category for any six IVs, plus a table of the best IVs for every type.
-- **One game picker** in the top bar that sets the generation and version for every tab.
+- **One game picker** in the top bar, grouped by generation, that sets the game for every tab.
 - **EV Training tab** with a sortable table of the effort values every Pokémon gives when defeated and where to find it in the wild in your version, plus a table of the berries that lower EVs and where to get them.
 - **Types tab** with a weakness and resistance chart for the selected generation (with or without Fairy) and a matchup checker for any Pokémon or pair of types.
 - **Favorites** that collect everything about a Pokémon on one card: base stats, key stats, natures, weaknesses, EV yield, evolution line and locations.
-- **Secret Power guide** listing every area in Ruby, Sapphire, Emerald, FireRed and LeafGreen with the ground types it has and what Secret Power turns into there, worked out from the games' map data. Later generations show the terrain table.
+- **Secret Power and Nature Power guide** listing every area in Ruby, Sapphire, Emerald, FireRed and LeafGreen with the ground types it has and what both moves turn into there, worked out from the games' map data. Gen IV to VII show the terrain table.
 - **Saves your work** between sessions on your own computer.
 - **Updates itself.** iv31 checks GitHub for a new version when it starts and can install it with one click. Updates are verified before they're installed, and you can turn the check off.
 - **Works offline.** No account, no ads, no tracking. The only time it goes online is to check for updates.
@@ -178,6 +179,8 @@ The build puts the data from `src/data/` into `src/index.html`, packs the app in
 - [x] Secret Power area guide for the Gen 3 games
 - [x] Type matchup chart and EV-lowering berries
 - [x] Favorites and wild locations
+- [x] Gen I and II (DVs and Stat Exp)
+- [x] Nature Power
 - [x] Publish the full source code
 - [x] GitHub Releases with checksums
 - [ ] macOS build (Intel and Apple Silicon)

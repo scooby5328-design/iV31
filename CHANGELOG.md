@@ -10,6 +10,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - macOS and Linux builds
 - Side-by-side comparison of saved Pokémon
 
+## [1.4.0] - 2026-10-16
+
+### Added
+- Gen I and Gen II: Red, Blue, Yellow, Gold, Silver and Crystal. The calculator uses DVs (0–15) with the HP DV derived from the other four, Stat Experience instead of EVs, no natures, one Special stat in Gen I and a shared Special DV in Gen II. Gen II shows Hidden Power and whether the DVs are shiny.
+- Gen I type chart (no Dark or Steel; Ghost doesn't affect Psychic; Bug and Poison are super effective against each other; Ice is neutral against Fire).
+- Gen I and II base stats, types and wild locations in every tab. The EV Training table shows Stat Exp yields for these games.
+- Nature Power in the Secret Power tab for Gen III to VII.
+
+### Changed
+- The generation and version dropdowns are one list grouped by generation, so every game is visible at once.
+
+### Fixed
+- Gen III Secret Power on plain ground (Slam) has no extra effect. It was listed as "may paralyze".
+
 ## [1.3.1] - 2026-10-16
 
 ### Fixed

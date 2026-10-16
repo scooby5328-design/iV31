@@ -47,7 +47,13 @@ button{font:inherit}
 .ws a .count{font-size:11px;color:var(--yellow);font-weight:700}
 .mods{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .mods select{font-family:var(--mono);font-size:12.5px;padding:3px 8px;border-radius:8px;width:auto;max-width:44vw;background:var(--base);color:var(--mauve);font-weight:700}
-.mods select#gameVer{color:var(--blue)}
+.mods optgroup{color:var(--overlay);font-style:normal}
+.mods option{color:var(--text)}
+#entries.g1 .stat[data-k="spd"]{display:none}
+#entries.g1 .stats{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:420px){#entries.g1 .stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.oldnote{margin:0}
+.nature-off{opacity:.55}
 .mod{padding:3px 10px;border-radius:8px;background:var(--base);border:1px solid var(--surface0);white-space:nowrap}
 .mod.clock{color:var(--blue)}
 @media (max-width:640px){.ws a span{display:none}.mod.clock{display:none}}
@@ -407,8 +413,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
       <a href="#favs" data-view="favs"><b>5</b><span>Favorites</span> <em class="count" id="favCount"></em></a>
     </div>
     <div class="mods">
-      <select id="gameGen" aria-label="Generation"></select>
-      <select id="gameVer" aria-label="Version"></select>
+      <select id="game" aria-label="Game"></select>
       <button type="button" class="mod ver" id="verChip" title="Check for updates">v1.3.1</button>
       <span class="mod clock" id="clock">--:--</span>
     </div>
@@ -467,12 +472,12 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
           <div class="typeline" id="typeline"></div>
           <div class="scroll">
             <table class="ivt">
-              <thead><tr><th>Stat</th><th>IV</th><th>Range on 0–31</th><th>Rating</th></tr></thead>
+              <thead><tr><th>Stat</th><th id="ivTh">IV</th><th id="rangeTh">Range on 0–31</th><th>Rating</th></tr></thead>
               <tbody id="rows"></tbody>
             </table>
           </div>
           <div class="summary">
-            <div class="sum"><div class="k">IV total</div><div class="v" id="total">—</div></div>
+            <div class="sum"><div class="k" id="totalK">IV total</div><div class="v" id="total">—</div></div>
             <div class="sum"><div class="k">Hidden Power type</div><div class="v" id="hptype">—</div></div>
             <div class="sum"><div class="k">Hidden Power power</div><div class="v" id="hppow">—</div></div>
           </div>
@@ -573,6 +578,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
         <div><h3>Hidden Power</h3><p>Hidden Power's type comes from whether each IV is odd or even, and in Gen III to V its power (30 to 70) comes from the second-lowest bit of each IV. The "Aim for a type" table lists the highest IVs that give each type, which is handy when breeding.</p></div>
         <div><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number in the top bar to check any time. Nothing about you is sent; it only downloads a small version file.</p>
         <label class="toggle" for="autoUpd"><input type="checkbox" id="autoUpd" checked> Check for updates when iv31 starts</label></div>
+        <div><h3>Gen I and II</h3><p>Red, Blue, Yellow, Gold, Silver and Crystal use DVs from 0 to 15 instead of IVs, Stat Experience instead of EVs, and no natures. The HP DV isn't stored; it comes from whether the other four DVs are odd or even, so iv31 only keeps DV combinations where they agree. Gen I has one Special stat. In Gen II, Sp. Atk and Sp. Def share the Special DV, and DVs also decide Hidden Power and whether a Pokémon is shiny.</p></div>
         <div><h3>Getting accurate results</h3><p>Ranges are widest at low levels. A freshly caught Pokémon has 0 EVs, so check it before it battles. Changed base stats from older games show in red. Let's Go Pikachu/Eevee and Legends: Arceus use different stat systems and aren't supported.</p></div>
       </div>
     </div>
@@ -597,8 +603,8 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
           <div><span class="lbl" id="evFilterLbl">Gives EVs in</span><div class="seg" id="evFilter" role="group" aria-labelledby="evFilterLbl"></div></div>
         </div>
         <div class="legend">
-          <p><b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.</p>
-          <div class="legend-keys" aria-hidden="true"><span class="ev c-hp">HP</span><span class="ev c-atk">Atk</span><span class="ev c-def">Def</span><span class="ev c-spa">SpA</span><span class="ev c-spd">SpD</span><span class="ev c-spe">Spe</span></div>
+          <p id="evLegend"><b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.</p>
+          <div class="legend-keys" id="evLegendKeys" aria-hidden="true"><span class="ev c-hp">HP</span><span class="ev c-atk">Atk</span><span class="ev c-def">Def</span><span class="ev c-spa">SpA</span><span class="ev c-spd">SpD</span><span class="ev c-spe">Spe</span></div>
         </div>
         <div class="meta"><span id="evCount"></span><label class="toggle" for="evWild"><input type="checkbox" id="evWild"> Only Pokémon found in this version</label><span>Click a column heading to sort</span></div>
         <div class="datanote" id="evDataNote" hidden></div>
@@ -673,7 +679,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 <div class="view" id="view-secret" hidden>
   <section class="win active" aria-labelledby="sp-h">
     <div class="win-body">
-      <div class="titlebar"><span id="sp-h">Secret Power by area</span><span class="dot"></span></div>
+      <div class="titlebar"><span id="sp-h">Secret Power and Nature Power by area</span><span class="dot"></span></div>
       <div class="pane">
         <div class="tools">
           <div class="grow" id="spSearchBox"><label for="spSearch">Area</label><input type="search" id="spSearch" placeholder="Search an area (e.g. Route 119)" autocomplete="off"></div>
@@ -718,8 +724,10 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 const LOCDATA = __LOC__;
 const SP = __SP__;
 const DATA = __DEX__;
-const DEX = DATA.dex, ERA_STATS = DATA.eras, PRE6 = DATA.pre6;
+const DEX = DATA.dex, ERA_STATS = DATA.eras, PRE6 = DATA.pre6, GEN1 = DATA.gen1, GEN1TYPES = DATA.gen1types;
 const ERAS = [
+  {g:1, max:151, label:"Gen 1", vers:["Red","Blue","Yellow"]},
+  {g:2, max:251, label:"Gen 2", vers:["Gold","Silver","Crystal"]},
   {g:3, max:386, label:"Gen 3", vers:["Ruby","Sapphire","Emerald","FireRed","LeafGreen"]},
   {g:4, max:493, label:"Gen 4", vers:["Diamond","Pearl","Platinum","HeartGold","SoulSilver"]},
   {g:5, max:649, label:"Gen 5", vers:["Black","White","Black 2","White 2"]},
@@ -729,7 +737,7 @@ const ERAS = [
   {g:9, max:1025, label:"Gen 9", vers:["Scarlet","Violet"]}
 ];
 const PARTIAL = new Set(["Omega Ruby","Alpha Sapphire"]);
-const ROMAN = {3:"III",4:"IV",5:"V",6:"VI",7:"VII",8:"VIII",9:"IX"};
+const ROMAN = {1:"I",2:"II",3:"III",4:"IV",5:"V",6:"VI",7:"VII",8:"VIII",9:"IX"};
 const KEYS = ["hp","atk","def","spa","spd","spe"];
 const LABEL = {hp:"HP",atk:"Attack",def:"Defense",spa:"Sp. Atk",spd:"Sp. Def",spe:"Speed"};
 const SHORT = {hp:"HP",atk:"Atk",def:"Def",spa:"SpA",spd:"SpD",spe:"Spe"};
@@ -795,20 +803,29 @@ const dirty = {evs:true, types:true, favs:true, secret:true};
 const era = () => ERAS[state.ei];
 
 function baseStats(num, g){
+  if (g === 1 && num <= 151){ const s = GEN1[num-1]; return {hp:s[0], atk:s[1], def:s[2], spa:s[3], spd:s[3], spe:s[4]}; }
   const hist = ERA_STATS[num];
   if (hist) for (const [maxG, s] of hist) if (g <= maxG) return Object.fromEntries(KEYS.map((k,i)=>[k,s[i]]));
   return Object.fromEntries(KEYS.map((k,i)=>[k,DEX[num-1][i+1]]));
 }
-function typesOf(num, g){ return (g < 6 && PRE6[num]) || DEX[num-1][9]; }
+function typesOf(num, g){ return (g === 1 && GEN1TYPES[num]) || (g < 6 && PRE6[num]) || DEX[num-1][9]; }
+const statKeys = g => g === 1 ? ["hp","atk","def","spa","spe"] : KEYS;
+const labelFor = (k, g) => g === 1 && k === "spa" ? "Special" : LABEL[k];
+const shortFor = (k, g) => g === 1 && k === "spa" ? "Spc" : SHORT[k];
 function typeChips(ts){ return ts.map(t => `<span class="ty t${t}">${TYPES[t]}</span>`).join(" "); }
 function eff(a, def, g){
   return def.reduce((m,d) => {
     let v = CHART[a][d];
     if (g < 6 && d === 16 && (a === 13 || a === 15)) v = .5;
+    if (g === 1){
+      if (a === 13 && d === 10) v = 0;
+      else if ((a === 11 && d === 7) || (a === 7 && d === 11)) v = 2;
+      else if (a === 5 && d === 1) v = 1;
+    }
     return m * v;
   }, 1);
 }
-function attackTypes(g){ return g < 6 ? TYPES.slice(0,17).map((_,i)=>i) : TYPES.map((_,i)=>i); }
+function attackTypes(g){ return TYPES.slice(0, g === 1 ? 15 : g < 6 ? 17 : 18).map((_,i)=>i); }
 function matchups(def, g){
   const out = {x4:[],x2:[],h:[],q:[],z:[]};
   attackTypes(g).forEach(a => { const v = eff(a, def, g); if (v===4) out.x4.push(a); else if (v===2) out.x2.push(a); else if (v===.5) out.h.push(a); else if (v===.25) out.q.push(a); else if (v===0) out.z.push(a); });
@@ -837,6 +854,7 @@ function roleFor(num, g, max){
   const k2 = s.spe >= 70 && s.spe >= 0.85*Math.max(s.def,s.spd) ? "spe" : hidef;
   let lower = Math.abs(s.atk - s.spa) <= 10 && Math.min(s.atk,s.spa) >= 80 ? lodef : other;
   if (lower === k2) lower = other;
+  if (g === 1 && k2 === "spd") return {key:[k1, k1 === "spa" ? (s.def >= s.spe ? "def" : "spe") : "spa"], lower, fin, finName};
   return {key:[k1,k2], lower, fin, finName};
 }
 function natureFor(up, down){ return NATURES.findIndex(n => n[1]===up && n[2]===down); }
@@ -855,18 +873,17 @@ function placesFor(ver, n){
 function earliestWild(ver, n){ let p = PREVO[n]; while (p && !placesFor(ver, p).length) p = PREVO[p]; return p; }
 
 let favs = new Set(), favDoc = null;
-const FAV_KEY = "pokedex-iv-favorites", GAME_KEY = "pokedex-iv-game";
+const FAV_KEY = "pokedex-iv-favorites", GAME_KEY = "iv31-game";
 try { const raw = localStorage.getItem(FAV_KEY); if (raw) JSON.parse(raw).forEach(n => { if (Number.isInteger(n) && n>=1 && n<=1025) favs.add(n); }); } catch(_) {}
 const starBtn = n => { const on = favs.has(n), nm = DEX[n-1][0]; return `<button type="button" class="star" data-fav="${n}" aria-pressed="${on}" aria-label="${on ? `Remove ${nm} from` : `Add ${nm} to`} favorites" title="${on ? "Remove from" : "Add to"} favorites">${on ? "★" : "☆"}</button>`; };
 
-const gameGen = $("gameGen"), gameVer = $("gameVer");
-ERAS.forEach((e,i) => { const o = document.createElement("option"); o.value = i; o.textContent = e.label; gameGen.appendChild(o); });
+const gameSel = $("game");
+gameSel.innerHTML = ERAS.map(e => `<optgroup label="Gen ${ROMAN[e.g]}">${e.vers.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join("")}</optgroup>`).join("");
 function fillVersions(){
-  gameVer.innerHTML = era().vers.map(v => `<option value="${esc(v)}">${esc(v)}${LOCDATA.found[v] ? "" : " *"}</option>`).join("");
   if (!era().vers.includes(state.ver)) state.ver = era().vers[0];
-  gameVer.value = state.ver;
+  gameSel.value = state.ver;
 }
-function saveGame(){ try { localStorage.setItem(GAME_KEY, JSON.stringify({ei:state.ei, ver:state.ver})); } catch(_) {} }
+function saveGame(){ try { localStorage.setItem(GAME_KEY, JSON.stringify({ver:state.ver})); } catch(_) {} }
 
 function speciesOptions(select, search, placeholder){
   const max = era().max, raw = search.value.trim(), q = raw.toLowerCase().replace(/^#0*/,"");
@@ -892,14 +909,14 @@ function calc(base, iv, ev, lv, k, nat, shedinja){
 function addEntry(){
   const id = ++entryId, d = document.createElement("div");
   d.className = "entry";
-  const statInputs = pre => KEYS.map(k => `<div class="stat"><label for="${pre}${k}-${id}" data-k="${k}">${SHORT[k]}</label><input type="number" inputmode="numeric" min="0" max="${pre==="e"?255:999}" id="${pre}${k}-${id}" data-k="${k}" data-role="${pre}"></div>`).join("");
+  const statInputs = pre => KEYS.map(k => `<div class="stat" data-k="${k}"><label for="${pre}${k}-${id}" data-k="${k}">${SHORT[k]}</label><input type="number" inputmode="numeric" min="0" max="${pre==="e"?255:999}" id="${pre}${k}-${id}" data-k="${k}" data-role="${pre}"></div>`).join("");
   d.innerHTML = `
     <div class="entry-head">
       <div class="lv"><label class="lbl" for="lv-${id}">Level</label><input type="number" inputmode="numeric" min="1" max="100" id="lv-${id}" data-role="lv"></div>
       <button class="btn rm" type="button" aria-label="Remove this level">Remove</button>
     </div>
     <div class="stats">${statInputs("s")}</div>
-    <details class="evs"><summary>EVs (leave blank if unknown or 0)</summary><div class="stats">${statInputs("e")}</div></details>`;
+    <details class="evs"><summary class="evsum">EVs (leave blank if unknown or 0)</summary><div class="stats">${statInputs("e")}</div></details>`;
   entriesEl.appendChild(d);
   d.querySelector(".rm").addEventListener("click", () => { d.remove(); syncRemove(); runCalc(); });
   d.addEventListener("input", runCalc);
@@ -913,7 +930,7 @@ function readEntries(){
     KEYS.forEach(k => {
       s[k] = parseInt(d.querySelector(`[data-role="s"][data-k="${k}"]`).value,10);
       const ev = parseInt(d.querySelector(`[data-role="e"][data-k="${k}"]`).value,10);
-      e[k] = Number.isFinite(ev) ? Math.min(255,Math.max(0,ev)) : 0;
+      e[k] = Number.isFinite(ev) ? Math.min(era().g <= 2 ? 65535 : 255, Math.max(0,ev)) : 0;
     });
     return {lv,s,e};
   }).filter(x => Number.isFinite(x.lv) && x.lv>=1 && x.lv<=100);
@@ -946,15 +963,132 @@ function weakLine(ts, g){
   return [part("Weak to", [...m.x4, ...m.x2]), part("Immune to", m.z)].filter(Boolean).join(" ");
 }
 
-function runCalc(){ runCalcCore(); if (extrasReady){ renderEvc(); renderHp(); } }
+function runCalc(){ runCalcCore(); if (extrasReady && era().g >= 3){ renderEvc(); renderHp(); } }
 let extrasReady = false;
+function setCalcMode(g){
+  const old = g <= 2;
+  entriesEl.classList.toggle("g1", g === 1);
+  entriesEl.querySelectorAll('label[data-k="spa"]').forEach(l => { if (l.closest('.stat')) l.textContent = shortFor("spa", g); });
+  entriesEl.querySelectorAll(".evsum").forEach(s => s.textContent = old ? "Stat Exp (leave blank if unknown or 0)" : "EVs (leave blank if unknown or 0)");
+  entriesEl.querySelectorAll('input[data-role="e"]').forEach(i => i.max = old ? 65535 : 255);
+  natureSel.disabled = old;
+  natureSel.closest("div").classList.toggle("nature-off", old);
+  if (old) natureSel.value = "";
+  $("ivTh").textContent = old ? "DV" : "IV";
+  $("rangeTh").textContent = old ? "Range on 0–15" : "Range on 0–31";
+  $("totalK").textContent = old ? "DV total" : "IV total";
+  [["evcalc", g === 1 || g === 2], ["hpcalc", old]].forEach(([id, on]) => {
+    const pane = $(id).querySelector(".pane");
+    let note = pane.querySelector(".oldnote");
+    if (!note){ note = document.createElement("div"); note.className = "oldnote verdict"; pane.prepend(note); }
+    [...pane.children].forEach(ch => { ch.hidden = ch === note ? !on : on; });
+    if (id === "evcalc") note.innerHTML = `<b>Gen ${ROMAN[g]} uses Stat Experience, not EVs.</b> Every Pokémon you defeat adds its base stats to your Pokémon's Stat Exp in every stat, up to 65,535 each, and each vitamin adds 2,560 up to 25,600. There's no 510 total. This calculator covers Gen III onward. To include Stat Exp in the IV readout, open "Stat Exp" under a level entry in the Summary screen.`;
+    else note.innerHTML = g === 1 ? `<b>Hidden Power doesn't exist in Gen I.</b> It was added in Gold, Silver and Crystal.` : `<b>In Gen II, Hidden Power comes from DVs.</b> The type depends on the Attack and Defense DVs, and the power (31 to 70) on the top bit of each DV plus the Special DV. Enter your Pokémon in the Summary screen and the IV readout shows its Hidden Power.`;
+  });
+}
+function calcOld(base, dv, se, lv, k){
+  const core = Math.floor((((base + dv) * 2 + Math.floor(Math.ceil(Math.sqrt(se)) / 4)) * lv) / 100);
+  return k === "hp" ? core + lv + 10 : core + 5;
+}
+function ratingDv(lo, hi){
+  const mid = (lo + hi) / 2;
+  if (lo === 15) return ["Perfect","r-perfect"];
+  if (mid >= 13) return ["Great","r-great"];
+  if (mid >= 10) return ["Good","r-good"];
+  if (mid >= 5) return ["Fair","r-fair"];
+  return ["Low","r-low"];
+}
+const DV_SHINY_ATK = new Set([2,3,6,7,10,11,14,15]);
+function runOld(num, E){
+  const g = E.g, name = DEX[num-1][0], base = baseStats(num, g), today = baseStats(num, 9), sk = statKeys(g);
+  $("base").innerHTML = `Gen ${ROMAN[g]} base stats  ` + sk.map(k => base[k] !== today[k] ? `<span class="changed" title="Today: ${today[k]}">${shortFor(k,g)} ${base[k]}</span>` : `${shortFor(k,g)} ${base[k]}`).join(" · ");
+  const role = roleFor(num, g, E.max), key = role.key;
+  const judged = role.finName !== name ? `judged as ${esc(role.finName)}, ${role.fin.branched ? "one of its possible final evolutions" : "its final evolution"}` : "";
+  $("plan").innerHTML = `<div><div class="lbl">Builds around</div><div class="k2">${key.map(k=>`<span class="keychip">★ ${labelFor(k,g)}</span>`).join("")}<span class="note-sm">${judged}</span></div></div>
+    <div class="note-sm">Natures were added in Gen III, so there's nothing to pick here. In Gen ${ROMAN[g]} the hidden values are DVs from 0 to 15, and the HP DV is worked out from the other four.</div>`;
+  entriesEl.querySelectorAll('label[data-k]').forEach(l => { const k = l.dataset.k; l.classList.toggle("key", key.includes(k) || (g === 2 && k === "spd" && key.includes("spa"))); l.classList.remove("up","down"); });
+  const ts = typesOf(num, g);
+  $("who").innerHTML = `${starBtn(num)}<small>${dexNo(num)}</small>${esc(name)} ${typeChips(ts)}`;
+  $("typeline").innerHTML = weakLine(ts, g);
+  $("natline").textContent = `No natures in Gen ${ROMAN[g]}`;
+  const entries = readEntries();
+  const specKeys = g === 1 ? ["spa"] : ["spa","spd"];
+  const groups = {hp:["hp"], atk:["atk"], def:["def"], spe:["spe"], spc:specKeys};
+  const entered = {}, cand = {};
+  Object.entries(groups).forEach(([gk, keys]) => {
+    entered[gk] = entries.some(x => keys.some(k => Number.isFinite(x.s[k])));
+    cand[gk] = [...Array(16).keys()].filter(dv => entries.every(x => keys.every(k => !Number.isFinite(x.s[k]) || calcOld(base[k], dv, x.e[k], x.lv, k) === x.s[k])));
+  });
+  const combos = [];
+  if (Object.values(cand).every(c => c.length)){
+    const hpSet = new Set(cand.hp);
+    for (const a of cand.atk) for (const d of cand.def) for (const s of cand.spe) for (const c of cand.spc){
+      const h = ((a & 1) << 3) | ((d & 1) << 2) | ((s & 1) << 1) | (c & 1);
+      if (hpSet.has(h)) combos.push({hp:h, atk:a, def:d, spe:s, spc:c});
+    }
+  }
+  const sets = {};
+  Object.keys(groups).forEach(gk => { sets[gk] = [...new Set(combos.map(c => c[gk]))].sort((x,y) => x - y); });
+  const rowsSpec = g === 1 ? [["hp","HP"],["atk","Attack"],["def","Defense"],["spc","Special"],["spe","Speed"]] : [["hp","HP"],["atk","Attack"],["def","Defense"],["spc","Sp. Atk"],["spc","Sp. Def"],["spe","Speed"]];
+  const anyEntered = Object.values(entered).some(Boolean);
+  $("rows").innerHTML = rowsSpec.map(([gk, label], i) => {
+    const kk = gk === "spc" ? (label === "Sp. Def" ? "spd" : "spa") : gk;
+    const kc = key.includes(kk) || (gk === "spc" && key.some(k => k === "spa" || k === "spd")) ? ' class="key"' : "";
+    const note = gk === "hp" ? ' <span class="tag" title="Worked out from the other DVs">calc</span>' : gk === "spc" && g === 2 ? ' <span class="tag" title="Sp. Atk and Sp. Def share the Special DV">shared</span>' : "";
+    const s = sets[gk];
+    if (!anyEntered || (!entered[gk] && gk !== "hp")) return `<tr${kc}><td class="name">${label}${note}</td><td class="iv">—</td><td class="barcell"><div class="bar"></div></td><td><span class="pill r-good">No data</span></td></tr>`;
+    if (!s.length) return `<tr${kc}><td class="name">${label}${note}</td><td class="iv r-err">✕</td><td class="barcell"><div class="bar"></div></td><td><span class="pill r-err">No match</span></td></tr>`;
+    const lo = s[0], hi = s[s.length-1], [rt, rc] = ratingDv(lo, hi);
+    return `<tr${kc}><td class="name">${label}${note}</td><td class="iv">${lo===hi?lo:`${lo}–${hi}`}</td><td class="barcell"><div class="bar"><i style="left:${lo/16*100}%;width:${(hi-lo+1)/16*100}%"></i></div><div class="ticks"><span>0</span><span>8</span><span>15</span></div></td><td><span class="pill ${rc}">${rt}</span></td></tr>`;
+  }).join("");
+  const msg = $("msg");
+  if (!entries.length || !anyEntered){
+    ["total","hptype","hppow"].forEach(id => $(id).textContent = "—");
+    msg.innerHTML = `<div class="verdict">Enter its level and stats from the Summary screen. Leave Stat Exp blank for a Pokémon that hasn't battled.</div>`;
+    return;
+  }
+  if (!combos.length){
+    ["total","hptype","hppow"].forEach(id => $(id).textContent = "—");
+    const badOnes = Object.keys(groups).filter(gk => entered[gk] && !cand[gk].length).map(gk => ({hp:"HP",atk:"Attack",def:"Defense",spe:"Speed",spc:"Special"})[gk]);
+    msg.innerHTML = `<div class="err">${badOnes.length ? `No DV from 0–15 produces the ${badOnes.join(", ")} you entered.` : "Each stat fits on its own, but they don't fit together: the HP DV has to match the other four."} Check the game, the level and the Pokémon. If it has battled, it has Stat Exp: enter it under "Stat Exp", or check one that hasn't battled.</div>`;
+    return;
+  }
+  const tot = c => c.hp + c.atk + c.def + c.spe + c.spc;
+  const tlo = Math.min(...combos.map(tot)), thi = Math.max(...combos.map(tot));
+  $("total").textContent = tlo === thi ? `${tlo} / 75` : `${tlo}–${thi} / 75`;
+  if (g === 1){ $("hptype").textContent = "Not in Gen I"; $("hppow").textContent = "Not in Gen I"; }
+  else {
+    const types = new Set(), pows = new Set();
+    combos.forEach(c => {
+      types.add(HP_TYPES[4 * (c.atk % 4) + (c.def % 4)]);
+      pows.add(Math.floor((5 * ((c.spc >> 3) + 2 * (c.spe >> 3) + 4 * (c.def >> 3) + 8 * (c.atk >> 3)) + (c.spc % 4)) / 2) + 31);
+    });
+    const tl = [...types], pl = [...pows].sort((x,y) => x - y);
+    $("hptype").textContent = tl.length === 1 ? tl[0] : tl.length <= 3 ? tl.join(", ") : `${tl.length} possible`;
+    $("hppow").textContent = pl.length === 1 ? pl[0] : `${pl[0]}–${pl[pl.length-1]}`;
+  }
+  const bits = [];
+  const avg = gk => sets[gk].reduce((a,b) => a + b, 0) / sets[gk].length;
+  const order = ["atk","def","spe","spc"].map(gk => [gk, avg(gk)]).sort((x,y) => y[1] - x[1]);
+  const nm = {atk:"Attack", def:"Defense", spe:"Speed", spc:"Special"};
+  bits.push(`Strongest DV: <b>${nm[order[0][0]]}</b>. Weakest: <b>${nm[order[order.length-1][0]]}</b>.`);
+  if (g === 2){
+    const shiny = combos.filter(c => c.def === 10 && c.spe === 10 && c.spc === 10 && DV_SHINY_ATK.has(c.atk)).length;
+    if (shiny === combos.length) bits.push("These DVs make it <b>shiny</b>.");
+    else if (shiny) bits.push("It <b>could be shiny</b>: shiny Pokémon have Defense, Speed and Special DVs of 10.");
+  }
+  if (combos.length > 1 && entries.length === 1) bits.push("Add its stats again after a few level-ups to narrow these ranges.");
+  msg.innerHTML = `<div class="verdict">${bits.join(" ")}</div>`;
+}
 function runCalcCore(){
   const E = era(), g = E.g, num = Number(speciesSel.value);
+  setCalcMode(g);
   if (!num){
     $("plan").innerHTML = ""; $("base").textContent = ""; $("who").textContent = ""; $("natline").textContent = ""; $("typeline").innerHTML = "";
     entriesEl.querySelectorAll('label[data-k]').forEach(l => l.className = "");
     return resetReadout(searchIn.value.trim() ? "No Pokémon matches that search in this game's Pokédex." : "Pick a Pokémon to start. You can search by name or Pokédex number.");
   }
+  if (g <= 2) return runOld(num, E);
   const natIdx = natureSel.value === "" ? -1 : Number(natureSel.value);
   const name = DEX[num-1][0], nat = natIdx < 0 ? ["",null,null] : NATURES[natIdx];
   const base = baseStats(num, g), today = baseStats(num, 9), shedinja = name === "Shedinja";
@@ -1018,7 +1152,7 @@ function runCalcCore(){
 }
 
 const evSearch = $("evSearch"), evFilter = $("evFilter"), evWild = $("evWild"), expanded = new Set();
-const COLS = [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",nosort:true},...KEYS.map(k=>({id:k,label:SHORT[k],n:true})),{id:"tot",label:"Total",n:true}];
+const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",nosort:true},...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
 let sortBy = "no", sortDir = 1, evStat = "all";
 evFilter.innerHTML = [["all","All"],...KEYS.map(k=>[k,SHORT[k]])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v==="all"}">${l}</button>`).join("");
 function foundCell(ver, n){
@@ -1029,25 +1163,39 @@ function foundCell(ver, n){
   return shown.map(x => `<span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}`).join(", ") + (extra > 0 ? `<button type="button" class="more" data-n="${n}">${open ? "show less" : `+${extra} more`}</button>` : "");
 }
 function renderSheet(){
-  const E = era(), ver = state.ver, q = evSearch.value.trim().toLowerCase().replace(/^#0*/,"");
+  const E = era(), ver = state.ver, q = evSearch.value.trim().toLowerCase().replace(/^#0*/,""), old = E.g <= 2, sk = statKeys(E.g);
+  evFilter.closest("div").hidden = old;
+  if (old && evStat !== "all"){ evStat = "all"; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === "all")); }
+  if (!["no","name","tot"].includes(sortBy) && !sk.includes(sortBy)){ sortBy = "no"; sortDir = 1; }
   const si = evStat === "all" ? -1 : KEYS.indexOf(evStat), rows = [];
   for (let n = 1; n <= E.max; n++){
-    const p = DEX[n-1], ev = p[8];
+    const p = DEX[n-1], ev = old ? (b => sk.map(k => b[k]))(baseStats(n, E.g)) : p[8];
     if (si >= 0 && !ev[si]) continue;
     if (evWild.checked && !placesFor(ver, n).length) continue;
     if (q && !(p[0].toLowerCase().includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q)) || placesFor(ver, n).some(x => x.place.toLowerCase().includes(q)))) continue;
-    rows.push({no:n, name:p[0], ev, tot:ev[0]+ev[1]+ev[2]+ev[3]+ev[4]+ev[5]});
+    rows.push({no:n, name:p[0], ev, tot:ev.reduce((a,b) => a + b, 0)});
   }
-  const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : r.ev[KEYS.indexOf(sortBy)];
+  const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : r.ev[sk.indexOf(sortBy)];
   rows.sort((a,b) => { const x = val(a), y = val(b); const c = typeof x === "string" ? x.localeCompare(y) : x - y; return c ? c*sortDir : a.no - b.no; });
-  $("evHead").innerHTML = COLS.map(c => c.nosort
+  $("evHead").innerHTML = colsFor(E.g).map(c => c.nosort
     ? `<th${c.n?' class="n"':""}><button type="button" disabled${c.aria?` aria-label="${c.aria}"`:""}>${c.label}</button></th>`
     : `<th class="${c.n?"n":""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
-  $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexNo(r.no)}</td><td class="pk">${esc(r.name)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> v ? `<td class="n"><span class="ev c-${KEYS[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="11" class="empty">No Pokémon match these filters.</td></tr>`;
+  $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexNo(r.no)}</td><td class="pk">${esc(r.name)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${sk[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="${sk.length + 5}" class="empty">No Pokémon match these filters.</td></tr>`;
   $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${si<0 ? "" : ` that give ${LABEL[evStat]} EVs`} · ${esc(ver)}`;
+  $("evLegend").innerHTML = old
+    ? `<b>How to read it:</b> in Gen ${ROMAN[E.g]} there are no EVs. Defeating a Pokémon adds its base stats, shown in each row, to your Pokémon's Stat Experience in every stat${E.g === 1 ? ", with one Special stat" : ""}. Higher numbers mean faster training. <b>Found in</b> lists where it appears in the selected version. Tap <b>☆</b> to save it to Favorites.`
+    : `<b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.`;
+  $("evLegendKeys").hidden = old;
   const dn = $("evDataNote");
   dn.hidden = !!LOCDATA.found[ver] && !PARTIAL.has(ver);
   dn.textContent = !LOCDATA.found[ver] ? `Location data isn't available for ${ver}, so Found in is blank. EV yields are still correct.` : `Location data for ${ver} is incomplete, so some places are missing.`;
+  if (old){
+    $("evNotes").innerHTML = `
+      <div class="note"><b>How Stat Exp is earned</b>Every Pokémon that took part in the battle gets the defeated Pokémon's base stats added to its Stat Exp, in every stat at once. Each stat stops at 65,535.</div>
+      <div class="note"><b>Vitamins</b>HP Up, Protein, Iron, Carbos${E.g === 1 ? " and Calcium (Special)" : " and Calcium (Special)"} add 2,560 Stat Exp each, but only until that stat has 25,600.</div>
+      <div class="note"><b>When stats go up</b>Stat Exp only counts when the Pokémon levels up or is withdrawn from the PC Box. At level 100 a maxed stat gains about 63 points.</div>`;
+    return;
+  }
   const cap = E.g >= 6 ? 252 : 255;
   const items = E.g >= 4 ? `Macho Brace doubles EVs. Power items add ${E.g >= 7 ? 8 : 4} to one stat per battle.` : "Macho Brace doubles the EVs earned. Power items don't exist yet.";
   $("evNotes").innerHTML = `
@@ -1067,6 +1215,7 @@ evSearch.addEventListener("input", () => { clearTimeout(evTimer); evTimer = setT
 evWild.addEventListener("change", renderSheet);
 
 function berryRule(ver, g){
+  if (g <= 2) return {usable:false, none:true, text:`EV-lowering berries don't exist in Gen ${ROMAN[g]}. These games use Stat Experience instead of EVs, and nothing in them lowers it. EV-lowering berries first appear in Emerald.`};
   if (["Ruby","Sapphire","FireRed","LeafGreen"].includes(ver)) return {usable:false, text:`These berries <b>can't be used on Pokémon in ${esc(ver)}</b>. Here they're only for making Pokéblocks or Berry Powder. The EV-lowering effect started in Emerald. To reset EVs in ${esc(ver)}, trade the Pokémon to Emerald, use the berries there, and trade back.`};
   if (ver === "Emerald") return {usable:true, amount:"−10", text:"Each berry lowers that stat's EVs by 10 (never below 0) and raises friendship."};
   if (g === 4) return {usable:true, amount:"−10 / to 100", text:"Each berry lowers that stat's EVs by 10. In Gen 4 only, if the stat has more than 110 EVs, one berry drops it straight to 100. Also raises friendship."};
@@ -1081,14 +1230,19 @@ function berryWhere(b, ver){
 }
 function renderBerries(){
   const ver = state.ver, g = era().g, rule = berryRule(ver, g), vitCap = g >= 8 ? 252 : 100;
-  $("berryRule").innerHTML = `<div class="note${rule.usable ? "" : " warn"}"><b>${rule.usable ? `How they work in ${esc(ver)}` : `Not usable in ${esc(ver)}`}</b>${rule.text}</div>`;
+  $("berryRule").innerHTML = `<div class="note${rule.usable ? "" : " warn"}"><b>${rule.usable ? `How they work in ${esc(ver)}` : rule.none ? `Not in ${esc(ver)}` : `Not usable in ${esc(ver)}`}</b>${rule.text}</div>`;
+  $("berryBody").closest("table").hidden = !!rule.none;
+  if (rule.none){
+    $("berryNotes").innerHTML = `<div class="note"><b>Lowering Stat Exp</b>There's no way to lower it in Gen ${ROMAN[g]}. To start over, train a fresh Pokémon that hasn't battled.</div><div class="note"><b>Vitamins</b>HP Up, Protein, Iron, Carbos and Calcium add 2,560 Stat Exp each, until that stat has 25,600. They cost ₽9,800 at the Celadon Department Store${g === 2 ? " and Goldenrod Department Store" : ""}.</div>`;
+    return;
+  }
   $("berryWhereHead").textContent = `Where to get it in ${ver}`;
   $("berryBody").innerHTML = BERRIES.map(b => {
     const w = berryWhere(b, ver);
     return `<tr>
       <td><span class="berry" style="color:${b.color}"><i></i><span style="color:var(--text)">${b.name} Berry</span></span></td>
       <td><span class="ev c-${b.stat}">${LABEL[b.stat]}</span></td>
-      <td><span class="status ${rule.usable?"yes":"no"}">${rule.usable ? rule.amount + " EVs" : "Can't use"}</span></td>
+      <td><span class="status ${rule.usable?"yes":"no"}">${rule.usable ? rule.amount + " EVs" : rule.none ? "Not in this game" : "Can't use"}</span></td>
       <td class="vit">${b.vit} <span class="how">(+10)</span></td>
       <td class="where">${w ? esc(w) : `<span class="none">Not listed here for ${esc(ver)}. Check Bulbapedia's page for the ${b.name} Berry.</span>`}</td>
     </tr>`;
@@ -1139,10 +1293,11 @@ $("typeChart").addEventListener("mouseover", e => {
 $("typeChart").addEventListener("mouseleave", () => $("typeChart").querySelectorAll("td.colhi").forEach(x => x.classList.remove("colhi")));
 function renderTypeNotes(){
   const g = era().g, notes = [];
-  if (g <= 3) notes.push(`<div class="note"><b>Physical or special is set by type</b>In Gen 3 every move of a type uses the same attack stat. Fire, Water, Grass, Electric, Ice, Psychic, Dragon and Dark moves use Sp. Atk; all other types use Attack. The chart marks each row Phys or Spec.</div>`);
+  if (g <= 3) notes.push(`<div class="note"><b>Physical or special is set by type</b>In Gen ${ROMAN[g]} every move of a type uses the same attack stat. Fire, Water, Grass, Electric, Ice, Psychic, Dragon${g >= 2 ? " and Dark" : ""} moves use ${g === 1 ? "Special" : "Sp. Atk"}; all other types use Attack. The chart marks each row Phys or Spec.</div>`);
+  if (g === 1) notes.push(`<div class="note"><b>Gen I quirks</b>There are no Dark or Steel types yet. Ghost moves have no effect on Psychic types (a bug in the original games), Bug and Poison are super effective against each other, and Ice is normal damage against Fire.</div>`);
   else notes.push(`<div class="note"><b>Physical or special is set by move</b>From Gen 4 on, each move has its own category, so a Fire move can be physical (Fire Punch) or special (Flamethrower).</div>`);
-  if (g < 6) notes.push(`<div class="note"><b>No Fairy type yet</b>Fairy arrives in Gen 6. Until then Steel also resists Ghost and Dark, and Pokémon like Gardevoir and Azumarill have their older types.</div>`);
-  else notes.push(`<div class="note"><b>Fairy type</b>Fairy beats Dragon, Fighting and Dark. Steel lost its resistance to Ghost and Dark when Fairy was added.</div>`);
+  if (g >= 2 && g < 6) notes.push(`<div class="note"><b>No Fairy type yet</b>Fairy arrives in Gen 6. Until then Steel also resists Ghost and Dark, and Pokémon like Gardevoir and Azumarill have their older types.</div>`);
+  else if (g >= 6) notes.push(`<div class="note"><b>Fairy type</b>Fairy beats Dragon, Fighting and Dark. Steel lost its resistance to Ghost and Dark when Fairy was added.</div>`);
   notes.push(`<div class="note"><b>Dual types multiply</b>A 2× weakness on both types becomes 4×. A weakness on one and a resistance on the other cancels out to normal damage.</div>`);
   notes.push(`<div class="note"><b>Same-type bonus</b>A move that matches the user's own type does 1.5× damage. Weakness and STAB stack.</div>`);
   $("typeNotes").innerHTML = notes.join("");
@@ -1176,10 +1331,11 @@ function favCard(n){
   const ei = state.ei, ver = state.ver, E = ERAS[ei], useEi = n <= E.max ? ei : introEra(n), EE = ERAS[useEi], g = EE.g, name = DEX[n-1][0];
   const base = baseStats(n, g), today = baseStats(n, 9), role = roleFor(n, g, EE.max), key = role.key;
   const sugg = [natureFor(key[0], role.lower), natureFor(key[1], role.lower)];
-  const bst = KEYS.reduce((a,k)=>a+base[k],0), ev = DEX[n-1][8], ts = typesOf(n, g), m = matchups(ts, g);
+  const sk = statKeys(g), old = g <= 2;
+  const bst = sk.reduce((a,k)=>a+base[k],0), ev = DEX[n-1][8], ts = typesOf(n, g), m = matchups(ts, g);
   const gennote = useEi !== ei ? `<span class="gennote">Not in Gen ${ROMAN[E.g]} · showing Gen ${ROMAN[g]}</span>` : "";
-  const bars = KEYS.map(k => `<span class="k${key.includes(k)?" key":""}">${SHORT[k]}${key.includes(k)?" ★":""}</span><span class="v${base[k]!==today[k]?" changed":""}"${base[k]!==today[k]?` title="Today: ${today[k]}"`:""}>${base[k]}</span><span class="track"><i style="width:${Math.min(100,base[k]/255*100)}%"></i></span>`).join("");
-  const evs = ev.some(Boolean) ? ev.map((v,i) => v ? `<span class="ev c-${KEYS[i]}">${v} ${SHORT[KEYS[i]]}</span>` : "").join("") + `<span class="muted">· ${ev.reduce((a,b)=>a+b,0)} per defeat</span>` : `<span class="muted">Gives no EVs</span>`;
+  const bars = sk.map(k => `<span class="k${key.includes(k)?" key":""}">${shortFor(k,g)}${key.includes(k)?" ★":""}</span><span class="v${base[k]!==today[k]?" changed":""}"${base[k]!==today[k]?` title="Today: ${today[k]}"`:""}>${base[k]}</span><span class="track"><i style="width:${Math.min(100,base[k]/255*100)}%"></i></span>`).join("");
+  const evs = old ? `<span class="muted">No EVs in Gen ${ROMAN[g]}. Defeating it gives Stat Exp equal to its base stats: ${sk.map(k => `${base[k]} ${shortFor(k,g)}`).join(", ")}.</span>` : ev.some(Boolean) ? ev.map((v,i) => v ? `<span class="ev c-${KEYS[i]}">${v} ${SHORT[KEYS[i]]}</span>` : "").join("") + `<span class="muted">· ${ev.reduce((a,b)=>a+b,0)} per defeat</span>` : `<span class="muted">Gives no EVs</span>`;
   let found;
   if (n > E.max) found = `<p class="muted">Doesn't exist in ${esc(ver)}.</p>`;
   else if (!LOCDATA.found[ver]) found = `<p class="muted">No location data for ${esc(ver)}.</p>`;
@@ -1196,10 +1352,10 @@ function favCard(n){
     </div>
     <div class="card-body">
       <div class="cell"><h4>Base stats · Gen ${ROMAN[g]}</h4><div class="bs">${bars}<span class="tot">Total <b>${bst}</b></span></div>${statHistory(n)}</div>
-      <div class="cell"><h4>Builds around</h4><div class="k2">${key.map(k=>`<span class="keychip">★ ${LABEL[k]}</span>`).join("")}</div>
-        <h4>Suggested natures</h4><div class="natchips">${sugg.map((ni,i)=>{const nt=NATURES[ni];return `<div class="natchip"><span class="rank">${i?"Second pick":"First pick"}</span><b>${nt[0]}</b><small>+${SHORT[nt[1]]} −${SHORT[nt[2]]}</small></div>`}).join("")}</div></div>
+      <div class="cell"><h4>Builds around</h4><div class="k2">${key.map(k=>`<span class="keychip">★ ${labelFor(k,g)}</span>`).join("")}</div>
+        <h4>Suggested natures</h4><div class="natchips">${old ? `<span class="muted">Natures start in Gen III.</span>` : sugg.map((ni,i)=>{const nt=NATURES[ni];return `<div class="natchip"><span class="rank">${i?"Second pick":"First pick"}</span><b>${nt[0]}</b><small>+${SHORT[nt[1]]} −${SHORT[nt[2]]}</small></div>`}).join("")}</div></div>
       <div class="cell"><h4>Weak and resistant · Gen ${ROMAN[g]}</h4><div class="mini">${mini("4×","red",m.x4)}${mini("2×","peach",m.x2)}${mini("½","green",m.h)}${mini("¼","teal",m.q)}${mini("0×","blue",m.z)}</div></div>
-      <div class="cell"><h4>EV yield</h4><div class="evrow">${evs}</div><h4>Evolution line</h4><div class="evo">${evoLine(n, EE.max)}</div></div>
+      <div class="cell"><h4>${old ? "Stat Exp yield" : "EV yield"}</h4><div class="evrow">${evs}</div><h4>Evolution line</h4><div class="evo">${evoLine(n, EE.max)}</div></div>
       <div class="cell"><h4>Found in · ${esc(ver)}</h4>${found}</div>
     </div>
   </article>`;
@@ -1259,15 +1415,18 @@ function focusWin(w){ calcWins.forEach(x => x.classList.toggle("active", x === w
 calcWins.forEach(w => { w.addEventListener("focusin", () => focusWin(w)); w.addEventListener("pointerdown", () => focusWin(w)); });
 
 function setGame(ei, ver){
-  state.ei = ei; gameGen.value = ei;
+  state.ei = ei;
   if (ver) state.ver = ver;
   fillVersions(); saveGame();
   speciesOptions(speciesSel, searchIn, "Choose a Pokémon…");
   dirty.evs = dirty.types = dirty.favs = dirty.secret = true;
   runCalc(); renderActive();
 }
-gameGen.addEventListener("change", () => setGame(Number(gameGen.value), null));
-gameVer.addEventListener("change", () => { state.ver = gameVer.value; saveGame(); dirty.evs = dirty.favs = dirty.secret = true; renderActive(); });
+gameSel.addEventListener("change", () => {
+  const ver = gameSel.value, ei = ERAS.findIndex(e => e.vers.includes(ver));
+  if (ei !== state.ei) return setGame(ei, ver);
+  state.ver = ver; saveGame(); dirty.evs = dirty.favs = dirty.secret = true; renderActive();
+});
 searchIn.addEventListener("input", () => { speciesOptions(speciesSel, searchIn, "Choose a Pokémon…"); runCalc(); });
 speciesSel.addEventListener("change", runCalc);
 natureSel.addEventListener("change", runCalc);
@@ -1591,23 +1750,23 @@ $("evcAddVit").addEventListener("click", () => {
 });
 
 const SP_ENV = [
-  {id:"GRASS", move:"Needle Arm", eff:"May poison", short:"poison", where:"Tall grass", c:"var(--green)"},
-  {id:"LONG_GRASS", move:"Magical Leaf", eff:"May put to sleep", short:"sleep", where:"Long grass, where you can't ride a bike", c:"var(--teal)"},
-  {id:"SAND", move:"Mud Shot", eff:"May lower accuracy", short:"lowers accuracy", where:"Sand, beaches, the desert and Route 113's ash", c:"var(--yellow)"},
-  {id:"WATER", move:"Surf", eff:"May lower Attack", short:"lowers Attack", where:"Surfing on the sea or deep water", c:"var(--blue)"},
-  {id:"POND", move:"Bubble Beam", eff:"May lower Speed", short:"lowers Speed", where:"Ponds, rivers, and water inside caves", c:"var(--sapphire)"},
-  {id:"UNDERWATER", move:"Waterfall", eff:"May lower Defense", short:"lowers Defense", where:"Underwater, after using Dive", c:"var(--mauve)"},
-  {id:"MOUNTAIN", move:"Rock Throw", eff:"May confuse", short:"confusion", where:"Rocky mountain ground", c:"var(--peach)"},
-  {id:"CAVE", move:"Bite", eff:"May make it flinch", short:"flinch", where:"Caves", c:"var(--red)"},
-  {id:"BUILDING", move:"Strength", eff:"May paralyze", short:"paralysis", where:"Inside buildings, Gyms, Secret Bases and link battles", c:"var(--subtext)"},
-  {id:"PLAIN", move:"Slam", eff:"May paralyze", short:"paralysis", where:"Paths, dirt and town streets", c:"var(--text)"}
+  {id:"GRASS", np:"Stun Spore", move:"Needle Arm", eff:"May poison", short:"poison", where:"Tall grass", c:"var(--green)"},
+  {id:"LONG_GRASS", np:"Razor Leaf", move:"Magical Leaf", eff:"May put to sleep", short:"sleep", where:"Long grass, where you can't ride a bike", c:"var(--teal)"},
+  {id:"SAND", np:"Earthquake", move:"Mud Shot", eff:"May lower accuracy", short:"lowers accuracy", where:"Sand, beaches, the desert and Route 113's ash", c:"var(--yellow)"},
+  {id:"WATER", np:"Surf", move:"Surf", eff:"May lower Attack", short:"lowers Attack", where:"Surfing on the sea or deep water", c:"var(--blue)"},
+  {id:"POND", np:"Bubble Beam", move:"Bubble Beam", eff:"May lower Speed", short:"lowers Speed", where:"Ponds, rivers, and water inside caves", c:"var(--sapphire)"},
+  {id:"UNDERWATER", np:"Hydro Pump", move:"Waterfall", eff:"May lower Defense", short:"lowers Defense", where:"Underwater, after using Dive", c:"var(--mauve)"},
+  {id:"MOUNTAIN", np:"Rock Slide", move:"Rock Throw", eff:"May confuse", short:"confusion", where:"Rocky mountain ground", c:"var(--peach)"},
+  {id:"CAVE", np:"Shadow Ball", move:"Bite", eff:"May make it flinch", short:"flinch", where:"Caves", c:"var(--red)"},
+  {id:"BUILDING", np:"Swift", move:"Strength", eff:"May paralyze", short:"paralysis", where:"Inside buildings, Gyms, Secret Bases and link battles", c:"var(--subtext)"},
+  {id:"PLAIN", np:"Swift", move:"Slam", eff:"No extra effect", short:"no effect", where:"Paths, dirt and town streets", c:"var(--text)"}
 ];
 const SP_ORDER = ["GRASS","LONG_GRASS","SAND","WATER","POND","UNDERWATER","MOUNTAIN","CAVE","BUILDING","PLAIN"];
 const SP_LATER = {
-  4:[["Most buildings, towns and link battles","Body Slam","May paralyze"],["Most special battle platforms","Pound","No extra effect"],["Plain ground and sand","Mud-Slap","May lower accuracy"],["Caves and rocky areas","Rock Throw","May make it flinch"],["Grassy areas and tall grass","Needle Arm","May put to sleep"],["Water","Water Pulse","May lower Attack"],["Snow","Avalanche","May freeze"],["Ice","Ice Shard","No extra effect"],["Marsh","Mud Shot","May lower Speed"]],
-  5:[["Buildings and towns","Body Slam","May paralyze"],["Sand, plain ground, rock and link battles","Mud-Slap","May lower accuracy"],["Caves","Rock Throw","May make it flinch"],["Tall grass","Needle Arm","May put to sleep"],["Water","Water Pulse","May lower Attack"],["Puddles","Mud Shot","May lower Speed"],["Snow","Avalanche","May freeze"],["Ice","Ice Shard","No extra effect"]],
-  6:[["Buildings, plain ground, Sky Battles and link battles","Body Slam","May paralyze"],["Electric Terrain","Thunder Shock","No extra effect"],["Sand and rock","Mud-Slap","May lower accuracy"],["Caves","Rock Throw","May make it flinch"],["Burial grounds","Shadow Sneak","No extra effect"],["Space","Swift","No extra effect"],["Water and underwater","Water Pulse","May lower Attack"],["Swamp water and marsh","Mud Shot","May lower Speed"],["Soaring in the sky and Sky Pillar","Gust","No extra effect"],["Snow","Avalanche","May freeze"],["Ice","Ice Shard","No extra effect"],["Volcano","Incinerate","May burn"],["Grass and Grassy Terrain","Needle Arm","May put to sleep"],["Misty Terrain","Fairy Wind","May lower Sp. Atk"]],
-  7:[["Buildings, roads, plain ground and link battles","Spit Up","May paralyze"],["Electric Terrain","Thunder Shock","No extra effect"],["Caves","Rock Throw","May make it flinch"],["Sand, dirt and rock","Mud-Slap","May lower accuracy"],["Water","Water Pulse","May lower Attack"],["Snow and ice","Ice Shard","May freeze"],["Volcano","Incinerate","May burn"],["Ultra Space","Psywave","May lower Defense"],["Grass, fields, flowers and Grassy Terrain","Needle Arm","May put to sleep"],["Misty Terrain","Fairy Wind","May lower Sp. Atk"],["Psychic Terrain","Confusion","May lower Speed"]]
+  4:[["Most buildings, towns and link battles","Body Slam","May paralyze","Tri Attack"],["Most special battle platforms","Pound","No extra effect","Tri Attack"],["Plain ground and sand","Mud-Slap","May lower accuracy","Earthquake"],["Caves and rocky areas","Rock Throw","May make it flinch","Rock Slide"],["Grassy areas and tall grass","Needle Arm","May put to sleep","Seed Bomb"],["Water","Water Pulse","May lower Attack","Hydro Pump"],["Snow","Avalanche","May freeze","Blizzard"],["Ice","Ice Shard","No extra effect","Ice Beam"],["Marsh","Mud Shot","May lower Speed","Mud Bomb"]],
+  5:[["Buildings and towns","Body Slam","May paralyze","Tri Attack"],["Sand, plain ground, rock and link battles","Mud-Slap","May lower accuracy","Earthquake"],["Caves","Rock Throw","May make it flinch","Rock Slide"],["Tall grass","Needle Arm","May put to sleep","Seed Bomb"],["Water","Water Pulse","May lower Attack","Hydro Pump"],["Puddles","Mud Shot","May lower Speed","Mud Bomb"],["Snow","Avalanche","May freeze","Blizzard"],["Ice","Ice Shard","No extra effect","Ice Beam"]],
+  6:[["Buildings, plain ground, Sky Battles and link battles","Body Slam","May paralyze","Tri Attack"],["Electric Terrain","Thunder Shock","No extra effect","Thunderbolt"],["Sand and rock","Mud-Slap","May lower accuracy","Earth Power"],["Caves","Rock Throw","May make it flinch","Power Gem"],["Burial grounds","Shadow Sneak","No extra effect","Shadow Ball"],["Space","Swift","No extra effect","Draco Meteor"],["Water and underwater","Water Pulse","May lower Attack","Hydro Pump"],["Swamp water and marsh","Mud Shot","May lower Speed","Mud Bomb"],["Soaring in the sky and Sky Pillar","Gust","No extra effect","Air Slash"],["Snow","Avalanche","May freeze","Frost Breath"],["Ice","Ice Shard","No extra effect","Ice Beam"],["Volcano","Incinerate","May burn","Lava Plume"],["Grass and Grassy Terrain","Needle Arm","May put to sleep","Energy Ball"],["Misty Terrain","Fairy Wind","May lower Sp. Atk","Moonblast"]],
+  7:[["Buildings, roads, plain ground and link battles","Spit Up","May paralyze","Tri Attack"],["Electric Terrain","Thunder Shock","No extra effect","Thunderbolt"],["Caves","Rock Throw","May make it flinch","Power Gem"],["Sand, dirt and rock","Mud-Slap","May lower accuracy","Earth Power"],["Water","Water Pulse","May lower Attack","Hydro Pump"],["Snow and ice","Ice Shard","May freeze","Ice Beam"],["Volcano","Incinerate","May burn","Lava Plume"],["Ultra Space","Psywave","May lower Defense","Psyshock"],["Grass, fields, flowers and Grassy Terrain","Needle Arm","May put to sleep","Energy Ball"],["Misty Terrain","Fairy Wind","May lower Sp. Atk","Moonblast"],["Psychic Terrain","Confusion","May lower Speed","Psychic"]]
 };
 const SP_GAMES = [
   {label:"Ruby / Sapphire", g:3, data:"hoenn", hideEm:true},
@@ -1627,11 +1786,12 @@ function spGameIndex(){
   if (g === 3) return v === "Emerald" ? 1 : (v === "FireRed" || v === "LeafGreen") ? 2 : 0;
   return SP_GAMES.findIndex(x => x.g === g);
 }
+const spCard = x => `<div class="note"><b style="color:${x.c}">${x.move}</b><span class="eff">${x.eff}</span><br>${x.where}<br><span class="eff">Nature Power → ${x.np}</span></div>`;
 function renderSecret(){
   const gi = spGameIndex(), notes = $("spNotes"), head = $("spHead"), body = $("spBody");
   if (gi < 0){
     $("spSearchBox").hidden = true; $("spFilterBox").hidden = true; $("spKey").innerHTML = ""; head.innerHTML = ""; body.innerHTML = "";
-    $("spLegend").innerHTML = `<b>Not in Gen ${ROMAN[era().g]}.</b> Secret Power can't be learned or used in ${esc(state.ver)}. Pick a game from Gen 3 to Gen 7 in the top bar to see where it changes.`;
+    $("spLegend").innerHTML = era().g <= 2 ? `<b>Not in Gen ${ROMAN[era().g]}.</b> Secret Power and Nature Power were both added in Ruby and Sapphire (Gen III), so ${esc(state.ver)} doesn't have them. Pick a game from Gen III to Gen VII in the top bar to see what they turn into.` : `<b>Not in Gen ${ROMAN[era().g]}.</b> In ${esc(state.ver)}, Secret Power and Nature Power no longer change with the ground the way they did in Gen III to VII. Pick one of those games in the top bar.`;
     $("spMeta").innerHTML = ""; notes.innerHTML = "";
     return;
   }
@@ -1639,11 +1799,11 @@ function renderSecret(){
   $("spSearchBox").hidden = G.g !== 3;
   $("spFilterBox").hidden = G.g !== 3;
   if (G.g !== 3){
-    $("spLegend").innerHTML = `<b>How it works:</b> Secret Power is a Normal-type move (70 power, 100% accuracy, 20 PP). It looks like a different move depending on where the battle happens, and has a 30% chance of that place's extra effect. In this generation the battle background decides it, so look for the matching ground in each area.`;
+    $("spLegend").innerHTML = `<b>How it works:</b> Secret Power is a Normal-type move (70 power, 100% accuracy, 20 PP). It looks like a different move depending on where the battle happens, and has a 30% chance of that place's extra effect. In this generation the battle background decides it, so look for the matching ground in each area.<br><b>Nature Power</b> (a Normal-type status move) turns into a different attack in the same places; the last column shows which.`;
     $("spKey").innerHTML = "";
     $("spMeta").innerHTML = `<span>${G.label}</span>`;
-    head.innerHTML = `<th><button type="button" disabled>Where you battle</button></th><th><button type="button" disabled>Looks like</button></th><th><button type="button" disabled>Extra effect (30%)</button></th>`;
-    body.innerHTML = SP_LATER[G.g].map(([w,a,e]) => `<tr><td>${w}</td><td class="anim">${a}</td><td>${e}</td></tr>`).join("");
+    head.innerHTML = `<th><button type="button" disabled>Where you battle</button></th><th><button type="button" disabled>Looks like</button></th><th><button type="button" disabled>Extra effect (30%)</button></th><th><button type="button" disabled>Nature Power becomes</button></th>`;
+    body.innerHTML = SP_LATER[G.g].map(([w,a,e,np]) => `<tr><td>${w}</td><td class="anim">${a}</td><td>${e}</td><td class="anim">${np}</td></tr>`).join("");
     head.closest("table").classList.add("later");
     notes.innerHTML = `<div class="note"><b>Area-by-area list</b>The route-by-route table is available for the Gen 3 games, where it's worked out from the games' own map data. Pick a Gen 3 game in the top bar to see it.</div><div class="note"><b>Getting the move</b>${G.g === 4 ? "TM43 teaches Secret Power." : G.g === 6 ? "In Omega Ruby and Alpha Sapphire it's TM94." : "It isn't a TM in this generation, but Pokémon that learned it earlier can keep it."}</div>`;
     return;
@@ -1653,8 +1813,8 @@ function renderSecret(){
   const present = SP_ORDER.filter(id => rowsAll.some(r => r.e.includes(SP_ORDER.indexOf(id))));
   if (spEnv !== "all" && !present.includes(spEnv)) spEnv = "all";
   $("spFilter").innerHTML = [["all","All"], ...present.map(id => [id, envById[id].move])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v === spEnv}">${l}</button>`).join("");
-  $("spLegend").innerHTML = `<b>How it works:</b> Secret Power (Normal, 70 power, 100% accuracy, 20 PP, TM43) looks like a different move depending on the ground you're standing on when the battle starts, and has a 30% chance of that ground's extra effect. Each area below lists the ground types it has. The number is how much of the area's walkable ground is that type, and the outlined one is the most common.`;
-  $("spKey").innerHTML = present.map(id => { const x = envById[id]; return `<div class="note"><b style="color:${x.c}">${x.move}</b><span class="eff">${x.eff}</span><br>${x.where}</div>`; }).join("") + (present.includes("BUILDING") ? "" : `<div class="note"><b style="color:${envById.BUILDING.c}">${envById.BUILDING.move}</b><span class="eff">${envById.BUILDING.eff}</span><br>${envById.BUILDING.where}</div>`);
+  $("spLegend").innerHTML = `<b>How it works:</b> Secret Power (Normal, 70 power, 100% accuracy, 20 PP, TM43) looks like a different move depending on the ground you're standing on when the battle starts, and has a 30% chance of that ground's extra effect. Each area below lists the ground types it has. The number is how much of the area's walkable ground is that type, and the outlined one is the most common.<br><b>Nature Power</b> (a Normal-type status move) uses the same ground but turns into a real attack instead, such as Stun Spore in tall grass. Each card below shows both.`;
+  $("spKey").innerHTML = present.map(id => { const x = envById[id]; return spCard(x); }).join("") + (present.includes("BUILDING") ? "" : spCard(envById.BUILDING));
   const q = spSearch.value.trim().toLowerCase();
   let rows = rowsAll.filter(r => (!q || r.n.toLowerCase().includes(q) || r.k.toLowerCase().includes(q)) && (spEnv === "all" || r.e.includes(SP_ORDER.indexOf(spEnv))));
   const share = (r, id) => { const j = r.e.indexOf(SP_ORDER.indexOf(id)); return j < 0 ? -1 : r.p[j]; };
@@ -1666,18 +1826,18 @@ function renderSecret(){
     return c * spDir || a.n.localeCompare(b.n);
   });
   const th = (id, label, sub) => `<th${id !== "area" && id !== "kind" ? ' class="n"' : ""}${spSort === id ? ` aria-sort="${spDir > 0 ? "ascending" : "descending"}"` : ""}><button type="button" data-c="${id}">${label}${spSort === id ? (spDir > 0 ? " ▲" : " ▼") : ""}${sub ? `<small>${sub}</small>` : ""}</button></th>`;
-  head.innerHTML = th("area","Area") + th("kind","Kind") + present.map(id => th(id, envById[id].move, envById[id].short)).join("");
-  body.innerHTML = rows.length ? rows.map(r => `<tr><td class="pk">${r.n}</td><td class="kind">${r.k}${r.x ? `<span class="em">Emerald only</span>` : ""}</td>${present.map(id => { const s = share(r, id), x = envById[id]; return s < 0 ? `<td class="n"><span class="spdot" aria-label="none">·</span></td>` : `<td class="n"><span class="spc${SP_ORDER[r.m] === id ? " main" : ""}" style="color:${x.c}" title="${x.where}">${s < 1 ? "<1" : s}%</span></td>`; }).join("")}</tr>`).join("") : `<tr><td colspan="${present.length + 2}" class="empty">No areas match.</td></tr>`;
+  head.innerHTML = th("area","Area") + th("kind","Kind") + present.map(id => th(id, envById[id].move, `${envById[id].short} · NP ${envById[id].np}`)).join("");
+  body.innerHTML = rows.length ? rows.map(r => `<tr><td class="pk">${r.n}</td><td class="kind">${r.k}${r.x ? `<span class="em">Emerald only</span>` : ""}</td>${present.map(id => { const s = share(r, id), x = envById[id]; return s < 0 ? `<td class="n"><span class="spdot" aria-label="none">·</span></td>` : `<td class="n"><span class="spc${SP_ORDER[r.m] === id ? " main" : ""}" style="color:${x.c}" title="${x.where} · Nature Power → ${x.np}">${s < 1 ? "<1" : s}%</span></td>`; }).join("")}</tr>`).join("") : `<tr><td colspan="${present.length + 2}" class="empty">No areas match.</td></tr>`;
   $("spMeta").innerHTML = `<span>Showing <b>${rows.length}</b> of ${rowsAll.length} areas · ${G.label}</span><span>Click a column heading to sort</span>`;
   const extra = G.data === "hoenn"
     ? `<div class="note"><b>Route 113 and the desert</b>Everywhere on Route 113 counts as sand because of the falling ash, and so does anywhere in a sandstorm.</div><div class="note"><b>Bridges</b>Surfing under the bridges on Routes 110 and 119 counts as sea water. Under Route 120's bridges it counts as pond water.</div>`
-    : `<div class="note"><b>Shallow water</b>In FireRed and LeafGreen, wading through shallow water counts as sand, so Secret Power looks like Mud Shot there.</div>`;
+    : `<div class="note"><b>Shallow water</b>In FireRed and LeafGreen, wading through shallow water counts as sand, so Secret Power looks like Mud Shot and Nature Power becomes Earthquake there.</div>`;
   notes.innerHTML = `<div class="note"><b>Trainer battles too</b>It goes by the tile you're on when any battle starts, wild or Trainer. Stand on the ground you want before talking to a Trainer.</div>${extra}<div class="note"><b>Where this comes from</b>Worked out tile by tile from the ${G.data === "hoenn" ? "Ruby, Sapphire and Emerald" : "FireRed and LeafGreen"} map data, using the same rules the game uses to pick the battle background.</div>`;
 }
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.3.1";
+const APP_VERSION = "1.4.0";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -1794,9 +1954,10 @@ function tick(){
 (() => {
   let saved = null;
   try { saved = JSON.parse(localStorage.getItem(GAME_KEY) || "null"); } catch(_) {}
-  const ei = saved && ERAS[saved.ei] ? saved.ei : 0;
-  state.ei = ei; state.ver = saved && ERAS[ei].vers.includes(saved.ver) ? saved.ver : ERAS[ei].vers[0];
-  gameGen.value = ei; fillVersions();
+  const savedEi = saved && typeof saved.ver === "string" ? ERAS.findIndex(e => e.vers.includes(saved.ver)) : -1;
+  state.ei = savedEi >= 0 ? savedEi : ERAS.findIndex(e => e.g === 3);
+  state.ver = savedEi >= 0 ? saved.ver : "Ruby";
+  fillVersions();
   speciesOptions(speciesSel, searchIn, "Choose a Pokémon…");
   speciesSel.value = ""; natureSel.value = "";
   addEntry();
