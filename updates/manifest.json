@@ -1,10 +1,10 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.4.3",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.3.neu",
+  "version": "1.4.4",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.4.neu",
   "data": {
-    "sha256": "7f15132e334ed5573443501efc581d1419e8380f369f372ac3ac6116dc62ca62",
-    "size": 777774,
-    "notes": "Adds party comparison: press + to add more Pok\u00e9mon and compare their IVs side by side (up to 30 in the desktop app)."
+    "sha256": "9f5cb81617a9422419caa77ca1ff614512617289e8b99351ea61b7c919a8d439",
+    "size": 778508,
+    "notes": "Makes updates safe on Mac: they're saved and checked before being swapped in, and iv31 now restarts by itself after updating on Mac and Linux."
   }
 }

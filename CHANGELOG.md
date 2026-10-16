@@ -9,6 +9,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.4.4] - 2026-10-16
+
+### Fixed
+- Updates are written to `resources.neu.new`, size-checked, then renamed over `resources.neu`, so an interrupted update can't leave an empty file (which made the Mac app open the Neutralino website).
+- Relaunch after an update works on Mac and Linux (the command allow list only matched `iv31.exe`), and on Windows paths with backslashes.
+
 ## [1.4.3] - 2026-10-16
 
 ### Added

@@ -2090,7 +2090,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.4.3";
+const APP_VERSION = "1.4.4";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -2186,6 +2186,15 @@ async function checkForUpdates(manual){
   ]);
 }
 
+async function relaunchApp(){
+  const done = () => updShow("Updated. Close iv31 and open it again to finish.", [["OK", updHide]], "ok");
+  try {
+    const bin = String((window.NL_ARGS || [])[0] || "");
+    if (!bin) return done();
+    await Neutralino.os.execCommand(`"${bin}"`, {background: true});
+    await Neutralino.app.exit();
+  } catch(_) { done(); }
+}
 async function installUpdate(m){
   if (updBusy) return;
   updBusy = true;
@@ -2200,10 +2209,15 @@ async function installUpdate(m){
     const hash = [...new Uint8Array(await crypto.subtle.digest("SHA-256", buf))].map(b => b.toString(16).padStart(2, "0")).join("");
     if (hash !== m.data.sha256) return fail("The download didn't match its published fingerprint, so it wasn't installed. Nothing was changed.");
     updShow("Installing…", []);
-    await Neutralino.filesystem.writeBinaryFile(window.NL_PATH + "/resources.neu", buf);
+    const target = window.NL_PATH + "/resources.neu", staged = target + ".new";
+    await Neutralino.filesystem.writeBinaryFile(staged, buf);
+    const st = await Neutralino.filesystem.getStats(staged);
+    if (!st || st.size !== buf.byteLength) return fail("The update didn't save correctly, so it wasn't installed. Nothing was changed.");
+    try { await Neutralino.filesystem.move(staged, target); }
+    catch(_) { await Neutralino.filesystem.writeBinaryFile(target, buf); }
     lsSet(UPD_SKIP_KEY, null);
     updShow(`Updated to ${escHtml(m.version)}. Restarting…`, [], "ok");
-    setTimeout(() => { Neutralino.app.restartProcess().catch(() => updShow("Updated. Close iv31 and open it again to finish.", [["OK", updHide]], "ok")); }, 600);
+    setTimeout(relaunchApp, 600);
   } catch(_) {
     fail(window.NL_OS === "Darwin"
       ? "The update couldn't be installed. Nothing was changed. Make sure iv31 is in your Applications folder and you opened it from there, then try again."

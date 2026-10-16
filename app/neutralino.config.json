@@ -1,6 +1,6 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "defaultMode": "window",
   "port": 31031,
   "documentRoot": "/resources/",
@@ -35,14 +35,18 @@
   },
   "nativeAllowList": [
     "filesystem.writeBinaryFile",
+    "filesystem.getStats",
+    "filesystem.move",
     "os.execCommand",
     "app.exit",
     "window.setMainMenu"
   ],
   "filesystemScopes": {
-    "${NL_PATH}/resources.neu": "write"
+    "${NL_PATH}/resources.neu": "write",
+    "${NL_PATH}/resources.neu.new": "read-write"
   },
   "commandAllowList": [
-    "*iv31.exe"
+    "*iv31.exe",
+    "*/iv31"
   ]
 }

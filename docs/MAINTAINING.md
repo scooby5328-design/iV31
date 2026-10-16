@@ -59,7 +59,7 @@ Pushing the new `updates/manifest.json` is what makes installed copies offer the
 
 | Install | How it updates |
 | --- | --- |
-| Windows installer, Mac app, Linux tarball | In-app: downloads `updates/iv31-<v>.neu`, checks its SHA-256 against the manifest, replaces `resources.neu`, restarts. |
+| Windows installer, Mac app, Linux tarball | In-app: downloads `updates/iv31-<v>.neu`, checks its SHA-256 against the manifest, writes it to `resources.neu.new`, checks the size, renames it over `resources.neu`, restarts. Never write `resources.neu` directly. |
 | Linux `.deb` | `sudo apt update && sudo apt upgrade`. The app tells the user this instead of self-updating (it lives in read-only `/opt/iv31`). |
 | AppImage | The app tells the user to download the new AppImage. |
 | Windows 1.3.0 | Can't self-update (token bug). Needs the installer once. |
@@ -70,7 +70,7 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 
 - **Update URL.** `UPDATE_BASE` in `src/index.html` and in `tools/build.py` must stay `https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/`. Installed copies only accept updates whose URL starts with it.
 - **Never load `__neutralino_globals.js`.** The runtime injects it; loading it twice breaks the one-time token (`NE_CL_IVCTOKN`, the 1.3.0 bug).
-- **Native API allow list.** New Neutralino calls must be added to `nativeAllowList` in the config, or they fail silently. Currently: `filesystem.writeBinaryFile`, `os.execCommand`, `app.exit`, `window.setMainMenu`.
+- **Native API allow list.** New Neutralino calls must be added to `nativeAllowList` in the config, or they fail silently. Currently: `filesystem.writeBinaryFile`, `filesystem.getStats`, `filesystem.move`, `os.execCommand`, `app.exit`, `window.setMainMenu`.
 - **Older web engines.** The page must work in Safari 15 (Catalina) and older WebKitGTK. `tools/build.py` adds `rgba()` fallbacks for every `color-mix()` automatically. Avoid CSS nesting, `@container`, `:has()` and other features newer than Safari 15.4.
 - **Mac menu bar.** The app sets its own menu on macOS (Quit, Edit with Copy/Paste, Window). Without it, ⌘Q and ⌘C/⌘V do nothing.
 - **App stays offline** apart from the update check. No analytics, ads or outside requests.
