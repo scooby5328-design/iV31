@@ -8,9 +8,16 @@ if [ -z "${APT_SIGNING_KEY:-}" ]; then
   exit 0
 fi
 
+lines=$(printf '%s\n' "$APT_SIGNING_KEY" | wc -l)
+has_begin=$(printf '%s\n' "$APT_SIGNING_KEY" | grep -c "BEGIN PGP PRIVATE KEY BLOCK" || true)
+has_end=$(printf '%s\n' "$APT_SIGNING_KEY" | grep -c "END PGP PRIVATE KEY BLOCK" || true)
+echo "::notice::APT_SIGNING_KEY has $lines lines, begin marker: $has_begin, end marker: $has_end"
 check="$(mktemp -d)"
 chmod 700 "$check"
-printf '%s\n' "$APT_SIGNING_KEY" | GNUPGHOME="$check" gpg --batch --quiet --import
+if ! printf '%s\n' "$APT_SIGNING_KEY" | GNUPGHOME="$check" gpg --batch --quiet --import 2> "$check/err"; then
+  echo "::error::gpg could not read APT_SIGNING_KEY: $(grep -v -i 'key [0-9A-F]' "$check/err" | head -3 | tr '\n' ' ')"
+  exit 1
+fi
 fpr=$(GNUPGHOME="$check" gpg --list-secret-keys --with-colons | awk -F: '/^fpr/ {print $10; exit}')
 rm -rf "$check"
 want_fpr=$(gpg --show-keys --with-colons packaging/linux/iv31-archive-keyring.asc | awk -F: '/^fpr/ {print $10; exit}')
