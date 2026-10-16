@@ -86,12 +86,15 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 
 **apt repository.** Served from the `apt` branch at `https://raw.githubusercontent.com/scooby5328-design/iV31/apt`, suite `stable`, component `main`, architectures `amd64 arm64`. `publish-apt.sh` rebuilds it with the last three versions' `.deb` files and force-pushes the branch. Signed with key `85840C540F38B42EAECBC17A6DB7B8ABE65CE7B9`; the private key is the `APT_SIGNING_KEY` Actions secret. Losing it means every Linux user has to install a new key.
 
+**Android.** `android/` is a Kotlin app (package `com.chili.iv31`, min Android 7, target API 36) that shows the same page from its assets in a WebView. `tools/build_android.py` copies the built page in. The page sees `window.iv31Android` and switches tiers: free = one IV calculation, EV table and Favorites without locations; Full = everything plus party comparison (30) saved in the app. Full is the one-time Google Play product `iv31_full` (Play Billing 8, `Billing.kt`). The desktop app and web page are never limited by tier. The **Android** workflow builds a test APK and a Play bundle on every push, runs both tiers on an emulator and posts screenshots to the `android-ci` pre-release. Debug builds accept `--es tier free|pro` to force a tier. Play bundles are signed only when the `ANDROID_*` secrets are set. Android updates come from Google Play, so the in-app updater is off there.
+
 ## Testing
 
 - **Build check:** `python3 tools/build.py`
 - **Page tests:** Playwright scripts that load `dist/stage/resources/index.html`, fake the Neutralino globals and check the calculator, the tabs and every updater path (Windows, Mac, apt, AppImage, web page).
 - **Linux:** install the `.deb` with `sudo apt install ./iv31_<v>_amd64.deb` and run `iv31`; on a headless machine use `xvfb-run`.
 - **Mac:** unzip into Applications and open it; check the version chip, the update check and the menu bar.
+- **Android:** check the screenshots on the `android-ci` pre-release after each push, or install `iv31-x.y.z-android-test.apk` on a phone (purchases only work in a Play-installed build).
 - **Calculations:** check a known case per generation, for example a Gen I Pikachu at level 50 with DVs 7/10/13/4 should show HP DV 10.
 
 ## Secrets and keys
@@ -99,6 +102,7 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 | Name | Where | Used for |
 | --- | --- | --- |
 | `APT_SIGNING_KEY` | GitHub → Settings → Secrets and variables → Actions | Signing the apt repository |
+| `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD` | Same place (not set yet) | Signing the Google Play bundle with the upload key |
 | `GITHUB_TOKEN` | Automatic | Creating releases, pushing the `apt` branch |
 
 ## Version history in short
