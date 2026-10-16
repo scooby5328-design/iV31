@@ -10,6 +10,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - macOS and Linux builds
 - Side-by-side comparison of saved Pokémon
 
+## [1.3.1] - 2026-10-16
+
+### Fixed
+- 1.3.0 showed `NE_CL_IVCTOKN: Neutralinojs application cannot connect with the framework core` and couldn't install updates, because the page loaded the app's connection token a second time. The extra load is removed.
+
+### Note
+- If you have 1.3.0, it can't install this update by itself. Download the 1.3.1 installer from the Releases page and run it once; it installs over 1.3.0 and keeps your saved data. People on 1.2.0 update straight to 1.3.1 from inside the app.
+
 ## [1.3.0] - 2026-10-16
 
 ### Added
@@ -114,7 +122,8 @@ aef35b57155124b152c1d4c0558ec121ae7dd1b68b1f11e2d5181897a34cc4b8
 - Expanded from the original Gen III (Hoenn) Pokédex to the full National Pokédex
 - Renamed from "Pokédex IV Checker" to iv31
 
-[Unreleased]: ../../compare/v1.3.0...HEAD
+[Unreleased]: ../../compare/v1.3.1...HEAD
+[1.3.1]: ../../releases/tag/v1.3.1
 [1.3.0]: ../../releases/tag/v1.3.0
 [1.2.0]: ../../releases/tag/v1.2.0
 [1.1.0]: ../../releases/tag/v1.1.0
