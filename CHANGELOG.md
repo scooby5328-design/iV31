@@ -25,6 +25,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Five tabs: IV Calculator (with the EV and Hidden Power calculators and a fold-away guide), EV Training, Types, Secret Power and Favorites. The separate generation pickers on each tab are gone.
 - The IV calculator starts empty.
 
+### Installer checksum
+
+`iv31-Setup-1.3.0.exe` SHA-256:
+
+```
+aa445edac2b194619f2d0c86165bb2bf0b6138ef318a5cbd12882ef2be922e60
+```
+
 ## [1.2.0] - 2026-10-15
 
 ### Added
