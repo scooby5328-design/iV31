@@ -1,0 +1,64 @@
+name: Mac runtime
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/runtime.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  NL_VERSION: "6.10.0"
+  TAG: "runtime-6.10.0-mac10.15"
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - name: Get Neutralino source
+        run: git clone --depth 1 --branch "v$NL_VERSION" https://github.com/neutralinojs/neutralinojs nl
+
+      - name: Load ScreenCaptureKit only when it exists
+        working-directory: nl
+        run: |
+          perl -0pi -e 's/find_library\(SCREENCAPTUREKIT_FRAMEWORK ScreenCaptureKit\)/set(SCREENCAPTUREKIT_FRAMEWORK "-Wl,-weak_framework,ScreenCaptureKit")/' CMakeLists.txt
+          grep -n "weak_framework" CMakeLists.txt
+
+      - name: Build x86_64 for macOS 10.15
+        working-directory: nl
+        run: |
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_OSX_DEPLOYMENT_TARGET=10.15 . -G Ninja -B build-x64
+          ninja -C build-x64 2>&1 | tee ../build-x64.log
+          cp bin/neutralino-mac_x64 ../neutralino-mac_x64
+
+      - name: Build arm64 for macOS 11
+        working-directory: nl
+        run: |
+          rm -rf bin
+          cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 . -G Ninja -B build-arm64
+          ninja -C build-arm64 2>&1 | tee ../build-arm64.log
+          cp bin/neutralino-mac_arm64 ../neutralino-mac_arm64
+
+      - name: Merge and check
+        run: |
+          lipo neutralino-mac_x64 neutralino-mac_arm64 -create -output neutralino-mac_universal
+          codesign --force --sign - neutralino-mac_universal
+          vtool -show-build neutralino-mac_universal
+          otool -L neutralino-mac_universal
+          grep -h "only available on macOS" build-*.log | sed 's/.*warning: //' | sort | uniq -c > availability.txt || true
+          cat availability.txt
+          shasum -a 256 neutralino-mac_universal > SHA256SUMS
+          cat SHA256SUMS
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete "$TAG" -R "$GITHUB_REPOSITORY" --yes --cleanup-tag 2>/dev/null || true
+          gh release create "$TAG" -R "$GITHUB_REPOSITORY" --prerelease --latest=false \
+            --title "Mac runtime (Neutralino $NL_VERSION for macOS 10.15+)" \
+            --notes "Build tool for iv31's Mac app, not an iv31 release. Neutralino $NL_VERSION compiled from source for macOS 10.15 (Intel) and 11 (Apple Silicon)." \
+            neutralino-mac_universal SHA256SUMS availability.txt
