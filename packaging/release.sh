@@ -16,7 +16,7 @@ for notes in $(ls release-notes/*.md | sort -V); do
   zip="iv31-Setup-$v.exe.zip"
   body="$work/notes-$v.md"
   cp "$notes" "$body"
-  commit=$(git log --diff-filter=A --format=%H -1 -- "$zip" || true)
+  commit=$(git log --diff-filter=AM --format=%H -1 -- "$zip" || true)
 
   if [ -n "$commit" ]; then
     git show "$commit:$zip" > "$work/$zip"

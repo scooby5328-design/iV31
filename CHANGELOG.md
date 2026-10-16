@@ -19,6 +19,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
   - Downloads the update, checks its SHA-256 fingerprint, installs it and restarts iv31. Saved favorites and EVs are kept.
   - Click the version number in the top bar to check for updates any time.
 - `updates/` folder in the repository with the update information (`manifest.json`) and update files.
+- Complete uninstall: removing iv31 now also deletes its saved favorites, EVs, settings and browser cache, leaving nothing behind.
 
 ### Changed
 - The app can now use three native functions (write its own app file, relaunch itself, exit). Everything else stays blocked.
@@ -32,7 +33,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 `iv31-Setup-1.2.0.exe` SHA-256:
 
 ```
-401be5f6f8763d35d72fe75acbead2ed73fa83a9d1d22466562e0042f49a018f
+daae35810434ab15252ecccdd61736a567692c77978b382b83a79bd1ab68e40e
 ```
 
 ## [1.1.0] - 2026-10-13

@@ -58,7 +58,7 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 
 **Requirement:** Microsoft Edge WebView2 Runtime. Almost every Windows 10/11 PC already has it. If yours doesn't, the installer offers to open Microsoft's download page.
 
-**Uninstall:** Settings → Apps → Installed apps → iv31 → Uninstall.
+**Uninstall:** Settings → Apps → Installed apps → iv31 → Uninstall. It closes iv31 and removes it completely in a second, including your saved favorites, EVs and settings. Nothing is left behind.
 
 ### Updating
 

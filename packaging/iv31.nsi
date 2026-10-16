@@ -34,6 +34,7 @@ VIAddVersionKey "LegalCopyright" "© 2026 Chili"
 !insertmacro MUI_PAGE_DIRECTORY
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
+!define MUI_UNCONFIRMPAGE_TEXT_TOP "iv31 will be closed and completely removed from this computer, including your saved favorites, EVs and settings."
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
 !insertmacro MUI_LANGUAGE "English"
@@ -54,6 +55,7 @@ FunctionEnd
 Section "iv31 (required)" SecMain
   SectionIn RO
   nsExec::Exec 'taskkill /F /IM iv31.exe'
+  Sleep 300
   SetOutPath "$INSTDIR"
   File "pkg\iv31.exe"
   File "pkg\resources.neu"
@@ -84,14 +86,21 @@ SectionEnd
 
 Section "Uninstall"
   nsExec::Exec 'taskkill /F /IM iv31.exe'
+  Sleep 500
   Delete "$INSTDIR\iv31.exe"
   Delete "$INSTDIR\resources.neu"
   Delete "$INSTDIR\icon.ico"
+  Delete "$INSTDIR\neutralinojs.log"
   Delete "$INSTDIR\Uninstall iv31.exe"
   RMDir /r "$INSTDIR\.tmp"
+  RMDir /r "$INSTDIR\.storage"
   RMDir "$INSTDIR"
   Delete "$SMPROGRAMS\iv31.lnk"
   Delete "$DESKTOP\iv31.lnk"
+  StrCmp "$APPDATA" "" +2
+  RMDir /r "$APPDATA\iv31.exe"
+  StrCmp "$LOCALAPPDATA" "" +2
+  RMDir /r "$LOCALAPPDATA\iv31.exe"
   DeleteRegKey HKCU "${UNKEY}"
   DeleteRegKey HKCU "Software\iv31"
 SectionEnd

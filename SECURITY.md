@@ -68,7 +68,7 @@ You'll be kept updated as the report moves along. With your permission, you'll b
 - **Local only.** The internal web server listens on `127.0.0.1` only, so other devices on your network can't reach it.
 - **One-time access token.** The runtime uses one-time token security for its local connection.
 - **Per-user install.** The installer doesn't ask for administrator rights and only writes to your user folder and your user's registry keys.
-- **Clean uninstall.** The uninstaller removes the app files, shortcuts and registry entries it created.
+- **Complete, safe uninstall.** The uninstaller removes everything iv31 created: its files, shortcuts, registry entries, saved data and browser cache (`%APPDATA%\iv31.exe`). It only deletes iv31's own files, so if you installed it into a folder that also holds your own files, those are left alone.
 
 ## Verifying your download
 
