@@ -27,6 +27,7 @@ It covers every main-series game from Red/Blue/Yellow to Scarlet/Violet. Gen I�
 | `app/resources/` | Fonts, icon and the Neutralino client library `js/neutralino.js`. |
 | `tools/build.py` | Builds `updates/iv31-<v>.neu` and rewrites `updates/manifest.json`. |
 | `updates/` | The update channel every installed copy reads. |
+| `updates/runtime/<id>/` | The program file for each system (Windows, Mac, Linux x64/arm64). `updates/runtime/current` names the one every package and update uses. |
 | `release-notes/<v>.md` | The GitHub release text for each version. |
 | `packaging/` | Scripts that build each platform's download, and `release.sh` that publishes them. |
 | `.github/workflows/release.yml` | Publishes releases and the apt repository. |
@@ -59,7 +60,7 @@ Pushing the new `updates/manifest.json` is what makes installed copies offer the
 
 | Install | How it updates |
 | --- | --- |
-| Windows installer, Mac app, Linux tarball | In-app: downloads `updates/iv31-<v>.neu`, checks its SHA-256 against the manifest, writes it to `resources.neu.new`, checks the size, renames it over `resources.neu`, restarts. Never write `resources.neu` directly. |
+| Windows installer, Mac app, Linux tarball | In-app: downloads `updates/iv31-<v>.neu` and, when `runtime.txt` in the install folder doesn't match the manifest's runtime id, the program file for that system too. Every file is checked against its SHA-256, written as `*.new`, size-checked, then renamed into place (the old program is kept as `*.old` until the next start). Writes `runtime.txt`, restarts, and deletes the leftovers. Never write `resources.neu` or the program directly. |
 | Linux `.deb` | `sudo apt update && sudo apt upgrade`. The app tells the user this instead of self-updating (it lives in read-only `/opt/iv31`). |
 | AppImage | The app tells the user to download the new AppImage. |
 | Windows 1.3.0 | Can't self-update (token bug). Needs the installer once. |
@@ -70,7 +71,7 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 
 - **Update URL.** `UPDATE_BASE` in `src/index.html` and in `tools/build.py` must stay `https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/`. Installed copies only accept updates whose URL starts with it.
 - **Never load `__neutralino_globals.js`.** The runtime injects it; loading it twice breaks the one-time token (`NE_CL_IVCTOKN`, the 1.3.0 bug).
-- **Native API allow list.** New Neutralino calls must be added to `nativeAllowList` in the config, or they fail silently. Currently: `filesystem.writeBinaryFile`, `filesystem.getStats`, `filesystem.move`, `os.execCommand`, `app.exit`, `window.setMainMenu`.
+- **Native API allow list.** New Neutralino calls must be added to `nativeAllowList` in the config, or they fail silently. Currently: `filesystem.writeBinaryFile`, `filesystem.writeFile`, `filesystem.readFile`, `filesystem.getStats`, `filesystem.move`, `filesystem.remove`, `filesystem.setPermissions`, `os.execCommand`, `app.exit`, `window.setMainMenu`. File access is limited to the exact files an update swaps.
 - **Older web engines.** The page must work in Safari 15 (Catalina) and older WebKitGTK. `tools/build.py` adds `rgba()` fallbacks for every `color-mix()` automatically. Avoid CSS nesting, `@container`, `:has()` and other features newer than Safari 15.4.
 - **Mac menu bar.** The app sets its own menu on macOS (Quit, Edit with Copy/Paste, Window). Without it, ⌘Q and ⌘C/⌘V do nothing.
 - **App stays offline** apart from the update check. No analytics, ads or outside requests.
@@ -79,6 +80,8 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 ## Platform details
 
 **Windows.** `packaging/iv31.exe` is the Neutralino Windows runtime; `stamp.mjs` writes the version into it and `iv31.nsi` builds the installer. Installs per user, no admin rights.
+
+**Changing the runtime.** Put the new program files in `updates/runtime/<new id>/` with the same four names, write the new id into `updates/runtime/current`, and release. Installed copies replace their program on the next update.
 
 **macOS.** Official Neutralino builds need macOS 14, so `runtime.yml` compiles Neutralino 6.10.0 for 10.15 (Intel) and 11 (Apple Silicon), with ScreenCaptureKit weak-linked. It publishes to the `runtime-6.10.0-mac10.15` release; `build-mac.sh` downloads it and checks a pinned SHA-256. To change Neutralino versions, edit `runtime.yml`, run it, then update the URL and checksum in `build-mac.sh`. The app isn't signed with an Apple developer certificate, so users run `xattr -dr com.apple.quarantine /Applications/iv31.app` once. It must live in Applications for updates to install.
 
@@ -111,4 +114,5 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.4.0 Gen I–II, single game list, Nature Power, Secret Power fix.
 - 1.4.1 First Mac release, Mac menu bar.
 - 1.4.2 Linux packages and apt repository, macOS back to 10.15, color fallbacks.
+- 1.5.0 Updates replace the program too, in place, then restart; phone web page uses the free tier.
 - 1.4.3 Party comparison (30 on desktop; `PARTY_DESKTOP_MAX` in `src/index.html`). Since then the web page on phones uses the Android free tier.

@@ -5,8 +5,8 @@ v="$1"
 out="$2"
 root="$(cd "$(dirname "$0")/.." && pwd)"
 neu="$root/updates/iv31-$v.neu"
-nl_version="6.10.0"
-nl_sha="e633f480737f229f582d8ec6165a52d789340950aef062560702122389f08329"
+runtime_id="$(cat "$root/updates/runtime/current")"
+runtime_dir="$root/updates/runtime/$runtime_id"
 tool_version="1.9.0"
 
 [ -f "$neu" ] || { echo "Missing $neu"; exit 1; }
@@ -17,9 +17,6 @@ have=$(sha256sum "$neu" | cut -d' ' -f1)
 command -v desktop-file-validate >/dev/null || { sudo apt-get update -qq && sudo apt-get install -y -qq desktop-file-utils >/dev/null; }
 
 b="$(mktemp -d)"
-curl -fsSL -o "$b/nl.zip" "https://github.com/neutralinojs/neutralinojs/releases/download/v$nl_version/neutralinojs-v$nl_version.zip"
-echo "$nl_sha  $b/nl.zip" | sha256sum -c --quiet
-unzip -q -j "$b/nl.zip" neutralino-linux_x64 neutralino-linux_arm64 -d "$b"
 cp "$root/packaging/linux/iv31-256.png" "$b/icon256.png"
 cp "$root/packaging/linux/iv31-512.png" "$b/icon512.png"
 stamp="$(git -C "$root" log -1 --format=%ct)"
@@ -30,12 +27,13 @@ for arch in x64 arm64; do
     x64) deb_arch=amd64; ai_arch=x86_64 ;;
     arm64) deb_arch=arm64; ai_arch=aarch64 ;;
   esac
-  bin="$b/neutralino-linux_$arch"
+  bin="$runtime_dir/iv31-linux-$arch"
 
   t="$b/tar-$arch/iv31"
   mkdir -p "$t"
   install -m 755 "$bin" "$t/iv31"
   install -m 644 "$neu" "$t/resources.neu"
+  printf '%s\n' "$runtime_id" > "$t/runtime.txt"
   install -m 644 "$b/icon256.png" "$t/iv31.png"
   sed "s|__EXEC__|iv31|" "$root/packaging/linux/iv31.desktop" > "$t/iv31.desktop"
   tar --sort=name --mtime="@$stamp" --owner=0 --group=0 --numeric-owner -C "$b/tar-$arch" -czf "$out/iv31-$v-linux-$arch.tar.gz" iv31
@@ -44,6 +42,7 @@ for arch in x64 arm64; do
   mkdir -p "$d/DEBIAN" "$d/opt/iv31" "$d/usr/bin" "$d/usr/share/applications" "$d/usr/share/icons/hicolor/256x256/apps" "$d/usr/share/icons/hicolor/512x512/apps"
   install -m 755 "$bin" "$d/opt/iv31/iv31"
   install -m 644 "$neu" "$d/opt/iv31/resources.neu"
+  printf '%s\n' "$runtime_id" > "$d/opt/iv31/runtime.txt"
   printf '#!/bin/sh\nexec /opt/iv31/iv31 "$@"\n' > "$d/usr/bin/iv31"
   chmod 755 "$d/usr/bin/iv31"
   sed "s|__EXEC__|/opt/iv31/iv31|" "$root/packaging/linux/iv31.desktop" > "$d/usr/share/applications/iv31.desktop"

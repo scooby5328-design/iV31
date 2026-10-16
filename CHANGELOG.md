@@ -9,6 +9,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.5.0] - 2026-10-16
+
+### Added
+- In-place program updates: the manifest lists the program file for each system (`updates/runtime/<id>/`), and installed copies replace their program in the install folder when its id changes, then restart. `runtime.txt` next to the program records which one is installed.
+
+### Changed
+- The web page opened on a phone uses the same free tier as the Android app (one IV calculation, EV table without locations).
+- All packages take their program file from `updates/runtime/` instead of downloading it at build time.
+
 ## [1.4.4] - 2026-10-16
 
 ### Fixed

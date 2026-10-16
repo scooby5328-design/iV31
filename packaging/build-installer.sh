@@ -15,7 +15,10 @@ command -v makensis >/dev/null || { sudo apt-get update -qq && sudo apt-get inst
 
 b="$(mktemp -d)"
 mkdir -p "$b/pkg" "$b/dist"
-cp "$root/packaging/iv31.exe" "$root/packaging/icon.ico" "$b/pkg/"
+runtime_id="$(cat "$root/updates/runtime/current")"
+cp "$root/updates/runtime/$runtime_id/iv31-windows-x64.exe" "$b/pkg/iv31.exe"
+cp "$root/packaging/icon.ico" "$b/pkg/"
+printf '%s\r\n' "$runtime_id" > "$b/pkg/runtime.txt"
 cp "$neu" "$b/pkg/resources.neu"
 
 (cd "$root/packaging" && npm install --no-save --silent resedit@2.0.3 pe-library@1.0.1 >/dev/null)

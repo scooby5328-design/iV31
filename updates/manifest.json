@@ -1,10 +1,35 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.4.4",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.4.4.neu",
+  "version": "1.5.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.0.neu",
   "data": {
-    "sha256": "9f5cb81617a9422419caa77ca1ff614512617289e8b99351ea61b7c919a8d439",
-    "size": 778508,
-    "notes": "Makes updates safe on Mac: they're saved and checked before being swapped in, and iv31 now restarts by itself after updating on Mac and Linux."
+    "sha256": "35e2fb129d37db8a58b21841a8a4933783c9b987e9bb45b9a9b1d5a580e2a5b4",
+    "size": 785873,
+    "notes": "Updates can now replace the whole program in place and restart on their own, and the web page on phones matches the Android app's free version.",
+    "runtime": {
+      "id": "nl6.10.0-1",
+      "files": {
+        "windows-x64": {
+          "url": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/runtime/nl6.10.0-1/iv31-windows-x64.exe",
+          "sha256": "3b8071659011588aa853c6326c9cdf54087f73b5850942e40151507be8572fef",
+          "size": 2494464
+        },
+        "mac-universal": {
+          "url": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/runtime/nl6.10.0-1/iv31-mac-universal",
+          "sha256": "e849d345e828d20f4aee1409a6e9e7779cd0e0a19fb2403df19a38bb39cfd54f",
+          "size": 6033888
+        },
+        "linux-x64": {
+          "url": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/runtime/nl6.10.0-1/iv31-linux-x64",
+          "sha256": "fc55bf46b51eaadcaea589654b0b25772b5922c9a287fd4031681759f5dae69d",
+          "size": 2901104
+        },
+        "linux-arm64": {
+          "url": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/runtime/nl6.10.0-1/iv31-linux-arm64",
+          "sha256": "45adf8cb979c3ea6b1a305c2a81ab742f44170370aada0e34940b8a8ecf6f36f",
+          "size": 3123672
+        }
+      }
+    }
   }
 }

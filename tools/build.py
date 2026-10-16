@@ -55,6 +55,16 @@ def main():
     subprocess.run(["node", str(ROOT / "tools/pack.mjs"), str(stage), str(neu)], check=True, cwd=ROOT)
     digest = hashlib.sha256(neu.read_bytes()).hexdigest()
     summary = json.loads((ROOT / "src/release.json").read_text(encoding="utf-8"))["summary"]
+    runtime_id = (ROOT / "updates/runtime/current").read_text(encoding="utf-8").strip()
+    runtime_files = {}
+    for key, name in (("windows-x64", "iv31-windows-x64.exe"), ("mac-universal", "iv31-mac-universal"),
+                      ("linux-x64", "iv31-linux-x64"), ("linux-arm64", "iv31-linux-arm64")):
+        f = ROOT / "updates/runtime" / runtime_id / name
+        if not f.exists():
+            sys.exit(f"Missing {f.relative_to(ROOT)}")
+        data = f.read_bytes()
+        runtime_files[key] = {"url": f"{UPDATE_BASE}runtime/{runtime_id}/{name}",
+                              "sha256": hashlib.sha256(data).hexdigest(), "size": len(data)}
     manifest = {
         "applicationId": config["applicationId"],
         "version": version,
@@ -63,6 +73,7 @@ def main():
             "sha256": digest,
             "size": neu.stat().st_size,
             "notes": summary,
+            "runtime": {"id": runtime_id, "files": runtime_files},
         },
     }
     (ROOT / "updates/manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

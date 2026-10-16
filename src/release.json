@@ -1,3 +1,3 @@
 {
-  "summary": "Makes updates safe on Mac: they're saved and checked before being swapped in, and iv31 now restarts by itself after updating on Mac and Linux."
+  "summary": "Updates can now replace the whole program in place and restart on their own, and the web page on phones matches the Android app's free version."
 }
