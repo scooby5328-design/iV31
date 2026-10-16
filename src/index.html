@@ -476,7 +476,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
         <div class="logo" aria-hidden="true">IV<span>/</span>31</div>
         <div>
           <h1 id="appTitle">iv<span>31</span> · Pokédex IV Checker</h1>
-          <p class="sub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below you can compare several party members side by side, and use the EV and Hidden Power calculators. The game picker in the top bar sets base stats, types and locations everywhere in the app.</p>
+          <p class="sub" id="introSub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below you can compare several party members side by side, and use the EV and Hidden Power calculators. The game picker in the top bar sets base stats, types and locations everywhere in the app.</p>
         </div>
       </div>
     </div>
@@ -1380,8 +1380,11 @@ function restoreParty(){
   });
   partyRestored = true;
 }
+const INTRO_FULL = $("introSub").innerHTML;
+const INTRO_FREE = "Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. The game picker in the top bar sets base stats and types everywhere in the app.";
 function applyTier(){
   const t = tier();
+  $("introSub").innerHTML = t === "free" ? INTRO_FREE : INTRO_FULL;
   document.body.classList.toggle("tier-free", t === "free");
   document.body.classList.toggle("tier-pro", t === "pro");
   if (ANDROID){
