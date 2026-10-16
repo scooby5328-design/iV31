@@ -401,6 +401,19 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .upd{max-width:1088px;margin:10px auto 0;box-sizing:border-box}
 @media (max-width:1152px){.upd{margin-inline:16px}}
 .btn:disabled{opacity:.5;cursor:default}
+@media (max-width:640px){
+.store .bar-inner{background:var(--mantle);backdrop-filter:none;-webkit-backdrop-filter:none}
+.store .mods{flex:1}
+.store .mods select{flex:1;max-width:none}
+.store .ws{position:fixed;left:0;right:0;bottom:0;z-index:20;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--mantle);border-top:1px solid var(--surface0)}
+.store .ws a{flex-direction:column;justify-content:center;gap:2px;min-height:48px;padding:6px 2px;white-space:normal;text-align:center;line-height:1.15}
+.store .ws a b{display:none}
+.store .ws a span{display:block;font-size:10.5px}
+.store .ws a:hover{background:none;color:var(--subtext)}
+.store .ws a.on,.store .ws a.on:hover{background:var(--mauve);color:var(--crust)}
+.store .desk{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+}
+@media (max-width:480px){.evc th.barcell,.evc td.barcell{display:none}.evc td,.evc th{padding-inline:3px}.evc td.pts{min-width:0}.evc .nextpt{white-space:normal;font-size:11px}.ctl input{width:48px}.hptable td,.hptable th{padding-inline:3px}}
 </style>
 </head>
 <body>
@@ -430,7 +443,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
       <div class="pane intro">
         <div class="logo" aria-hidden="true">IV<span>/</span>31</div>
         <div>
-          <h1>iv<span>31</span> · Pokédex IV Checker</h1>
+          <h1 id="appTitle">iv<span>31</span> · Pokédex IV Checker</h1>
           <p class="sub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below are the EV and Hidden Power calculators. The game picker in the top bar sets base stats, types and locations everywhere in the app.</p>
         </div>
       </div>
@@ -577,7 +590,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
         <div><h3>Key stats and natures</h3><p>Starred stats (★) are the two this Pokémon relies on most, judged from its final evolution in the selected generation. The suggested natures raise one of them and lower the attacking stat it doesn't use. HP is never starred because no nature changes it.</p></div>
         <div><h3>EV calculator</h3><p>Type the EVs your Pokémon has, or add them as you train: pick what you defeated, how many times, and any Macho Brace, Power item or Pokérus. It keeps you inside the limits (510 in total, and 252 per stat from Gen VI on, 255 before that) and shows the stat points the EVs give at its level and at level 100. Use "Send EVs to Summary" so the IV readout accounts for them.</p></div>
         <div><h3>Hidden Power</h3><p>Hidden Power's type comes from whether each IV is odd or even, and in Gen III to V its power (30 to 70) comes from the second-lowest bit of each IV. The "Aim for a type" table lists the highest IVs that give each type, which is handy when breeding.</p></div>
-        <div><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number in the top bar to check any time. Nothing about you is sent; it only downloads a small version file.</p>
+        <div id="guideUpd"><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number in the top bar to check any time. Nothing about you is sent; it only downloads a small version file.</p>
         <label class="toggle" for="autoUpd"><input type="checkbox" id="autoUpd" checked> Check for updates when iv31 starts</label></div>
         <div><h3>Gen I and II</h3><p>Red, Blue, Yellow, Gold, Silver and Crystal use DVs from 0 to 15 instead of IVs, Stat Experience instead of EVs, and no natures. The HP DV isn't stored; it comes from whether the other four DVs are odd or even, so iv31 only keeps DV combinations where they agree. Gen I has one Special stat. In Gen II, Sp. Atk and Sp. Def share the Special DV, and DVs also decide Hidden Power and whether a Pokémon is shiny.</p></div>
         <div><h3>Getting accurate results</h3><p>Ranges are widest at low levels. A freshly caught Pokémon has 0 EVs, so check it before it battles. Changed base stats from older games show in red. Let's Go Pikachu/Eevee and Legends: Arceus use different stat systems and aren't supported.</p></div>
@@ -794,6 +807,8 @@ const BERRIES = [
 
 const $ = id => document.getElementById(id);
 const IS_APP = typeof window.NL_APPVERSION === "string" && typeof window.Neutralino === "object";
+const IS_STORE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === "function" && window.Capacitor.isNativePlatform());
+if (IS_STORE) document.documentElement.classList.add("store");
 const dexNo = n => "#" + String(n).padStart(4,"0");
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const nameToNum = {}; DEX.forEach((p,i) => nameToNum[p[0]] = i+1);
@@ -1381,7 +1396,7 @@ function persistFavs(){
 }
 function setSaveNote(mode){
   const el = $("saveNote"); el.className = "savenote " + mode;
-  el.querySelector("span").textContent = mode === "cloud" ? "Saved to your account, so they follow you to other devices" : mode === "local" ? (IS_APP ? "Saved on this computer" : "Saved in this browser only") : "Checking where favorites are saved…";
+  el.querySelector("span").textContent = mode === "cloud" ? "Saved to your account, so they follow you to other devices" : mode === "local" ? (IS_APP ? "Saved on this computer" : IS_STORE ? "Saved on this device" : "Saved in this browser only") : "Checking where favorites are saved…";
 }
 function favsChanged(){
   $("favCount").textContent = favs.size ? `(${favs.size})` : "";
@@ -1884,6 +1899,10 @@ function validManifest(m){
 
 async function checkForUpdates(manual){
   if (updBusy) return;
+  if (IS_STORE){
+    if (manual) updShow(`You have iv31 <b>${escHtml(curVersion())}</b>. Updates come through the app store.`, [["OK", updHide]], "ok");
+    return;
+  }
   if (!inApp()){
     if (manual) updShow(`You're viewing iv31 as a web page, so it can't update itself. Get the latest version from <b>github.com/scooby5328-design/iV31</b>.`, [["OK", updHide]]);
     return;
@@ -1955,6 +1974,11 @@ async function installUpdate(m){
   }
 }
 
+if (IS_STORE){
+  $("guideUpd").hidden = true;
+  $("appTitle").innerHTML = "iv<span>31</span> · IV Checker";
+  $("verChip").title = "Version";
+}
 $("verChip").textContent = "v" + curVersion();
 $("verChip").addEventListener("click", () => checkForUpdates(true));
 $("autoUpd").checked = autoUpdateOn();
