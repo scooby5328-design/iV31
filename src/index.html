@@ -182,6 +182,12 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .subtabs button:hover{color:var(--text)}
 .subtabs button[aria-selected="true"]{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
 .titlebar.withtabs{padding-block:6px}
+.tier-free #party,.tier-free .tools2,.tier-free .loc,.tier-free label[for="evWild"],.tier-free .favloc{display:none!important}
+#proCard{display:none}
+.tier-free #proCard{display:block}
+.pro-list{margin:8px 0 14px;padding-left:20px;line-height:1.7;color:var(--subtext);font-size:13.5px}
+.pro-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pro-actions .note-sm{color:var(--overlay)}
 .partycount{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--overlay);margin-left:auto}
 .party-actions{display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 12px}
 .party-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
@@ -526,6 +532,26 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
       </div>
     </section>
   </div>
+
+  <section class="win" id="proCard" aria-labelledby="pro-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="pro-h">iv31 Full</span></div>
+      <div class="pane">
+        <p class="tip" style="margin-top:0">This free version checks one Pokémon at a time. A one-time purchase unlocks the rest of iv31:</p>
+        <ul class="pro-list">
+          <li>Party comparison: up to 30 Pokémon side by side</li>
+          <li>Your party is saved between visits</li>
+          <li>The EV calculator and Hidden Power calculator</li>
+          <li>Wild locations in the EV Training table and Favorites</li>
+        </ul>
+        <div class="pro-actions">
+          <button class="btn primary" id="proBuy" type="button">Unlock iv31 Full</button>
+          <button class="btn small" id="proRestore" type="button">Restore purchase</button>
+          <span class="note-sm" id="proNote"></span>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="win" id="party" aria-labelledby="party-h">
     <div class="win-body">
@@ -1213,11 +1239,13 @@ function runCalcCore(){
 }
 
 
-const PARTY_DESKTOP_MAX = 30, PARTY_PHONE_MAX = 3;
+const PARTY_DESKTOP_MAX = 30, PARTY_PHONE_MAX = 3, PARTY_KEY = "iv31-party";
+const ANDROID = typeof window.iv31Android !== "undefined";
+const tier = () => !ANDROID ? "full" : (window.iv31Android.isPro() ? "pro" : "free");
 const partyCards = $("partyCards");
 let partyId = 0, partyEi = -1;
 const onPhone = () => !inApp() && window.matchMedia("(pointer:coarse)").matches && Math.min(screen.width, screen.height) < 820;
-const partyMax = () => onPhone() ? PARTY_PHONE_MAX : PARTY_DESKTOP_MAX;
+const partyMax = () => ANDROID ? (tier() === "pro" ? PARTY_DESKTOP_MAX : 0) : onPhone() ? PARTY_PHONE_MAX : PARTY_DESKTOP_MAX;
 const natureOptions = `<option value="">Nature…</option>` + NATURES.map((n,i) => `<option value="${i}">${n[1] ? `${n[0]} (+${SHORT[n[1]]} −${SHORT[n[2]]})` : `${n[0]} (neutral)`}</option>`).join("");
 
 function solveMember(num, natIdx, entries, g){
@@ -1324,10 +1352,52 @@ function partyLimitNote(hit){
   $("partyCopy").disabled = n >= max;
   $("partyClear").hidden = n < 2;
   const msg = $("partyMsg");
-  if (n >= max) msg.innerHTML = `<div class="verdict">${max === PARTY_PHONE_MAX ? `On a phone you can compare up to ${PARTY_PHONE_MAX} Pokémon. The iv31 desktop app compares up to ${PARTY_DESKTOP_MAX}.` : `That's the most iv31 compares at once (${PARTY_DESKTOP_MAX}). Remove one to add another.`}</div>`;
+  if (n >= max && max) msg.innerHTML = `<div class="verdict">${max === PARTY_PHONE_MAX ? `On a phone you can compare up to ${PARTY_PHONE_MAX} Pokémon. The iv31 desktop app compares up to ${PARTY_DESKTOP_MAX}.` : `That's the most iv31 compares at once (${PARTY_DESKTOP_MAX}). Remove one to add another.`}</div>`;
   else msg.innerHTML = "";
   if (hit) msg.scrollIntoView({block:"nearest"});
 }
+
+let partyRestored = false;
+function saveParty(){
+  if (tier() !== "pro" || !partyRestored) return;
+  const g = era().g;
+  const data = [...partyCards.children].map(d => {
+    const m = readMember(d, g), e = m.entries[0];
+    return {num:m.num, nat:m.natIdx, lv:e ? e.lv : null, s:e ? e.s : null, e:e ? e.e : null};
+  });
+  try { localStorage.setItem(PARTY_KEY, JSON.stringify(data)); } catch(_) {}
+}
+function restoreParty(){
+  if (tier() !== "pro" || partyRestored) return;
+  let data = null;
+  try { data = JSON.parse(localStorage.getItem(PARTY_KEY) || "null"); } catch(_) {}
+  if (!Array.isArray(data)){ partyRestored = true; return; }
+  data.slice(0, PARTY_DESKTOP_MAX).forEach(x => {
+    if (!x || typeof x !== "object") return;
+    const s = {}, e = {};
+    KEYS.forEach(k => { s[k] = x.s && Number.isFinite(x.s[k]) ? x.s[k] : NaN; e[k] = x.e && Number.isFinite(x.e[k]) ? x.e[k] : 0; });
+    addPartyMember({num:Number(x.num) || 0, nat:Number.isInteger(x.nat) ? x.nat : -1, entry:Number.isFinite(x.lv) ? {lv:x.lv, s, e} : null});
+  });
+  partyRestored = true;
+}
+function applyTier(){
+  const t = tier();
+  document.body.classList.toggle("tier-free", t === "free");
+  document.body.classList.toggle("tier-pro", t === "pro");
+  if (ANDROID){
+    let price = "";
+    try { price = window.iv31Android.price() || ""; } catch(_) {}
+    $("proBuy").textContent = price ? `Unlock iv31 Full · ${price}` : "Unlock iv31 Full";
+  }
+}
+window.iv31OnPurchase = (state, message) => {
+  const was = document.body.classList.contains("tier-pro");
+  applyTier();
+  $("proNote").textContent = message || "";
+  if (!was && tier() === "pro"){ restoreParty(); dirty.evs = dirty.favs = true; runCalc(); renderActive(); }
+};
+$("proBuy").addEventListener("click", () => { $("proNote").textContent = ""; try { window.iv31Android.buy(); } catch(_) { $("proNote").textContent = "Purchases are only available in the Android app from Google Play."; } });
+$("proRestore").addEventListener("click", () => { $("proNote").textContent = "Checking Google Play…"; try { window.iv31Android.restore(); } catch(_) { $("proNote").textContent = "Purchases are only available in the Android app from Google Play."; } });
 
 function renderParty(){
   const E = era(), g = E.g, old = g <= 2, sk = statKeys(g);
@@ -1364,6 +1434,7 @@ function renderParty(){
     else res.textContent = "Fill in all its stats to see the totals.";
   });
   partyLimitNote(false);
+  saveParty();
   const wrap = $("partyTableWrap");
   if (!rows.length){ wrap.hidden = true; return; }
   wrap.hidden = false;
@@ -1405,7 +1476,7 @@ $("partyBody").addEventListener("click", e => {
 });
 
 const evSearch = $("evSearch"), evFilter = $("evFilter"), evWild = $("evWild"), expanded = new Set();
-const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",nosort:true},...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
+const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",nosort:true,cls:"loc"},...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
 let sortBy = "no", sortDir = 1, evStat = "all";
 evFilter.innerHTML = [["all","All"],...KEYS.map(k=>[k,SHORT[k]])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v==="all"}">${l}</button>`).join("");
 function foundCell(ver, n){
@@ -1424,14 +1495,14 @@ function renderSheet(){
   for (let n = 1; n <= E.max; n++){
     const p = DEX[n-1], ev = old ? (b => sk.map(k => b[k]))(baseStats(n, E.g)) : p[8];
     if (si >= 0 && !ev[si]) continue;
-    if (evWild.checked && !placesFor(ver, n).length) continue;
-    if (q && !(p[0].toLowerCase().includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q)) || placesFor(ver, n).some(x => x.place.toLowerCase().includes(q)))) continue;
+    if (evWild.checked && tier() !== "free" && !placesFor(ver, n).length) continue;
+    if (q && !(p[0].toLowerCase().includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q)) || (tier() !== "free" && placesFor(ver, n).some(x => x.place.toLowerCase().includes(q))))) continue;
     rows.push({no:n, name:p[0], ev, tot:ev.reduce((a,b) => a + b, 0)});
   }
   const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : r.ev[sk.indexOf(sortBy)];
   rows.sort((a,b) => { const x = val(a), y = val(b); const c = typeof x === "string" ? x.localeCompare(y) : x - y; return c ? c*sortDir : a.no - b.no; });
   $("evHead").innerHTML = colsFor(E.g).map(c => c.nosort
-    ? `<th${c.n?' class="n"':""}><button type="button" disabled${c.aria?` aria-label="${c.aria}"`:""}>${c.label}</button></th>`
+    ? `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"><button type="button" disabled${c.aria?` aria-label="${c.aria}"`:""}>${c.label}</button></th>`
     : `<th class="${c.n?"n":""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
   $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexNo(r.no)}</td><td class="pk">${esc(r.name)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${sk[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="${sk.length + 5}" class="empty">No Pokémon match these filters.</td></tr>`;
   $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${si<0 ? "" : ` that give ${LABEL[evStat]} EVs`} · ${esc(ver)}`;
@@ -1609,7 +1680,7 @@ function favCard(n){
         <h4>Suggested natures</h4><div class="natchips">${old ? `<span class="muted">Natures start in Gen III.</span>` : sugg.map((ni,i)=>{const nt=NATURES[ni];return `<div class="natchip"><span class="rank">${i?"Second pick":"First pick"}</span><b>${nt[0]}</b><small>+${SHORT[nt[1]]} −${SHORT[nt[2]]}</small></div>`}).join("")}</div></div>
       <div class="cell"><h4>Weak and resistant · Gen ${ROMAN[g]}</h4><div class="mini">${mini("4×","red",m.x4)}${mini("2×","peach",m.x2)}${mini("½","green",m.h)}${mini("¼","teal",m.q)}${mini("0×","blue",m.z)}</div></div>
       <div class="cell"><h4>${old ? "Stat Exp yield" : "EV yield"}</h4><div class="evrow">${evs}</div><h4>Evolution line</h4><div class="evo">${evoLine(n, EE.max)}</div></div>
-      <div class="cell"><h4>Found in · ${esc(ver)}</h4>${found}</div>
+      <div class="cell favloc"><h4>Found in · ${esc(ver)}</h4>${found}</div>
     </div>
   </article>`;
 }
@@ -2231,7 +2302,8 @@ if (IS_STORE){
   $("verChip").title = "Version";
 }
 $("verChip").textContent = "v" + curVersion();
-$("verChip").addEventListener("click", () => checkForUpdates(true));
+$("verChip").addEventListener("click", () => ANDROID ? updShow("iv31 for Android gets its updates from Google Play.", [["OK", updHide]], "ok") : checkForUpdates(true));
+if (ANDROID){ const lbl = $("autoUpd").closest("label"); if (lbl) lbl.hidden = true; }
 $("autoUpd").checked = autoUpdateOn();
 $("autoUpd").addEventListener("change", e => lsSet(UPD_AUTO_KEY, e.target.checked ? null : "off"));
 if (inApp()){
@@ -2278,6 +2350,8 @@ function tick(){
   speciesOptions(speciesSel, searchIn, "Choose a Pokémon…");
   speciesSel.value = ""; natureSel.value = "";
   addEntry();
+  applyTier();
+  restoreParty();
   $("favCount").textContent = favs.size ? `(${favs.size})` : "";
   extrasReady = true;
   runCalc();

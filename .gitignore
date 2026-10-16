@@ -14,3 +14,8 @@ desktop.ini
 *.swp
 .env
 .env.*
+android/.gradle/
+android/build/
+android/app/build/
+android/app/src/main/assets/www/
+android/local.properties
