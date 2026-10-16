@@ -878,7 +878,7 @@ const BERRIES = [
 
 const $ = id => document.getElementById(id);
 const IS_APP = typeof window.NL_APPVERSION === "string" && typeof window.Neutralino === "object";
-const IS_STORE = !!(window.Capacitor && typeof window.Capacitor.isNativePlatform === "function" && window.Capacitor.isNativePlatform());
+const IS_STORE = typeof window.iv31Android !== "undefined";
 if (IS_STORE) document.documentElement.classList.add("store");
 const dexNo = n => "#" + String(n).padStart(4,"0");
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
@@ -1240,7 +1240,7 @@ function runCalcCore(){
 
 
 const PARTY_DESKTOP_MAX = 30, PARTY_KEY = "iv31-party";
-const ANDROID = typeof window.iv31Android !== "undefined";
+const ANDROID = IS_STORE;
 const onPhone = () => !ANDROID && !inApp() && window.matchMedia("(pointer:coarse)").matches && Math.min(screen.width, screen.height) < 820;
 const tier = () => ANDROID ? (window.iv31Android.isPro() ? "pro" : "free") : onPhone() ? "free" : "full";
 const partyCards = $("partyCards");
@@ -2213,7 +2213,7 @@ function validManifest(m){
 async function checkForUpdates(manual){
   if (updBusy) return;
   if (IS_STORE){
-    if (manual) updShow(`You have iv31 <b>${escHtml(curVersion())}</b>. Updates come through the app store.`, [["OK", updHide]], "ok");
+    if (manual) updShow(`You have iv31 <b>${escHtml(curVersion())}</b>. Updates come through Google Play.`, [["OK", updHide]], "ok");
     return;
   }
   if (!inApp()){
@@ -2350,8 +2350,7 @@ if (IS_STORE){
   $("verChip").title = "Version";
 }
 $("verChip").textContent = "v" + curVersion();
-$("verChip").addEventListener("click", () => ANDROID ? updShow("iv31 for Android gets its updates from Google Play.", [["OK", updHide]], "ok") : checkForUpdates(true));
-if (ANDROID){ const lbl = $("autoUpd").closest("label"); if (lbl) lbl.hidden = true; }
+$("verChip").addEventListener("click", () => checkForUpdates(true));
 $("autoUpd").checked = autoUpdateOn();
 $("autoUpd").addEventListener("change", e => lsSet(UPD_AUTO_KEY, e.target.checked ? null : "off"));
 if (inApp()){
