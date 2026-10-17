@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - The **Secret Power** tab is renamed **Powers** and has three charts behind tabs: **Hidden Power** (highest IVs and power for each type; the Attack/Defense DV type grid in Gen II; **Load** sends a row to the Hidden Power calculator), **Secret Power** (move and extra effect per ground, per area) and **Nature Power** (attack per area, grounds that give the same attack merged; terrain list for Gen VIII+). Links `#hiddenpower`, `#secret`, `#naturepower` and `#powers` open them.
 
+### Checksums (SHA-256)
+
+```
+b8cdf3403af3483fb7c2d193b3b0e2b141836e0100299caecb0de8ccdc06d1a7  iv31-Setup-1.6.2.exe
+ecb3987f7418207dd91b4494af14b451c3e8ab7c4cd5f3678463e8b1c4ae2483  iv31-1.6.2-mac.zip
+76a8dd39f058f6ca2325fae40f7a4633d5da30ba192538d35e70affb84002cf3  iv31-1.6.2-linux-x64.tar.gz
+57461d94eee43d85341b8824dbd50f6c82a8e58273c81720f521dc48d7d1bac7  iv31-1.6.2-linux-arm64.tar.gz
+5d87de52797e39aade03061f8fb7d86db48f8e5fd05d86197aa551f2a49f6a8d  iv31_1.6.2_amd64.deb
+5504d3a1a536b2df65e4a0648e2874e39208b9ac183b7f18fabf156820d6d245  iv31_1.6.2_arm64.deb
+9a6b47afb7e5f2ddff6c15afb2da4b0c85f3556130956552d2ec407b34dcec66  iv31-1.6.2-x86_64.AppImage
+a11649898d55a2baa88b051a8d59051b7d500ccabdd149a313804afca3747149  iv31-1.6.2-aarch64.AppImage
+```
+
 ## [1.6.1] - 2026-10-17
 
 ### Added
