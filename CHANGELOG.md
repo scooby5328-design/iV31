@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.5.3] - 2026-10-16
+
+### Changed
+- `src/data/progression.json` checked against Bulbapedia's walkthrough appendix for each game and corrected (Kanto post-game order in Gen II/IV, Sinnoh mid- and post-game, early Hoenn sea routes, Unova Routes 17–18, Kalos Route 22, Alola and Galar post-game areas).
+
 ## [1.5.2] - 2026-10-16
 
 ### Changed

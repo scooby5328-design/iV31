@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.5.2",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.2.neu",
+  "version": "1.5.3",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.3.neu",
   "data": {
-    "sha256": "6ed5a7473cf83b630945e27dba1842ffd791b189167d2efd06cd512335b28e2e",
+    "sha256": "b7f4f58d41b368b9cb1f12e219968ba953ae2ae54bac3d6c4aea24f295716585",
     "size": 799451,
-    "notes": "Sorting the EV Training table by Found in now follows each game's story order, and every Pok\u00e9mon's places are listed in that order too.",
+    "notes": "The story order used to sort Found in was checked against Bulbapedia's walkthroughs for every game and corrected.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {
