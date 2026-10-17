@@ -121,6 +121,11 @@ select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visi
 .evmode .lbl{margin:0;font-size:12px;color:var(--subtext)}
 .evmode select{width:auto}
 #gain{margin-bottom:16px}
+.sheet.ph{min-width:0}
+.sheet.ph td,.sheet.ph th{text-align:center}
+.sheet.ph td:first-child,.sheet.ph th:first-child{text-align:left}
+.sheet.ph .iv30{color:var(--peach);font-weight:700}
+.sheet.ph.g2 td{padding:10px 8px}
 .gainrow{margin-top:14px}
 .gainhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
 .gainhead b{min-width:52px}
@@ -213,6 +218,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .party-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
 .pcard{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:10px 12px;min-width:0;scroll-margin-top:80px}
 .pcard.flash{border-color:var(--mauve)}
+.win.flash .win-body{outline:2px solid var(--mauve);outline-offset:-1px}
 .pcard-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .pnum{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--crust);background:var(--mauve);border-radius:6px;padding:1px 7px;flex:none}
 .pname{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13.5px}
@@ -475,7 +481,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
       <a href="#calc" data-view="calc"><b>1</b><span>IV Calculator</span></a>
       <a href="#evs" data-view="evs"><b>2</b><span>EV Training</span></a>
       <a href="#types" data-view="types"><b>3</b><span>Types</span></a>
-      <a href="#secret" data-view="secret"><b>4</b><span>Secret Power</span></a>
+      <a href="#secret" data-view="secret"><b>4</b><span>Powers</span></a>
       <a href="#favs" data-view="favs"><b>5</b><span>Favorites</span> <em class="count" id="favCount"></em></a>
     </div>
     <div class="mods">
@@ -820,10 +826,22 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 </div>
 
 <div class="view" id="view-secret" hidden>
-  <section class="win active" aria-labelledby="sp-h">
+  <section class="win active" aria-label="Powers">
     <div class="win-body">
-      <div class="titlebar"><span id="sp-h">Secret Power and Nature Power by area</span><span class="dot"></span></div>
-      <div class="pane">
+      <div class="titlebar withtabs">
+        <div class="subtabs" role="tablist" aria-label="Powers">
+          <button type="button" role="tab" id="tab-pw-hp" aria-controls="pane-pw-hp" aria-selected="false">Hidden Power</button>
+          <button type="button" role="tab" id="tab-pw-sp" aria-controls="pane-pw-ground" aria-selected="true">Secret Power</button>
+          <button type="button" role="tab" id="tab-pw-np" aria-controls="pane-pw-ground" aria-selected="false">Nature Power</button>
+        </div>
+        <span class="dot"></span>
+      </div>
+      <div class="pane" id="pane-pw-hp" role="tabpanel" aria-labelledby="tab-pw-hp" hidden>
+        <div class="legend"><p id="phLegend"></p></div>
+        <div class="sheet-wrap" id="phWrap"><table class="sheet ph" id="phTable"></table></div>
+        <div class="notes" id="phNotes"></div>
+      </div>
+      <div class="pane" id="pane-pw-ground" role="tabpanel">
         <div class="tools">
           <div class="grow" id="spSearchBox"><label for="spSearch">Area</label><input type="search" id="spSearch" placeholder="Search an area (e.g. Route 119)" autocomplete="off"></div>
           <div id="spFilterBox"><span class="lbl" id="spFilterLbl">Shows up as</span><div class="seg" id="spFilter" role="group" aria-labelledby="spFilterLbl"></div></div>
@@ -944,7 +962,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const nameToNum = {}; DEX.forEach((p,i) => nameToNum[p[0]] = i+1);
 const PREVO = {}; DEX.forEach((p,i) => p[7].forEach(k => { PREVO[k] = i+1; }));
 
-const state = {ei:0, ver:"Ruby", view:"calc", evSub:"yields"};
+const state = {ei:0, ver:"Ruby", view:"calc", evSub:"yields", pwSub:"sp"};
 const dirty = {evs:true, types:true, favs:true, secret:true};
 const era = () => ERAS[state.ei];
 
@@ -1903,7 +1921,7 @@ function showView(v){
   wsLinks.forEach(a => a.classList.toggle("on", a.dataset.view === v));
   renderActive();
   window.scrollTo(0,0);
-  try { history.replaceState(null, "", "#" + (v === "evs" && state.evSub === "berries" ? "berries" : v)); } catch(_) {}
+  try { history.replaceState(null, "", "#" + (v === "evs" && state.evSub === "berries" ? "berries" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v)); } catch(_) {}
 }
 wsLinks.forEach(a => a.addEventListener("click", e => { e.preventDefault(); showView(a.dataset.view); }));
 const calcWins = [...document.querySelectorAll("#view-calc .win")];
@@ -2366,16 +2384,16 @@ $("evcAddVit").addEventListener("click", () => {
 });
 
 const SP_ENV = [
-  {id:"GRASS", np:"Stun Spore", move:"Needle Arm", eff:"May poison", short:"poison", where:"Tall grass", c:"var(--green)"},
-  {id:"LONG_GRASS", np:"Razor Leaf", move:"Magical Leaf", eff:"May put to sleep", short:"sleep", where:"Long grass, where you can't ride a bike", c:"var(--teal)"},
-  {id:"SAND", np:"Earthquake", move:"Mud Shot", eff:"May lower accuracy", short:"lowers accuracy", where:"Sand, beaches, the desert and Route 113's ash", c:"var(--yellow)"},
-  {id:"WATER", np:"Surf", move:"Surf", eff:"May lower Attack", short:"lowers Attack", where:"Surfing on the sea or deep water", c:"var(--blue)"},
-  {id:"POND", np:"Bubble Beam", move:"Bubble Beam", eff:"May lower Speed", short:"lowers Speed", where:"Ponds, rivers, and water inside caves", c:"var(--sapphire)"},
-  {id:"UNDERWATER", np:"Hydro Pump", move:"Waterfall", eff:"May lower Defense", short:"lowers Defense", where:"Underwater, after using Dive", c:"var(--mauve)"},
-  {id:"MOUNTAIN", np:"Rock Slide", move:"Rock Throw", eff:"May confuse", short:"confusion", where:"Rocky mountain ground", c:"var(--peach)"},
-  {id:"CAVE", np:"Shadow Ball", move:"Bite", eff:"May make it flinch", short:"flinch", where:"Caves", c:"var(--red)"},
-  {id:"BUILDING", np:"Swift", move:"Strength", eff:"May paralyze", short:"paralysis", where:"Inside buildings, Gyms, Secret Bases and link battles", c:"var(--subtext)"},
-  {id:"PLAIN", np:"Swift", move:"Slam", eff:"No extra effect", short:"no effect", where:"Paths, dirt and town streets", c:"var(--text)"}
+  {id:"GRASS", g:"tall grass", np:"Stun Spore", move:"Needle Arm", eff:"May poison", short:"poison", where:"Tall grass", c:"var(--green)"},
+  {id:"LONG_GRASS", g:"long grass", np:"Razor Leaf", move:"Magical Leaf", eff:"May put to sleep", short:"sleep", where:"Long grass, where you can't ride a bike", c:"var(--teal)"},
+  {id:"SAND", g:"sand", np:"Earthquake", move:"Mud Shot", eff:"May lower accuracy", short:"lowers accuracy", where:"Sand, beaches, the desert and Route 113's ash", c:"var(--yellow)"},
+  {id:"WATER", g:"sea", np:"Surf", move:"Surf", eff:"May lower Attack", short:"lowers Attack", where:"Surfing on the sea or deep water", c:"var(--blue)"},
+  {id:"POND", g:"pond", np:"Bubble Beam", move:"Bubble Beam", eff:"May lower Speed", short:"lowers Speed", where:"Ponds, rivers, and water inside caves", c:"var(--sapphire)"},
+  {id:"UNDERWATER", g:"underwater", np:"Hydro Pump", move:"Waterfall", eff:"May lower Defense", short:"lowers Defense", where:"Underwater, after using Dive", c:"var(--mauve)"},
+  {id:"MOUNTAIN", g:"mountain", np:"Rock Slide", move:"Rock Throw", eff:"May confuse", short:"confusion", where:"Rocky mountain ground", c:"var(--peach)"},
+  {id:"CAVE", g:"cave", np:"Shadow Ball", move:"Bite", eff:"May make it flinch", short:"flinch", where:"Caves", c:"var(--red)"},
+  {id:"BUILDING", g:"buildings", np:"Swift", move:"Strength", eff:"May paralyze", short:"paralysis", where:"Inside buildings, Gyms, Secret Bases and link battles", c:"var(--subtext)"},
+  {id:"PLAIN", g:"paths", np:"Swift", move:"Slam", eff:"No extra effect", short:"no effect", where:"Paths, dirt and town streets", c:"var(--text)"}
 ];
 const SP_ORDER = ["GRASS","LONG_GRASS","SAND","WATER","POND","UNDERWATER","MOUNTAIN","CAVE","BUILDING","PLAIN"];
 const SP_LATER = {
@@ -2402,38 +2420,58 @@ function spGameIndex(){
   if (g === 3) return v === "Emerald" ? 1 : (v === "FireRed" || v === "LeafGreen") ? 2 : 0;
   return SP_GAMES.findIndex(x => x.g === g);
 }
-const spCard = x => `<div class="note"><b style="color:${x.c}">${x.move}</b><span class="eff">${x.eff}</span><br>${x.where}<br><span class="eff">Nature Power → ${x.np}</span></div>`;
+const spCard = x => `<div class="note"><b style="color:${x.c}">${x.move}</b><span class="eff">${x.eff}</span><br>${x.where}</div>`;
+const npCard = (np, envs) => `<div class="note"><b style="color:${envs[0].c}">${np}</b><br>${envs.map(x => x.where).join(". ")}</div>`;
+const NP_TERRAIN = [["No terrain (most battles)","Tri Attack"],["Electric Terrain","Thunderbolt"],["Grassy Terrain","Energy Ball"],["Misty Terrain","Moonblast"],["Psychic Terrain","Psychic"]];
 function renderSecret(){
-  const gi = spGameIndex(), notes = $("spNotes"), head = $("spHead"), body = $("spBody");
+  if (state.pwSub === "hp") return renderPowerHp();
+  const np = state.pwSub === "np", gi = spGameIndex(), notes = $("spNotes"), head = $("spHead"), body = $("spBody"), g = era().g;
+  const off = html => { $("spSearchBox").hidden = true; $("spFilterBox").hidden = true; $("spKey").innerHTML = ""; head.innerHTML = ""; body.innerHTML = ""; $("spLegend").innerHTML = html; $("spMeta").innerHTML = ""; notes.innerHTML = ""; };
+  if (g <= 2) return off(`<b>Not in Gen ${ROMAN[g]}.</b> Secret Power and Nature Power were both added in Ruby and Sapphire (Gen III), so ${esc(state.ver)} doesn't have them. Pick a game from Gen III on in the top bar.`);
   if (gi < 0){
-    $("spSearchBox").hidden = true; $("spFilterBox").hidden = true; $("spKey").innerHTML = ""; head.innerHTML = ""; body.innerHTML = "";
-    $("spLegend").innerHTML = era().g <= 2 ? `<b>Not in Gen ${ROMAN[era().g]}.</b> Secret Power and Nature Power were both added in Ruby and Sapphire (Gen III), so ${esc(state.ver)} doesn't have them. Pick a game from Gen III to Gen VII in the top bar to see what they turn into.` : `<b>Not in Gen ${ROMAN[era().g]}.</b> In ${esc(state.ver)}, Secret Power and Nature Power no longer change with the ground the way they did in Gen III to VII. Pick one of those games in the top bar.`;
-    $("spMeta").innerHTML = ""; notes.innerHTML = "";
+    if (!np) return off(`<b>Not in ${esc(state.ver)}.</b> Secret Power was removed in Sword and Shield and hasn't come back. Its last games were Sun, Moon, Ultra Sun and Ultra Moon.`);
+    $("spSearchBox").hidden = true; $("spFilterBox").hidden = true; $("spKey").innerHTML = "";
+    $("spLegend").innerHTML = `<b>How it works:</b> Nature Power is a Normal-type status move that turns into another attack. From Sword and Shield on, the ground no longer matters: it becomes Tri Attack unless a terrain is active.`;
+    $("spMeta").innerHTML = `<span>Gen ${ROMAN[g]}</span>`;
+    head.innerHTML = `<th><button type="button" disabled>Battle conditions</button></th><th><button type="button" disabled>Nature Power becomes</button></th>`;
+    body.innerHTML = NP_TERRAIN.map(([w, m]) => `<tr><td>${w}</td><td class="anim">${m}</td></tr>`).join("");
+    head.closest("table").classList.add("later");
+    notes.innerHTML = `<div class="note"><b>Terrains</b>Moves and Abilities such as Electric Surge, Grassy Surge, Misty Surge and Psychic Surge set a terrain for five turns.</div>`;
     return;
   }
   const G = SP_GAMES[gi];
   $("spSearchBox").hidden = G.g !== 3;
   $("spFilterBox").hidden = G.g !== 3;
   if (G.g !== 3){
-    $("spLegend").innerHTML = `<b>How it works:</b> Secret Power is a Normal-type move (70 power, 100% accuracy, 20 PP). It looks like a different move depending on where the battle happens, and has a 30% chance of that place's extra effect. In this generation the battle background decides it, so look for the matching ground in each area.<br><b>Nature Power</b> (a Normal-type status move) turns into a different attack in the same places; the last column shows which.`;
+    $("spLegend").innerHTML = np
+      ? `<b>How it works:</b> Nature Power is a Normal-type status move that turns into a real attack depending on where the battle happens. In this generation the battle background decides it${G.g >= 6 ? ", and an active terrain overrides it" : ""}.`
+      : `<b>How it works:</b> Secret Power is a Normal-type move (70 power, 100% accuracy, 20 PP). It looks like a different move depending on where the battle happens, and has a 30% chance of that place's extra effect. In this generation the battle background decides it, so look for the matching ground in each area.`;
     $("spKey").innerHTML = "";
     $("spMeta").innerHTML = `<span>${G.label}</span>`;
-    head.innerHTML = `<th><button type="button" disabled>Where you battle</button></th><th><button type="button" disabled>Looks like</button></th><th><button type="button" disabled>Extra effect (30%)</button></th><th><button type="button" disabled>Nature Power becomes</button></th>`;
-    body.innerHTML = SP_LATER[G.g].map(([w,a,e,np]) => `<tr><td>${w}</td><td class="anim">${a}</td><td>${e}</td><td class="anim">${np}</td></tr>`).join("");
+    head.innerHTML = np
+      ? `<th><button type="button" disabled>Where you battle</button></th><th><button type="button" disabled>Nature Power becomes</button></th>`
+      : `<th><button type="button" disabled>Where you battle</button></th><th><button type="button" disabled>Looks like</button></th><th><button type="button" disabled>Extra effect (30%)</button></th>`;
+    body.innerHTML = SP_LATER[G.g].map(([w,a,e,n]) => np ? `<tr><td>${w}</td><td class="anim">${n}</td></tr>` : `<tr><td>${w}</td><td class="anim">${a}</td><td>${e}</td></tr>`).join("");
     head.closest("table").classList.add("later");
-    notes.innerHTML = `<div class="note"><b>Area-by-area list</b>The route-by-route table is available for the Gen 3 games, where it's worked out from the games' own map data. Pick a Gen 3 game in the top bar to see it.</div><div class="note"><b>Getting the move</b>${G.g === 4 ? "TM43 teaches Secret Power." : G.g === 6 ? "In Omega Ruby and Alpha Sapphire it's TM94." : "It isn't a TM in this generation, but Pokémon that learned it earlier can keep it."}</div>`;
+    notes.innerHTML = `<div class="note"><b>Area-by-area list</b>The route-by-route table is available for the Gen 3 games, where it's worked out from the games' own map data. Pick a Gen 3 game in the top bar to see it.</div>` + (np ? "" : `<div class="note"><b>Getting the move</b>${G.g === 4 ? "TM43 teaches Secret Power." : G.g === 6 ? "In Omega Ruby and Alpha Sapphire it's TM94." : "It isn't a TM in this generation, but Pokémon that learned it earlier can keep it."}</div>`);
     return;
   }
   head.closest("table").classList.remove("later");
   const rowsAll = SP[G.data].filter(r => !(G.hideEm && r.x));
   const present = SP_ORDER.filter(id => rowsAll.some(r => r.e.includes(SP_ORDER.indexOf(id))));
-  if (spEnv !== "all" && !present.includes(spEnv)) spEnv = "all";
-  $("spFilter").innerHTML = [["all","All"], ...present.map(id => [id, envById[id].move])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v === spEnv}">${l}</button>`).join("");
-  $("spLegend").innerHTML = `<b>How it works:</b> Secret Power (Normal, 70 power, 100% accuracy, 20 PP, TM43) looks like a different move depending on the ground you're standing on when the battle starts, and has a 30% chance of that ground's extra effect. Each area below lists the ground types it has. The number is how much of the area's walkable ground is that type, and the outlined one is the most common.<br><b>Nature Power</b> (a Normal-type status move) uses the same ground but turns into a real attack instead, such as Stun Spore in tall grass. Each card below shows both.`;
-  $("spKey").innerHTML = present.map(id => { const x = envById[id]; return spCard(x); }).join("") + (present.includes("BUILDING") ? "" : spCard(envById.BUILDING));
+  const cols = np ? [...new Set(present.map(id => envById[id].np))] : present;
+  const envsOf = c => np ? present.map(id => envById[id]).filter(x => x.np === c) : [envById[c]];
+  if (spEnv !== "all" && !cols.includes(spEnv)) spEnv = "all";
+  if (spSort !== "area" && spSort !== "kind" && !cols.includes(spSort)) { spSort = "area"; spDir = 1; }
+  $("spFilter").innerHTML = [["all","All"], ...cols.map(c => [c, np ? c : envById[c].move])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v === spEnv}">${l}</button>`).join("");
+  $("spLegend").innerHTML = np
+    ? `<b>How it works:</b> Nature Power is a Normal-type status move that turns into a real attack depending on the ground you're standing on when the battle starts, such as Stun Spore in tall grass. Each area below lists the attacks it can become. The number is how much of the area's walkable ground gives that attack, and the outlined one is the most common.`
+    : `<b>How it works:</b> Secret Power (Normal, 70 power, 100% accuracy, 20 PP, TM43) looks like a different move depending on the ground you're standing on when the battle starts, and has a 30% chance of that ground's extra effect. Each area below lists the ground types it has. The number is how much of the area's walkable ground is that type, and the outlined one is the most common.`;
+  $("spKey").innerHTML = np ? cols.map(c => npCard(c, envsOf(c))).join("") : present.map(id => spCard(envById[id])).join("") + (present.includes("BUILDING") ? "" : spCard(envById.BUILDING));
   const q = spSearch.value.trim().toLowerCase();
-  let rows = rowsAll.filter(r => (!q || r.n.toLowerCase().includes(q) || r.k.toLowerCase().includes(q)) && (spEnv === "all" || r.e.includes(SP_ORDER.indexOf(spEnv))));
-  const share = (r, id) => { const j = r.e.indexOf(SP_ORDER.indexOf(id)); return j < 0 ? -1 : r.p[j]; };
+  const share = (r, c) => { let t = -1; envsOf(c).forEach(x => { const j = r.e.indexOf(SP_ORDER.indexOf(x.id)); if (j >= 0) t = (t < 0 ? 0 : t) + r.p[j]; }); return t; };
+  const mainOf = r => np ? cols.reduce((m, c) => share(r, c) > share(r, m) ? c : m, cols[0]) : SP_ORDER[r.m];
+  let rows = rowsAll.filter(r => (!q || r.n.toLowerCase().includes(q) || r.k.toLowerCase().includes(q)) && (spEnv === "all" || share(r, spEnv) >= 0));
   rows.sort((a,b) => {
     let c;
     if (spSort === "area"){ const x = areaKey(a.n), y = areaKey(b.n); c = x[0]-y[0] || x[1]-y[1] || x[2].localeCompare(y[2]); }
@@ -2442,18 +2480,50 @@ function renderSecret(){
     return c * spDir || a.n.localeCompare(b.n);
   });
   const th = (id, label, sub) => `<th${id !== "area" && id !== "kind" ? ' class="n"' : ""}${spSort === id ? ` aria-sort="${spDir > 0 ? "ascending" : "descending"}"` : ""}><button type="button" data-c="${id}">${label}${spSort === id ? (spDir > 0 ? " ▲" : " ▼") : ""}${sub ? `<small>${sub}</small>` : ""}</button></th>`;
-  head.innerHTML = th("area","Area") + th("kind","Kind") + present.map(id => th(id, envById[id].move, `${envById[id].short} · NP ${envById[id].np}`)).join("");
-  body.innerHTML = rows.length ? rows.map(r => `<tr><td class="pk">${r.n}</td><td class="kind">${r.k}${r.x ? `<span class="em">Emerald only</span>` : ""}</td>${present.map(id => { const s = share(r, id), x = envById[id]; return s < 0 ? `<td class="n"><span class="spdot" aria-label="none">·</span></td>` : `<td class="n"><span class="spc${SP_ORDER[r.m] === id ? " main" : ""}" style="color:${x.c}" title="${x.where} · Nature Power → ${x.np}">${s < 1 ? "<1" : s}%</span></td>`; }).join("")}</tr>`).join("") : `<tr><td colspan="${present.length + 2}" class="empty">No areas match.</td></tr>`;
+  head.innerHTML = th("area","Area") + th("kind","Kind") + cols.map(c => np ? th(c, c, envsOf(c).map(x => x.g).join(", ")) : th(c, envById[c].move, `${envById[c].g} · ${envById[c].short}`)).join("");
+  body.innerHTML = rows.length ? rows.map(r => { const m = mainOf(r); return `<tr><td class="pk">${r.n}</td><td class="kind">${r.k}${r.x ? `<span class="em">Emerald only</span>` : ""}</td>${cols.map(c => { const v = share(r, c), x = envsOf(c)[0]; return v < 0 ? `<td class="n"><span class="spdot" aria-label="none">·</span></td>` : `<td class="n"><span class="spc${m === c ? " main" : ""}" style="color:${x.c}" title="${np ? envsOf(c).map(e => e.where).join(". ") : `${x.where} · ${x.eff}`}">${v < 1 ? "<1" : v}%</span></td>`; }).join("")}</tr>`; }).join("") : `<tr><td colspan="${cols.length + 2}" class="empty">No areas match.</td></tr>`;
   $("spMeta").innerHTML = `<span>Showing <b>${rows.length}</b> of ${rowsAll.length} areas · ${G.label}</span><span>Click a column heading to sort</span>`;
   const extra = G.data === "hoenn"
     ? `<div class="note"><b>Route 113 and the desert</b>Everywhere on Route 113 counts as sand because of the falling ash, and so does anywhere in a sandstorm.</div><div class="note"><b>Bridges</b>Surfing under the bridges on Routes 110 and 119 counts as sea water. Under Route 120's bridges it counts as pond water.</div>`
     : `<div class="note"><b>Shallow water</b>In FireRed and LeafGreen, wading through shallow water counts as sand, so Secret Power looks like Mud Shot and Nature Power becomes Earthquake there.</div>`;
   notes.innerHTML = `<div class="note"><b>Trainer battles too</b>It goes by the tile you're on when any battle starts, wild or Trainer. Stand on the ground you want before talking to a Trainer.</div>${extra}<div class="note"><b>Where this comes from</b>Worked out tile by tile from the ${G.data === "hoenn" ? "Ruby, Sapphire and Emerald" : "FireRed and LeafGreen"} map data, using the same rules the game uses to pick the battle background.</div>`;
 }
+function renderPowerHp(){
+  const g = era().g, tbl = $("phTable"), leg = $("phLegend"), notes = $("phNotes"), canLoad = tier() !== "free";
+  tbl.classList.toggle("g2", g === 2);
+  if (g === 1){ leg.innerHTML = `<b>Not in Gen I.</b> Hidden Power was added in Gold, Silver and Crystal.`; tbl.innerHTML = ""; notes.innerHTML = ""; return; }
+  if (g >= 8){ leg.innerHTML = `<b>Not in ${esc(state.ver)}.</b> Hidden Power was removed in Sword and Shield. Its last games were Sun, Moon, Ultra Sun and Ultra Moon.`; tbl.innerHTML = ""; notes.innerHTML = ""; return; }
+  if (g === 2){
+    leg.innerHTML = `<b>How it works:</b> In Gold, Silver and Crystal, Hidden Power's type comes from the Attack and Defense DVs. Find the row for the Attack DV and the column for the Defense DV. Its power, 31 to 70, comes from the top bit of the Attack, Defense, Speed and Special DVs (8 or higher) plus the Special DV.`;
+    const groups = [0,1,2,3].map(r => [r, r+4, r+8, r+12].join(", "));
+    tbl.innerHTML = `<thead><tr><th>Attack DV ↓ · Defense DV →</th>${groups.map(x => `<th>${x}</th>`).join("")}</tr></thead><tbody>${groups.map((ga, a) => `<tr><td><b>${ga}</b></td>${[0,1,2,3].map(d => `<td>${tchip(HP_TYPES[4*a + d], true)}</td>`).join("")}</tr>`).join("")}</tbody>`;
+    notes.innerHTML = `<div class="note"><b>Highest power</b>70 power needs Attack, Defense, Speed and Special DVs of 8 or more, and a Special DV of 11 or 15.</div><div class="note"><b>Your Pokémon</b>Enter it in the IV Calculator and the readout shows its Hidden Power type and power.</div>`;
+    return;
+  }
+  const fixed = g >= 6;
+  leg.innerHTML = `<b>How it works:</b> Hidden Power's type comes from whether each IV is odd or even, and ${fixed ? "from Gen VI on its power is always 60" : "its power, 30 to 70, comes from the second-lowest bit of each IV"}. The chart lists the highest IVs that give each type. A <span class="iv30">30</span> marks a stat that has to be even; every 31 can be any odd IV instead.${canLoad ? " Press <b>Load</b> to send a row to the Hidden Power calculator in the IV Calculator tab." : ""}`;
+  tbl.innerHTML = `<thead><tr><th>Type</th>${KEYS.map(k => `<th>${SHORT[k]}</th>`).join("")}<th>Power</th>${canLoad ? "<th><span class=\"sr\">Load</span></th>" : ""}</tr></thead><tbody>${HP_TYPES.map(t => { const b = HP_BEST[t]; if (!b) return ""; return `<tr><td>${tchip(t, true)}</td>${KEYS.map(k => `<td>${b.iv[k] === 30 ? '<span class="iv30">30</span>' : "31"}</td>`).join("")}<td>${fixed ? 60 : hpFromIvs(b.iv).power}</td>${canLoad ? `<td><button type="button" class="mini" data-phload="${t}">Load</button></td>` : ""}</tr>`; }).join("")}</tbody>`;
+  notes.innerHTML = `<div class="note"><b>The order that counts</b>The game reads the IVs as HP, Attack, Defense, Speed, Sp. Atk, Sp. Def, so Speed and the special stats are the costly ones to make even.</div><div class="note"><b>Your Pokémon</b>The IV readout in the IV Calculator shows its Hidden Power once its IVs are known.</div>`;
+}
+$("phTable").addEventListener("click", e => {
+  const b = e.target.closest("[data-phload]"); if (!b) return;
+  setHpIvs(HP_BEST[b.dataset.phload].iv); $("hpMsg").innerHTML = ""; renderHp();
+  showView("calc");
+  const hp = $("hpcalc"); hp.scrollIntoView({block:"start", behavior:"smooth"}); hp.classList.add("flash"); setTimeout(() => hp.classList.remove("flash"), 1200);
+});
+function setPwSub(sub){
+  state.pwSub = sub;
+  ["hp","sp","np"].forEach(k => $("tab-pw-" + k).setAttribute("aria-selected", k === sub));
+  $("pane-pw-hp").hidden = sub !== "hp"; $("pane-pw-ground").hidden = sub === "hp";
+  try { const tb = document.querySelector('#view-secret .tip-btn'); if (tb){ tb.dataset.tip = "pw-" + sub; tb.setAttribute("aria-label", `What is ${TIPS["pw-" + sub].t}?`); } } catch(_) {}
+  try { history.replaceState(null, "", "#" + ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[sub]); } catch(_) {}
+  renderSecret();
+}
+["hp","sp","np"].forEach(k => $("tab-pw-" + k).addEventListener("click", () => setPwSub(k)));
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.6.1";
+const APP_VERSION = "1.6.2";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -2693,7 +2763,8 @@ function tick(){
   runCalc();
   const h = location.hash.slice(1);
   if (h === "berries"){ state.evSub = "berries"; $("tab-yields").setAttribute("aria-selected","false"); $("tab-berries").setAttribute("aria-selected","true"); $("pane-yields").hidden = true; $("pane-berries").hidden = false; showView("evs"); }
-  else showView({summary:"calc",readout:"calc",about:"calc",manual:"calc"}[h] || h || "calc");
+  else if (h === "hiddenpower" || h === "naturepower"){ setPwSub(h === "hiddenpower" ? "hp" : "np"); showView("secret"); }
+  else showView({summary:"calc",readout:"calc",about:"calc",manual:"calc",powers:"secret"}[h] || h || "calc");
   tick(); setInterval(tick, 15000);
 })();
 window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h === "berries"){ setEvSub("berries"); showView("evs"); } else if (VIEWS.includes(h) && h !== state.view) showView(h); });
@@ -2713,7 +2784,7 @@ const TIPS = {
     with:[["<b>Send EVs to Summary</b> puts these EVs into the Summary screen so the IV readout counts them."],["<b>Load EVs from Summary</b> copies the Summary screen's EVs here."],["The <b>EV Training</b> table shows which Pokémon give the EVs you want and where to find them."],["<b>EVs gained</b> can send what a training session added with “Add to EV calculator”."]]},
   "hpc-h": {t:"Hidden Power calculator", for:"Works out Hidden Power's type and power from six IVs, or the IVs you need for a type.",
     how:["Type six IVs, or press <b>Use IVs from the readout</b>.","The type and power appear below.","To aim for a type, pick its row under <b>Aim for a type</b> to load the highest IVs that give it. A 30 marks a stat that has to be even.","From Gen VI on its power is always 60, and it isn't in Gen VIII or later."],
-    with:[["Loads IVs from the <b>IV readout</b>."]]},
+    with:[["Loads IVs from the <b>IV readout</b>."],["The <b>Hidden Power</b> chart in the Powers tab can load any type's IVs here."]]},
   "guide": {t:"How the IV calculator works", for:"The formulas and rules behind the numbers, and tips for accurate results. Click the bar to open or close it.", how:[], with:[]},
   "gain": {t:"EVs gained", for:"Shows how many EVs a training session added, by comparing a Pokémon's stats before and after.",
     how:["Pick the Pokémon and nature, or press <b>Use the Summary screen</b>.","<b>Before</b>: type its level and stats before you train. Leave <b>No EVs yet</b> ticked if it hasn't battled.","Go train.","<b>After</b>: type the new level and stats. In Gen III–IV level it up first, because the stats only change on level-up.","Read the EVs gained, the EVs it has now and the room left. <b>After becomes Before</b> starts the next session."],
@@ -2728,9 +2799,15 @@ const TIPS = {
   "tc-h": {t:"Weakness and resistance chart", for:"The full type chart for the selected game. Nothing to fill in.",
     how:["Rows are the attacking type, columns the defending type.","Green is 2×, red is ½×, dark is no effect, blank is normal damage.","For two defending types, multiply their columns."],
     with:[["Changes with the game in the top bar."]]},
-  "sp-h": {t:"Secret Power and Nature Power", for:"Shows what Secret Power and Nature Power turn into in each area of the selected game.",
-    how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one move or effect."],
-    with:[["Changes with the game in the top bar."]]},
+  "pw-hp": {t:"Hidden Power chart", for:"Shows which IVs give each Hidden Power type in the selected game, and its power. In Gold, Silver and Crystal it shows the type for each Attack and Defense DV.",
+    how:["Find the type you want. A <b>30</b> marks a stat that has to be even; a 31 can be any odd IV.","The <b>Power</b> column shows how strong those IVs make it (always 60 from Gen VI on).","Switch to <b>Secret Power</b> or <b>Nature Power</b> with the tabs above."],
+    with:[["<b>Load</b> sends a row to the <b>Hidden Power calculator</b> in the IV Calculator tab.",1],["The <b>IV readout</b> shows your own Pokémon's Hidden Power."],["Changes with the game in the top bar."]]},
+  "pw-sp": {t:"Secret Power chart", for:"Shows what Secret Power looks like, and its 30% extra effect, in each area of the selected game.",
+    how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one move.","Each column is a kind of ground. The number is how much of the area is that ground, and the outlined one is the most common.","Click a column heading to sort. The cards above explain each ground."],
+    with:[["The <b>Nature Power</b> tab uses the same ground."],["Changes with the game in the top bar. Gen III games get the area-by-area chart; later games list each place."]]},
+  "pw-np": {t:"Nature Power chart", for:"Shows which attack Nature Power turns into in each area of the selected game.",
+    how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one attack.","Each column is an attack. The number is how much of the area gives it, and the outlined one is the most common.","From Sword and Shield on it depends on terrain instead, shown as a short list."],
+    with:[["The <b>Secret Power</b> tab uses the same ground."],["Changes with the game in the top bar."]]},
   "fav-h": {t:"Favorites", for:"Keeps the Pokémon you care about on cards with their stats, natures, weaknesses, EV yield, evolutions and locations.",
     how:["Press <b>☆</b> next to a Pokémon in the IV readout or the EV Training table to add it.","Press <b>★</b> again to remove it."],
     with:[["Cards follow the game in the top bar."]]}
@@ -2776,10 +2853,11 @@ function addTip(bar, key){
     b.addEventListener("mouseleave", () => { clearTimeout(tipTimer); if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
   }
 }
-["in-h","out-h","party-h","evc-h","hpc-h","mc-h","tn-h","tc-h","sp-h","fav-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
+["in-h","out-h","party-h","evc-h","hpc-h","mc-h","tn-h","tc-h","fav-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
 addTip(document.querySelector("#guide .titlebar"), "guide");
 addTip(document.querySelector("#gain .titlebar"), "gain");
 addTip(document.querySelector("#view-evs .titlebar.withtabs"), "evs");
+addTip(document.querySelector("#view-secret .titlebar.withtabs"), "pw-" + state.pwSub);
 tipPop.addEventListener("mouseenter", () => clearTimeout(tipTimer));
 tipPop.addEventListener("mouseleave", () => { if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
 document.addEventListener("click", e => { if (!tipPop.hidden && !tipPop.contains(e.target) && !e.target.closest(".tip-btn")) hideTip(); });

@@ -122,3 +122,4 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.5.4 Story order is an on/off toggle that stays on while filtering by EV or sorting by a stat.
 - 1.6.0 Unknown EVs: `solveIvs` / `solveDvs` in `src/index.html` find IV and EV (or Stat Exp) ranges together; EVs gained panel in EV Training.
 - 1.6.1 A "?" tip on every section (`TIPS` in `src/index.html`). New sections need an entry there.
+- 1.6.2 Powers tab (view id still `secret`): `renderSecret` draws Secret or Nature Power by `state.pwSub`, `renderPowerHp` draws the Hidden Power chart.

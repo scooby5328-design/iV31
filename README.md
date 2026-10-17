@@ -44,7 +44,7 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 - **EV Training tab** with a sortable table of the effort values every Pokémon gives when defeated and where to find it in the wild in your version, plus a table of the berries that lower EVs and where to get them.
 - **Types tab** with a weakness and resistance chart for the selected generation (with or without Fairy) and a matchup checker for any Pokémon or pair of types.
 - **Favorites** that collect everything about a Pokémon on one card: base stats, key stats, natures, weaknesses, EV yield, evolution line and locations.
-- **Secret Power and Nature Power guide** listing every area in Ruby, Sapphire, Emerald, FireRed and LeafGreen with the ground types it has and what both moves turn into there, worked out from the games' map data. Gen IV to VII show the terrain table.
+- **Powers tab** with a Hidden Power chart (the IVs for every type, or the DV table in Gold, Silver and Crystal) and separate Secret Power and Nature Power charts listing every area in Ruby, Sapphire, Emerald, FireRed and LeafGreen with the ground types it has and what both moves turn into there, worked out from the games' map data. Gen IV to VII show the terrain table.
 - **Saves your work** between sessions on your own computer.
 - **Updates itself.** iv31 checks GitHub for a new version when it starts and can install it with one click. Updates are verified before they're installed, and you can turn the check off.
 - **Works offline.** No account, no ads, no tracking. The only time it goes online is to check for updates.
@@ -139,7 +139,7 @@ If iv31 doesn't open, install WebKitGTK: `sudo apt install libwebkit2gtk-4.1-0` 
 9. Pick your game in the top bar. Every tab follows it.
 10. Open **EV Training** to see which Pokémon to battle to train a stat and where to find them, or switch to **EV-lowering berries** to undo EVs. **EVs gained** at the top compares a Pokémon's stats before and after training and shows the EVs it earned.
 11. Open **Types** to check what a Pokémon is weak to.
-12. Open **Secret Power** and search an area to see what the move turns into there.
+12. Open **Powers** for three charts: **Hidden Power** (the IVs that give each type), **Secret Power** and **Nature Power** (what each move turns into in every area).
 13. Tap ☆ next to any Pokémon to keep it in **Favorites**.
 
 ## How the math works

@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.6.2] - 2026-10-17
+
+### Changed
+- The **Secret Power** tab is renamed **Powers** and has three charts behind tabs: **Hidden Power** (highest IVs and power for each type; the Attack/Defense DV type grid in Gen II; **Load** sends a row to the Hidden Power calculator), **Secret Power** (move and extra effect per ground, per area) and **Nature Power** (attack per area, grounds that give the same attack merged; terrain list for Gen VIII+). Links `#hiddenpower`, `#secret`, `#naturepower` and `#powers` open them.
+
 ## [1.6.1] - 2026-10-17
 
 ### Added

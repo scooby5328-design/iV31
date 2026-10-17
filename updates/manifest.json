@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.6.1",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.6.1.neu",
+  "version": "1.6.2",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.6.2.neu",
   "data": {
-    "sha256": "fdac796c9afe70a145a05acd6990a67aae7c710a964a1c1e6de1924c4b8d9bbe",
-    "size": 829975,
-    "notes": "Every section now has a ? that explains what it does, how to use it and how it works with the others.",
+    "sha256": "1736d72612cabd34d243c0e7c943507cbb15a6daff4427fe5eaabf760097830a",
+    "size": 839369,
+    "notes": "The Secret Power tab is now Powers, with separate Hidden Power, Secret Power and Nature Power charts.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {
