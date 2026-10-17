@@ -115,6 +115,8 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.4.0 Gen I–II, single game list, Nature Power, Secret Power fix.
 - 1.4.1 First Mac release, Mac menu bar.
 - 1.4.2 Linux packages and apt repository, macOS back to 10.15, color fallbacks.
-- 1.5.1–1.5.2 Sort the EV table by Found in, in story order; fixed Farfetch'd, Sirfetch'd, Flabébé names.
-- 1.5.0 Updates replace the program too, in place, then restart; phone web page uses the free tier.
 - 1.4.3 Party comparison (30 on desktop; `PARTY_DESKTOP_MAX` in `src/index.html`). Since then the web page on phones uses the Android free tier.
+- 1.5.0 Updates replace the program too, in place, then restart; phone web page uses the free tier.
+- 1.5.1–1.5.2 Sort the EV table by Found in, in story order; fixed Farfetch'd, Sirfetch'd, Flabébé names.
+- 1.5.3 Story orders checked against walkthroughs.
+- 1.5.4 Story order is an on/off toggle that stays on while filtering by EV or sorting by a stat.
