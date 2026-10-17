@@ -66,6 +66,15 @@ button{font:inherit}
 .win.active{background:linear-gradient(135deg,var(--mauve),var(--blue) 55%,var(--teal))}
 .win-body{background:var(--base);border-radius:12px;overflow:hidden}
 .titlebar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;background:var(--mantle);border-bottom:1px solid var(--surface0);font-size:13px;font-weight:600;color:var(--text)}
+.tip-btn{flex:none;width:20px;height:20px;border-radius:50%;border:1px solid var(--surface1);background:var(--base);color:var(--subtext);font:700 12px/1 var(--sans);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin:0 auto 0 -2px}
+.tip-btn:hover,.tip-btn[aria-expanded="true"]{border-color:var(--mauve);color:var(--mauve)}
+#tipPop{position:fixed;z-index:60;max-height:calc(100vh - 16px);overflow:auto;max-width:min(360px,calc(100vw - 24px));background:var(--base);color:var(--text);border:1px solid var(--surface1);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.28);padding:12px 14px;font-size:13px;line-height:1.45;font-weight:400}
+#tipPop[hidden]{display:none}
+#tipPop h4{margin:0 0 6px;font-size:13px}
+#tipPop p{margin:0 0 8px}
+#tipPop .tl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--overlay);margin:8px 0 4px}
+#tipPop ol,#tipPop ul{margin:0;padding-left:18px}
+#tipPop li{margin:2px 0}
 .titlebar .dot{width:8px;height:8px;border-radius:50%;background:var(--surface1);flex:none}
 .win.active .titlebar .dot{background:var(--mauve)}
 .pane{padding:16px}
@@ -2444,7 +2453,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.6.0";
+const APP_VERSION = "1.6.1";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -2688,6 +2697,95 @@ function tick(){
   tick(); setInterval(tick, 15000);
 })();
 window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h === "berries"){ setEvSub("berries"); showView("evs"); } else if (VIEWS.includes(h) && h !== state.view) showView(h); });
+
+const TIPS = {
+  "in-h": {t:"Summary screen", for:"Type in a Pokémon from your game's Summary screen so iv31 can work out its hidden IVs.",
+    how:["Pick your game in the top bar.","Search for the Pokémon and pick it, then choose its nature.","Type its level and six stats exactly as the game shows them.","Set <b>EVs</b>: <b>None yet</b> if it was just caught or hatched, <b>Has battled</b> if it has fought, or leave <b>Not sure</b>. Type any EVs you know under <b>Known EVs</b>.","After it levels up, press <b>+ Add stats at another level</b> and type the new stats to narrow the ranges."],
+    with:[["The <b>IV readout</b> updates as you type."],["<b>EV calculator</b>: “Send EVs to Summary” fills Known EVs here, and “Load EVs from Summary” copies them back.",1],["<b>Party comparison</b>: “Copy from Summary screen” adds this Pokémon.",1],["<b>Hidden Power calculator</b>: “Use IVs from the readout”.",1],["<b>EVs gained</b> in EV Training: “Use the Summary screen” copies this Pokémon as the Before check.",1],["Press <b>☆</b> next to its name in the readout to save it to <b>Favorites</b>."]]},
+  "out-h": {t:"IV readout", for:"Shows the IVs that match what you typed in the Summary screen. Nothing to fill in here.",
+    how:["The <b>IV</b> column is the exact IV, or a range when more than one fits.","The bar shows where that sits between 0 and 31, and the pill rates it.","A small <b>EVs</b> line under a stat means EVs are raising it, with the EVs that fit.","The bottom shows the IV total and Hidden Power, and the message suggests natures and what to check next.","Stars mark the stats this Pokémon relies on. ▲ and ▼ show what its nature raises and lowers."],
+    with:[["Follows the <b>Summary screen</b> as you type."],["The <b>EV calculator</b> uses these IVs for exact stat points.",1],["The <b>Hidden Power calculator</b> can load these IVs.",1]]},
+  "party-h": {t:"Party comparison", for:"Lines up the IVs of several Pokémon side by side, up to 30 at once.",
+    how:["Press <b>+ Add party member</b> and fill in its card: Pokémon, nature, level and stats.","Or press <b>Copy from Summary screen</b> to add the Pokémon you entered above.","The table compares every card. Click a row to jump to its card.","<b>Remove</b> takes out one card; <b>Clear</b> empties the party."],
+    with:[["<b>Summary screen</b>: copy a Pokémon in with one click."],["The game in the top bar sets the base stats for every card."]]},
+  "evc-h": {t:"EV calculator", for:"Tracks the EVs a Pokémon has and shows the stat points they give at its level and at level 100.",
+    how:["Type EVs straight into the table, or add them as you train.","Under <b>Add EVs</b>, pick the Pokémon you defeated, how many times, any held item and Pokérus, then press <b>Add</b>.","Pick a vitamin and how many, then press <b>Use</b>.","<b>Undo</b> appears in the log after each change. <b>Reset</b> clears everything.","It keeps you inside 510 in total and 255 per stat (252 from Gen VI on)."],
+    with:[["<b>Send EVs to Summary</b> puts these EVs into the Summary screen so the IV readout counts them."],["<b>Load EVs from Summary</b> copies the Summary screen's EVs here."],["The <b>EV Training</b> table shows which Pokémon give the EVs you want and where to find them."],["<b>EVs gained</b> can send what a training session added with “Add to EV calculator”."]]},
+  "hpc-h": {t:"Hidden Power calculator", for:"Works out Hidden Power's type and power from six IVs, or the IVs you need for a type.",
+    how:["Type six IVs, or press <b>Use IVs from the readout</b>.","The type and power appear below.","To aim for a type, pick its row under <b>Aim for a type</b> to load the highest IVs that give it. A 30 marks a stat that has to be even.","From Gen VI on its power is always 60, and it isn't in Gen VIII or later."],
+    with:[["Loads IVs from the <b>IV readout</b>."]]},
+  "guide": {t:"How the IV calculator works", for:"The formulas and rules behind the numbers, and tips for accurate results. Click the bar to open or close it.", how:[], with:[]},
+  "gain": {t:"EVs gained", for:"Shows how many EVs a training session added, by comparing a Pokémon's stats before and after.",
+    how:["Pick the Pokémon and nature, or press <b>Use the Summary screen</b>.","<b>Before</b>: type its level and stats before you train. Leave <b>No EVs yet</b> ticked if it hasn't battled.","Go train.","<b>After</b>: type the new level and stats. In Gen III–IV level it up first, because the stats only change on level-up.","Read the EVs gained, the EVs it has now and the room left. <b>After becomes Before</b> starts the next session."],
+    with:[["<b>Add to EV calculator</b> sends the EVs to the EV calculator in the IV Calculator tab."],["The <b>EV yields</b> table below shows where to train."],["<b>Use the Summary screen</b> copies the Pokémon from the IV calculator."],["What you type is kept until you press <b>Clear</b>."]]},
+  "evs": {t:"EV Training", for:"Shows the EVs every Pokémon gives when you defeat it and where to find it in your game. The second tab lists the berries that lower EVs.",
+    how:["Search by name, Pokédex number or place, such as Route 110.","Use the <b>Gives EVs in</b> buttons to show only Pokémon that give one stat.","Tick <b>Story order</b>, or click <b>Found in</b>, to list them in the order you reach places in the game.","Click a column heading to sort. With Story order on, it sorts within each place.","Press <b>☆</b> to save a Pokémon to Favorites."],
+    with:[["The <b>EV calculator</b>'s “Defeated Pokémon” uses these same EV yields.",1],["<b>EVs gained</b> above checks what your training added.",1],["The game in the top bar picks the locations and EV yields."]]},
+  "mc-h": {t:"Matchup checker", for:"Shows what a Pokémon, or any one or two types, is weak to, resists and is immune to.",
+    how:["Search for a Pokémon and pick it, or pick one or two types.","Read the weaknesses, resistances and immunities below."],
+    with:[["Uses the type chart of the game in the top bar."],["The IV readout shows the same weaknesses for the Pokémon you entered."]]},
+  "tn-h": {t:"Type notes", for:"Explains how types in the selected game differ from today's games. Nothing to fill in.", how:[], with:[["Changes with the game in the top bar."]]},
+  "tc-h": {t:"Weakness and resistance chart", for:"The full type chart for the selected game. Nothing to fill in.",
+    how:["Rows are the attacking type, columns the defending type.","Green is 2×, red is ½×, dark is no effect, blank is normal damage.","For two defending types, multiply their columns."],
+    with:[["Changes with the game in the top bar."]]},
+  "sp-h": {t:"Secret Power and Nature Power", for:"Shows what Secret Power and Nature Power turn into in each area of the selected game.",
+    how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one move or effect."],
+    with:[["Changes with the game in the top bar."]]},
+  "fav-h": {t:"Favorites", for:"Keeps the Pokémon you care about on cards with their stats, natures, weaknesses, EV yield, evolutions and locations.",
+    how:["Press <b>☆</b> next to a Pokémon in the IV readout or the EV Training table to add it.","Press <b>★</b> again to remove it."],
+    with:[["Cards follow the game in the top bar."]]}
+};
+const tipPop = document.createElement("div");
+tipPop.id = "tipPop"; tipPop.hidden = true; tipPop.setAttribute("role", "dialog");
+document.body.appendChild(tipPop);
+let tipOwner = null, tipPinned = false, tipTimer = 0;
+function tipHtml(key){
+  const d = TIPS[key], free = tier() === "free";
+  const withList = d.with.filter(w => !(w[1] && free));
+  return `<h4>${d.t}</h4><p>${d.for}</p>` + (d.how.length ? `<div class="tl">How to use it</div><ol>${d.how.map(x => `<li>${x}</li>`).join("")}</ol>` : "") + (withList.length ? `<div class="tl">Works with</div><ul>${withList.map(w => `<li>${w[0]}</li>`).join("")}</ul>` : "");
+}
+function showTip(btn){
+  tipOwner && tipOwner !== btn && tipOwner.setAttribute("aria-expanded", "false");
+  tipOwner = btn;
+  tipPop.innerHTML = tipHtml(btn.dataset.tip);
+  tipPop.hidden = false;
+  btn.setAttribute("aria-expanded", "true");
+  const r = btn.getBoundingClientRect(), w = tipPop.offsetWidth, h = tipPop.offsetHeight;
+  const left = Math.max(12, Math.min(window.innerWidth - w - 12, r.left + r.width / 2 - w / 2));
+  const top = r.bottom + 8 + h > window.innerHeight - 8 && r.top - 8 - h > 8 ? r.top - 8 - h : r.bottom + 8;
+  tipPop.style.left = left + "px"; tipPop.style.top = Math.max(8, top) + "px";
+}
+function hideTip(){
+  if (tipOwner) tipOwner.setAttribute("aria-expanded", "false");
+  tipOwner = null; tipPinned = false; tipPop.hidden = true;
+}
+const hoverable = window.matchMedia("(hover:hover)").matches;
+function addTip(bar, key){
+  if (!bar || !TIPS[key] || bar.querySelector(".tip-btn")) return;
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "tip-btn"; b.dataset.tip = key; b.textContent = "?";
+  b.setAttribute("aria-label", `What is ${TIPS[key].t}?`); b.setAttribute("aria-expanded", "false");
+  const first = bar.firstElementChild;
+  first ? bar.insertBefore(b, first.nextSibling) : bar.appendChild(b);
+  b.addEventListener("click", e => {
+    e.preventDefault(); e.stopPropagation();
+    if (tipOwner === b && tipPinned) hideTip(); else { showTip(b); tipPinned = true; }
+  });
+  if (hoverable){
+    b.addEventListener("mouseenter", () => { clearTimeout(tipTimer); tipTimer = setTimeout(() => { if (!tipPinned) showTip(b); }, 250); });
+    b.addEventListener("mouseleave", () => { clearTimeout(tipTimer); if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
+  }
+}
+["in-h","out-h","party-h","evc-h","hpc-h","mc-h","tn-h","tc-h","sp-h","fav-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
+addTip(document.querySelector("#guide .titlebar"), "guide");
+addTip(document.querySelector("#gain .titlebar"), "gain");
+addTip(document.querySelector("#view-evs .titlebar.withtabs"), "evs");
+tipPop.addEventListener("mouseenter", () => clearTimeout(tipTimer));
+tipPop.addEventListener("mouseleave", () => { if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
+document.addEventListener("click", e => { if (!tipPop.hidden && !tipPop.contains(e.target) && !e.target.closest(".tip-btn")) hideTip(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !tipPop.hidden){ const o = tipOwner; hideTip(); o && o.focus(); } });
+window.addEventListener("scroll", () => { if (!tipPop.hidden) hideTip(); }, {passive:true});
+window.addEventListener("resize", () => { if (!tipPop.hidden) hideTip(); });
 </script>
 </body>
 </html>

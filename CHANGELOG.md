@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.6.1] - 2026-10-17
+
+### Added
+- A **?** button in every section's title bar. Hover, click or tap it for what the section is for, step-by-step use, and how it works with the other sections. Lines about Full-only features are left out in the free tier. Text lives in `TIPS` in `src/index.html`.
+
 ## [1.6.0] - 2026-10-17
 
 ### Added
