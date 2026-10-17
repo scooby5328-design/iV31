@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 - A **?** button in every section's title bar. Hover, click or tap it for what the section is for, step-by-step use, and how it works with the other sections. Lines about Full-only features are left out in the free tier. Text lives in `TIPS` in `src/index.html`.
 
+### Checksums (SHA-256)
+
+```
+0701142ad1d1e6ab48d90ba123765b89b23489e1d0d1853ad900bcb6f0e55a9d  iv31-Setup-1.6.1.exe
+321445ad4da6cd0d065a22265cec84a18a72c2b79f9c878e8372905902477874  iv31-1.6.1-mac.zip
+c4d15a4dc59f6fffcc9e281e7ef411a852a9268d672a8ab95407350abb832ea1  iv31-1.6.1-linux-x64.tar.gz
+54f5400d846dc03c7a7d01bb71266071692595f06d4b6564342629aacdc50cee  iv31-1.6.1-linux-arm64.tar.gz
+bc3ff084fb38b98494fd790f37336757f82355c62ba0374a38033268a70242bd  iv31_1.6.1_amd64.deb
+d53de50a2cc3d96375bccd0e5c52bb02a7327af9c6db35a2b35a1bca0f01294c  iv31_1.6.1_arm64.deb
+c0631c8e9692eeb47df90565557829866c1648d0fb3fc359dd1d4e2f73036656  iv31-1.6.1-x86_64.AppImage
+76a702d0f99ddb267b094e9a92583c8111f4d06fc7acec8bb3f1d95f0af64b9f  iv31-1.6.1-aarch64.AppImage
+```
+
 ## [1.6.0] - 2026-10-17
 
 ### Added
