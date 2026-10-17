@@ -18,6 +18,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Farfetch'd, Sirfetch'd and Flabébé showed escaped characters (`\u2019`, `\u0301`) in their names.
 - Name searches ignore accents and treat curly and straight apostrophes the same.
 
+### Checksums (SHA-256)
+
+```
+775e2c8390b1c4a065b0beaca3b2baa93515e78ac357c5f954d6421b6f2c078f  iv31-Setup-1.5.1.exe
+a541097e7317ee18faae7b92a5aeeb625de913b859e8240dea75f892a5bc0d5e  iv31-1.5.1-mac.zip
+88b82fc91a328c0b2de6781141136f1c3761f82156c5f0c11f520126c70a6471  iv31-1.5.1-linux-x64.tar.gz
+bdea9f9be447c99c1f613d3387db127c6d6304a5f5ac92bb99d9fb0ca468c7ce  iv31-1.5.1-linux-arm64.tar.gz
+920386ec79056fc80b4e0aacb2d1b0fe261261fb9434083385aca26e184acde7  iv31_1.5.1_amd64.deb
+5e1d3859206f02d2d60717db0e771d44953ce98cba7b02d453c6741b85e9715b  iv31_1.5.1_arm64.deb
+a106d7eb3abcf06ce23577d117145dd392abbc66b3494bba61c9b4d2cef68bdf  iv31-1.5.1-x86_64.AppImage
+9ced38ad4d2e44407357a65f3532b0d9f92ecbd9e309e4dee7eef17575c0a5e2  iv31-1.5.1-aarch64.AppImage
+```
+
 ## [1.5.0] - 2026-10-16
 
 ### Added
