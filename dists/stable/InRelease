@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+Architectures: amd64 arm64
+Codename: stable
+Components: main
+Date: Sat, 17 Oct 2026 17:34:23 +0000
+Description: iv31 Pokémon IV calculator
+Label: iv31
+Origin: iv31
+Suite: stable
+MD5Sum:
+ e8b5b3910476f712f3278b9b7f463a48             3246 main/binary-amd64/Packages
+ a4fbfc023e4880f270034dad4c454ee2             1126 main/binary-amd64/Packages.gz
+ 9d9a952adcdba42ea1ec4e42ab1784ec             3246 main/binary-arm64/Packages
+ b3e9c13f1a8224e9025fb0cf59176a7d             1116 main/binary-arm64/Packages.gz
+SHA1:
+ 451c33624d7b0103e04f607d2a90eb0a502f4081             3246 main/binary-amd64/Packages
+ ae55f5375fff4b05cc8f481c7a19122f9c5a8066             1126 main/binary-amd64/Packages.gz
+ 99bc9a206a42c71115cef8bff113d7ac98b0fe31             3246 main/binary-arm64/Packages
+ 7b19ece51b6ff4e9346dbf16dc6be2e6d082ff9e             1116 main/binary-arm64/Packages.gz
+SHA256:
+ 6458143cd96b5a8026fe0aa486db4293032cc0e4aa0b1a0f3db8507fc7c5bf34             3246 main/binary-amd64/Packages
+ 9f638b0a1fe584df789767dad9a6d7eb14db9dc424bfad37e6f0cefeff467033             1126 main/binary-amd64/Packages.gz
+ 7d4f8373dd27dd38a841b3b2fba4bf8c4d85cdaa820a76853e3ccf2c2073276d             3246 main/binary-arm64/Packages
+ 0040c6b33aface7a18586e06e38774dedb2034dd5e8e43c43e75d9486bcde8d1             1116 main/binary-arm64/Packages.gz
+SHA512:
+ 193c3c6d553e0fd078ccda7e34c592efa974216f34d3c7725e8b31837db3f650a9c7e4bd51c817b1f24d8cec42544f976d533c89d11e2d1e40c421728152699e             3246 main/binary-amd64/Packages
+ ebb579c12358965f0826cc023cae81ed942f85cd54882c184c8e9211585ccc60bce9ba191a5948a9ec27812c0e32be1197d9d65d34ecf7d0891b95c33986596d             1126 main/binary-amd64/Packages.gz
+ 64f873cee8a0768af36af91196cd5a51c981efe232a319199902190201e6ccf82c9bc377500dc61988cdb35d5bc4adb78ee3de760fabbea80cd887d5e80a9a85             3246 main/binary-arm64/Packages
+ da32b34b1fc89a07a887a6d2c729d0e7a04a2a10aa904ca9fa6dc875baae79292c751e3f89f4d08db9a3d1c579c70395b921290575234a040a625614f38c6efb             1116 main/binary-arm64/Packages.gz
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEhYQMVA84tC6uy8F6bbe4q+Zc57kFAmrTsZ8ACgkQbbe4q+Zc
+57nOXg/6A1NaydJTCPQbyOuijX4FUKY5ej0Tv6lkDn/ay52E8PDmkesTVP1KSUEb
+8X8UQeBAMaCPIAN6wiNLck9xjYAX7q2Z49g0SXIZfzhhQZJZIvhrrnbZJhozYQd3
+rQCYPsVHAMksi+K36zhSbhFapapbN3i9/YNMFRtwJKx3I3o3u+lD2dI9ZDp1IeiY
+VCsbWl1TNl2Z3DiuGxPvSNmkCp0PcTMB+HAz1oV4Zawu30Ln6ohdsnVrwyy3uXwE
+k/HoNIq1rtFvncwF8U3idVa2Hh2K+CfXeue/V+C6UID4TGtbcqW7r2W9guxQMQdk
+mFPGkFWBhUU7kGEvEsBchV3VcD9B7j3N5xOxCJ/b8d3fhuEnKWMUiI92VI2li9p9
+T11PL6GjhHbyh2V94SLRG41P2yfZG8JpkQYPGKejNHoR4X+vshEd1Hb/fnpJ+Uwf
+8IgNuwg3d2FejvyV3aSAonYbtJbbUJzT9tMzk4rr0pQ1NuXxs9AQiRc2Wr3+pfHI
+A1+OcZK+K5+0XoZtD8oZYMOL2WD16HSjG0r2lgbApsWRt7lpXG5CAk1zyaHTn5yq
+n0DSvNNVLUBCBU9GPRko6qX7pbEUwgluQVd2GBeBy6OycvaqpJbzjinKcVFF9Auw
+9189hbBqI0lLJ3RS7afeH0H+7gMdzTx5SpNj1RPJ8Fcn4JfW4tM=
+=Hi6H
+-----END PGP SIGNATURE-----

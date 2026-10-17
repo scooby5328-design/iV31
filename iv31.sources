@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://raw.githubusercontent.com/scooby5328-design/iV31/apt
+Suites: stable
+Components: main
+Signed-By: /usr/share/keyrings/iv31-archive-keyring.gpg
