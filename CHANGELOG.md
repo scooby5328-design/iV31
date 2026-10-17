@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Story order in the EV Training table is a toggle (**Story order** checkbox or the **Found in** heading) instead of a sort column. It stays on while the EV filter is used, and a stat heading becomes the order within each place.
 
+### Checksums (SHA-256)
+
+```
+39baae9429bd5f2b6a62ab9b9fbfa4b78e77a9164c89e4dff4690e6c10444b93  iv31-Setup-1.5.4.exe
+2387fd9b05c70ca5741e5b8c220b5d5d6040601bc6a11b1d1d17c25585649f78  iv31-1.5.4-mac.zip
+7755b6ecded9427fd9b95e4ed789f7ccba82373bae33d11852d4672095b40d87  iv31-1.5.4-linux-x64.tar.gz
+1cf8b58baec95203f59ea8aa6aa0faf15a9dd92b9b3f5e2c227f2ae5fc32084d  iv31-1.5.4-linux-arm64.tar.gz
+7d8f359149cbe4c25f8e79050b37d1970b81fbb513c38c942cf3f79cdc6d5c16  iv31_1.5.4_amd64.deb
+2d2653d55f458999488fd5281d7c3cb4e926099fd7356a555ff93adf306c5a6c  iv31_1.5.4_arm64.deb
+048907b0eb4a2b24ddb00277ac70adb317b54fe48b9935ebdad80195991d94ab  iv31-1.5.4-x86_64.AppImage
+2126ee16ce748a83a5b3168dad784cc26476d367f69d76bafccc0beec4059e2f  iv31-1.5.4-aarch64.AppImage
+```
+
 ## [1.5.3] - 2026-10-16
 
 ### Changed
