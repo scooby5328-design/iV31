@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.5.0",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.0.neu",
+  "version": "1.5.1",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.1.neu",
   "data": {
-    "sha256": "35e2fb129d37db8a58b21841a8a4933783c9b987e9bb45b9a9b1d5a580e2a5b4",
-    "size": 785873,
-    "notes": "Updates can now replace the whole program in place and restart on their own, and the web page on phones matches the Android app's free version.",
+    "sha256": "7cbde990c05d57b1ff8f89b54d4397151577b0fab37679d4c83519a0537b1b24",
+    "size": 786173,
+    "notes": "Sort the EV Training table by route order with the Found in heading, and fixes the names Farfetch'd, Sirfetch'd and Flab\u00e9b\u00e9.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

@@ -9,6 +9,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.5.1] - 2026-10-16
+
+### Added
+- The EV Training table can be sorted by the **Found in** column: route number order first, then other areas alphabetically, Pokémon not found in the wild last.
+
+### Fixed
+- Farfetch'd, Sirfetch'd and Flabébé showed escaped characters (`\u2019`, `\u0301`) in their names.
+- Name searches ignore accents and treat curly and straight apostrophes the same.
+
 ## [1.5.0] - 2026-10-16
 
 ### Added

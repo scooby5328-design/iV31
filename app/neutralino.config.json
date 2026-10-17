@@ -1,6 +1,6 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "defaultMode": "window",
   "port": 31031,
   "documentRoot": "/resources/",
