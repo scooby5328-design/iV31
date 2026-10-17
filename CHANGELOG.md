@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - `src/data/progression.json` checked against Bulbapedia's walkthrough appendix for each game and corrected (Kanto post-game order in Gen II/IV, Sinnoh mid- and post-game, early Hoenn sea routes, Unova Routes 17–18, Kalos Route 22, Alola and Galar post-game areas).
 
+### Checksums (SHA-256)
+
+```
+458cdecd89ccf1e60c67741f8d287a777fdf6c66d4e6dc2734dce55cb0dfa560  iv31-Setup-1.5.3.exe
+fb50a752687eb4864750b12726a0131e5369d29230961af7cc183fcbb85547f6  iv31-1.5.3-mac.zip
+ed6cc93fb2ad0545042b97222add306bdf0057cdbe082932469e8d88fcf61bac  iv31-1.5.3-linux-x64.tar.gz
+27192d128661a6a8ab12814365bfa9518b3f64a5276c0f980a66604bdc9dad25  iv31-1.5.3-linux-arm64.tar.gz
+98c81f8c39249677277b6bfc525b768f7261961d02822e0d7ef8a961c51d46a7  iv31_1.5.3_amd64.deb
+537d23f3d71fa07ce6290425d6b70fd687e8875a6cb20ef948ecfd98685e811a  iv31_1.5.3_arm64.deb
+8e6458e3b53f24bdffa3bf5d1201dfe8a1715155cc0fcf0017019acea1ee0379  iv31-1.5.3-x86_64.AppImage
+46f98537fbed4912a3977f09431592e0f81491fd74f270ed5428366e1474ef6f  iv31-1.5.3-aarch64.AppImage
+```
+
 ## [1.5.2] - 2026-10-16
 
 ### Changed
