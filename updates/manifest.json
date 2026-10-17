@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.5.1",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.1.neu",
+  "version": "1.5.2",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.2.neu",
   "data": {
-    "sha256": "7cbde990c05d57b1ff8f89b54d4397151577b0fab37679d4c83519a0537b1b24",
-    "size": 786173,
-    "notes": "Sort the EV Training table by route order with the Found in heading, and fixes the names Farfetch'd, Sirfetch'd and Flab\u00e9b\u00e9.",
+    "sha256": "6ed5a7473cf83b630945e27dba1842ffd791b189167d2efd06cd512335b28e2e",
+    "size": 799451,
+    "notes": "Sorting the EV Training table by Found in now follows each game's story order, and every Pok\u00e9mon's places are listed in that order too.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

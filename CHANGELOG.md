@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.5.2] - 2026-10-16
+
+### Changed
+- Sorting by **Found in** and each Pokémon's list of places follow the order areas are reached in each game (`src/data/progression.json`, one list per game group). Places missing from a list go after it: numbered routes in number order, then the rest alphabetically.
+
 ## [1.5.1] - 2026-10-16
 
 ### Added

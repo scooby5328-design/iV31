@@ -808,6 +808,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 <script>
 const LOCDATA = __LOC__;
 const SP = __SP__;
+const PROG = __PROG__;
 const DATA = __DEX__;
 const DEX = DATA.dex, ERA_STATS = DATA.eras, PRE6 = DATA.pre6, GEN1 = DATA.gen1, GEN1TYPES = DATA.gen1types;
 const ERAS = [
@@ -948,13 +949,21 @@ function natureFor(up, down){ return NATURES.findIndex(n => n[1]===up && n[2]===
 
 const placeCache = new Map();
 const fold = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[\u2018\u2019]/g, "'");
-const routeKey = s => { const m = /^Route (\d+)/.exec(s); return m ? [0, Number(m[1]), s] : [1, 0, s]; };
+const progIndex = {};
+Object.entries(PROG.orders).forEach(([g, list]) => { const m = new Map(); list.forEach((p, i) => m.set(p, i)); progIndex[g] = m; });
+const placeKey = (ver, s) => {
+  const m = progIndex[PROG.by_version[ver]];
+  if (m && m.has(s)) return [0, m.get(s), s];
+  const r = /^(?:Sea )?Route (\d+)/.exec(s);
+  return r ? [1, Number(r[1]), s] : [2, 0, s];
+};
+const cmpPlace = (x, y) => x[0]-y[0] || x[1]-y[1] || x[2].localeCompare(y[2]);
 function placesFor(ver, n){
   const key = ver + "|" + n;
   if (placeCache.has(key)) return placeCache.get(key);
   const list = (LOCDATA.found[ver] || {})[n];
   const out = !list ? [] : list.map(([li, mask]) => ({place: LOCDATA.locs[li], how: LOCDATA.methods.filter((m,b) => m && (mask>>b & 1))}))
-    .sort((a,b) => { const x = routeKey(a.place), y = routeKey(b.place); return x[0]-y[0] || x[1]-y[1] || x[2].localeCompare(y[2]); });
+    .sort((a,b) => cmpPlace(placeKey(ver, a.place), placeKey(ver, b.place)));
   placeCache.set(key, out);
   return out;
 }
@@ -1508,11 +1517,11 @@ function renderSheet(){
   }
   const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : r.ev[sk.indexOf(sortBy)];
   if (sortBy === "loc"){
-    const first = r => { const p = placesFor(ver, r.no)[0]; return p ? routeKey(p.place) : null; };
+    const first = r => { const p = placesFor(ver, r.no)[0]; return p ? placeKey(ver, p.place) : null; };
     rows.forEach(r => { r.lk = first(r); });
     rows.sort((a,b) => {
       if (!a.lk || !b.lk) return (a.lk ? -1 : b.lk ? 1 : 0) || a.no - b.no;
-      const c = a.lk[0]-b.lk[0] || a.lk[1]-b.lk[1] || a.lk[2].localeCompare(b.lk[2]);
+      const c = cmpPlace(a.lk, b.lk);
       return c ? c*sortDir : a.no - b.no;
     });
   }
@@ -2177,7 +2186,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.5.1";
+const APP_VERSION = "1.5.2";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

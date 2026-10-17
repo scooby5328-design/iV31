@@ -22,6 +22,7 @@ It covers every main-series game from Red/Blue/Yellow to Scarlet/Violet. Gen I�
 | `src/data/pokedex.json` | Every Pokémon: stats, evolutions, EV yields, types, older-generation stats (`eras`, `pre6`, `gen1`, `gen1types`). |
 | `src/data/locations.json` | Wild locations per game version. |
 | `src/data/secret-power.json` | Secret Power ground types for every Gen III area. |
+| `src/data/progression.json` | The order places are reached in each game group (Red/Blue/Yellow, Gold/Silver/Crystal, … Sword/Shield), used to sort Found in. Add new place names here when location data changes. |
 | `src/release.json` | One-line summary shown in the in-app update bar. |
 | `app/neutralino.config.json` | App id, version, window settings and the native-API allow list. |
 | `app/resources/` | Fonts, icon and the Neutralino client library `js/neutralino.js`. |
@@ -114,5 +115,6 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.4.0 Gen I–II, single game list, Nature Power, Secret Power fix.
 - 1.4.1 First Mac release, Mac menu bar.
 - 1.4.2 Linux packages and apt repository, macOS back to 10.15, color fallbacks.
+- 1.5.1–1.5.2 Sort the EV table by Found in, in story order; fixed Farfetch'd, Sirfetch'd, Flabébé names.
 - 1.5.0 Updates replace the program too, in place, then restart; phone web page uses the free tier.
 - 1.4.3 Party comparison (30 on desktop; `PARTY_DESKTOP_MAX` in `src/index.html`). Since then the web page on phones uses the Android free tier.
