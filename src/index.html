@@ -107,7 +107,18 @@ select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visi
 .natchip.on .yours{color:var(--green)}
 
 .entry{border-top:1px dashed var(--surface0);padding-top:14px;margin-top:14px}
-.entry-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.entry-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.evmode{display:flex;align-items:center;gap:8px;margin-right:auto}
+.evmode .lbl{margin:0;font-size:12px;color:var(--subtext)}
+.evmode select{width:auto}
+#gain{margin-bottom:16px}
+.gainrow{margin-top:14px}
+.gainhead{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.gainhead b{min-width:52px}
+.gaint{margin-top:14px}
+.gaint td,.gaint th{white-space:nowrap}
+.gainact{margin-top:12px}
+.evr{display:block;font-size:11px;color:var(--subtext);margin-top:3px;white-space:nowrap}
 .lv{display:flex;align-items:center;gap:8px}
 .lv .lbl{margin:0;font-size:12px;color:var(--subtext)}
 .lv input{width:64px}
@@ -182,7 +193,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .subtabs button:hover{color:var(--text)}
 .subtabs button[aria-selected="true"]{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
 .titlebar.withtabs{padding-block:6px}
-.tier-free #party,.tier-free .tools2,.tier-free .loc,.tier-free label[for="evWild"],.tier-free .favloc{display:none!important}
+.tier-free #party,.tier-free #gain,.tier-free .tools2,.tier-free .loc,.tier-free label[for="evWild"],.tier-free .favloc{display:none!important}
 #proCard{display:none}
 .tier-free #proCard{display:block}
 .pro-list{margin:8px 0 14px;padding-left:20px;line-height:1.7;color:var(--subtext);font-size:13.5px}
@@ -543,6 +554,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
           <li>Your party is saved between visits</li>
           <li>The EV calculator and Hidden Power calculator</li>
           <li>Wild locations in the EV Training table and Favorites</li>
+          <li>EVs gained: see what training added by comparing stats before and after</li>
         </ul>
         <div class="pro-actions">
           <button class="btn primary" id="proBuy" type="button">Unlock iv31 Full</button>
@@ -663,6 +675,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
         <div><h3>Hidden Power</h3><p>Hidden Power's type comes from whether each IV is odd or even, and in Gen III to V its power (30 to 70) comes from the second-lowest bit of each IV. The "Aim for a type" table lists the highest IVs that give each type, which is handy when breeding.</p></div>
         <div id="guideUpd"><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number in the top bar to check any time. Nothing about you is sent; it only downloads a small version file.</p>
         <label class="toggle" for="autoUpd"><input type="checkbox" id="autoUpd" checked> Check for updates when iv31 starts</label></div>
+        <div><h3>Pokémon that have battled</h3><p>The stats screen only shows each IV and a quarter of its EVs added together, so iv31 can't always tell them apart. Set <b>EVs</b> on a level entry to <b>None yet</b> for a Pokémon that's just been caught or hatched, <b>Has battled</b> if it has fought and you don't know its EVs, or leave it on <b>Not sure</b> to let iv31 decide stat by stat. When EVs are raising a stat, the readout shows the IV and EV ranges that fit. Typing known EVs, or adding the stats again at a higher level, narrows them. To see what one training session added, use <b>EVs gained</b> in the EV Training tab.</p></div>
         <div><h3>Gen I and II</h3><p>Red, Blue, Yellow, Gold, Silver and Crystal use DVs from 0 to 15 instead of IVs, Stat Experience instead of EVs, and no natures. The HP DV isn't stored; it comes from whether the other four DVs are odd or even, so iv31 only keeps DV combinations where they agree. Gen I has one Special stat. In Gen II, Sp. Atk and Sp. Def share the Special DV, and DVs also decide Hidden Power and whether a Pokémon is shiny.</p></div>
         <div><h3>Getting accurate results</h3><p>Ranges are widest at low levels. A freshly caught Pokémon has 0 EVs, so check it before it battles. Changed base stats from older games show in red. Let's Go Pikachu/Eevee and Legends: Arceus use different stat systems and aren't supported.</p></div>
       </div>
@@ -672,6 +685,42 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 </div>
 
 <div class="view" id="view-evs" hidden>
+  <details class="win" id="gain">
+    <summary><div class="titlebar"><span>EVs gained: compare stats before and after training</span></div></summary>
+    <div class="win-body" style="border-radius:0 0 12px 12px">
+      <div class="pane">
+        <div class="verdict" id="gainOld" hidden>Gen I and II use Stat Experience instead of EVs. For those games, open the IV calculator, set Stat Exp to "Has battled", and it shows the Stat Exp range for each stat.</div>
+        <div id="gainBody">
+          <p class="evc-who">Type its stats before you train, then again after. A Pokémon's IVs never change, so anything extra in its stats comes from EVs. What you type here is kept until you clear it.</p>
+          <div class="addrow">
+            <div class="grow pick"><label for="gainQ">Pokémon</label><input type="search" id="gainQ" placeholder="Search name or number" autocomplete="off"><select id="gainSp" aria-label="Pokémon"></select></div>
+            <div><label for="gainNat">Nature</label><select id="gainNat"></select></div>
+            <button class="btn small" id="gainCopy" type="button">Use the Summary screen</button>
+          </div>
+          <div class="gainrow">
+            <div class="gainhead"><b>Before</b><div class="lv"><label class="lbl" for="gainBLv">Level</label><input type="number" inputmode="numeric" min="1" max="100" id="gainBLv"></div><label class="toggle" for="gainZero"><input type="checkbox" id="gainZero" checked> No EVs yet</label></div>
+            <div class="stats" id="gainBStats"></div>
+          </div>
+          <div class="gainrow">
+            <div class="gainhead"><b>After</b><div class="lv"><label class="lbl" for="gainALv">Level</label><input type="number" inputmode="numeric" min="1" max="100" id="gainALv"></div></div>
+            <div class="stats" id="gainAStats"></div>
+          </div>
+          <div class="scroll">
+            <table class="evc gaint">
+              <thead><tr><th>Stat</th><th>IV</th><th>EVs before</th><th>EVs now</th><th>Gained</th><th>Room left</th></tr></thead>
+              <tbody id="gainRows"></tbody>
+            </table>
+          </div>
+          <div id="gainMsg"></div>
+          <div class="evc-actions gainact">
+            <button class="btn small" id="gainSend" type="button">Add to EV calculator</button>
+            <button class="btn small" id="gainNext" type="button">After becomes Before</button>
+            <button class="btn small" id="gainClear" type="button">Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
   <section class="win active">
     <div class="win-body">
       <div class="titlebar withtabs">
@@ -1003,6 +1052,102 @@ function calc(base, iv, ev, lv, k, nat, shedinja){
   if (k === "hp") return shedinja ? 1 : core + lv + 10;
   return Math.floor((core + 5) * natMult(nat,k) / 100);
 }
+function evSpan(base, iv, x, k, nat, shed, lim){
+  let lo = -1, hi = -1;
+  for (let ev = 0; ev <= lim; ev++){
+    const v = calc(base, iv, ev, x.lv, k, nat, shed);
+    if (v === x.s[k]){ if (lo < 0) lo = ev; hi = ev; }
+    else if (v > x.s[k]) break;
+  }
+  return lo < 0 ? null : [lo, hi];
+}
+function solveIvs(base, nat, shed, entries, g){
+  const cap = g >= 6 ? 252 : 255, sets = {}, entered = {}, unk = {}, evr = {};
+  const lim = entries.map(() => Object.fromEntries(KEYS.map(k => [k, cap])));
+  const blank = (x, k) => x.e[k] == null;
+  const asZero = {};
+  KEYS.forEach(k => {
+    const used = entries.filter(x => Number.isFinite(x.s[k]));
+    entered[k] = used.length > 0;
+    const anyBlank = used.some(x => blank(x, k) && x.mode !== "zero");
+    if (!anyBlank){ asZero[k] = true; return; }
+    if (used.some(x => blank(x, k) && x.mode === "unknown")){ asZero[k] = false; return; }
+    asZero[k] = [...Array(32).keys()].some(iv => used.every(x => calc(base[k], iv, blank(x, k) ? 0 : x.e[k], x.lv, k, nat, shed) === x.s[k]));
+  });
+  const isUnk = (x, k) => blank(x, k) && x.mode !== "zero" && !asZero[k] && !(shed && k === "hp");
+  const pass = () => KEYS.forEach((k, ki) => {
+    let ivs = [...Array(32).keys()];
+    entries.forEach((x, xi) => {
+      if (!Number.isFinite(x.s[k])) return;
+      ivs = ivs.filter(iv => isUnk(x, k) ? !!evSpan(base[k], iv, x, k, nat, shed, lim[xi][k]) : calc(base[k], iv, blank(x, k) ? 0 : x.e[k], x.lv, k, nat, shed) === x.s[k]);
+    });
+    sets[k] = ivs;
+  });
+  for (let round = 0; round < 4; round++){
+    pass();
+    let changed = false;
+    entries.forEach((x, xi) => {
+      const minEv = {};
+      KEYS.forEach(k => {
+        if (!blank(x, k)) minEv[k] = x.e[k];
+        else if (!isUnk(x, k) || !Number.isFinite(x.s[k])) minEv[k] = 0;
+        else { const spans = sets[k].map(iv => evSpan(base[k], iv, x, k, nat, shed, lim[xi][k])).filter(Boolean); minEv[k] = spans.length ? Math.min(...spans.map(s => s[0])) : 0; }
+      });
+      const sum = KEYS.reduce((a, k) => a + minEv[k], 0);
+      KEYS.forEach(k => {
+        if (!isUnk(x, k)) return;
+        const room = Math.max(0, Math.min(cap, 510 - (sum - minEv[k])));
+        if (room < lim[xi][k]){ lim[xi][k] = room; changed = true; }
+      });
+    });
+    if (!changed) break;
+  }
+  pass();
+  KEYS.forEach(k => {
+    const xi = entries.map((x, i) => i).filter(i => Number.isFinite(entries[i].s[k]) && isUnk(entries[i], k)).sort((a, b) => entries[b].lv - entries[a].lv)[0];
+    unk[k] = xi !== undefined;
+    if (!unk[k] || !sets[k].length) return;
+    const spans = sets[k].map(iv => evSpan(base[k], iv, entries[xi], k, nat, shed, lim[xi][k])).filter(Boolean);
+    evr[k] = [Math.min(...spans.map(s => s[0])), Math.max(...spans.map(s => s[1]))];
+  });
+  return {sets, entered, unk, evr, lim};
+}
+function calcOldB(base, dv, b, lv, k){
+  const core = Math.floor((((base + dv) * 2 + b) * lv) / 100);
+  return k === "hp" ? core + lv + 10 : core + 5;
+}
+const seBonus = se => Math.floor(Math.ceil(Math.sqrt(se)) / 4);
+const seFrom = b => b <= 0 ? 0 : (4 * b - 1) ** 2 + 1;
+const seTo = b => Math.min(65535, (4 * b + 3) ** 2);
+function solveDvs(base, entries, groups){
+  const entered = {}, cand = {}, unk = {}, ser = {};
+  const blank = (x, k) => x.e[k] == null;
+  Object.entries(groups).forEach(([gk, keys]) => {
+    const used = entries.filter(x => keys.some(k => Number.isFinite(x.s[k])));
+    entered[gk] = used.length > 0;
+    const fitsDv = (dv, unknown) => used.every(x => keys.every(k => {
+      if (!Number.isFinite(x.s[k])) return true;
+      if (!blank(x, k)) return calcOld(base[k], dv, x.e[k], x.lv, k) === x.s[k];
+      if (!unknown) return calcOldB(base[k], dv, 0, x.lv, k) === x.s[k];
+      for (let b = 0; b <= 64; b++) if (calcOldB(base[k], dv, b, x.lv, k) === x.s[k]) return true;
+      return false;
+    }));
+    const anyBlank = used.some(x => keys.some(k => Number.isFinite(x.s[k]) && blank(x, k) && x.mode !== "zero"));
+    let unknown = false;
+    if (anyBlank) unknown = used.some(x => x.mode === "unknown") || ![...Array(16).keys()].some(dv => fitsDv(dv, false));
+    unk[gk] = unknown;
+    cand[gk] = [...Array(16).keys()].filter(dv => fitsDv(dv, unknown));
+  });
+  return {entered, cand, unk, groups, range(gk, dvs){
+    if (!unk[gk]) return null;
+    const keys = groups[gk], x = [...entries].filter(e => keys.some(k => Number.isFinite(e.s[k]) && blank(e, k))).sort((a, b) => b.lv - a.lv)[0];
+    if (!x) return null;
+    const k = keys.find(kk => Number.isFinite(x.s[kk]) && blank(x, kk));
+    let lo = 99, hi = -1;
+    dvs.forEach(dv => { for (let b = 0; b <= 64; b++) if (calcOldB(base[k], dv, b, x.lv, k) === x.s[k]){ lo = Math.min(lo, b); hi = Math.max(hi, b); } });
+    return hi < 0 ? null : [seFrom(lo), seTo(hi)];
+  }};
+}
 function addEntry(){
   const id = ++entryId, d = document.createElement("div");
   d.className = "entry";
@@ -1010,13 +1155,15 @@ function addEntry(){
   d.innerHTML = `
     <div class="entry-head">
       <div class="lv"><label class="lbl" for="lv-${id}">Level</label><input type="number" inputmode="numeric" min="1" max="100" id="lv-${id}" data-role="lv"></div>
+      <div class="evmode"><label class="lbl evmode-l" for="em-${id}">EVs</label><select id="em-${id}" data-role="evmode"><option value="auto">Not sure</option><option value="zero">None yet</option><option value="unknown">Has battled</option></select></div>
       <button class="btn rm" type="button" aria-label="Remove this level">Remove</button>
     </div>
     <div class="stats">${statInputs("s")}</div>
-    <details class="evs"><summary class="evsum">EVs (leave blank if unknown or 0)</summary><div class="stats">${statInputs("e")}</div></details>`;
+    <details class="evs"><summary class="evsum">Known EVs (optional)</summary><div class="stats">${statInputs("e")}</div></details>`;
   entriesEl.appendChild(d);
   d.querySelector(".rm").addEventListener("click", () => { d.remove(); syncRemove(); runCalc(); });
   d.addEventListener("input", runCalc);
+  d.addEventListener("change", e => { if (e.target.tagName === "SELECT") runCalc(); });
   syncRemove();
   return d;
 }
@@ -1027,9 +1174,10 @@ function readEntries(){
     KEYS.forEach(k => {
       s[k] = parseInt(d.querySelector(`[data-role="s"][data-k="${k}"]`).value,10);
       const ev = parseInt(d.querySelector(`[data-role="e"][data-k="${k}"]`).value,10);
-      e[k] = Number.isFinite(ev) ? Math.min(era().g <= 2 ? 65535 : 255, Math.max(0,ev)) : 0;
+      e[k] = Number.isFinite(ev) ? Math.min(era().g <= 2 ? 65535 : 255, Math.max(0,ev)) : null;
     });
-    return {lv,s,e};
+    const mode = d.querySelector('[data-role="evmode"]').value;
+    return {lv,s,e,mode};
   }).filter(x => Number.isFinite(x.lv) && x.lv>=1 && x.lv<=100);
 }
 function rating(lo,hi){
@@ -1066,7 +1214,8 @@ function setCalcMode(g){
   const old = g <= 2;
   entriesEl.classList.toggle("g1", g === 1);
   entriesEl.querySelectorAll('label[data-k="spa"]').forEach(l => { if (l.closest('.stat')) l.textContent = shortFor("spa", g); });
-  entriesEl.querySelectorAll(".evsum").forEach(s => s.textContent = old ? "Stat Exp (leave blank if unknown or 0)" : "EVs (leave blank if unknown or 0)");
+  entriesEl.querySelectorAll(".evsum").forEach(s => s.textContent = old ? "Known Stat Exp (optional)" : "Known EVs (optional)");
+  entriesEl.querySelectorAll(".evmode-l").forEach(s => s.textContent = old ? "Stat Exp" : "EVs");
   entriesEl.querySelectorAll('input[data-role="e"]').forEach(i => i.max = old ? 65535 : 255);
   natureSel.disabled = old;
   natureSel.closest("div").classList.toggle("nature-off", old);
@@ -1079,7 +1228,7 @@ function setCalcMode(g){
     let note = pane.querySelector(".oldnote");
     if (!note){ note = document.createElement("div"); note.className = "oldnote verdict"; pane.prepend(note); }
     [...pane.children].forEach(ch => { ch.hidden = ch === note ? !on : on; });
-    if (id === "evcalc") note.innerHTML = `<b>Gen ${ROMAN[g]} uses Stat Experience, not EVs.</b> Every Pokémon you defeat adds its base stats to your Pokémon's Stat Exp in every stat, up to 65,535 each, and each vitamin adds 2,560 up to 25,600. There's no 510 total. This calculator covers Gen III onward. To include Stat Exp in the IV readout, open "Stat Exp" under a level entry in the Summary screen.`;
+    if (id === "evcalc") note.innerHTML = `<b>Gen ${ROMAN[g]} uses Stat Experience, not EVs.</b> Every Pokémon you defeat adds its base stats to your Pokémon's Stat Exp in every stat, up to 65,535 each, and each vitamin adds 2,560 up to 25,600. There's no 510 total. This calculator covers Gen III onward. To include Stat Exp in the IV readout, open "Known Stat Exp" under a level entry in the Summary screen, or set Stat Exp to "Has battled" if you don't know it.`;
     else note.innerHTML = g === 1 ? `<b>Hidden Power doesn't exist in Gen I.</b> It was added in Gold, Silver and Crystal.` : `<b>In Gen II, Hidden Power comes from DVs.</b> The type depends on the Attack and Defense DVs, and the power (31 to 70) on the top bit of each DV plus the Special DV. Enter your Pokémon in the Summary screen and the IV readout shows its Hidden Power.`;
   });
 }
@@ -1111,11 +1260,7 @@ function runOld(num, E){
   const entries = readEntries();
   const specKeys = g === 1 ? ["spa"] : ["spa","spd"];
   const groups = {hp:["hp"], atk:["atk"], def:["def"], spe:["spe"], spc:specKeys};
-  const entered = {}, cand = {};
-  Object.entries(groups).forEach(([gk, keys]) => {
-    entered[gk] = entries.some(x => keys.some(k => Number.isFinite(x.s[k])));
-    cand[gk] = [...Array(16).keys()].filter(dv => entries.every(x => keys.every(k => !Number.isFinite(x.s[k]) || calcOld(base[k], dv, x.e[k], x.lv, k) === x.s[k])));
-  });
+  const dsol = solveDvs(base, entries, groups), entered = dsol.entered, cand = dsol.cand;
   const combos = [];
   if (Object.values(cand).every(c => c.length)){
     const hpSet = new Set(cand.hp);
@@ -1136,18 +1281,22 @@ function runOld(num, E){
     if (!anyEntered || (!entered[gk] && gk !== "hp")) return `<tr${kc}><td class="name">${label}${note}</td><td class="iv">—</td><td class="barcell"><div class="bar"></div></td><td><span class="pill r-good">No data</span></td></tr>`;
     if (!s.length) return `<tr${kc}><td class="name">${label}${note}</td><td class="iv r-err">✕</td><td class="barcell"><div class="bar"></div></td><td><span class="pill r-err">No match</span></td></tr>`;
     const lo = s[0], hi = s[s.length-1], [rt, rc] = ratingDv(lo, hi);
-    return `<tr${kc}><td class="name">${label}${note}</td><td class="iv">${lo===hi?lo:`${lo}–${hi}`}</td><td class="barcell"><div class="bar"><i style="left:${lo/16*100}%;width:${(hi-lo+1)/16*100}%"></i></div><div class="ticks"><span>0</span><span>8</span><span>15</span></div></td><td><span class="pill ${rc}">${rt}</span></td></tr>`;
+    const sr = dsol.range(gk, s), seNote = sr ? `<span class="evr">Stat Exp ${sr[0].toLocaleString("en-US")}–${sr[1].toLocaleString("en-US")}</span>` : "";
+    return `<tr${kc}><td class="name">${label}${note}</td><td class="iv">${lo===hi?lo:`${lo}–${hi}`}</td><td class="barcell"><div class="bar"><i style="left:${lo/16*100}%;width:${(hi-lo+1)/16*100}%"></i></div><div class="ticks"><span>0</span><span>8</span><span>15</span></div></td><td><span class="pill ${rc}">${rt}</span>${seNote}</td></tr>`;
   }).join("");
+  const nmAll = {hp:"HP",atk:"Attack",def:"Defense",spe:"Speed",spc:"Special"};
+  const raisedOld = Object.keys(groups).filter(gk => entered[gk] && dsol.unk[gk] && cand[gk].length);
+  const seLine = raisedOld.length ? `<div class="verdict evline"><b>Stat Exp is raising ${raisedOld.map(gk => nmAll[gk]).join(", ")}.</b> These ranges allow for any Stat Exp that fits. To narrow them, enter the Stat Exp you know, or add its stats again at a higher level.${entries.some(x => x.mode === "auto") && raisedOld.length < Object.keys(groups).filter(gk => entered[gk]).length ? ` Stats that fit with no Stat Exp are read as having none; if it has battled, set Stat Exp to "Has battled".` : ""}</div>` : "";
   const msg = $("msg");
   if (!entries.length || !anyEntered){
     ["total","hptype","hppow"].forEach(id => $(id).textContent = "—");
-    msg.innerHTML = `<div class="verdict">Enter its level and stats from the Summary screen. Leave Stat Exp blank for a Pokémon that hasn't battled.</div>`;
+    msg.innerHTML = `<div class="verdict">Enter its level and stats from the Summary screen. If it has battled and you don't know its Stat Exp, set Stat Exp to "Has battled".</div>`;
     return;
   }
   if (!combos.length){
     ["total","hptype","hppow"].forEach(id => $(id).textContent = "—");
     const badOnes = Object.keys(groups).filter(gk => entered[gk] && !cand[gk].length).map(gk => ({hp:"HP",atk:"Attack",def:"Defense",spe:"Speed",spc:"Special"})[gk]);
-    msg.innerHTML = `<div class="err">${badOnes.length ? `No DV from 0–15 produces the ${badOnes.join(", ")} you entered.` : "Each stat fits on its own, but they don't fit together: the HP DV has to match the other four."} Check the game, the level and the Pokémon. If it has battled, it has Stat Exp: enter it under "Stat Exp", or check one that hasn't battled.</div>`;
+    msg.innerHTML = `<div class="err">${badOnes.length ? `No DV from 0–15 produces the ${badOnes.join(", ")} you entered${entries.some(x => x.mode === "zero") ? ` with no Stat Exp. If it has battled, set Stat Exp to "Has battled"` : ", even allowing for Stat Exp"}.` : "Each stat fits on its own, but they don't fit together: the HP DV has to match the other four."} Check the game, the level, the Pokémon, and any Stat Exp typed under "Known Stat Exp".</div>`;
     return;
   }
   const tot = c => c.hp + c.atk + c.def + c.spe + c.spc;
@@ -1174,8 +1323,8 @@ function runOld(num, E){
     if (shiny === combos.length) bits.push("These DVs make it <b>shiny</b>.");
     else if (shiny) bits.push("It <b>could be shiny</b>: shiny Pokémon have Defense, Speed and Special DVs of 10.");
   }
-  if (combos.length > 1 && entries.length === 1) bits.push("Add its stats again after a few level-ups to narrow these ranges.");
-  msg.innerHTML = `<div class="verdict">${bits.join(" ")}</div>`;
+  if (combos.length > 1 && entries.length === 1 && !raisedOld.length) bits.push("Add its stats again after a few level-ups to narrow these ranges.");
+  msg.innerHTML = `${seLine}<div class="verdict">${bits.join(" ")}</div>`;
 }
 function runCalcCore(){
   const E = era(), g = E.g, num = Number(speciesSel.value);
@@ -1203,15 +1352,9 @@ function runCalcCore(){
   $("natline").innerHTML = natIdx < 0 ? "Nature not chosen yet" : nat[1] ? `<b>${nat[0]}</b> · raises ${LABEL[nat[1]]}, lowers ${LABEL[nat[2]]}` : `<b>${nat[0]}</b> · no stat change`;
   if (natIdx < 0) return resetReadout("Choose its nature, then enter its level and stats from the Summary screen.");
 
-  const entries = readEntries(), sets = {}, entered = {};
-  KEYS.forEach(k => {
-    const used = entries.filter(x => Number.isFinite(x.s[k]));
-    entered[k] = used.length > 0;
-    let ivs = [...Array(32).keys()];
-    used.forEach(x => { ivs = ivs.filter(iv => calc(base[k], iv, x.e[k], x.lv, k, nat, shedinja) === x.s[k]); });
-    sets[k] = ivs;
-  });
+  const entries = readEntries(), sol = solveIvs(base, nat, shedinja, entries, g), sets = sol.sets, entered = sol.entered;
   const bad = [];
+  const evNote = k => sol.unk[k] && sol.evr[k] ? `<span class="evr">EVs ${sol.evr[k][0] === sol.evr[k][1] ? sol.evr[k][0] : `${sol.evr[k][0]}–${sol.evr[k][1]}`}</span>` : "";
   $("rows").innerHTML = KEYS.map(k => {
     const ivs = sets[k], kc = key.includes(k) ? ' class="key"' : "";
     const tag = nat[1]===k ? '<span class="tag up">▲</span>' : nat[2]===k ? '<span class="tag down">▼</span>' : "";
@@ -1219,9 +1362,11 @@ function runCalcCore(){
     if (!ivs.length){ bad.push(LABEL[k]); return `<tr${kc}><td class="name">${LABEL[k]}${tag}</td><td class="iv r-err">✕</td><td class="barcell"><div class="bar"></div></td><td><span class="pill r-err">No match</span></td></tr>`; }
     const lo = ivs[0], hi = ivs[ivs.length-1];
     const [rt, rc] = shedinja && k==="hp" ? ["Any","r-good"] : rating(lo,hi);
-    return `<tr${kc}><td class="name">${LABEL[k]}${tag}</td><td class="iv">${lo===hi?lo:`${lo}–${hi}`}</td><td class="barcell"><div class="bar"><i style="left:${lo/32*100}%;width:${(hi-lo+1)/32*100}%"></i></div><div class="ticks"><span>0</span><span>15</span><span>31</span></div></td><td><span class="pill ${rc}">${rt}</span></td></tr>`;
+    return `<tr${kc}><td class="name">${LABEL[k]}${tag}</td><td class="iv">${lo===hi?lo:`${lo}–${hi}`}</td><td class="barcell"><div class="bar"><i style="left:${lo/32*100}%;width:${(hi-lo+1)/32*100}%"></i></div><div class="ticks"><span>0</span><span>15</span><span>31</span></div></td><td><span class="pill ${rc}">${rt}</span>${evNote(k)}</td></tr>`;
   }).join("");
   const ok = KEYS.every(k => entered[k] && sets[k].length);
+  const raised = KEYS.filter(k => entered[k] && sol.unk[k] && sets[k].length);
+  const evLine = raised.length ? `<div class="verdict evline"><b>EVs are raising ${raised.map(k => LABEL[k]).join(", ")}.</b> These ranges allow for any EVs that fit, up to ${g >= 6 ? 252 : 255} per stat and 510 in total. To narrow them, enter the EVs you know under "Known EVs" (the EV calculator can send them), or add its stats again at a higher level.${entries.some(x => x.mode === "auto") && raised.length < KEYS.filter(k => entered[k]).length ? ` Stats that fit with no EVs are read as having none; if it has battled, set EVs to "Has battled".` : ""}</div>` : "";
   if (ok){
     const tlo = KEYS.reduce((a,k)=>a+sets[k][0],0), thi = KEYS.reduce((a,k)=>a+sets[k][sets[k].length-1],0);
     $("total").textContent = tlo===thi ? `${tlo} / 186` : `${tlo}–${thi} / 186`;
@@ -1233,7 +1378,7 @@ function runCalcCore(){
     }
   } else { ["total","hptype","hppow"].forEach(id => $(id).textContent = "—"); }
   const msg = $("msg");
-  if (bad.length) msg.innerHTML = `<div class="err">No IV from 0–31 produces the ${bad.join(", ")} you entered. Check the game, the level, the nature, and that the species is right. If it has battled, it has EVs: enter them under "EVs", or check a freshly caught one.</div>`;
+  if (bad.length) msg.innerHTML = entries.some(x => x.mode === "zero") ? `<div class="err">No IV from 0–31 produces the ${bad.join(", ")} you entered with no EVs. If it has battled, set EVs to "Has battled". Otherwise check the game, the level, the nature, and that the species is right.</div>` : `<div class="err">No IV from 0–31 produces the ${bad.join(", ")} you entered, even allowing for EVs. Check the game, the level, the nature, that the species is right, and any EVs typed under "Known EVs".</div>`;
   else if (!entries.length) msg.innerHTML = `<div class="verdict">Enter its level and the six stats from the Summary screen.</div>`;
   else if (ok){
     const s1 = NATURES[sugg[0]][0], s2 = NATURES[sugg[1]][0];
@@ -1244,8 +1389,8 @@ function runCalcCore(){
     else lean = `${nat[0]} doesn't help ${LABEL[key[0]]} or ${LABEL[key[1]]}. ${s1} or ${s2} would suit it better.`;
     const keyIv = key.map(k => `${LABEL[k]} ${sets[k][0]===sets[k][sets[k].length-1] ? sets[k][0] : sets[k][0]+"–"+sets[k][sets[k].length-1]}`).join(", ");
     const best = KEYS.filter(k=>!(shedinja&&k==="hp")).map(k=>[k,(sets[k][0]+sets[k][sets[k].length-1])/2]).sort((a,b)=>b[1]-a[1]);
-    msg.innerHTML = `<div class="verdict">Strongest IV: <b>${LABEL[best[0][0]]}</b>. Weakest: <b>${LABEL[best[best.length-1][0]]}</b>. Key stat IVs: <b>${keyIv}</b>. ${lean} ${entries.length===1 && entries[0].lv<30 ? "Add its stats again after a few level-ups to narrow these ranges." : ""}</div>`;
-  } else msg.innerHTML = "";
+    msg.innerHTML = `${evLine}<div class="verdict">Strongest IV: <b>${LABEL[best[0][0]]}</b>. Weakest: <b>${LABEL[best[best.length-1][0]]}</b>. Key stat IVs: <b>${keyIv}</b>. ${lean} ${entries.length===1 && entries[0].lv<30 && !raised.length ? "Add its stats again after a few level-ups to narrow these ranges." : ""}</div>`;
+  } else msg.innerHTML = evLine;
 }
 
 
@@ -1263,11 +1408,7 @@ function solveMember(num, natIdx, entries, g){
   if (g <= 2){
     const spc = g === 1 ? ["spa"] : ["spa","spd"];
     const groups = {hp:["hp"], atk:["atk"], def:["def"], spe:["spe"], spc};
-    const cand = {}, entered = {};
-    Object.entries(groups).forEach(([gk, keys]) => {
-      entered[gk] = entries.some(x => keys.some(k => Number.isFinite(x.s[k])));
-      cand[gk] = [...Array(16).keys()].filter(dv => entries.every(x => keys.every(k => !Number.isFinite(x.s[k]) || calcOld(base[k], dv, x.e[k], x.lv, k) === x.s[k])));
-    });
+    const dsol = solveDvs(base, entries, groups), cand = dsol.cand, entered = dsol.entered;
     const combos = [];
     if (Object.values(cand).every(c => c.length)){
       const hpSet = new Set(cand.hp);
@@ -1288,15 +1429,9 @@ function solveMember(num, natIdx, entries, g){
     }
     return {scale:15, sets, entered:ent, bad:bad.length ? bad : (Object.values(entered).some(Boolean) && !combos.length ? ["combo"] : []), total: combos.length && Object.values(entered).every(Boolean) ? [Math.min(...tot), Math.max(...tot)] : null, max:75, hp};
   }
-  const nat = NATURES[natIdx], shedinja = name === "Shedinja", sets = {}, entered = {}, bad = [];
-  KEYS.forEach(k => {
-    const used = entries.filter(x => Number.isFinite(x.s[k]));
-    entered[k] = used.length > 0;
-    let ivs = [...Array(32).keys()];
-    used.forEach(x => { ivs = ivs.filter(iv => calc(base[k], iv, x.e[k], x.lv, k, nat, shedinja) === x.s[k]); });
-    sets[k] = ivs;
-    if (entered[k] && !ivs.length) bad.push(k);
-  });
+  const nat = NATURES[natIdx], shedinja = name === "Shedinja", bad = [];
+  const sol = solveIvs(base, nat, shedinja, entries, g), sets = sol.sets, entered = sol.entered;
+  KEYS.forEach(k => { if (entered[k] && !sets[k].length) bad.push(k); });
   const ok = KEYS.every(k => entered[k] && sets[k].length);
   let hp = "";
   if (ok && g < 8){ const r = hiddenPower(sets); hp = r.types.length === 1 ? r.types[0] : `${r.types.length} types`; }
@@ -1317,7 +1452,7 @@ function addPartyMember(prefill){
       <input type="number" inputmode="numeric" min="1" max="100" class="plv" placeholder="Lv" aria-label="Level">
     </div>
     <div class="stats">${inputs("s")}</div>
-    <details class="evs"><summary class="evsum">EVs (leave blank if unknown or 0)</summary><div class="stats">${inputs("e")}</div></details>
+    <details class="evs"><summary class="evsum">Known EVs (optional)</summary><div class="stats">${inputs("e")}</div></details>
     <div class="pres"></div>`;
   partyCards.appendChild(d);
   const search = d.querySelector(".psearch"), sel = d.querySelector(".pspecies");
@@ -1349,9 +1484,9 @@ function readMember(d, g){
     s[k] = parseInt(d.querySelector(`[data-role="s"][data-k="${k}"]`).value, 10);
     if (g === 1 && k === "spd") s[k] = NaN;
     const ev = parseInt(d.querySelector(`[data-role="e"][data-k="${k}"]`).value, 10);
-    e[k] = Number.isFinite(ev) ? Math.min(g <= 2 ? 65535 : 255, Math.max(0, ev)) : 0;
+    e[k] = Number.isFinite(ev) ? Math.min(g <= 2 ? 65535 : 255, Math.max(0, ev)) : null;
   });
-  const entries = Number.isFinite(lv) && lv >= 1 && lv <= 100 ? [{lv, s, e}] : [];
+  const entries = Number.isFinite(lv) && lv >= 1 && lv <= 100 ? [{lv, s, e, mode:"auto"}] : [];
   return {num, natIdx, entries};
 }
 
@@ -1385,7 +1520,7 @@ function restoreParty(){
   data.slice(0, PARTY_DESKTOP_MAX).forEach(x => {
     if (!x || typeof x !== "object") return;
     const s = {}, e = {};
-    KEYS.forEach(k => { s[k] = x.s && Number.isFinite(x.s[k]) ? x.s[k] : NaN; e[k] = x.e && Number.isFinite(x.e[k]) ? x.e[k] : 0; });
+    KEYS.forEach(k => { s[k] = x.s && Number.isFinite(x.s[k]) ? x.s[k] : NaN; e[k] = x.e && Number.isFinite(x.e[k]) ? x.e[k] : null; });
     addPartyMember({num:Number(x.num) || 0, nat:Number.isInteger(x.nat) ? x.nat : -1, entry:Number.isFinite(x.lv) ? {lv:x.lv, s, e} : null});
   });
   partyRestored = true;
@@ -1432,7 +1567,7 @@ function renderParty(){
     d.querySelector(".prow").style.gridTemplateColumns = old ? "76px" : "";
     d.querySelectorAll('.stat label').forEach(l => { const k = l.parentElement.dataset.k; l.textContent = shortFor(k, g); });
     d.querySelectorAll('input[data-role="e"]').forEach(x => x.max = old ? 65535 : 255);
-    d.querySelector(".evsum").textContent = old ? "Stat Exp (leave blank if unknown or 0)" : "EVs (leave blank if unknown or 0)";
+    d.querySelector(".evsum").textContent = old ? "Known Stat Exp (optional)" : "Known EVs (optional)";
     const m = readMember(d, g), res = d.querySelector(".pres"), nameEl = d.querySelector(".pname");
     if (!m.num){ nameEl.textContent = "New party member"; res.textContent = "Choose a Pokémon."; d.querySelectorAll(".stat label").forEach(l => l.classList.remove("key","up","down")); return; }
     const name = DEX[m.num-1][0], role = roleFor(m.num, g, E.max), nat = !old && m.natIdx >= 0 ? NATURES[m.natIdx] : ["", null, null];
@@ -1747,7 +1882,7 @@ const VIEWS = ["calc","evs","types","secret","favs"];
 const wsLinks = [...document.querySelectorAll(".ws a")];
 function renderActive(){
   const v = state.view;
-  if (v === "evs" && dirty.evs){ dirty.evs = false; state.evSub === "berries" ? renderBerries() : renderSheet(); }
+  if (v === "evs" && dirty.evs){ dirty.evs = false; state.evSub === "berries" ? renderBerries() : renderSheet(); if (window.gainReady) renderGain(); }
   if (v === "types" && dirty.types){ dirty.types = false; renderTypes(); }
   if (v === "favs" && dirty.favs){ dirty.favs = false; renderFavs(); }
   if (v === "secret" && dirty.secret){ dirty.secret = false; renderSecret(); }
@@ -1819,12 +1954,8 @@ function calcState(){
   st.key = roleFor(num, g, E.max).key;
   if (st.nat){
     st.sets = {};
-    KEYS.forEach(k => {
-      const used = entries.filter(x => Number.isFinite(x.s[k]));
-      let ivs = [...Array(32).keys()];
-      used.forEach(x => { ivs = ivs.filter(iv => calc(st.base[k], iv, x.e[k], x.lv, k, st.nat, st.shed) === x.s[k]); });
-      st.sets[k] = used.length && ivs.length ? ivs : null;
-    });
+    const sol = solveIvs(st.base, st.nat, st.shed, entries, g);
+    KEYS.forEach(k => { st.sets[k] = sol.entered[k] && sol.sets[k].length ? sol.sets[k] : null; });
   }
   return st;
 }
@@ -2069,9 +2200,133 @@ $("evcLoad").addEventListener("click", () => {
 $("evcSend").addEventListener("click", () => {
   const d = lastEntry(); if (!d) return;
   KEYS.forEach((k,i) => { d.querySelector(`[data-role="e"][data-k="${k}"]`).value = evc.ev[i] || ""; });
+  d.querySelector('[data-role="evmode"]').value = "zero";
   const det = d.querySelector("details"); if (det) det.open = true;
   logLine("Sent these EVs to the last level entry in the Summary screen, so the IV readout uses them.");
   runCalc();
+});
+const GAIN_KEY = "iv31-gain", gainSp = $("gainSp"), gainQ = $("gainQ"), gainNat = $("gainNat");
+gainNat.innerHTML = natureOptions;
+const gainInputs = id => KEYS.map(k => `<div class="stat" data-k="${k}"><label for="${id}-${k}">${SHORT[k]}</label><input type="number" inputmode="numeric" min="1" max="999" id="${id}-${k}" data-k="${k}"></div>`).join("");
+$("gainBStats").innerHTML = gainInputs("gb");
+$("gainAStats").innerHTML = gainInputs("ga");
+const gainFields = () => ["gainBLv","gainALv",...KEYS.map(k => "gb-"+k),...KEYS.map(k => "ga-"+k)];
+const fmtR = r => r[0] === r[1] ? `${r[0]}` : `${r[0]}–${r[1]}`;
+let gainLast = null;
+function saveGain(){
+  const v = {num:Number(gainSp.value) || 0, nat:gainNat.value, zero:$("gainZero").checked, f:{}};
+  gainFields().forEach(id => v.f[id] = $(id).value);
+  try { localStorage.setItem(GAIN_KEY, JSON.stringify(v)); } catch(_) {}
+}
+function loadGain(){
+  let v = null;
+  try { v = JSON.parse(localStorage.getItem(GAIN_KEY) || "null"); } catch(_) {}
+  speciesOptions(gainSp, gainQ, "Choose a Pokémon…");
+  if (!v || typeof v !== "object") return;
+  if (v.num && v.num <= era().max) gainSp.value = v.num;
+  if (typeof v.nat === "string") gainNat.value = v.nat;
+  $("gainZero").checked = v.zero !== false;
+  if (v.f && typeof v.f === "object") gainFields().forEach(id => { const x = v.f[id]; if (typeof x === "string" && /^\d{0,3}$/.test(x)) $(id).value = x; });
+}
+function gainRead(pre, lvId){ const lv = parseInt($(lvId).value, 10), s = {}; KEYS.forEach(k => s[k] = parseInt($(`${pre}-${k}`).value, 10)); return {lv, s}; }
+function renderGain(){
+  const g = era().g, rows = $("gainRows"), msg = $("gainMsg");
+  $("gainOld").hidden = g >= 3; $("gainBody").hidden = g < 3;
+  gainLast = null;
+  $("gainSend").disabled = true;
+  if (g < 3) return;
+  if (gainSp.dataset.max !== String(era().max)){ gainSp.dataset.max = era().max; speciesOptions(gainSp, gainQ, "Choose a Pokémon…"); }
+  const num = Number(gainSp.value), natV = gainNat.value;
+  const nat = natV === "" ? null : NATURES[Number(natV)];
+  document.querySelectorAll("#gainBStats label, #gainAStats label").forEach(l => { const k = l.parentElement.dataset.k; l.classList.toggle("up", !!nat && nat[1] === k); l.classList.toggle("down", !!nat && nat[2] === k); });
+  const empty = text => { rows.innerHTML = KEYS.map(k => `<tr><td class="name">${LABEL[k]}</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>`).join(""); msg.innerHTML = `<div class="verdict">${text}</div>`; };
+  if (!num || !nat) return empty("Pick the Pokémon and its nature, or press “Use the Summary screen”.");
+  const b = gainRead("gb", "gainBLv"), a = gainRead("ga", "gainALv");
+  const lvOk = x => Number.isFinite(x.lv) && x.lv >= 1 && x.lv <= 100;
+  if (!lvOk(b) || !KEYS.some(k => Number.isFinite(b.s[k]))) return empty("Type its level and stats in <b>Before</b>, from the Summary screen before you train.");
+  if (!lvOk(a) || !KEYS.some(k => Number.isFinite(a.s[k]))) return empty("Now go train. When you're done, type its level and stats in <b>After</b>.");
+  if (a.lv < b.lv) return empty("<b>After</b> has to be the same level as <b>Before</b> or higher.");
+  const base = baseStats(num, g), shed = DEX[num-1][0] === "Shedinja", zero = $("gainZero").checked, cap = evCap(g);
+  const nul = () => Object.fromEntries(KEYS.map(k => [k, null]));
+  const eb = {lv:b.lv, s:b.s, e:zero ? Object.fromEntries(KEYS.map(k => [k, 0])) : nul(), mode:zero ? "zero" : "unknown"};
+  const ea = {lv:a.lv, s:a.s, e:nul(), mode:"unknown"};
+  const sol = solveIvs(base, nat, shed, [eb, ea], g);
+  const res = {}, bad = [];
+  KEYS.forEach(k => {
+    if (!Number.isFinite(b.s[k]) || !Number.isFinite(a.s[k]) || (shed && k === "hp")) return;
+    let r = null;
+    sol.sets[k].forEach(iv => {
+      const bs = zero ? [0, 0] : evSpan(base[k], iv, eb, k, nat, shed, sol.lim[0][k]);
+      const as = evSpan(base[k], iv, ea, k, nat, shed, sol.lim[1][k]);
+      if (!bs || !as) return;
+      const lo = Math.max(as[0], bs[0]), hi = as[1];
+      if (lo > hi) return;
+      const x = {iv:[iv, iv], b:[bs[0], Math.min(bs[1], hi)], a:[lo, hi], g:[Math.max(0, lo - bs[1]), hi - bs[0]]};
+      if (!r) r = x;
+      else ["iv","b","a","g"].forEach(f => { r[f] = [Math.min(r[f][0], x[f][0]), Math.max(r[f][1], x[f][1])]; });
+    });
+    if (r) res[k] = r; else bad.push(LABEL[k]);
+  });
+  rows.innerHTML = KEYS.map(k => {
+    const r = res[k];
+    if (bad.includes(LABEL[k])) return `<tr><td class="name">${LABEL[k]}</td><td class="r-err">✕</td><td colspan="4" class="r-err">No match</td></tr>`;
+    if (!r) return `<tr><td class="name">${LABEL[k]}</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>`;
+    return `<tr><td class="name">${LABEL[k]}</td><td>${fmtR(r.iv)}</td><td>${fmtR(r.b)}</td><td>${fmtR(r.a)}</td><td><b>${r.g[1] === 0 ? "0" : "+" + fmtR(r.g)}</b></td><td>${fmtR([cap - r.a[1], cap - r.a[0]])}</td></tr>`;
+  }).join("");
+  const got = KEYS.filter(k => res[k]);
+  const notes = [];
+  if (bad.length) notes.push(`<div class="err">No IV and EV combination produces the ${bad.join(", ")} you typed. Check the Pokémon, the nature, the game in the top bar, and the numbers.${zero ? " If it had already battled before the Before check, untick “No EVs yet”." : ""}</div>`);
+  if (g <= 4 && a.lv === b.lv) notes.push(`<div class="verdict">In Gen ${ROMAN[g]} the stats only change when it levels up, so EVs from today's training won't show yet. Level it up once (a Rare Candy works), then type the new level and stats in <b>After</b>.</div>`);
+  if (got.length){
+    const sum = f => [got.reduce((t, k) => t + res[k][f][0], 0), got.reduce((t, k) => t + res[k][f][1], 0)];
+    const now = sum("a"), gain = sum("g");
+    const nowTxt = fmtR([Math.min(510, now[0]), Math.min(510, now[1])]);
+    notes.push(`<div class="verdict">Training added <b>${gain[1] === 0 ? "no" : fmtR(gain)}</b> EVs. It now has <b>${nowTxt}</b> of 510 in the stats you typed. ${a.lv < 100 ? "Ranges get narrower at higher levels." : ""}</div>`);
+    gainLast = Object.fromEntries(got.map(k => [k, res[k].a[0]]));
+    $("gainSend").disabled = false;
+  }
+  msg.innerHTML = notes.join("");
+}
+loadGain();
+window.gainReady = true;
+renderGain();
+gainQ.addEventListener("input", () => { speciesOptions(gainSp, gainQ, "Choose a Pokémon…"); saveGain(); renderGain(); });
+$("gainBody").addEventListener("input", e => { if (e.target !== gainQ){ saveGain(); renderGain(); } });
+$("gainBody").addEventListener("change", e => { if (e.target.tagName === "SELECT" || e.target.type === "checkbox"){ saveGain(); renderGain(); } });
+$("gainCopy").addEventListener("click", () => {
+  const num = Number(speciesSel.value);
+  if (!num){ $("gainMsg").innerHTML = `<div class="verdict">Pick a Pokémon in the Summary screen first.</div>`; return; }
+  gainQ.value = ""; speciesOptions(gainSp, gainQ, "Choose a Pokémon…"); gainSp.value = num;
+  gainNat.value = natureSel.value;
+  const entries = readEntries(), x = entries[entries.length-1];
+  if (x){
+    $("gainBLv").value = x.lv;
+    KEYS.forEach(k => $("gb-"+k).value = Number.isFinite(x.s[k]) ? x.s[k] : "");
+    $("gainZero").checked = x.mode !== "unknown" && KEYS.every(k => !x.e[k]);
+  }
+  saveGain(); renderGain();
+});
+$("gainNext").addEventListener("click", () => {
+  const a = gainRead("ga", "gainALv");
+  if (!Number.isFinite(a.lv)) return;
+  $("gainBLv").value = a.lv; $("gainALv").value = "";
+  KEYS.forEach(k => { $("gb-"+k).value = Number.isFinite(a.s[k]) ? a.s[k] : ""; $("ga-"+k).value = ""; });
+  $("gainZero").checked = false;
+  saveGain(); renderGain();
+});
+$("gainClear").addEventListener("click", () => {
+  gainFields().forEach(id => $(id).value = "");
+  $("gainZero").checked = true;
+  saveGain(); renderGain();
+});
+$("gainSend").addEventListener("click", () => {
+  if (!gainLast) return;
+  pushUndo();
+  const cap = evCap(era().g);
+  evc.ev = KEYS.map((k, i) => k in gainLast ? Math.min(cap, gainLast[k]) : evc.ev[i]);
+  logLine("Loaded the lowest possible EVs from EVs gained.");
+  renderEvc();
+  $("gainMsg").insertAdjacentHTML("beforeend", `<div class="verdict">Sent the lowest possible EVs to the EV calculator in the Summary screen.</div>`);
 });
 $("evcFoeQ").addEventListener("input", fillFoes);
 $("evcAddFoe").addEventListener("click", () => {
@@ -2189,7 +2444,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.5.4";
+const APP_VERSION = "1.6.0";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

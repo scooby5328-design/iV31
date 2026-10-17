@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.5.4",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.4.neu",
+  "version": "1.6.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.6.0.neu",
   "data": {
-    "sha256": "2318189f59d0b0fc970e26037d1082439d17f0945379127a29df09886b274ad6",
-    "size": 799899,
-    "notes": "Story order in EV Training is now a toggle that stays on while you pick an EV or sort by a stat.",
+    "sha256": "b2c003fc0440002800ffc8c2e63180be0616b3c708078c17f4b9e20b0ac22d3e",
+    "size": 818304,
+    "notes": "Read IVs on Pok\u00e9mon that have already battled, and see the EVs your training added.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

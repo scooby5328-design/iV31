@@ -9,6 +9,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.6.0] - 2026-10-17
+
+### Added
+- **EVs** choice on each level entry in the IV calculator: Not sure (default), None yet, Has battled. When EVs are raising a stat, the readout shows the IV range and EV range that fit, within 31 per IV, 255 per stat (252 from Gen VI) and 510 in total, instead of "No match". Gen I–II do the same for Stat Exp.
+- **EVs gained** panel in the EV Training tab (Full): compares stats before and after training and shows the EVs gained per stat, the EVs it has now and the room left, with **Add to EV calculator**. Remembers what was typed.
+
+### Changed
+- The EV boxes are now **Known EVs (optional)**; a blank box no longer always means 0.
+
 ## [1.5.4] - 2026-10-16
 
 ### Changed
