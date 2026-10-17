@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.5.3",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.3.neu",
+  "version": "1.5.4",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.5.4.neu",
   "data": {
-    "sha256": "b7f4f58d41b368b9cb1f12e219968ba953ae2ae54bac3d6c4aea24f295716585",
-    "size": 799451,
-    "notes": "The story order used to sort Found in was checked against Bulbapedia's walkthroughs for every game and corrected.",
+    "sha256": "2318189f59d0b0fc970e26037d1082439d17f0945379127a29df09886b274ad6",
+    "size": 799899,
+    "notes": "Story order in EV Training is now a toggle that stays on while you pick an EV or sort by a stat.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

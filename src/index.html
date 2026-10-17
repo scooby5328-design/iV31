@@ -691,7 +691,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
           <p id="evLegend"><b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.</p>
           <div class="legend-keys" id="evLegendKeys" aria-hidden="true"><span class="ev c-hp">HP</span><span class="ev c-atk">Atk</span><span class="ev c-def">Def</span><span class="ev c-spa">SpA</span><span class="ev c-spd">SpD</span><span class="ev c-spe">Spe</span></div>
         </div>
-        <div class="meta"><span id="evCount"></span><label class="toggle" for="evWild"><input type="checkbox" id="evWild"> Only Pokémon found in this version</label><span>Click a column heading to sort</span></div>
+        <div class="meta"><span id="evCount"></span><label class="toggle loc" for="evRoute"><input type="checkbox" id="evRoute"> Story order</label><label class="toggle" for="evWild"><input type="checkbox" id="evWild"> Only Pokémon found in this version</label><span>Click a column heading to sort</span></div>
         <div class="datanote" id="evDataNote" hidden></div>
         <div class="sheet-wrap">
           <table class="sheet">
@@ -1492,7 +1492,7 @@ $("partyBody").addEventListener("click", e => {
 
 const evSearch = $("evSearch"), evFilter = $("evFilter"), evWild = $("evWild"), expanded = new Set();
 const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",cls:"loc"},...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
-let sortBy = "no", sortDir = 1, evStat = "all";
+let sortBy = "no", sortDir = 1, evStat = "all", routeOrder = false;
 evFilter.innerHTML = [["all","All"],...KEYS.map(k=>[k,SHORT[k]])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v==="all"}">${l}</button>`).join("");
 function foundCell(ver, n){
   if (!LOCDATA.found[ver]) return `<span class="none">No location data for ${esc(ver)}</span>`;
@@ -1505,8 +1505,9 @@ function renderSheet(){
   const E = era(), ver = state.ver, q = fold(evSearch.value.trim()).replace(/^#0*/,""), old = E.g <= 2, sk = statKeys(E.g);
   evFilter.closest("div").hidden = old;
   if (old && evStat !== "all"){ evStat = "all"; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === "all")); }
-  if (!["no","name","tot","loc"].includes(sortBy) && !sk.includes(sortBy)){ sortBy = "no"; sortDir = 1; }
-  if (sortBy === "loc" && (tier() === "free" || !LOCDATA.found[ver])){ sortBy = "no"; sortDir = 1; }
+  if (!["no","name","tot"].includes(sortBy) && !sk.includes(sortBy)){ sortBy = "no"; sortDir = 1; }
+  const byRoute = routeOrder && tier() !== "free" && !!LOCDATA.found[ver];
+  $("evRoute").checked = routeOrder;
   const si = evStat === "all" ? -1 : KEYS.indexOf(evStat), rows = [];
   for (let n = 1; n <= E.max; n++){
     const p = DEX[n-1], ev = old ? (b => sk.map(k => b[k]))(baseStats(n, E.g)) : p[8];
@@ -1516,18 +1517,19 @@ function renderSheet(){
     rows.push({no:n, name:p[0], ev, tot:ev.reduce((a,b) => a + b, 0)});
   }
   const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : r.ev[sk.indexOf(sortBy)];
-  if (sortBy === "loc"){
-    const first = r => { const p = placesFor(ver, r.no)[0]; return p ? placeKey(ver, p.place) : null; };
-    rows.forEach(r => { r.lk = first(r); });
+  const byCol = (a,b) => { const x = val(a), y = val(b); const c = typeof x === "string" ? x.localeCompare(y) : x - y; return c ? c*sortDir : a.no - b.no; };
+  if (byRoute){
+    rows.forEach(r => { const p = placesFor(ver, r.no)[0]; r.lk = p ? placeKey(ver, p.place) : null; });
     rows.sort((a,b) => {
-      if (!a.lk || !b.lk) return (a.lk ? -1 : b.lk ? 1 : 0) || a.no - b.no;
-      const c = cmpPlace(a.lk, b.lk);
-      return c ? c*sortDir : a.no - b.no;
+      if (!a.lk || !b.lk) return (a.lk ? -1 : b.lk ? 1 : 0) || byCol(a,b);
+      return cmpPlace(a.lk, b.lk) || byCol(a,b);
     });
   }
-  else rows.sort((a,b) => { const x = val(a), y = val(b); const c = typeof x === "string" ? x.localeCompare(y) : x - y; return c ? c*sortDir : a.no - b.no; });
+  else rows.sort(byCol);
   $("evHead").innerHTML = colsFor(E.g).map(c => c.nosort
     ? `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"><button type="button" disabled${c.aria?` aria-label="${c.aria}"`:""}>${c.label}</button></th>`
+    : c.id === "loc"
+    ? `<th class="loc"${byRoute?` aria-sort="ascending"`:""}><button type="button" data-c="loc" aria-pressed="${byRoute}" title="Turn story order ${byRoute?"off":"on"}">${c.label}${byRoute?" ▲":""}</button></th>`
     : `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
   $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexNo(r.no)}</td><td class="pk">${esc(r.name)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${sk[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="${sk.length + 5}" class="empty">No Pokémon match these filters.</td></tr>`;
   $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${si<0 ? "" : ` that give ${LABEL[evStat]} EVs`} · ${esc(ver)}`;
@@ -1553,7 +1555,8 @@ function renderSheet(){
     <div class="note"><b>Boosters</b>${items} Pokérus doubles EVs too.</div>`;
 }
 evFilter.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; evStat = b.dataset.v; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x===b)); renderSheet(); });
-$("evHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (sortBy===c) sortDir = -sortDir; else { sortBy = c; sortDir = (c==="no"||c==="name"||c==="loc") ? 1 : -1; } renderSheet(); });
+$("evHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (c === "loc"){ routeOrder = !routeOrder; return renderSheet(); } if (sortBy===c) sortDir = -sortDir; else { sortBy = c; sortDir = (c==="no"||c==="name") ? 1 : -1; } renderSheet(); });
+$("evRoute").addEventListener("change", e => { routeOrder = e.target.checked; renderSheet(); });
 $("evBody").addEventListener("click", e => {
   const s = e.target.closest(".star"); if (s) return toggleFav(Number(s.dataset.fav));
   const b = e.target.closest(".more"); if (!b) return;
@@ -2186,7 +2189,7 @@ function renderSecret(){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.5.3";
+const APP_VERSION = "1.5.4";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

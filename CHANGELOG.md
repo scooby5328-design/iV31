@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.5.4] - 2026-10-16
+
+### Changed
+- Story order in the EV Training table is a toggle (**Story order** checkbox or the **Found in** heading) instead of a sort column. It stays on while the EV filter is used, and a stat heading becomes the order within each place.
+
 ## [1.5.3] - 2026-10-16
 
 ### Changed
