@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Sorting by **Found in** and each Pokémon's list of places follow the order areas are reached in each game (`src/data/progression.json`, one list per game group). Places missing from a list go after it: numbered routes in number order, then the rest alphabetically.
 
+### Checksums (SHA-256)
+
+```
+c04e5370ec20261cc7a8922dac97449c8223cdd47349647fadfa5dce6f1fc435  iv31-Setup-1.5.2.exe
+61d49346805cb45c436c6861b3a774f296b51702e6fdae1305cd3371e1070d2b  iv31-1.5.2-mac.zip
+fae8eda6f1d47c8c112c8a07b0b5c97211ebbb8bf0b981f2ed0eb597ef794375  iv31-1.5.2-linux-x64.tar.gz
+f91d3c1d6b22865592e6bd4dd1772ee147602e05420541b5ebd459cf31f81698  iv31-1.5.2-linux-arm64.tar.gz
+bc7ec0a82228d8fb733719649b4e7d5cddb176de5207a9f7e165afe3e2f524c4  iv31_1.5.2_amd64.deb
+e3a148482dcea9b504ee6fb6c0e4f50684077b18a481c9a925bbae0df535e77a  iv31_1.5.2_arm64.deb
+75b5906796874cb86a2589969ffad25dfcce24e79a5ddaab1e0ebe071f924710  iv31-1.5.2-x86_64.AppImage
+3e76a585e02f9494cc3e9e3f881814968ed7f6e3c20db2f71d377fb80496db5a  iv31-1.5.2-aarch64.AppImage
+```
+
 ## [1.5.1] - 2026-10-16
 
 ### Added
