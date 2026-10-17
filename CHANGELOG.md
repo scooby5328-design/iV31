@@ -18,6 +18,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - The EV boxes are now **Known EVs (optional)**; a blank box no longer always means 0.
 
+### Checksums (SHA-256)
+
+```
+72e8b5aab6b1e8b5ecebc2ad8610fd5fc8b29d379bdd5130dc76dd489b23c5a1  iv31-Setup-1.6.0.exe
+df0f4f411211e501f5bbac095ca7605cd272f572e4fc72a32abd6587895c7424  iv31-1.6.0-mac.zip
+bee8bd5724e5341052bcb154519cebf64db851ed062c12fe978b8e2bce7cfbdb  iv31-1.6.0-linux-x64.tar.gz
+4336759f2e46670e4b33b5c2c6536d1e8c9e2925a98059877122b3f9f39f0501  iv31-1.6.0-linux-arm64.tar.gz
+7f49d4dc5c361fde61b25734c9434f66dd94830a40f6bcc84d9a1ca3a7a752bc  iv31_1.6.0_amd64.deb
+72b4c6fe3b169fa27c8298c42af7d561ac8992e92325499e7cf82cca197f9ad0  iv31_1.6.0_arm64.deb
+121317e8aa56ded46c18ab3a41d68ce4577d77e5c95e2888b55a3173608fd54a  iv31-1.6.0-x86_64.AppImage
+2e4daf1629656693603193e82ba18e56bb115c99130c5d2eb2b6f18283a253a7  iv31-1.6.0-aarch64.AppImage
+```
+
 ## [1.5.4] - 2026-10-16
 
 ### Changed
