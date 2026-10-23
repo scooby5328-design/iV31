@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Wide tables fit the screen instead of scrolling sideways: tables no longer have fixed minimum widths, headings wrap, and any table still too wide is scaled down (`fitWide` in `src/index.html`, down to 55%).
 
+### Checksums (SHA-256)
+
+```
+e13f17353c099b76faa8bad5c4fe013b841a193ebbea1e455eb903e1256788f9  iv31-Setup-1.7.2.exe
+562c51e20c7012f23cca80c1cf0ca5d00f38b90d281f538ca245ece45f76be99  iv31-1.7.2-mac.zip
+f147f0a6dda5580656d5f29f4920786b41952d6bfd5918170d206a1a3bf703ba  iv31-1.7.2-linux-x64.tar.gz
+0463c88a3a1d36f8f41c4e0ee3829b4213051fd1183cb6d87d1278b6d59b6c86  iv31-1.7.2-linux-arm64.tar.gz
+70a7533023e451f92a38fae1434e589fbbbec0c4c34c229a4c68e28596b74b0b  iv31_1.7.2_amd64.deb
+b10818f6f8fa06acf473302167eb535eb8b8875f29eeac24a3bfe4ed56839575  iv31_1.7.2_arm64.deb
+737c72a8e4bd5ab5cbbebdd652d210a4acff1efc4b38fbb2946f264ec5ccbdfb  iv31-1.7.2-x86_64.AppImage
+f245d87be35b5a71486a77feac63708abd19b72292926fe39ef3101aced46bfb  iv31-1.7.2-aarch64.AppImage
+```
+
 ## [1.7.1] - 2026-10-23
 
 ### Changed
