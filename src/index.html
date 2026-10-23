@@ -492,19 +492,23 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 
 html,body{background:var(--desk)}
 body{background-image:radial-gradient(1200px 800px at 50% 0%,rgba(255,255,255,.05),transparent 65%)}
-.device{position:relative;max-width:1240px;margin:0 auto;display:flex;flex-direction:column;border-radius:36px;padding:14px 24px 16px;background:linear-gradient(160deg,#3b4048 0%,#272b31 42%,#1a1d21 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.10),inset 0 -8px 16px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.04),0 26px 60px rgba(0,0,0,.45)}
-.dev-grip{position:absolute;top:24%;bottom:24%;width:9px;border-radius:6px;background:repeating-linear-gradient(0deg,#16181b 0 3px,#30353b 3px 6px);box-shadow:inset 0 0 0 1px rgba(0,0,0,.5)}
+.device{position:relative;max-width:1560px;margin:0 auto;display:grid;grid-template-columns:176px minmax(0,1fr) 176px;border-radius:40px;padding:16px 0;background:linear-gradient(160deg,#3b4048 0%,#272b31 42%,#1a1d21 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.10),inset 0 -8px 16px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.04),0 26px 60px rgba(0,0,0,.45)}
+.dev-grip{position:absolute;top:18%;bottom:18%;width:10px;border-radius:6px;background:repeating-linear-gradient(0deg,#16181b 0 3px,#30353b 3px 6px);box-shadow:inset 0 0 0 1px rgba(0,0,0,.5)}
 .dev-grip.l{left:7px}.dev-grip.r{right:7px}
-.dev-top{display:flex;align-items:center;gap:16px;padding:2px 6px 12px}
-.dev-brand{display:flex;align-items:center;gap:10px;color:#a9b2bd;font-family:var(--pixel);font-size:15px;letter-spacing:.18em;flex:none}
-.dev-brand small{font-size:9px;color:#6d7682;letter-spacing:.2em}
+.dev-side{display:flex;flex-direction:column;align-items:center;gap:12px;padding:8px 18px;min-width:0}
+.dev-fill{flex:1}
+.dev-brand{display:flex;align-items:center;gap:10px;color:#a9b2bd;font-family:var(--pixel);font-size:17px;letter-spacing:.2em}
+.dev-model{font-family:var(--pixel);font-size:9px;color:#6d7682;letter-spacing:.22em;margin-top:-6px}
+.dev-lcd{width:100%;background:var(--crust);border-radius:10px;padding:7px;box-shadow:inset 0 0 0 3px #0b0d0f,inset 0 0 22px rgba(0,0,0,.45)}
+.dev-lcd .mods{flex-direction:column;align-items:stretch;gap:6px}
+.dev-lcd .mods select{max-width:none;width:100%}
+.dev-lcd .mod{text-align:center}
+.ab{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;align-items:end}
+.ab .dkey:first-child{margin-top:30px}
 .dev-led{width:9px;height:9px;border-radius:50%;background:#4be37f;box-shadow:0 0 8px #4be37f,inset 0 -1px 2px rgba(0,0,0,.4)}
-.dev-status{flex:1;min-width:0;display:flex;justify-content:flex-end;background:var(--crust);border-radius:10px;padding:6px 8px;box-shadow:inset 0 0 0 3px #0b0d0f,inset 0 0 22px rgba(0,0,0,.45)}
-.dev-status .mods{justify-content:flex-end}
-.dev-grille{flex:none;width:64px;height:26px;background:radial-gradient(circle,#0b0c0e 1.6px,transparent 2px) 0 0/8px 8px;opacity:.9}
-.dev-screen{position:relative;flex:1;min-height:0;border-radius:18px;border:10px solid #0b0d10;background:var(--crust);box-shadow:0 0 0 1px rgba(255,255,255,.05),inset 0 0 50px rgba(0,0,0,.35)}
-.dev-deck{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 26px 4px}
-.dpad{display:grid;grid-template-columns:repeat(3,36px);grid-template-rows:repeat(3,36px);filter:drop-shadow(0 3px 0 #08090b)}
+.dev-grille{flex:none;width:96px;height:40px;background:radial-gradient(circle,#0b0c0e 1.6px,transparent 2px) 0 0/8px 8px;opacity:.9}
+.dev-screen{position:relative;min-height:0;min-width:0;border-radius:18px;border:10px solid #0b0d10;background:var(--crust);box-shadow:0 0 0 1px rgba(255,255,255,.05),inset 0 0 50px rgba(0,0,0,.35)}
+.dpad{display:grid;grid-template-columns:repeat(3,42px);grid-template-rows:repeat(3,42px);filter:drop-shadow(0 3px 0 #08090b)}
 .dp{border:0;background:#17191c;padding:0;cursor:pointer;position:relative;color:#5b636d}
 .dp.up{grid-column:2;grid-row:1;border-radius:7px 7px 0 0}
 .dp.lt{grid-column:1;grid-row:2;border-radius:7px 0 0 7px}
@@ -519,15 +523,12 @@ body{background-image:radial-gradient(1200px 800px at 50% 0%,rgba(255,255,255,.0
 .dp.rt::before{border-left-color:#5b636d;margin-left:3px}
 .dp:hover::before{filter:brightness(1.6)}
 .dp:active,.dp.pressed{background:#0f1113}
-.dev-keys{display:flex;gap:22px}
 .dkey{display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--pixel);font-size:9px;letter-spacing:.14em;color:#7b8590}
 .rkey{width:58px;height:16px;border-radius:9px;border:0;cursor:pointer;background:linear-gradient(180deg,#2a2e33,#16181b);box-shadow:0 2px 0 #08090b,inset 0 1px 0 rgba(255,255,255,.08);position:relative}
 .rkey::after{content:"";position:absolute;right:8px;top:5px;width:6px;height:6px;border-radius:50%;background:#3b4048}
 .rkey[aria-pressed="true"]::after{background:#5ad1ff;box-shadow:0 0 6px #5ad1ff}
 .rkey:active,.rkey.pressed{transform:translateY(2px);box-shadow:none}
-.ab{display:flex;gap:18px;align-items:flex-end}
-.ab .dkey:first-child{margin-top:22px}
-.round{width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;font:400 15px/1 var(--pixel);color:rgba(255,255,255,.75);box-shadow:0 4px 0 #08090b,inset 0 2px 0 rgba(255,255,255,.18),inset 0 -6px 10px rgba(0,0,0,.35)}
+.round{width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;font:400 15px/1 var(--pixel);color:rgba(255,255,255,.75);box-shadow:0 4px 0 #08090b,inset 0 2px 0 rgba(255,255,255,.18),inset 0 -6px 10px rgba(0,0,0,.35)}
 .round.b{background:radial-gradient(circle at 38% 30%,#5a6270,#353b45)}
 .round.a{background:radial-gradient(circle at 38% 30%,#57a8ff,#1f62b8)}
 .round:active,.round.pressed{transform:translateY(3px);box-shadow:0 1px 0 #08090b,inset 0 2px 6px rgba(0,0,0,.4)}
@@ -629,18 +630,35 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 @keyframes bootOff{0%{opacity:1;transform:none}70%{opacity:1;transform:scaleY(.01);filter:brightness(2)}100%{opacity:0;transform:scaleY(0)}}
 .desk.swap{animation:swapIn .26s steps(5) both}
 @keyframes swapIn{0%{opacity:0;filter:brightness(2.2);transform:translateY(4px)}100%{opacity:1;filter:none;transform:none}}
+@media (min-width:721px) and (max-width:1000px){
+  .device{grid-template-columns:132px minmax(0,1fr) 132px}
+  .dev-side{padding:8px 10px}
+  .dpad{grid-template-columns:repeat(3,34px);grid-template-rows:repeat(3,34px)}
+  .round{width:46px;height:46px}
+  .ab{gap:8px}
+  .dev-lcd .mod.clock{display:none}
+  .dkey{letter-spacing:.06em;font-size:8px}
+  .dev-grille{width:72px}
+}
+.dev-lcd{overflow:hidden}
 @media (min-width:721px){
   body{overflow:hidden}
-  .device{height:calc(100vh - 24px);height:calc(100dvh - 24px);margin:12px auto}
+  .device{height:calc(100vh - 24px);height:calc(100dvh - 24px);margin:12px auto;grid-template-rows:minmax(0,1fr)}
   .dev-screen{overflow:auto;scrollbar-color:var(--surface1) var(--crust)}
 }
 @media (max-width:720px){
-  .device{border-radius:0;padding:8px 8px 10px;min-height:100vh}
-  .dev-grip,.dev-grille,.dev-brand small{display:none}
-  .dev-top{gap:10px;padding:2px 2px 8px}
+  .device{display:flex;flex-direction:row;flex-wrap:wrap;align-content:flex-start;border-radius:0;padding:8px 8px 10px;min-height:100vh}
+  .dev-side.left{flex:1 1 0;min-width:0}
+  .dev-screen{flex:1 1 100%}
+  .dev-grip,.dev-grille,.dev-model,.dpad,.ab,.dev-fill,.dev-side .dkey{display:none}
+  .dev-side{flex-direction:row;padding:0 2px 8px;gap:10px}
+  .dev-side.left{order:1}.dev-side.right{order:2;padding-left:0}.dev-screen{order:3}
+  .dev-side.left .dev-lcd{flex:1}
+  .dev-side.right .dev-lcd{width:auto}
+  .dev-lcd .mods{flex-direction:row}
+  .dev-lcd .mod.clock{display:none}
   .dev-brand{font-size:12px}
   .dev-screen{border-width:6px;border-radius:12px}
-  .dev-deck{display:none}
   .navbtns{display:flex}
   .boot{position:fixed;border-radius:0}
 }
@@ -652,17 +670,23 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 <body>
 <div class="device" id="device">
 <div class="dev-grip l" aria-hidden="true"></div><div class="dev-grip r" aria-hidden="true"></div>
-<header class="dev-top">
-  <div class="dev-brand"><span class="dev-led" aria-hidden="true"></span><span>iv31</span><small>FIELD UNIT</small></div>
-  <div class="dev-status">
-    <div class="mods">
+<aside class="dev-side left">
+  <div class="dev-brand"><span class="dev-led" aria-hidden="true"></span><span>iv31</span></div>
+  <small class="dev-model">FIELD UNIT</small>
+  <div class="dev-lcd"><div class="mods">
       <select id="game" aria-label="Game"></select>
-      <button type="button" class="mod ver" id="verChip" title="Check for updates">v1.3.1</button>
-      <span class="mod clock" id="clock">--:--</span>
-    </div>
+  </div></div>
+  <div class="dev-fill"></div>
+  <div class="dpad" role="group" aria-label="Direction pad">
+    <button type="button" class="dp up" id="dpUp" aria-label="Scroll up" title="Scroll up"></button>
+    <button type="button" class="dp lt" id="dpLeft" aria-label="Previous tab" title="Previous tab"></button>
+    <span class="dp mid" aria-hidden="true"></span>
+    <button type="button" class="dp rt" id="dpRight" aria-label="Next tab" title="Next tab"></button>
+    <button type="button" class="dp dn" id="dpDown" aria-label="Scroll down" title="Scroll down"></button>
   </div>
-  <div class="dev-grille" aria-hidden="true"></div>
-</header>
+  <div class="dev-fill"></div>
+  <div class="dkey"><button type="button" class="rkey" id="keySound" aria-pressed="true" aria-label="Sound on or off"></button><span>SOUND</span></div>
+</aside>
 <div class="dev-screen" id="screen">
 <div class="boot" id="boot" hidden><div class="boot-in"><div class="boot-logo">IV<span>/</span>31</div><div class="boot-sub">FIELD UNIT</div><div class="boot-bar"><i></i></div><div class="boot-msg" id="bootMsg">STARTING…</div></div></div>
 <nav class="bar-top" aria-label="Workspaces">
@@ -1076,23 +1100,22 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 
 </main>
 </div>
-<footer class="dev-deck" aria-label="Device buttons">
-  <div class="dpad" role="group" aria-label="Direction pad">
-    <button type="button" class="dp up" id="dpUp" aria-label="Scroll up" title="Scroll up"></button>
-    <button type="button" class="dp lt" id="dpLeft" aria-label="Previous tab" title="Previous tab"></button>
-    <span class="dp mid" aria-hidden="true"></span>
-    <button type="button" class="dp rt" id="dpRight" aria-label="Next tab" title="Next tab"></button>
-    <button type="button" class="dp dn" id="dpDown" aria-label="Scroll down" title="Scroll down"></button>
+<aside class="dev-side right">
+  <div class="dev-grille" aria-hidden="true"></div>
+  <div class="dev-lcd">
+    <div class="mods vc">
+      <button type="button" class="mod ver" id="verChip" title="Check for updates">v1.3.1</button>
+      <span class="mod clock" id="clock">--:--</span>
+    </div>
   </div>
-  <div class="dev-keys">
-    <div class="dkey"><button type="button" class="rkey" id="keySound" aria-pressed="true" aria-label="Sound on or off"></button><span>SOUND</span></div>
-    <div class="dkey"><button type="button" class="rkey" id="keyTheme" aria-label="Switch day or night screen"></button><span>DAY/NIGHT</span></div>
-  </div>
+  <div class="dev-fill"></div>
   <div class="ab">
     <div class="dkey"><button type="button" class="round b" id="btnB" aria-label="Back" title="Back (Alt+←)">B</button><span>BACK</span></div>
     <div class="dkey"><button type="button" class="round a" id="btnA" aria-label="Forward" title="Forward (Alt+→)">A</button><span>FORWARD</span></div>
   </div>
-</footer>
+  <div class="dev-fill"></div>
+  <div class="dkey"><button type="button" class="rkey" id="keyTheme" aria-label="Switch day or night screen"></button><span>DAY/NIGHT</span></div>
+</aside>
 </div>
 
 <script src="js/neutralino.js"></script>
@@ -2927,7 +2950,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.7.0";
+const APP_VERSION = "1.7.1";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3291,7 +3314,7 @@ $("keyTheme").addEventListener("click", () => { const t = effectiveDark() ? "lig
 (() => { let t = null; try { t = localStorage.getItem(THEME_KEY); } catch(_) {} applyTheme(t); applySound(); })();
 document.addEventListener("click", e => {
   const el = e.target.closest("button,a,summary,select,input[type=checkbox]");
-  if (!el || el.closest(".dev-deck") || el.closest(".ws") || el.classList.contains("navb") || el.matches("a.dexlink,[data-dex]")) return;
+  if (!el || el.closest(".dev-side button") || el.closest(".ws") || el.classList.contains("navb") || el.matches("a.dexlink,[data-dex]")) return;
   sfx("click");
 }, true);
 function runBoot(){

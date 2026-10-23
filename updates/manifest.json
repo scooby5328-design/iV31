@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.7.0",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.7.0.neu",
+  "version": "1.7.1",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.7.1.neu",
   "data": {
-    "sha256": "f7e4f97ab42eb7f349855b7625a7d5c70615708bf5f7c45db29d96830bd11dcb",
-    "size": 910261,
-    "notes": "iv31 is now a handheld device: blue screens, a D-pad and A/B buttons, a start-up screen, transitions and click sounds.",
+    "sha256": "c77fb8b97ce1e1be78e07aee8876fdf660e73993c89615eb6d0463f007142798",
+    "size": 911282,
+    "notes": "The device controls now sit on wide side panels and the screen runs the full height.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

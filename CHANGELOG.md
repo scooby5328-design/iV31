@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.7.1] - 2026-10-23
+
+### Changed
+- Device layout: wide side panels hold the controls (left: game picker, D-pad, SOUND; right: version and clock, B/A, DAY/NIGHT) and the screen runs the full height of the device. Narrower windows get slimmer panels; phones keep the game picker and version in one row above the screen.
+
 ## [1.7.0] - 2026-10-23
 
 ### Changed
