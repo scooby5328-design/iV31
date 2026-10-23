@@ -20,6 +20,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - **Redesign** as a retro field-guide screen: green-screen palette with day (LCD) and night (phosphor) versions, scanlines, framed device panels, pixel headings (Silkscreen) and LCD number readouts (VT323), both bundled under the SIL Open Font License.
 
+### Checksums (SHA-256)
+
+```
+1e372204d2ae6940f6809d2f935f226716f34df9d59b023d2823bafd58aae661  iv31-Setup-1.6.8.exe
+f6c3abbdebe6f0572e8ff13311d43a715df7f1846eb2e323d95fe554fba5da7a  iv31-1.6.8-mac.zip
+9e43357ceea55858e641fa5e40b1bc59a85b99b854e98cac295121baabd5d9b6  iv31-1.6.8-linux-x64.tar.gz
+220c368f391285266012338adc3bf014c61c1af0bd6cb1776e4a3c3ce9c556b0  iv31-1.6.8-linux-arm64.tar.gz
+a17ba41d730846546f68dab4539e9fec1ac8880004b0fa8a755bdf5287e46f61  iv31_1.6.8_amd64.deb
+5ac9846e17223d99602cd48e452052712a3d826442b89a077a1938e351d635fe  iv31_1.6.8_arm64.deb
+a4325ef02dadaebcbbab0cbf1289f6aea67ef9c7ce731cbb857a7759bd55be5c  iv31-1.6.8-x86_64.AppImage
+555db718082cd87c100a914251fa51d16f41255a7a00d16cdff81969d10d8287  iv31-1.6.8-aarch64.AppImage
+```
+
 ## [1.6.2] - 2026-10-17
 
 ### Changed
