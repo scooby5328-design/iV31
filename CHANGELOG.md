@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Device layout: wide side panels hold the controls (left: game picker, D-pad, SOUND; right: version and clock, B/A, DAY/NIGHT) and the screen runs the full height of the device. Narrower windows get slimmer panels; phones keep the game picker and version in one row above the screen.
 
+### Checksums (SHA-256)
+
+```
+008cb0d7e620d483aa2cf05d21339dd0161057a3af1b6507bf90d97225d9cada  iv31-Setup-1.7.1.exe
+46bb2abdaad7b6b042e23f5aa29e1d6642a4378de9dc4b477c4011be97ad18de  iv31-1.7.1-mac.zip
+1566dec673f36d9df835531b37bc13429625bf43cc0364c8bc110a7c778aed66  iv31-1.7.1-linux-x64.tar.gz
+2e807f932eb5560d5df61c4dfc28698b81c35b1812dbb074ec75edb64769932d  iv31-1.7.1-linux-arm64.tar.gz
+4478017715565b8b91dbec8c5b95df99d2fa5f550a2a85cb285e8c716c248251  iv31_1.7.1_amd64.deb
+7bb0699ef6b3bcdc3e0deb68d220317ba60474351118c089d4319bcf21b026f2  iv31_1.7.1_arm64.deb
+02e5d02c69e997816fe0e220186745b99a6e912c81ffb64354763c2371fc6867  iv31-1.7.1-x86_64.AppImage
+ea97fd501d48692bdc1cf614a64f160ec834adc1299b1c2ad65b8552b05544eb  iv31-1.7.1-aarch64.AppImage
+```
+
 ## [1.7.0] - 2026-10-23
 
 ### Changed
