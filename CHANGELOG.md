@@ -9,6 +9,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.7.0] - 2026-10-23
+
+### Changed
+- **Handheld device redesign:** the app sits inside an original graphite field unit with a status screen (game, version, clock), a blue main screen that scrolls inside the device, and a control deck. Blue day and night screen palettes replace the green ones.
+
+### Added
+- **Device buttons:** D-pad ◂ ▸ switches tabs (steps through the Pokédex on a data page), ▴ ▾ scrolls the screen; **B** back, **A** forward; **SOUND** and **DAY/NIGHT** keys (remembered).
+- **Start-up screen** once per session, a screen flicker on page changes, press animations, and synthesized click sounds (Web Audio, no sound files). Motion is skipped when the system asks for reduced motion.
+- On phones the frame is slim, the deck is hidden and Back/Forward sit in the tab bar.
+
 ## [1.6.8] - 2026-10-23
 
 ### Added

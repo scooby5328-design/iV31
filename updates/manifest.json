@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.6.8",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.6.8.neu",
+  "version": "1.7.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.7.0.neu",
   "data": {
-    "sha256": "7432be4ca3225bb17611b151334f103a85fb6b4711a49f7ff96b2aac762ec517",
-    "size": 897924,
-    "notes": "A retro field-guide redesign, a data page for every Pok\u00e9mon, Back and Forward buttons, matchup strengths and type chart highlighting.",
+    "sha256": "f7e4f97ab42eb7f349855b7625a7d5c70615708bf5f7c45db29d96830bd11dcb",
+    "size": 910261,
+    "notes": "iv31 is now a handheld device: blue screens, a D-pad and A/B buttons, a start-up screen, transitions and click sounds.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

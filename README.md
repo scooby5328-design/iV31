@@ -139,7 +139,7 @@ If iv31 doesn't open, install WebKitGTK: `sudo apt install libwebkit2gtk-4.1-0` 
 9. Pick your game in the top bar. Every tab follows it.
 10. Open **EV Training** to see which Pokémon to battle to train a stat and where to find them, or switch to **EV-lowering berries** to undo EVs. **EVs gained** at the top compares a Pokémon's stats before and after training and shows the EVs it earned.
 11. Open **Types** to check what a Pokémon is weak to and what it hits hard. Click types in the chart to highlight their rows and columns.
-12. Click any Pokémon's name or number to open its **data page**. Use **◂ ▸** at the top left to go back and forward between pages.
+12. Click any Pokémon's name or number to open its **data page**. On the device, **B** goes back and **A** goes forward; the D-pad switches tabs and scrolls the screen. On phones, use **◂ ▸** at the top.
 13. Open **Powers** for three charts: **Hidden Power** (the IVs that give each type), **Secret Power** and **Nature Power** (what each move turns into in every area).
 14. Tap ☆ next to any Pokémon to keep it in **Favorites**.
 
