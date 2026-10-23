@@ -31,6 +31,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Removed
 - 128 overridden style declarations, 16 style rules for removed elements, and unused code (`seBonus`, an unused variable, duplicate open-in-calculator handlers and DV combination code).
 
+### Checksums (SHA-256)
+
+```
+fd3e638f04c5a562db05e3795027c7622af0c46bc2015a82acb865c3f843774c  iv31-Setup-1.8.0.exe
+b1c97a617968518686a1f6180a53676186da642e235fa25c93edc2ae3cd53b31  iv31-1.8.0-mac.zip
+65d3dfb126d1db28f76ba30b3aebb79ead4659568e428f96668870be8222a2c8  iv31-1.8.0-linux-x64.tar.gz
+461cec7983494f7b8a486950bf47bf0468af4a151a820aa328b7cd6b8e90361a  iv31-1.8.0-linux-arm64.tar.gz
+f44f4625d094c6a23906823bb450084cd2381b50d814d38b334ca8cf77e31966  iv31_1.8.0_amd64.deb
+1c4a961857b701e410d9c9cc7069e2d7d40b0afc072dfd17475557aea9fde16b  iv31_1.8.0_arm64.deb
+d1263bcf53597ccefe2c6552033fb27f5cb3ebad4b008261068fcf153500da6d  iv31-1.8.0-x86_64.AppImage
+166959322ddbd7dbf9568c3c9bd63d40f5ef9e1d1d5bb894c65dbf76a82d65de  iv31-1.8.0-aarch64.AppImage
+```
+
 ## [1.7.2] - 2026-10-23
 
 ### Changed
