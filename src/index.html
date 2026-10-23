@@ -16,19 +16,25 @@
 @font-face{font-family:"Fira Sans";font-style:normal;font-weight:600;font-display:swap;src:url("fonts/fira-sans-latin-600-normal.woff2") format("woff2")}
 </style>
 <style>
+@font-face{font-family:"Silkscreen";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/silkscreen-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"Silkscreen";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/silkscreen-latin-700-normal.woff2") format("woff2")}
+@font-face{font-family:"VT323";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/vt323-latin-400-normal.woff2") format("woff2")}
 :root{
-  --crust:#11111b;--mantle:#181825;--base:#1e1e2e;--surface0:#313244;--surface1:#45475a;--overlay:#6c7086;
-  --text:#cdd6f4;--subtext:#a6adc8;--mauve:#cba6f7;--blue:#89b4fa;--sapphire:#74c7ec;--red:#f38ba8;
-  --peach:#fab387;--yellow:#f9e2af;--green:#a6e3a1;--teal:#94e2d5;
-  --glow:rgba(203,166,247,.16);--glow2:rgba(137,180,250,.12);--keybg:rgba(249,226,175,.10);
+  --crust:#08100b;--mantle:#0f1c14;--base:#132419;--surface0:#24402c;--surface1:#35593f;--overlay:#6f9a78;
+  --text:#cdf3c4;--subtext:#9ccb9f;--mauve:#7dff8a;--blue:#5fd4c4;--sapphire:#62c0e0;--red:#ff7a7a;
+  --peach:#ffad5c;--yellow:#ffd25c;--green:#a8f06a;--teal:#4fd1a5;
+  --glow:rgba(125,255,138,.10);--glow2:rgba(95,212,196,.08);--keybg:rgba(255,210,92,.10);
+  --shell:#18231d;--shell2:#1f2c24;--bezel:#070c09;--scan:.16;--phos:0 0 7px rgba(125,255,138,.35);
   --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
   --sans:"Fira Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --pixel:"Silkscreen","JetBrains Mono",ui-monospace,monospace;
+  --lcd:"VT323","JetBrains Mono",ui-monospace,monospace;
   color-scheme:dark;
 }
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-  --crust:#dce0e8;--mantle:#e6e9ef;--base:#eff1f5;--surface0:#ccd0da;--surface1:#bcc0cc;--overlay:#8c8fa1;--text:#4c4f69;--subtext:#5c5f77;--mauve:#8839ef;--blue:#1e66f5;--sapphire:#209fb5;--red:#d20f39;--peach:#e2560b;--yellow:#c07a0f;--green:#40a02b;--teal:#179299;--glow:rgba(136,57,239,.12);--glow2:rgba(30,102,245,.10);--keybg:rgba(223,142,29,.13);color-scheme:light}}
+  --crust:#c3cfb3;--mantle:#d5e0c4;--base:#e0ead0;--surface0:#b2c39c;--surface1:#9bb085;--overlay:#5c7754;--text:#1b321e;--subtext:#36553a;--mauve:#2b6a31;--blue:#1d6e8a;--sapphire:#1a7892;--red:#b3261e;--peach:#a84d08;--yellow:#7d5b00;--green:#3a7612;--teal:#0e775a;--glow:rgba(43,106,49,.10);--glow2:rgba(29,110,138,.08);--keybg:rgba(125,91,0,.12);--shell:#b6c2a5;--shell2:#c4cfb4;--bezel:#5d6c54;--scan:.05;--phos:none;color-scheme:light}}
 :root[data-theme="light"]{
-  --crust:#dce0e8;--mantle:#e6e9ef;--base:#eff1f5;--surface0:#ccd0da;--surface1:#bcc0cc;--overlay:#8c8fa1;--text:#4c4f69;--subtext:#5c5f77;--mauve:#8839ef;--blue:#1e66f5;--sapphire:#209fb5;--red:#d20f39;--peach:#e2560b;--yellow:#c07a0f;--green:#40a02b;--teal:#179299;--glow:rgba(136,57,239,.12);--glow2:rgba(30,102,245,.10);--keybg:rgba(223,142,29,.13);color-scheme:light}
+  --crust:#c3cfb3;--mantle:#d5e0c4;--base:#e0ead0;--surface0:#b2c39c;--surface1:#9bb085;--overlay:#5c7754;--text:#1b321e;--subtext:#36553a;--mauve:#2b6a31;--blue:#1d6e8a;--sapphire:#1a7892;--red:#b3261e;--peach:#a84d08;--yellow:#7d5b00;--green:#3a7612;--teal:#0e775a;--glow:rgba(43,106,49,.10);--glow2:rgba(29,110,138,.08);--keybg:rgba(125,91,0,.12);--shell:#b6c2a5;--shell2:#c4cfb4;--bezel:#5d6c54;--scan:.05;--phos:none;color-scheme:light}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{background:var(--crust)}
@@ -313,6 +319,12 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .mrow{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:start;font-size:13px}
 .mrow .k{font-family:var(--mono);font-weight:700;padding-top:2px}
 .mrow .chips{display:flex;flex-wrap:wrap;gap:5px}
+.mrow .k.x2s{color:var(--green)}
+.mcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.mside h4{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--overlay)}
+.mper{margin-top:10px;padding-top:8px;border-top:1px dashed var(--surface0)}
+.mper .mrow{margin-top:6px}
+.mnote{margin:12px 0 0}
 .mrow .k.x4{color:var(--red)}.mrow .k.x2{color:var(--peach)}.mrow .k.h{color:var(--green)}.mrow .k.q{color:var(--teal)}.mrow .k.z{color:var(--blue)}
 .typechart-wrap{overflow:auto;border:1px solid var(--surface0);border-radius:10px;background:var(--mantle);max-height:76vh}
 .typechart{border-collapse:separate;border-spacing:0;font-family:var(--mono);font-size:12px;width:auto}
@@ -322,6 +334,11 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .typechart tbody th{position:sticky;left:0;z-index:1;background:var(--mantle);padding:2px 8px 2px 6px;text-align:right}
 .typechart thead th.corner{left:0;z-index:3;font-size:10px;color:var(--overlay);text-align:right;padding:6px 8px;font-family:var(--sans);text-transform:uppercase;letter-spacing:.6px;line-height:1.3}
 .typechart td{width:32px;min-width:32px;height:30px;border-right:1px solid var(--base);border-bottom:1px solid var(--base);font-weight:700;color:var(--subtext)}
+.chart-sel{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;min-height:30px}
+.typechart [data-pick]{cursor:pointer}
+.typechart th.sel .ty{outline:2px solid var(--text);outline-offset:1px}
+.typechart tr.rowsel td,.typechart td.colsel{box-shadow:inset 0 0 0 999px rgba(255,255,255,.10)}
+.typechart tr.rowsel td.colsel{box-shadow:inset 0 0 0 999px rgba(255,255,255,.22),inset 0 0 0 2px var(--text)}
 .typechart td.e2{background:color-mix(in srgb,var(--green) 30%,var(--mantle));color:var(--text)}
 .typechart td.e5{background:color-mix(in srgb,var(--red) 22%,var(--mantle));color:var(--text)}
 .typechart td.e0{background:var(--crust);color:var(--text)}
@@ -472,11 +489,103 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .store .desk{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 }
 @media (max-width:480px){.evc th.barcell,.evc td.barcell{display:none}.evc td,.evc th{padding-inline:3px}.evc td.pts{min-width:0}.evc .nextpt{white-space:normal;font-size:11px}.ctl input{width:48px}.hptable td,.hptable th{padding-inline:3px}}
+
+body{background-color:var(--shell);background-image:radial-gradient(1100px 650px at 50% -18%,var(--glow),transparent 62%),repeating-linear-gradient(0deg,rgba(255,255,255,.015) 0 2px,transparent 2px 4px);background-attachment:fixed}
+html{background:var(--shell)}
+.bar-inner{background:linear-gradient(180deg,var(--shell2),var(--bezel));border:1px solid var(--bezel);border-radius:14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 6px 18px rgba(0,0,0,.35);font-family:var(--pixel);font-size:11px;padding:6px}
+.ws a{background:var(--mantle);border:1px solid var(--surface0);border-radius:7px;box-shadow:0 2px 0 var(--bezel);color:var(--subtext);text-transform:uppercase;letter-spacing:.04em;padding:5px 10px}
+.ws a:hover{background:var(--base);color:var(--text)}
+.ws a.on{background:var(--mauve);border-color:var(--mauve);color:var(--crust);box-shadow:0 2px 0 var(--bezel),0 0 10px var(--glow)}
+.ws a b{font-weight:700}
+.navbtns{display:flex;gap:5px}
+.navb{width:30px;height:30px;border-radius:50%;border:1px solid var(--bezel);background:radial-gradient(circle at 35% 30%,var(--surface1),var(--mantle) 70%);color:var(--mauve);font:700 13px/1 var(--pixel);cursor:pointer;box-shadow:0 2px 0 var(--bezel);display:inline-flex;align-items:center;justify-content:center;padding:0}
+.navb:hover:not(:disabled){color:var(--text)}
+.navb:active:not(:disabled){transform:translateY(1px);box-shadow:none}
+.navb:disabled{opacity:.35;cursor:default}
+.mods select{font-family:var(--pixel);font-size:11px;background:var(--mantle);color:var(--mauve);border-color:var(--surface0)}
+.mod{font-family:var(--lcd);font-size:17px;line-height:1.1;background:var(--crust);border-color:var(--surface0);color:var(--mauve);text-shadow:var(--phos)}
+.mod.clock{color:var(--blue)}
+.win{border-radius:16px;padding:6px;background:linear-gradient(180deg,var(--shell2),var(--bezel));box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 8px 22px rgba(0,0,0,.30)}
+.win.active{background:linear-gradient(180deg,var(--shell2),var(--bezel));box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 0 0 2px color-mix(in srgb,var(--mauve) 45%,transparent),0 8px 22px rgba(0,0,0,.30)}
+.win-body{border-radius:10px;position:relative;box-shadow:inset 0 0 0 1px var(--surface0),inset 0 0 46px rgba(0,0,0,.28)}
+.win-body::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:repeating-linear-gradient(0deg,rgba(0,0,0,var(--scan)) 0 1px,transparent 1px 3px);z-index:5}
+details.win>summary .titlebar::after{font-family:var(--pixel);font-size:10px}
+.titlebar{background:linear-gradient(180deg,var(--mantle),var(--base));border-bottom:1px solid var(--surface0);font-family:var(--pixel);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--mauve);text-shadow:var(--phos)}
+.titlebar .dot{width:10px;height:10px;background:var(--surface1);box-shadow:inset 0 -1px 2px rgba(0,0,0,.5)}
+.win.active .titlebar .dot{background:var(--mauve);box-shadow:0 0 8px var(--mauve)}
+.tip-btn{font-family:var(--pixel);font-size:11px;background:var(--crust);border-color:var(--surface1);color:var(--mauve);text-shadow:none}
+#tipPop{border-radius:8px;background:var(--mantle);border-color:var(--surface1)}
+#tipPop h4{font-family:var(--pixel);font-weight:400;text-transform:uppercase;letter-spacing:.05em;color:var(--mauve)}
+#tipPop .tl{font-family:var(--pixel);font-weight:400}
+.logo{font-family:var(--lcd);font-weight:400;font-size:44px;letter-spacing:1px;color:var(--mauve);background:var(--crust);border:2px solid var(--surface1);border-radius:8px;padding:4px 14px;text-shadow:var(--phos)}
+.logo span{color:var(--blue)}
+h1{font-family:var(--pixel);font-weight:400;letter-spacing:.02em;font-size:clamp(18px,2.6vw,24px)}
+.lbl,label{font-family:var(--pixel);font-weight:400;font-size:10.5px;letter-spacing:.06em}
+.toggle{font-family:var(--sans)}
+select,input{background:var(--mantle);border-color:var(--surface0);border-radius:6px}
+select:focus-visible,input:focus-visible{outline:none;border-color:var(--mauve);box-shadow:0 0 0 2px var(--glow),0 0 10px var(--glow)}
+.btn{font-family:var(--pixel);font-weight:400;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;border:1px solid var(--surface1);border-radius:6px;background:linear-gradient(180deg,var(--base),var(--mantle));box-shadow:0 2px 0 var(--bezel);color:var(--text)}
+.btn:hover{border-color:var(--mauve);color:var(--mauve)}
+.btn:active{transform:translateY(1px);box-shadow:none}
+.btn.small{font-size:10.5px;padding:6px 10px}
+.btn.primary{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
+.btn.add{box-shadow:none}
+.btn:disabled{opacity:.45;cursor:default;transform:none}
+.subtabs button,.seg button{font-family:var(--pixel);font-weight:400;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;border-radius:6px;box-shadow:0 2px 0 var(--bezel)}
+.subtabs button[aria-selected="true"],.seg button[aria-pressed="true"]{box-shadow:0 2px 0 var(--bezel),0 0 10px var(--glow)}
+th,.sheet th button{font-family:var(--pixel);font-weight:400;font-size:10px;letter-spacing:.06em}
+td.iv{font-family:var(--lcd);font-weight:400;font-size:24px;line-height:1;color:var(--mauve);text-shadow:var(--phos)}
+td.iv.r-err{color:var(--red)}
+.bar{border-radius:2px;height:10px;background:var(--crust);box-shadow:inset 0 0 0 1px var(--surface0)}
+.bar i{border-radius:0;background:repeating-linear-gradient(90deg,var(--mauve) 0 5px,transparent 5px 7px);box-shadow:0 0 6px var(--glow)}
+.bs .track{border-radius:2px;background:var(--crust);box-shadow:inset 0 0 0 1px var(--surface0)}
+.bs .track i{border-radius:0;background:repeating-linear-gradient(90deg,var(--mauve) 0 5px,transparent 5px 7px)}
+.summary>div,.summary .k,.summary>*{border-radius:6px}
+.pill{border-radius:4px}
+.ty{border-radius:3px;font-family:var(--pixel);font-weight:400;font-size:10px;letter-spacing:.03em;text-transform:uppercase;padding:2px 7px}
+.verdict{border-radius:6px;border-left-width:4px}
+.verdict b{font-family:var(--mono)}
+.err{border-radius:6px}
+.note,.legend,.plan,.natchip,.card,.cell,.panel,.sheet-wrap,.typechart-wrap,.datanote{border-radius:6px}
+.note>b:first-child,.panel h4,.cell h4,.mside h4{font-family:var(--pixel);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mauve)}
+.keychip{border-radius:4px;font-family:var(--pixel);font-weight:400;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em}
+.natchip b{font-family:var(--pixel);font-weight:400;letter-spacing:.03em}
+.sheet td.no{font-family:var(--lcd);font-size:17px;color:var(--overlay)}
+.card-head h3{font-family:var(--pixel);font-weight:400;letter-spacing:.02em}
+.upd{border-radius:8px;background:var(--mantle)}
+.star{border-radius:4px}
+a.dexlink{color:inherit;text-decoration:none;border-bottom:1px dotted var(--overlay);cursor:pointer}
+a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
+#who a.dexlink{border-bottom-style:dotted}
+.dexnav{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.dexstep{display:flex;gap:6px;flex-wrap:wrap}
+.dexfind{display:flex;gap:6px;flex:1 1 280px;max-width:440px}
+.dexfind input{flex:1 1 50%}
+.dexfind select{flex:1 1 50%}
+.dexhead{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px 20px;align-items:center;padding:14px 16px;border:1px solid var(--surface0);border-radius:8px;background:var(--mantle);margin-bottom:12px}
+.dexno{font-family:var(--lcd);font-size:58px;line-height:.9;color:var(--mauve);text-shadow:var(--phos);padding:8px 14px;border:2px solid var(--surface1);border-radius:6px;background:var(--crust)}
+.dexname h2{font-family:var(--pixel);font-weight:400;font-size:clamp(20px,3vw,28px);letter-spacing:.02em;margin:0 0 6px;line-height:1.1}
+.dextypes{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.dexname .note-sm{margin:8px 0 0}
+.dexacts{display:flex;flex-direction:column;gap:6px}
+@media (max-width:760px){.dexhead{grid-template-columns:auto minmax(0,1fr)}.dexacts{grid-column:1/-1;flex-direction:row;flex-wrap:wrap}.dexno{font-size:44px}}
+.dexmsg:empty{display:none}
+.dexmsg .verdict{margin:0 0 12px}
+.dexgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
+.dexcell{border:1px solid var(--surface0);border-radius:8px;background:var(--mantle);padding:12px 14px;min-width:0}
+.dexcell.wide{grid-column:1/-1}
+.dexcell h3{font-family:var(--pixel);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mauve);margin:0 0 10px}
+.dexcell h3:not(:first-child){margin-top:16px}
+.dexcell .lbl{margin:10px 0 6px}
+.dexcell .lbl:first-of-type{margin-top:0}
+.dexcell .places{max-height:320px;overflow:auto}
+.store .ws a{box-shadow:none}
 </style>
 </head>
 <body>
 <nav class="bar-top" aria-label="Workspaces">
   <div class="bar-inner">
+    <div class="navbtns"><button type="button" class="navb" id="navBack" aria-label="Back" title="Back (Alt+←)" disabled>◂</button><button type="button" class="navb" id="navFwd" aria-label="Forward" title="Forward (Alt+→)" disabled>▸</button></div>
     <div class="ws">
       <a href="#calc" data-view="calc"><b>1</b><span>IV Calculator</span></a>
       <a href="#evs" data-view="evs"><b>2</b><span>EV Training</span></a>
@@ -813,6 +922,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
     <div class="win-body">
       <div class="titlebar"><span id="tc-h">Weakness and resistance chart</span><span class="dot"></span></div>
       <div class="pane">
+        <div class="chart-sel"><span class="note-sm" id="chartSelTxt">Click any type to highlight its row and column. Click more types to compare them.</span><button type="button" class="btn small" id="chartClear" hidden>Clear</button></div>
         <div class="typechart-wrap"><table class="typechart" id="typeChart"></table></div>
         <div class="chart-key">
           <span><i style="background:color-mix(in srgb,var(--green) 30%,var(--mantle))"></i>2× super effective</span>
@@ -863,6 +973,14 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
   </section>
 </div>
 
+<div class="view" id="view-dex" hidden>
+  <section class="win active dexwin" aria-labelledby="dex-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="dex-h">Pokémon data</span><span class="dot"></span></div>
+      <div class="pane" id="dexBody"></div>
+    </div>
+  </section>
+</div>
 <div class="view" id="view-favs" hidden>
   <section class="win active" aria-labelledby="fav-h">
     <div class="win-body">
@@ -958,6 +1076,7 @@ const IS_APP = typeof window.NL_APPVERSION === "string" && typeof window.Neutral
 const IS_STORE = typeof window.iv31Android !== "undefined";
 if (IS_STORE) document.documentElement.classList.add("store");
 const dexNo = n => "#" + String(n).padStart(4,"0");
+const dexLink = (n, label) => `<a class="dexlink" href="#dex/${n}" data-dex="${n}" title="Open ${esc(DEX[n-1][0])}'s data page">${label === undefined ? esc(DEX[n-1][0]) : label}</a>`;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const nameToNum = {}; DEX.forEach((p,i) => nameToNum[p[0]] = i+1);
 const PREVO = {}; DEX.forEach((p,i) => p[7].forEach(k => { PREVO[k] = i+1; }));
@@ -1281,7 +1400,7 @@ function runOld(num, E){
     <div class="note-sm">Natures were added in Gen III, so there's nothing to pick here. In Gen ${ROMAN[g]} the hidden values are DVs from 0 to 15, and the HP DV is worked out from the other four.</div>`;
   entriesEl.querySelectorAll('label[data-k]').forEach(l => { const k = l.dataset.k; l.classList.toggle("key", key.includes(k) || (g === 2 && k === "spd" && key.includes("spa"))); l.classList.remove("up","down"); });
   const ts = typesOf(num, g);
-  $("who").innerHTML = `${starBtn(num)}<small>${dexNo(num)}</small>${esc(name)} ${typeChips(ts)}`;
+  $("who").innerHTML = `${starBtn(num)}<small>${dexLink(num, dexNo(num))}</small>${dexLink(num)} ${typeChips(ts)}`;
   $("typeline").innerHTML = weakLine(ts, g);
   $("natline").textContent = `No natures in Gen ${ROMAN[g]}`;
   const entries = readEntries();
@@ -1374,7 +1493,7 @@ function runCalcCore(){
     <div><div class="lbl">Suggested natures</div><div class="natchips">${sugg.map((ni,i)=>{const n=NATURES[ni];return `<div class="natchip${ni===natIdx?" on":""}"><span class="rank">${i?"Second pick":"First pick"}</span><b>${n[0]}</b><small>+${SHORT[n[1]]} −${SHORT[n[2]]}</small>${ni===natIdx?'<span class="rank yours">✓ Yours</span>':""}</div>`}).join("")}</div></div>`;
   entriesEl.querySelectorAll('label[data-k]').forEach(l => { const k = l.dataset.k; l.classList.toggle("key", key.includes(k)); l.classList.toggle("up", nat[1]===k); l.classList.toggle("down", nat[2]===k); });
   const ts = typesOf(num, g);
-  $("who").innerHTML = `${starBtn(num)}<small>${dexNo(num)}</small>${esc(name)} ${typeChips(ts)}`;
+  $("who").innerHTML = `${starBtn(num)}<small>${dexLink(num, dexNo(num))}</small>${dexLink(num)} ${typeChips(ts)}`;
   $("typeline").innerHTML = weakLine(ts, g);
   $("natline").innerHTML = natIdx < 0 ? "Nature not chosen yet" : nat[1] ? `<b>${nat[0]}</b> · raises ${LABEL[nat[1]]}, lowers ${LABEL[nat[2]]}` : `<b>${nat[0]}</b> · no stat change`;
   if (natIdx < 0) return resetReadout("Choose its nature, then enter its level and stats from the Summary screen.");
@@ -1633,7 +1752,7 @@ function renderParty(){
       return `<td class="v ${rc}${kst}${isBest}" title="${labelFor(k, g)}${kst ? " (key stat)" : ""}">${lo === hi ? lo : `${lo}–${hi}`}</td>`;
     }).join("");
     const t = x.r && x.r.total ? (x.r.total[0] === x.r.total[1] ? x.r.total[0] : `${x.r.total[0]}–${x.r.total[1]}`) : "—";
-    return `<tr data-i="${x.i}"><td>${x.i + 1}</td><td class="pk"><small>${dexNo(x.num)}</small>${esc(x.name)}</td>${old ? "" : `<td class="nat">${esc(x.nat) || "—"}</td>`}${cells}<td class="v">${t}</td>${showHp ? `<td class="nat">${x.r && x.r.hp ? esc(x.r.hp) : "—"}</td>` : ""}</tr>`;
+    return `<tr data-i="${x.i}"><td>${x.i + 1}</td><td class="pk"><small>${dexLink(x.num, dexNo(x.num))}</small>${dexLink(x.num)}</td>${old ? "" : `<td class="nat">${esc(x.nat) || "—"}</td>`}${cells}<td class="v">${t}</td>${showHp ? `<td class="nat">${x.r && x.r.hp ? esc(x.r.hp) : "—"}</td>` : ""}</tr>`;
   }).join("");
 }
 
@@ -1647,6 +1766,7 @@ $("partyCopy").addEventListener("click", () => {
 });
 $("partyClear").addEventListener("click", () => { partyCards.innerHTML = ""; renderParty(); });
 $("partyBody").addEventListener("click", e => {
+  if (e.target.closest(".dexlink")) return;
   const tr = e.target.closest("tr[data-i]"); if (!tr) return;
   const d = partyCards.children[Number(tr.dataset.i)]; if (!d) return;
   d.scrollIntoView({block:"center", behavior:"smooth"}); d.classList.add("flash"); setTimeout(() => d.classList.remove("flash"), 1200);
@@ -1693,7 +1813,7 @@ function renderSheet(){
     : c.id === "loc"
     ? `<th class="loc"${byRoute?` aria-sort="ascending"`:""}><button type="button" data-c="loc" aria-pressed="${byRoute}" title="Turn story order ${byRoute?"off":"on"}">${c.label}${byRoute?" ▲":""}</button></th>`
     : `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
-  $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexNo(r.no)}</td><td class="pk">${esc(r.name)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${sk[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="${sk.length + 5}" class="empty">No Pokémon match these filters.</td></tr>`;
+  $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexLink(r.no, dexNo(r.no))}</td><td class="pk">${dexLink(r.no)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${sk[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="${sk.length + 5}" class="empty">No Pokémon match these filters.</td></tr>`;
   $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${si<0 ? "" : ` that give ${LABEL[evStat]} EVs`} · ${esc(ver)}`;
   $("evLegend").innerHTML = old
     ? `<b>How to read it:</b> in Gen ${ROMAN[E.g]} there are no EVs. Defeating a Pokémon adds its base stats, shown in each row, to your Pokémon's Stat Experience in every stat${E.g === 1 ? ", with one Special stat" : ""}. Higher numbers mean faster training. <b>Found in</b> lists where it appears in the selected version. Tap <b>☆</b> to save it to Favorites.`
@@ -1770,6 +1890,7 @@ function setEvSub(sub){
   state.evSub = sub;
   [["yields","tab-yields","pane-yields"],["berries","tab-berries","pane-berries"]].forEach(([k,t,p]) => { $(t).setAttribute("aria-selected", k===sub); $(p).hidden = k!==sub; });
   if (sub === "berries") renderBerries(); else renderSheet();
+  if (state.view === "evs"){ try { history.replaceState(null, "", "#" + curHash()); } catch(_) {} navReplace(); }
 }
 $("tab-yields").addEventListener("click", () => setEvSub("yields"));
 $("tab-berries").addEventListener("click", () => setEvSub("berries"));
@@ -1782,23 +1903,45 @@ function fillTypeSelects(){
   if (list.includes(Number(v1)) && v1 !== "") mcT1.value = v1;
   if (list.includes(Number(v2)) && v2 !== "") mcT2.value = v2;
 }
+function offense(atk, g){
+  const list = attackTypes(g);
+  const per = atk.map(a => ({a, x2:list.filter(d => eff(a,[d],g) === 2), h:list.filter(d => eff(a,[d],g) === .5), z:list.filter(d => eff(a,[d],g) === 0)}));
+  const best = d => Math.max(...atk.map(a => eff(a,[d],g)));
+  return {per, x2:list.filter(d => best(d) === 2), h:list.filter(d => best(d) === .5), z:list.filter(d => best(d) === 0)};
+}
+function matchupHtml(def, g){
+  const m = matchups(def, g), o = offense(def, g);
+  const row = (cls, label, list, emptyTxt) => `<div class="mrow"><span class="k ${cls}">${label}</span><div class="chips">${list.length ? typeChips(list) : `<span class="note-sm">${emptyTxt}</span>`}</div></div>`;
+  const perType = o.per.map(p => `<div class="mper"><p class="note-sm">${typeChips([p.a])} moves</p>${row("x2s","2× strong",p.x2,"Nothing")}${row("h","½ weak",p.h,"Nothing")}${row("z","No effect",p.z,"Nothing")}</div>`).join("");
+  return `<div class="mcols"><div class="mside"><h4>Defending: what hurts it</h4><div class="mgrid">
+    ${row("x4","4× weak",m.x4,"None")}${row("x2","2× weak",m.x2,"None")}${row("h","½ resist",m.h,"None")}${row("q","¼ resist",m.q,"None")}${row("z","Immune",m.z,"None")}</div></div>
+    <div class="mside"><h4>Attacking: what its types hit hard</h4><div class="mgrid">
+    ${row("x2s","2× strong",o.x2,"Nothing")}${def.length > 1 ? row("h","Only ½",o.h,"Nothing") : ""}${def.length > 1 ? row("z","Can't hit",o.z,"Nothing") : ""}</div>
+    ${def.length > 1 ? `<p class="note-sm mnote">With moves of both its types. Each type on its own:</p>${perType}` : `<div class="mgrid" style="margin-top:10px">${row("h","½ weak",o.per[0].h,"Nothing")}${row("z","No effect",o.per[0].z,"Nothing")}</div>`}</div></div>`;
+}
 function renderMatchups(){
   const g = era().g, t1 = mcT1.value, t2 = mcT2.value;
-  if (t1 === ""){ $("mcOut").innerHTML = `<div class="verdict">Pick a Pokémon, or choose one or two types, to see what hits it hard and what it shrugs off.</div>`; return; }
+  if (t1 === ""){ $("mcOut").innerHTML = `<div class="verdict">Pick a Pokémon, or choose one or two types, to see what hits it hard, what it shrugs off, and what its own types are strong against.</div>`; return; }
   const def = [Number(t1)]; if (t2 !== "" && t2 !== t1) def.push(Number(t2));
-  const m = matchups(def, g), num = Number(mcSpecies.value);
-  const row = (cls, label, list, emptyTxt) => `<div class="mrow"><span class="k ${cls}">${label}</span><div class="chips">${list.length ? typeChips(list) : `<span class="note-sm">${emptyTxt}</span>`}</div></div>`;
-  const title = num && typesOf(num,g).join() === def.join() ? `${esc(DEX[num-1][0])} · ` : "";
-  $("mcOut").innerHTML = `<p class="note-sm" style="margin:0 0 10px">${title}${typeChips(def)} defending in Gen ${ROMAN[g]}</p><div class="mgrid">
-    ${row("x4","4× weak",m.x4,"None")}${row("x2","2× weak",m.x2,"None")}${row("h","½ resist",m.h,"None")}${row("q","¼ resist",m.q,"None")}${row("z","Immune",m.z,"None")}</div>`;
+  const num = Number(mcSpecies.value);
+  const title = num && typesOf(num,g).join() === def.join() ? `${dexLink(num)} · ` : "";
+  $("mcOut").innerHTML = `<p class="note-sm" style="margin:0 0 10px">${title}${typeChips(def)} in Gen ${ROMAN[g]}</p>${matchupHtml(def, g)}`;
 }
 function renderTypeChart(){
   const g = era().g, list = attackTypes(g);
   const ps = i => g <= 3 ? `<span class="ps">${SPECIAL_G3.has(i) ? "Spec" : "Phys"}</span>` : "";
-  const head = `<thead><tr><th class="corner">Attack ↓<br>Defend →</th>${list.map(d => `<th scope="col" data-col="${d}"><span class="ty t${d}">${TYPES[d]}</span></th>`).join("")}</tr></thead>`;
-  const body = `<tbody>${list.map(a => `<tr><th scope="row"><span class="ty t${a}">${TYPES[a]}</span>${ps(a)}</th>${list.map(d => { const v = eff(a,[d],g); const cls = v===2?"e2":v===.5?"e5":v===0?"e0":"e1"; const txt = v===2?"2":v===.5?"½":v===0?"0":"1"; return `<td class="${cls}" data-col="${d}" title="${TYPES[a]} → ${TYPES[d]}: ${txt}×">${txt}</td>`; }).join("")}</tr>`).join("")}</tbody>`;
+  [...chartSel].forEach(t => { if (!list.includes(t)) chartSel.delete(t); });
+  const head = `<thead><tr><th class="corner">Attack ↓<br>Defend →</th>${list.map(d => `<th scope="col" data-col="${d}" data-pick="${d}" class="${chartSel.has(d) ? "sel" : ""}" tabindex="0" aria-pressed="${chartSel.has(d)}"><span class="ty t${d}">${TYPES[d]}</span></th>`).join("")}</tr></thead>`;
+  const body = `<tbody>${list.map(a => `<tr class="${chartSel.has(a) ? "rowsel" : ""}"><th scope="row" data-pick="${a}" class="${chartSel.has(a) ? "sel" : ""}" tabindex="0" aria-pressed="${chartSel.has(a)}"><span class="ty t${a}">${TYPES[a]}</span>${ps(a)}</th>${list.map(d => { const v = eff(a,[d],g); const cls = v===2?"e2":v===.5?"e5":v===0?"e0":"e1"; const txt = v===2?"2":v===.5?"½":v===0?"0":"1"; return `<td class="${cls}${chartSel.has(d) ? " colsel" : ""}" data-col="${d}" title="${TYPES[a]} → ${TYPES[d]}: ${txt}×">${txt}</td>`; }).join("")}</tr>`).join("")}</tbody>`;
   $("typeChart").innerHTML = head + body;
+  $("chartClear").hidden = !chartSel.size;
+  $("chartSelTxt").innerHTML = chartSel.size ? `Highlighted: ${typeChips([...chartSel])}. Rows show what they hit; columns show what hits them.` : "Click any type to highlight its row and column. Click more types to compare them.";
 }
+const chartSel = new Set();
+const chartPick = t => { chartSel.has(t) ? chartSel.delete(t) : chartSel.add(t); renderTypeChart(); };
+$("typeChart").addEventListener("click", e => { const h = e.target.closest("[data-pick]"); if (h) chartPick(Number(h.dataset.pick)); });
+$("typeChart").addEventListener("keydown", e => { const h = e.target.closest("[data-pick]"); if (h && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); chartPick(Number(h.dataset.pick)); const again = $("typeChart").querySelector(`${h.tagName === "TH" && h.scope === "col" ? "thead" : "tbody"} [data-pick="${h.dataset.pick}"]`); if (again) again.focus(); } });
+$("chartClear").addEventListener("click", () => { chartSel.clear(); renderTypeChart(); });
 $("typeChart").addEventListener("mouseover", e => {
   const c = e.target.closest("[data-col]"), col = c ? c.dataset.col : null;
   $("typeChart").querySelectorAll("td.colhi").forEach(x => x.classList.remove("colhi"));
@@ -1833,7 +1976,7 @@ function evoLine(n, max){
   const stages = []; let layer = [root];
   while (layer.length && stages.length < 4){ stages.push(layer); layer = layer.flatMap(x => DEX[x-1][7].filter(k => k <= max)); }
   if (stages.length === 1) return `<span class="muted">Doesn't evolve</span>`;
-  return stages.map(l => l.map(x => `<span class="stage${x===n?" me":""}">${esc(DEX[x-1][0])}</span>`).join('<span class="arrow">/</span>')).join('<span class="arrow">→</span>');
+  return stages.map(l => l.map(x => x === n ? `<span class="stage me">${esc(DEX[x-1][0])}</span>` : `<a class="stage dexlink" href="#dex/${x}" data-dex="${x}">${esc(DEX[x-1][0])}</a>`).join('<span class="arrow">/</span>')).join('<span class="arrow">→</span>');
 }
 function statHistory(n){
   const hist = ERA_STATS[n]; if (!hist) return "";
@@ -1841,39 +1984,118 @@ function statHistory(n){
   const lines = hist.map(([maxG, s]) => { const d = KEYS.map((k,i) => s[i] !== today[k] ? `${SHORT[k]} ${s[i]}` : null).filter(Boolean).join(", "); const line = `Gen ${from}${maxG>from?"–"+maxG:""}: <b>${d}</b>`; from = maxG + 1; return line; });
   return `<p class="hist">Older base stats: ${lines.join(" · ")}</p>`;
 }
-function favCard(n){
+function dexInfo(n){
   const ei = state.ei, ver = state.ver, E = ERAS[ei], useEi = n <= E.max ? ei : introEra(n), EE = ERAS[useEi], g = EE.g, name = DEX[n-1][0];
   const base = baseStats(n, g), today = baseStats(n, 9), role = roleFor(n, g, EE.max), key = role.key;
   const sugg = [natureFor(key[0], role.lower), natureFor(key[1], role.lower)];
-  const sk = statKeys(g), old = g <= 2;
-  const bst = sk.reduce((a,k)=>a+base[k],0), ev = DEX[n-1][8], ts = typesOf(n, g), m = matchups(ts, g);
-  const gennote = useEi !== ei ? `<span class="gennote">Not in Gen ${ROMAN[E.g]} · showing Gen ${ROMAN[g]}</span>` : "";
-  const bars = sk.map(k => `<span class="k${key.includes(k)?" key":""}">${shortFor(k,g)}${key.includes(k)?" ★":""}</span><span class="v${base[k]!==today[k]?" changed":""}"${base[k]!==today[k]?` title="Today: ${today[k]}"`:""}>${base[k]}</span><span class="track"><i style="width:${Math.min(100,base[k]/255*100)}%"></i></span>`).join("");
-  const evs = old ? `<span class="muted">No EVs in Gen ${ROMAN[g]}. Defeating it gives Stat Exp equal to its base stats: ${sk.map(k => `${base[k]} ${shortFor(k,g)}`).join(", ")}.</span>` : ev.some(Boolean) ? ev.map((v,i) => v ? `<span class="ev c-${KEYS[i]}">${v} ${SHORT[KEYS[i]]}</span>` : "").join("") + `<span class="muted">· ${ev.reduce((a,b)=>a+b,0)} per defeat</span>` : `<span class="muted">Gives no EVs</span>`;
-  let found;
-  if (n > E.max) found = `<p class="muted">Doesn't exist in ${esc(ver)}.</p>`;
-  else if (!LOCDATA.found[ver]) found = `<p class="muted">No location data for ${esc(ver)}.</p>`;
-  else {
-    const places = placesFor(ver, n);
-    if (places.length) found = `<ul class="places">${places.map(x => `<li><span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}</li>`).join("")}</ul>`;
-    else { const p = earliestWild(ver, n); found = p ? `<p class="muted">Not found in the wild. Evolve ${esc(DEX[p-1][0])}, found at ${placesFor(ver,p).slice(0,3).map(x=>esc(x.place)).join(", ")}${placesFor(ver,p).length>3?" and more":""}.</p>` : `<p class="muted">Not found in the wild in ${esc(ver)}.</p>`; }
-  }
+  const sk = statKeys(g), old = g <= 2, ts = typesOf(n, g);
+  return {n, ei, ver, E, useEi, EE, g, name, base, today, role, key, sugg, sk, old, ts, ev:DEX[n-1][8], bst:sk.reduce((a,k)=>a+base[k],0),
+    gennote: useEi !== ei ? `<span class="gennote">Not in Gen ${ROMAN[E.g]} · showing Gen ${ROMAN[g]}</span>` : ""};
+}
+function statBarsHtml(i){
+  return `<div class="bs">${i.sk.map(k => `<span class="k${i.key.includes(k)?" key":""}">${shortFor(k,i.g)}${i.key.includes(k)?" ★":""}</span><span class="v${i.base[k]!==i.today[k]?" changed":""}"${i.base[k]!==i.today[k]?` title="Today: ${i.today[k]}"`:""}>${i.base[k]}</span><span class="track"><i style="width:${Math.min(100,i.base[k]/255*100)}%"></i></span>`).join("")}<span class="tot">Total <b>${i.bst}</b></span></div>${statHistory(i.n)}`;
+}
+function naturesHtml(i){
+  return i.old ? `<span class="muted">Natures start in Gen III.</span>` : `<div class="natchips">${i.sugg.map((ni,j)=>{const nt=NATURES[ni];return `<div class="natchip"><span class="rank">${j?"Second pick":"First pick"}</span><b>${nt[0]}</b><small>+${SHORT[nt[1]]} −${SHORT[nt[2]]}</small></div>`}).join("")}</div>`;
+}
+function evYieldHtml(i){
+  if (i.old) return `<span class="muted">No EVs in Gen ${ROMAN[i.g]}. Defeating it gives Stat Exp equal to its base stats: ${i.sk.map(k => `${i.base[k]} ${shortFor(k,i.g)}`).join(", ")}.</span>`;
+  return i.ev.some(Boolean) ? i.ev.map((v,j) => v ? `<span class="ev c-${KEYS[j]}">${v} ${SHORT[KEYS[j]]}</span>` : "").join("") + `<span class="muted">· ${i.ev.reduce((a,b)=>a+b,0)} per defeat</span>` : `<span class="muted">Gives no EVs</span>`;
+}
+function foundHtml(i){
+  const {n, ver, E} = i;
+  if (n > E.max) return `<p class="muted">Doesn't exist in ${esc(ver)}.</p>`;
+  if (!LOCDATA.found[ver]) return `<p class="muted">No location data for ${esc(ver)}.</p>`;
+  const places = placesFor(ver, n);
+  if (places.length) return `<ul class="places">${places.map(x => `<li><span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}</li>`).join("")}</ul>`;
+  const p = earliestWild(ver, n);
+  return p ? `<p class="muted">Not found in the wild. Evolve ${dexLink(p)}, found at ${placesFor(ver,p).slice(0,3).map(x=>esc(x.place)).join(", ")}${placesFor(ver,p).length>3?" and more":""}.</p>` : `<p class="muted">Not found in the wild in ${esc(ver)}.</p>`;
+}
+function favCard(n){
+  const i = dexInfo(n), m = matchups(i.ts, i.g);
   const mini = (label, cls, list) => list.length ? `<div><span class="k" style="color:var(--${cls})">${label}</span>${typeChips(list)}</div>` : "";
   return `<article class="card" aria-labelledby="fav-${n}">
     <div class="card-head">
-      <div class="card-name">${starBtn(n)}<span class="no">${dexNo(n)}</span><h3 id="fav-${n}">${esc(name)}</h3>${typeChips(ts)}${gennote}</div>
-      <button type="button" class="btn small" data-open="${n}" data-era="${useEi}">Open in IV calculator</button>
+      <div class="card-name">${starBtn(n)}<span class="no">${dexLink(n, dexNo(n))}</span><h3 id="fav-${n}">${dexLink(n)}</h3>${typeChips(i.ts)}${i.gennote}</div>
+      <div class="card-acts"><a class="btn small" href="#dex/${n}" data-dex="${n}">Data page</a><button type="button" class="btn small" data-open="${n}" data-era="${i.useEi}">Open in IV calculator</button></div>
     </div>
     <div class="card-body">
-      <div class="cell"><h4>Base stats · Gen ${ROMAN[g]}</h4><div class="bs">${bars}<span class="tot">Total <b>${bst}</b></span></div>${statHistory(n)}</div>
-      <div class="cell"><h4>Builds around</h4><div class="k2">${key.map(k=>`<span class="keychip">★ ${labelFor(k,g)}</span>`).join("")}</div>
-        <h4>Suggested natures</h4><div class="natchips">${old ? `<span class="muted">Natures start in Gen III.</span>` : sugg.map((ni,i)=>{const nt=NATURES[ni];return `<div class="natchip"><span class="rank">${i?"Second pick":"First pick"}</span><b>${nt[0]}</b><small>+${SHORT[nt[1]]} −${SHORT[nt[2]]}</small></div>`}).join("")}</div></div>
-      <div class="cell"><h4>Weak and resistant · Gen ${ROMAN[g]}</h4><div class="mini">${mini("4×","red",m.x4)}${mini("2×","peach",m.x2)}${mini("½","green",m.h)}${mini("¼","teal",m.q)}${mini("0×","blue",m.z)}</div></div>
-      <div class="cell"><h4>${old ? "Stat Exp yield" : "EV yield"}</h4><div class="evrow">${evs}</div><h4>Evolution line</h4><div class="evo">${evoLine(n, EE.max)}</div></div>
-      <div class="cell favloc"><h4>Found in · ${esc(ver)}</h4>${found}</div>
+      <div class="cell"><h4>Base stats · Gen ${ROMAN[i.g]}</h4>${statBarsHtml(i)}</div>
+      <div class="cell"><h4>Builds around</h4><div class="k2">${i.key.map(k=>`<span class="keychip">★ ${labelFor(k,i.g)}</span>`).join("")}</div>
+        <h4>Suggested natures</h4>${naturesHtml(i)}</div>
+      <div class="cell"><h4>Weak and resistant · Gen ${ROMAN[i.g]}</h4><div class="mini">${mini("4×","red",m.x4)}${mini("2×","peach",m.x2)}${mini("½","green",m.h)}${mini("¼","teal",m.q)}${mini("0×","blue",m.z)}</div></div>
+      <div class="cell"><h4>${i.old ? "Stat Exp yield" : "EV yield"}</h4><div class="evrow">${evYieldHtml(i)}</div><h4>Evolution line</h4><div class="evo">${evoLine(n, i.EE.max)}</div></div>
+      <div class="cell favloc"><h4>Found in · ${esc(i.ver)}</h4>${foundHtml(i)}</div>
     </div>
   </article>`;
 }
+function renderDex(){
+  const n = state.dex, body = $("dexBody");
+  if (!n || n < 1 || n > DEX.length){ body.innerHTML = `<div class="verdict">That Pokémon isn't in iv31's Pokédex.</div>`; return; }
+  const i = dexInfo(n), lowName = LABEL[i.role.lower], t = tier();
+  const prev = n > 1 ? n - 1 : null, next = n < Math.min(DEX.length, ERAS[ERAS.length-1].max) ? n + 1 : null;
+  const first = ERAS[introEra(n)];
+  const natWhy = i.old ? "" : `<p class="note-sm">Both raise a key stat and lower ${lowName}, which ${esc(i.role.finName)} doesn't need.${i.role.finName !== i.name ? ` Judged as ${esc(i.role.finName)}, ${i.role.fin.branched ? "one of its possible final evolutions" : "its final evolution"}.` : ""}</p>`;
+  const mult = i.old ? "" : `<p class="note-sm">Doubled with Pokérus or a Macho Brace. A Power item adds ${i.g >= 7 ? 8 : 4} to its stat.</p>`;
+  body.innerHTML = `
+    <div class="dexnav">
+      <div class="dexstep"><button type="button" class="btn small" id="dexBack">◂ Back</button><button type="button" class="btn small" id="dexFwd">Forward ▸</button></div>
+      <div class="dexstep">${prev ? `<a class="btn small" href="#dex/${prev}" data-dex="${prev}">◂ ${dexNo(prev)}</a>` : ""}${next ? `<a class="btn small" href="#dex/${next}" data-dex="${next}">${dexNo(next)} ▸</a>` : ""}</div>
+      <div class="dexfind"><input type="search" id="dexQ" placeholder="Jump to a Pokémon" autocomplete="off" aria-label="Jump to a Pokémon"><select id="dexSel" aria-label="Pokémon"></select></div>
+    </div>
+    <header class="dexhead">
+      <div class="dexno">${dexNo(n)}</div>
+      <div class="dexname"><h2>${esc(i.name)}</h2><div class="dextypes">${typeChips(i.ts)}${starBtn(n)}</div>
+        <p class="note-sm">First seen in Gen ${ROMAN[first.g]} · showing ${i.useEi === i.ei ? esc(i.ver) : `Gen ${ROMAN[i.g]}`} data${i.gennote ? ` (it isn't in ${esc(i.ver)})` : ""}. Change the game in the top bar.</p></div>
+      <div class="dexacts">
+        <button type="button" class="btn" data-open="${n}" data-era="${i.useEi}">Check its IVs</button>
+        ${t !== "free" ? `<button type="button" class="btn" id="dexParty">Add to party</button>` : ""}
+        ${t !== "free" && !i.old && i.ev.some(Boolean) ? `<button type="button" class="btn" id="dexEvc">Defeated one: add its EVs</button>` : ""}
+      </div>
+    </header>
+    <div class="dexmsg" id="dexMsg"></div>
+    <div class="dexgrid">
+      <section class="dexcell"><h3>Base stats · Gen ${ROMAN[i.g]}</h3>${statBarsHtml(i)}</section>
+      <section class="dexcell"><h3>Training focus</h3>
+        <div class="lbl">The 2 stats to focus</div><div class="k2">${i.key.map(k=>`<span class="keychip">★ ${labelFor(k,i.g)}</span>`).join("")}</div>
+        <div class="lbl">Proper nature</div>${naturesHtml(i)}${natWhy}</section>
+      <section class="dexcell"><h3>${i.old ? "Stat Exp it gives" : "EVs it gives"}</h3><div class="evrow">${evYieldHtml(i)}</div>${mult}
+        <h3>Evolution line</h3><div class="evo">${evoLine(n, i.EE.max)}</div></section>
+      <section class="dexcell loc"><h3>Where to find it · ${esc(i.ver)}</h3>${foundHtml(i)}</section>
+      <section class="dexcell wide"><h3>Type matchups · Gen ${ROMAN[i.g]}</h3>${matchupHtml(i.ts, i.g)}</section>
+    </div>`;
+  const q = $("dexQ"), sel = $("dexSel");
+  speciesOptions(sel, q, "Choose a Pokémon…");
+  sel.addEventListener("change", () => { const v = Number(sel.value); if (v) openDex(v); });
+  q.addEventListener("input", () => speciesOptions(sel, q, "Choose a Pokémon…"));
+  q.addEventListener("keydown", e => { if (e.key === "Enter"){ const v = Number(sel.value) || Number(sel.options[0] && sel.options[0].value); if (v) openDex(v); } });
+  $("dexBack").addEventListener("click", dexBack);
+  $("dexFwd").addEventListener("click", () => navGo(1));
+  updNav();
+  if ($("dexParty")) $("dexParty").addEventListener("click", () => {
+    const d = addPartyMember({num:n, nat:i.old ? -1 : i.sugg[0], entry:null});
+    $("dexMsg").innerHTML = `<div class="verdict">${d ? `Added ${esc(i.name)} to Party comparison in the IV Calculator tab.` : "The party is full."}</div>`;
+  });
+  if ($("dexEvc")) $("dexEvc").addEventListener("click", () => {
+    const cap = evCap(era().g), before = evc.ev.slice();
+    pushUndo();
+    i.ev.forEach((v, j) => { if (!v) return; const add = Math.min(v, cap - evc.ev[j], 510 - evTotal()); if (add > 0) evc.ev[j] += add; });
+    const got = KEYS.map((k, j) => evc.ev[j] - before[j] ? `+${evc.ev[j] - before[j]} ${SHORT[k]}` : "").filter(Boolean);
+    logLine(`<b>${esc(i.name)} ×1</b> from its data page: <span class="gain">${got.join(", ") || "nothing"}</span>`);
+    renderEvc();
+    $("dexMsg").innerHTML = `<div class="verdict">Added ${got.join(", ") || "nothing (the EVs are full)"} to the EV calculator in the IV Calculator tab.</div>`;
+  });
+}
+function openDex(n){ try { location.hash = "dex/" + n; } catch(_) { state.dex = n; showView("dex"); } }
+function dexBack(){ if (navPos > 0) navGo(-1); else showView("calc"); }
+$("dexBody").addEventListener("click", e => {
+  const s = e.target.closest(".star"); if (s){ toggleFav(Number(s.dataset.fav)); renderDex(); return; }
+  const o = e.target.closest("[data-open]"); if (!o) return;
+  const n = Number(o.dataset.open);
+  if (Number(o.dataset.era) !== state.ei) setGame(Number(o.dataset.era), null);
+  searchIn.value = ""; speciesOptions(speciesSel, searchIn, "Choose a Pokémon…"); speciesSel.value = n; runCalc();
+  showView("calc");
+});
 function renderFavs(){
   $("favGame").textContent = `Showing details for Gen ${ROMAN[era().g]} · ${state.ver}. Change the game in the top bar.`;
   const nums = [...favs].sort((a,b)=>a-b);
@@ -1905,7 +2127,7 @@ function favsChanged(){
 function toggleFav(n){ if (!n) return; favs.has(n) ? favs.delete(n) : favs.add(n); persistFavs(); favsChanged(); }
 $("who").addEventListener("click", e => { const s = e.target.closest(".star"); if (s) toggleFav(Number(s.dataset.fav)); });
 
-const VIEWS = ["calc","evs","types","secret","favs"];
+const VIEWS = ["calc","evs","types","secret","favs","dex"];
 const wsLinks = [...document.querySelectorAll(".ws a")];
 function renderActive(){
   const v = state.view;
@@ -1913,17 +2135,68 @@ function renderActive(){
   if (v === "types" && dirty.types){ dirty.types = false; renderTypes(); }
   if (v === "favs" && dirty.favs){ dirty.favs = false; renderFavs(); }
   if (v === "secret" && dirty.secret){ dirty.secret = false; renderSecret(); }
+  if (v === "dex") renderDex();
 }
+const navHist = [];
+let navPos = -1, navMoving = false, navLeaveY = 0;
+function curHash(){ const v = state.view; return v === "evs" && state.evSub === "berries" ? "berries" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v; }
+function updNav(){
+  const b = $("navBack"), f = $("navFwd");
+  if (b) b.disabled = navPos <= 0;
+  if (f) f.disabled = navPos >= navHist.length - 1;
+  const df = $("dexFwd");
+  if (df) df.disabled = navPos >= navHist.length - 1;
+}
+function navRecord(){
+  const h = curHash(), cur = navHist[navPos];
+  if (navMoving || (cur && cur.h === h)) return updNav();
+  if (cur) cur.y = navLeaveY;
+  navHist.length = navPos + 1; navHist.push({h, y:0}); navPos = navHist.length - 1;
+  if (navHist.length > 100){ navHist.shift(); navPos--; }
+  updNav();
+}
+function navReplace(){ if (navHist[navPos]) navHist[navPos].h = curHash(); updNav(); }
+function navGo(d){
+  const t = navPos + d; if (t < 0 || t >= navHist.length) return false;
+  if (navHist[navPos]) navHist[navPos].y = window.scrollY;
+  navPos = t; navMoving = true;
+  try { routeHash(navHist[t].h, false); } finally { navMoving = false; }
+  const y = navHist[t].y; requestAnimationFrame(() => window.scrollTo(0, y));
+  updNav();
+  return true;
+}
+window.iv31NavBack = () => navGo(-1);
 function showView(v){
   if (!VIEWS.includes(v)) v = "calc";
+  navLeaveY = window.scrollY;
   state.view = v;
   VIEWS.forEach(x => { $("view-" + x).hidden = x !== v; });
   wsLinks.forEach(a => a.classList.toggle("on", a.dataset.view === v));
   renderActive();
   window.scrollTo(0,0);
-  try { history.replaceState(null, "", "#" + (v === "evs" && state.evSub === "berries" ? "berries" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v)); } catch(_) {}
+  try { history.replaceState(history.state, "", "#" + (v === "evs" && state.evSub === "berries" ? "berries" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v)); } catch(_) {}
+  navRecord();
 }
+function routeHash(h, fromNav){
+  const dm = /^dex\/(\d+)$/.exec(h);
+  if (dm){ state.dex = Number(dm[1]); showView("dex"); return; }
+  if (h === "berries"){ state.evSub = "berries"; $("tab-yields").setAttribute("aria-selected","false"); $("tab-berries").setAttribute("aria-selected","true"); $("pane-yields").hidden = true; $("pane-berries").hidden = false; dirty.evs = true; showView("evs"); return; }
+  if (h === "hiddenpower" || h === "naturepower" || h === "secret"){ setPwSub(h === "hiddenpower" ? "hp" : h === "naturepower" ? "np" : "sp"); showView("secret"); return; }
+  if (h === "evs" && state.evSub !== "yields"){ state.evSub = "yields"; $("tab-yields").setAttribute("aria-selected","true"); $("tab-berries").setAttribute("aria-selected","false"); $("pane-yields").hidden = false; $("pane-berries").hidden = true; dirty.evs = true; }
+  showView({summary:"calc",readout:"calc",about:"calc",manual:"calc",powers:"secret"}[h] || h || "calc");
+}
+window.addEventListener("hashchange", () => {
+  const h = location.hash.slice(1);
+  if (h === curHash()) return;
+  if (navHist[navPos - 1] && navHist[navPos - 1].h === h) return navGo(-1);
+  if (navHist[navPos + 1] && navHist[navPos + 1].h === h) return navGo(1);
+  routeHash(h, true);
+});
+document.addEventListener("keydown", e => { if (e.altKey && !e.ctrlKey && !e.metaKey && (e.key === "ArrowLeft" || e.key === "ArrowRight") && !/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName)){ e.preventDefault(); navGo(e.key === "ArrowLeft" ? -1 : 1); } });
+window.addEventListener("mouseup", e => { if (e.button === 3 || e.button === 4){ e.preventDefault(); navGo(e.button === 3 ? -1 : 1); } });
 wsLinks.forEach(a => a.addEventListener("click", e => { e.preventDefault(); showView(a.dataset.view); }));
+$("navBack").addEventListener("click", () => navGo(-1));
+$("navFwd").addEventListener("click", () => navGo(1));
 const calcWins = [...document.querySelectorAll("#view-calc .win")];
 function focusWin(w){ calcWins.forEach(x => x.classList.toggle("active", x === w)); }
 calcWins.forEach(w => { w.addEventListener("focusin", () => focusWin(w)); w.addEventListener("pointerdown", () => focusWin(w)); });
@@ -2517,13 +2790,14 @@ function setPwSub(sub){
   $("pane-pw-hp").hidden = sub !== "hp"; $("pane-pw-ground").hidden = sub === "hp";
   try { const tb = document.querySelector('#view-secret .tip-btn'); if (tb){ tb.dataset.tip = "pw-" + sub; tb.setAttribute("aria-label", `What is ${TIPS["pw-" + sub].t}?`); } } catch(_) {}
   try { history.replaceState(null, "", "#" + ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[sub]); } catch(_) {}
+  navReplace();
   renderSecret();
 }
 ["hp","sp","np"].forEach(k => $("tab-pw-" + k).addEventListener("click", () => setPwSub(k)));
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.6.2";
+const APP_VERSION = "1.6.8";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -2762,12 +3036,9 @@ function tick(){
   extrasReady = true;
   runCalc();
   const h = location.hash.slice(1);
-  if (h === "berries"){ state.evSub = "berries"; $("tab-yields").setAttribute("aria-selected","false"); $("tab-berries").setAttribute("aria-selected","true"); $("pane-yields").hidden = true; $("pane-berries").hidden = false; showView("evs"); }
-  else if (h === "hiddenpower" || h === "naturepower"){ setPwSub(h === "hiddenpower" ? "hp" : "np"); showView("secret"); }
-  else showView({summary:"calc",readout:"calc",about:"calc",manual:"calc",powers:"secret"}[h] || h || "calc");
+  routeHash(h, false);
   tick(); setInterval(tick, 15000);
 })();
-window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h === "berries"){ setEvSub("berries"); showView("evs"); } else if (VIEWS.includes(h) && h !== state.view) showView(h); });
 
 const TIPS = {
   "in-h": {t:"Summary screen", for:"Type in a Pokémon from your game's Summary screen so iv31 can work out its hidden IVs.",
@@ -2792,12 +3063,12 @@ const TIPS = {
   "evs": {t:"EV Training", for:"Shows the EVs every Pokémon gives when you defeat it and where to find it in your game. The second tab lists the berries that lower EVs.",
     how:["Search by name, Pokédex number or place, such as Route 110.","Use the <b>Gives EVs in</b> buttons to show only Pokémon that give one stat.","Tick <b>Story order</b>, or click <b>Found in</b>, to list them in the order you reach places in the game.","Click a column heading to sort. With Story order on, it sorts within each place.","Press <b>☆</b> to save a Pokémon to Favorites."],
     with:[["The <b>EV calculator</b>'s “Defeated Pokémon” uses these same EV yields.",1],["<b>EVs gained</b> above checks what your training added.",1],["The game in the top bar picks the locations and EV yields."]]},
-  "mc-h": {t:"Matchup checker", for:"Shows what a Pokémon, or any one or two types, is weak to, resists and is immune to.",
+  "mc-h": {t:"Matchup checker", for:"Shows what a Pokémon, or any one or two types, is weak to, resists and is immune to, and what its own types are strong against.",
     how:["Search for a Pokémon and pick it, or pick one or two types.","Read the weaknesses, resistances and immunities below."],
     with:[["Uses the type chart of the game in the top bar."],["The IV readout shows the same weaknesses for the Pokémon you entered."]]},
   "tn-h": {t:"Type notes", for:"Explains how types in the selected game differ from today's games. Nothing to fill in.", how:[], with:[["Changes with the game in the top bar."]]},
-  "tc-h": {t:"Weakness and resistance chart", for:"The full type chart for the selected game. Nothing to fill in.",
-    how:["Rows are the attacking type, columns the defending type.","Green is 2×, red is ½×, dark is no effect, blank is normal damage.","For two defending types, multiply their columns."],
+  "tc-h": {t:"Weakness and resistance chart", for:"The full type chart for the selected game.",
+    how:["Rows are the attacking type, columns the defending type.","Green is 2×, red is ½×, dark is no effect, blank is normal damage.","Click any type, in a row or column heading, to highlight its row and column. Click more types to compare them; <b>Clear</b> removes the highlights.","For two defending types, multiply their columns."],
     with:[["Changes with the game in the top bar."]]},
   "pw-hp": {t:"Hidden Power chart", for:"Shows which IVs give each Hidden Power type in the selected game, and its power. In Gold, Silver and Crystal it shows the type for each Attack and Defense DV.",
     how:["Find the type you want. A <b>30</b> marks a stat that has to be even; a 31 can be any odd IV.","The <b>Power</b> column shows how strong those IVs make it (always 60 from Gen VI on).","Switch to <b>Secret Power</b> or <b>Nature Power</b> with the tabs above."],
@@ -2808,6 +3079,9 @@ const TIPS = {
   "pw-np": {t:"Nature Power chart", for:"Shows which attack Nature Power turns into in each area of the selected game.",
     how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one attack.","Each column is an attack. The number is how much of the area gives it, and the outlined one is the most common.","From Sword and Shield on it depends on terrain instead, shown as a short list."],
     with:[["The <b>Secret Power</b> tab uses the same ground."],["Changes with the game in the top bar."]]},
+  "dex-h": {t:"Pokémon data page", for:"Everything iv31 knows about one Pokémon for the game in the top bar: base stats, the two stats to focus, the proper nature, the EVs it gives, its evolutions, where to find it and its type matchups.",
+    how:["Open it by clicking any Pokémon's name or number: in the EV Training table, the IV readout, Party comparison, Favorites, the matchup checker or an evolution line.","Use <b>\u25c2 \u25b8</b> next to the number to step through the Pokédex, or type a name in <b>Jump to a Pokémon</b>.","<b>Back</b> and <b>Forward</b> move through the pages you've visited, like a browser. The same buttons are at the top left of every page."],
+    with:[["<b>Check its IVs</b> opens it in the IV calculator."],["<b>Add to party</b> adds it to Party comparison.",1],["<b>Defeated one: add its EVs</b> adds its EV yield to the EV calculator.",1]]},
   "fav-h": {t:"Favorites", for:"Keeps the Pokémon you care about on cards with their stats, natures, weaknesses, EV yield, evolutions and locations.",
     how:["Press <b>☆</b> next to a Pokémon in the IV readout or the EV Training table to add it.","Press <b>★</b> again to remove it."],
     with:[["Cards follow the game in the top bar."]]}
@@ -2853,7 +3127,7 @@ function addTip(bar, key){
     b.addEventListener("mouseleave", () => { clearTimeout(tipTimer); if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
   }
 }
-["in-h","out-h","party-h","evc-h","hpc-h","mc-h","tn-h","tc-h","fav-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
+["in-h","out-h","party-h","evc-h","hpc-h","mc-h","tn-h","tc-h","fav-h","dex-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
 addTip(document.querySelector("#guide .titlebar"), "guide");
 addTip(document.querySelector("#gain .titlebar"), "gain");
 addTip(document.querySelector("#view-evs .titlebar.withtabs"), "evs");

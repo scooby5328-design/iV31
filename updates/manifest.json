@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.6.2",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.6.2.neu",
+  "version": "1.6.8",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.6.8.neu",
   "data": {
-    "sha256": "1736d72612cabd34d243c0e7c943507cbb15a6daff4427fe5eaabf760097830a",
-    "size": 839369,
-    "notes": "The Secret Power tab is now Powers, with separate Hidden Power, Secret Power and Nature Power charts.",
+    "sha256": "7432be4ca3225bb17611b151334f103a85fb6b4711a49f7ff96b2aac762ec517",
+    "size": 897924,
+    "notes": "A retro field-guide redesign, a data page for every Pok\u00e9mon, Back and Forward buttons, matchup strengths and type chart highlighting.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

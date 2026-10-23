@@ -9,6 +9,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.6.8] - 2026-10-23
+
+### Added
+- **Pokémon data page** (`#dex/<number>`): base stats, the 2 stats to focus, proper nature, EV yield, locations, evolutions and type matchups, with buttons to check IVs, add to the party or add its EVs to the EV calculator. Every Pokémon name and number in the app links to it.
+- **Back and Forward** buttons in the top bar (and on the data page), Alt+←/→ and mouse side buttons. The Android back gesture steps back through pages first.
+- **Matchup strengths:** the matchup checker and data page show what the Pokémon's own types hit super effectively, per type for dual types.
+- **Type chart multi-select:** click any number of types to highlight their rows and columns; **Clear** resets.
+
+### Changed
+- **Redesign** as a retro field-guide screen: green-screen palette with day (LCD) and night (phosphor) versions, scanlines, framed device panels, pixel headings (Silkscreen) and LCD number readouts (VT323), both bundled under the SIL Open Font License.
+
 ## [1.6.2] - 2026-10-17
 
 ### Changed

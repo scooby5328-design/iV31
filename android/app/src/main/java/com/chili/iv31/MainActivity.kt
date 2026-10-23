@@ -10,6 +10,7 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.FrameLayout
 import androidx.activity.ComponentActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -61,6 +62,18 @@ class MainActivity : ComponentActivity() {
         else webView.restoreState(savedInstanceState)
 
         billing.start()
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                webView.evaluateJavascript("window.iv31NavBack ? window.iv31NavBack() : false") { result ->
+                    if (result != "true") {
+                        isEnabled = false
+                        onBackPressedDispatcher.onBackPressed()
+                        isEnabled = true
+                    }
+                }
+            }
+        })
     }
 
     private fun debugTier(): String? =
