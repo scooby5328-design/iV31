@@ -19,6 +19,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - **Start-up screen** once per session, a screen flicker on page changes, press animations, and synthesized click sounds (Web Audio, no sound files). Motion is skipped when the system asks for reduced motion.
 - On phones the frame is slim, the deck is hidden and Back/Forward sit in the tab bar.
 
+### Checksums (SHA-256)
+
+```
+20c51af63a9ce81bfa3d7efa932841df76677627313608510baa06ba13532b43  iv31-Setup-1.7.0.exe
+14588ac9af1bc6ae05575c69691e563ac97e40d6b566a5c16906ac850d0114f3  iv31-1.7.0-mac.zip
+77f3a0ee5d7b6ebc77f29504921ad210bd3a6311efab36a869ea63c92aa6a578  iv31-1.7.0-linux-x64.tar.gz
+941703dfbb2cb9814e3d9788611f1dae9585915a2c0a0fc9e6a20ed990172b0f  iv31-1.7.0-linux-arm64.tar.gz
+ce9836ef106adb6897214d45e5a976cf296eb879ec4ae372d0d2b86696f71e7a  iv31_1.7.0_amd64.deb
+dacc587b8725f520c19baed10bcf54142f4bdf2e6c40900044e4cb56ab1f2a1b  iv31_1.7.0_arm64.deb
+0ad9faf6bcc06eee760c2d040a272c5a39ddae92c25c259ecface2ea6dcf94b3  iv31-1.7.0-x86_64.AppImage
+be4da5f1a27c9b578381dff12b6a3492d0c9b5839231a68aea72e8477274ebf3  iv31-1.7.0-aarch64.AppImage
+```
+
 ## [1.6.8] - 2026-10-23
 
 ### Added
