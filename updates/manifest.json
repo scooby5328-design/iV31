@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.7.2",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.7.2.neu",
+  "version": "1.8.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.0.neu",
   "data": {
-    "sha256": "d3d55fb889a00129cb88f2fbbf35ed9524561533ab7710d564c18018eea53e22",
-    "size": 912371,
-    "notes": "Wide tables now fit the screen, so there is no more side-to-side scrollbar.",
+    "sha256": "9d3ae8f10d253527c396e4182c0f3a917b5061d173dff4ed91e64e3ab4e22782",
+    "size": 907040,
+    "notes": "iv31 is online, with Favorites, Hidden Power and matchups consolidated and a front-to-back cleanup.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

@@ -1,0 +1,15 @@
+{
+  "name": "iv31 · Pokémon IV Checker",
+  "short_name": "iv31",
+  "description": "Offline Pokémon IV calculator with EV training, type matchups, Hidden Power, Secret Power and Nature Power for every main game.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#14171b",
+  "theme_color": "#14171b",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

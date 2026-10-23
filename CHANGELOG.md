@@ -9,6 +9,28 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.0] - 2026-10-23
+
+### Added
+- **Website** at https://scooby5328-design.github.io/iV31/ built by `tools/build_web.py` (no Neutralino client, its own security policy, description and social tags, web manifest and icons, `sw.js` offline cache that refreshes the page from the network first) and published by the **Website** workflow (`.github/workflows/pages.yml`) when a release is pushed. The page shows a "new version ready" prompt when the worker updates.
+
+### Changed
+- Favorites is a compact list (`favRow`) linking to data pages; the old full cards were removed.
+- The Hidden Power calculator moved into Powers → Hidden Power above the chart; the duplicate "Aim for a type" table was removed and the chart row of the current type is highlighted.
+- The matchup checker's Pokémon picker opens the data page; the checker itself covers type combinations.
+- The EV calculator spans the full width.
+- Wording that said "top bar" now refers to the game picker.
+- README rewritten for the current features, the website, privacy and fonts.
+
+### Fixed
+- Table fitting does one read and one write pass per screen instead of repeated layouts.
+- Day screen contrast (accent, version and clock colors) meets WCAG AA.
+- Type chart headings use buttons (`.tpick`) instead of `aria-pressed` on table headers; tip buttons on folded panels sit outside the summary element.
+- The audio context is only created after a user gesture.
+
+### Removed
+- 128 overridden style declarations, 16 style rules for removed elements, and unused code (`seBonus`, an unused variable, duplicate open-in-calculator handlers and DV combination code).
+
 ## [1.7.2] - 2026-10-23
 
 ### Changed

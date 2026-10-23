@@ -19,40 +19,25 @@
 @font-face{font-family:"Silkscreen";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/silkscreen-latin-400-normal.woff2") format("woff2")}
 @font-face{font-family:"Silkscreen";font-style:normal;font-weight:700;font-display:swap;src:url("fonts/silkscreen-latin-700-normal.woff2") format("woff2")}
 @font-face{font-family:"VT323";font-style:normal;font-weight:400;font-display:swap;src:url("fonts/vt323-latin-400-normal.woff2") format("woff2")}
-:root{
-  --crust:#061223;--mantle:#0b1d36;--base:#0f2645;--surface0:#1e3f69;--surface1:#2c5689;--overlay:#7096c0;
-  --text:#d8edff;--subtext:#a0c3e6;--mauve:#5ad1ff;--blue:#86b6ff;--sapphire:#5cc7e8;--red:#ff7d8c;
-  --peach:#ffb066;--yellow:#ffd76a;--green:#7fe38b;--teal:#4fd8c4;
-  --glow:rgba(90,209,255,.13);--glow2:rgba(134,182,255,.08);--keybg:rgba(255,215,106,.10);
-  --desk:#14171b;--scan:.13;--phos:0 0 7px rgba(90,209,255,.42);
-  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
-  --sans:"Fira Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --pixel:"Silkscreen","JetBrains Mono",ui-monospace,monospace;
-  --lcd:"VT323","JetBrains Mono",ui-monospace,monospace;
-  color-scheme:dark;
-}
+:root{--crust:#061223;--mantle:#0b1d36;--base:#0f2645;--surface0:#1e3f69;--surface1:#2c5689;--overlay:#7096c0;--text:#d8edff;--subtext:#a0c3e6;--mauve:#5ad1ff;--blue:#86b6ff;--sapphire:#5cc7e8;--red:#ff7d8c;--peach:#ffb066;--yellow:#ffd76a;--green:#7fe38b;--teal:#4fd8c4;--glow:rgba(90,209,255,.13);--glow2:rgba(134,182,255,.08);--keybg:rgba(255,215,106,.10);--desk:#14171b;--scan:.13;--phos:0 0 7px rgba(90,209,255,.42);--mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;--sans:"Fira Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--pixel:"Silkscreen","JetBrains Mono",ui-monospace,monospace;--lcd:"VT323","JetBrains Mono",ui-monospace,monospace;color-scheme:dark}
 @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
-  --crust:#bfd3e8;--mantle:#cfe1f3;--base:#dcebf8;--surface0:#a8c2de;--surface1:#8cadd0;--overlay:#4d6d92;--text:#0e2946;--subtext:#2b4c71;--mauve:#1462a8;--blue:#1c5ec2;--sapphire:#0e6e90;--red:#b3261e;--peach:#a84d08;--yellow:#7d5b00;--green:#2d7829;--teal:#0d7565;--glow:rgba(20,98,168,.10);--glow2:rgba(28,94,194,.07);--keybg:rgba(125,91,0,.12);--desk:#c8ced6;--scan:.05;--phos:none;color-scheme:light}}
-:root[data-theme="light"]{
-  --crust:#bfd3e8;--mantle:#cfe1f3;--base:#dcebf8;--surface0:#a8c2de;--surface1:#8cadd0;--overlay:#4d6d92;--text:#0e2946;--subtext:#2b4c71;--mauve:#1462a8;--blue:#1c5ec2;--sapphire:#0e6e90;--red:#b3261e;--peach:#a84d08;--yellow:#7d5b00;--green:#2d7829;--teal:#0d7565;--glow:rgba(20,98,168,.10);--glow2:rgba(28,94,194,.07);--keybg:rgba(125,91,0,.12);--desk:#c8ced6;--scan:.05;--phos:none;color-scheme:light}
+  --crust:#bfd3e8;--mantle:#cfe1f3;--base:#dcebf8;--surface0:#a8c2de;--surface1:#8cadd0;--overlay:#43627f;--text:#0e2946;--subtext:#2b4c71;--mauve:#0f5394;--blue:#164c9e;--sapphire:#0e6e90;--red:#b3261e;--peach:#a84d08;--yellow:#7d5b00;--green:#215d1e;--teal:#0d7565;--glow:rgba(20,98,168,.10);--glow2:rgba(28,94,194,.07);--keybg:rgba(125,91,0,.12);--desk:#c8ced6;--scan:.05;--phos:none;color-scheme:light}}
+:root[data-theme="light"]{--crust:#bfd3e8;--mantle:#cfe1f3;--base:#dcebf8;--surface0:#a8c2de;--surface1:#8cadd0;--overlay:#43627f;--text:#0e2946;--subtext:#2b4c71;--mauve:#0f5394;--blue:#164c9e;--sapphire:#0e6e90;--red:#b3261e;--peach:#a84d08;--yellow:#7d5b00;--green:#215d1e;--teal:#0d7565;--glow:rgba(20,98,168,.10);--glow2:rgba(28,94,194,.07);--keybg:rgba(125,91,0,.12);--desk:#c8ced6;--scan:.05;--phos:none;color-scheme:light}
 *{box-sizing:border-box}
-[hidden]{display:none!important}
+[hidden]{display:none !important}
 html{background:var(--crust)}
-body{background:var(--crust);background-image:radial-gradient(900px 600px at 12% -10%,var(--glow),transparent 60%),radial-gradient(800px 600px at 100% 110%,var(--glow2),transparent 60%);background-attachment:fixed;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;min-height:100vh}
+body{background:var(--crust);background-attachment:fixed;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.5;min-height:100vh}
 a{color:inherit}
 button{font:inherit}
-
-.bar-top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;padding-inline:16px;padding-block:10px 0}
-.bar-inner{max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap;background:color-mix(in srgb,var(--mantle) 88%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--surface0);border-radius:12px;padding:6px 8px;font-family:var(--mono);font-size:12.5px}
+.bar-top{z-index:10;padding-inline:16px;padding-block:10px 0}
+.bar-inner{margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px 12px;flex-wrap:wrap}
 .ws{display:flex;gap:4px;flex-wrap:wrap}
-.ws a{text-decoration:none;color:var(--subtext);padding:4px 10px;border-radius:8px;display:flex;gap:6px;align-items:center;white-space:nowrap}
-.ws a b{color:var(--overlay);font-weight:700}
-.ws a:hover{background:var(--surface0);color:var(--text)}
-.ws a.on{background:var(--mauve);color:var(--crust)}
+.ws a{text-decoration:none;display:flex;gap:6px;align-items:center;white-space:nowrap}
+.ws a b{color:var(--overlay)}
 .ws a.on b,.ws a.on .count{color:var(--crust)}
 .ws a .count{font-size:11px;color:var(--yellow);font-weight:700}
 .mods{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.mods select{font-family:var(--mono);font-size:12.5px;padding:3px 8px;border-radius:8px;width:auto;max-width:44vw;background:var(--base);color:var(--mauve);font-weight:700}
+.mods select{padding:3px 8px;width:auto;max-width:44vw;font-weight:700}
 .mods optgroup{color:var(--overlay);font-style:normal}
 .mods option{color:var(--text)}
 #entries.g1 .stat[data-k="spd"],#partyCards.g1 .stat[data-k="spd"]{display:none}
@@ -60,67 +45,59 @@ button{font:inherit}
 @media (max-width:420px){#entries.g1 .stats{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .oldnote{margin:0}
 .nature-off{opacity:.55}
-.mod{padding:3px 10px;border-radius:8px;background:var(--base);border:1px solid var(--surface0);white-space:nowrap}
-.mod.clock{color:var(--blue)}
+.mod{padding:3px 10px;white-space:nowrap}
 @media (max-width:640px){.ws a span{display:none}.mod.clock{display:none}}
-
-.desk{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:14px 40px;display:grid;gap:14px}
+.desk{margin:0 auto;padding-inline:16px;padding-block:14px 40px;display:grid;gap:14px}
 .view{display:grid;gap:14px;min-width:0}
 .tiles{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:14px;align-items:start}
 @media (max-width:860px){.tiles{grid-template-columns:minmax(0,1fr)}}
-.win{border-radius:14px;padding:2px;background:var(--surface0);min-width:0;scroll-margin-top:72px}
-.win.active{background:linear-gradient(135deg,var(--mauve),var(--blue) 55%,var(--teal))}
-.win-body{background:var(--base);border-radius:12px;overflow:hidden}
-.titlebar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px;background:var(--mantle);border-bottom:1px solid var(--surface0);font-size:13px;font-weight:600;color:var(--text)}
-.tip-btn{flex:none;width:20px;height:20px;border-radius:50%;border:1px solid var(--surface1);background:var(--base);color:var(--subtext);font:700 12px/1 var(--sans);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin:0 auto 0 -2px}
+.win{min-width:0}
+.win-body{overflow:hidden}
+.titlebar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 14px}
+.tip-btn{flex:none;width:20px;height:20px;border:1px solid var(--surface1);font:700 12px/1 var(--sans);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;margin:0 auto 0 -2px}
 .tip-btn:hover,.tip-btn[aria-expanded="true"]{border-color:var(--mauve);color:var(--mauve)}
-#tipPop{position:fixed;z-index:60;max-height:calc(100vh - 16px);overflow:auto;max-width:min(360px,calc(100vw - 24px));background:var(--base);color:var(--text);border:1px solid var(--surface1);border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.28);padding:12px 14px;font-size:13px;line-height:1.45;font-weight:400}
+#tipPop{position:fixed;z-index:60;max-height:calc(100vh - 16px);overflow:auto;max-width:min(360px,calc(100vw - 24px));color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,.28);padding:12px 14px;font-size:13px;line-height:1.45;font-weight:400}
 #tipPop[hidden]{display:none}
 #tipPop h4{margin:0 0 6px;font-size:13px}
 #tipPop p{margin:0 0 8px}
-#tipPop .tl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--overlay);margin:8px 0 4px}
+#tipPop .tl{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--overlay);margin:8px 0 4px}
 #tipPop ol,#tipPop ul{margin:0;padding-left:18px}
 #tipPop li{margin:2px 0}
-.titlebar .dot{width:8px;height:8px;border-radius:50%;background:var(--surface1);flex:none}
-.win.active .titlebar .dot{background:var(--mauve)}
+.titlebar .dot{flex:none}
 .pane{padding:16px}
 .intro{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px}
-.logo{font-family:var(--mono);font-weight:800;font-size:26px;line-height:1;letter-spacing:-1px;color:var(--mauve);padding:8px 12px;border:2px solid var(--surface0);border-radius:10px;background:var(--mantle)}
-.logo span{color:var(--blue)}
-h1{font-weight:600;letter-spacing:-.3px;font-size:clamp(20px,3vw,26px);line-height:1.15;margin:0;text-wrap:balance}
+.logo{line-height:1}
+h1{line-height:1.15;margin:0;text-wrap:balance}
 h1 span{color:var(--mauve)}
 .sub{color:var(--subtext);margin:2px 0 0;max-width:70ch;font-size:14px}
 .intro>div:not(.logo){flex:1 1 300px;min-width:0}
 .logo{flex:none}
-
-.lbl,label{display:block;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--overlay);margin-bottom:5px}
+.lbl,label{display:block;text-transform:uppercase;color:var(--overlay);margin-bottom:5px}
 .row2{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:12px;margin-bottom:16px}
 @media (max-width:420px){.row2{grid-template-columns:minmax(0,1fr)}}
 .pick{display:grid;gap:6px}
-select,input{font:inherit;font-size:14px;color:var(--text);background:var(--mantle);border:1px solid var(--surface0);border-radius:8px;padding:8px 10px;width:100%}
+select,input{font:inherit;font-size:14px;color:var(--text);padding:8px 10px;width:100%}
 input[type=search]{font-family:var(--mono);font-size:13px}
 input::placeholder{color:var(--overlay)}
 input[type=number]{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:center;padding:8px 4px;-moz-appearance:textfield}
 input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 select:hover,input:hover{border-color:var(--surface1)}
 select:focus-visible,input:focus-visible,button:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--mauve);outline-offset:2px}
-
 .base{font-family:var(--mono);font-size:12px;color:var(--subtext);margin:-6px 0 14px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
 .base:empty{display:none}
 .changed{color:var(--red);font-weight:700}
 .plan{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:12px 14px;margin:0 0 6px;display:grid;gap:10px}
 .plan:empty{display:none}
 .k2{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.keychip{font-family:var(--mono);font-size:12px;font-weight:700;padding:3px 9px;border-radius:6px;background:var(--keybg);color:var(--yellow);border:1px solid color-mix(in srgb,var(--yellow) 45%,transparent)}
+.keychip{padding:3px 9px;background:var(--keybg);color:var(--yellow);border:1px solid color-mix(in srgb,var(--yellow) 45%,transparent)}
 .note-sm{font-size:13px;color:var(--overlay)}
 .natchips{display:flex;flex-wrap:wrap;gap:8px}
 .natchip{border:1px solid var(--surface0);background:var(--base);color:var(--text);border-radius:8px;padding:6px 12px;display:grid;gap:1px;min-width:0}
 .natchip.on{border-color:var(--green);background:color-mix(in srgb,var(--green) 10%,var(--base))}
-.natchip b{font-weight:600;font-size:15px}
+.natchip b{font-size:15px}
 .natchip small{font-family:var(--mono);font-size:11px;color:var(--subtext)}
 .natchip .rank{font-size:10px;text-transform:uppercase;letter-spacing:.6px;color:var(--mauve);font-weight:700}
 .natchip.on .yours{color:var(--green)}
-
 .entry{border-top:1px dashed var(--surface0);padding-top:14px;margin-top:14px}
 .entry-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
 .evmode{display:flex;align-items:center;gap:8px;margin-right:auto}
@@ -152,14 +129,11 @@ details.evs{margin-top:10px}
 summary{cursor:pointer;font-size:13px;color:var(--overlay)}
 summary:hover{color:var(--subtext)}
 details.evs .stats{margin-top:8px}
-.btn{font-size:14px;font-weight:600;border-radius:8px;border:1px solid var(--surface0);background:var(--mantle);color:var(--text);padding:7px 12px;cursor:pointer}
-.btn:hover{border-color:var(--mauve);color:var(--mauve)}
+.btn{padding:7px 12px;cursor:pointer}
 .btn.add{margin-top:16px;width:100%;border-style:dashed;background:transparent}
 .btn.rm{padding:4px 10px;font-size:11px;font-weight:500;color:var(--overlay)}
 .btn.rm:hover{color:var(--red);border-color:var(--red)}
-.btn.small{padding:5px 10px;font-size:12.5px}
 .tip{font-size:13px;color:var(--overlay);margin:14px 0 0}
-
 .readout-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px;margin-bottom:6px}
 .who{font-weight:600;font-size:24px;display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px}
 .who small{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--overlay)}
@@ -179,26 +153,31 @@ td.name{font-weight:600;white-space:nowrap}
 .ivt tr.key td.name{color:var(--yellow)}
 .ivt tr.key td.name::after{content:" ★"}
 td.name .tag{font-family:var(--mono);font-size:11px;margin-left:4px}
-.tag.up{color:var(--peach)}.tag.down{color:var(--sapphire)}
-td.iv{font-family:var(--mono);font-weight:700;font-size:16px;white-space:nowrap}
+.tag.up{color:var(--peach)}
+.tag.down{color:var(--sapphire)}
+td.iv{white-space:nowrap}
 td.barcell{width:42%}
-.bar{position:relative;height:10px;background:var(--surface0);border-radius:5px;overflow:hidden}
-.bar i{position:absolute;top:0;bottom:0;border-radius:5px;background:linear-gradient(90deg,var(--blue),var(--mauve));min-width:5px}
+.bar{position:relative;overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;min-width:5px}
 .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--overlay);margin-top:2px}
 .pill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 9px;border-radius:999px;border:1px solid color-mix(in srgb,currentColor 50%,transparent);background:color-mix(in srgb,currentColor 10%,transparent);white-space:nowrap}
-.r-low{color:var(--red)}.r-fair{color:var(--peach)}.r-good{color:var(--subtext)}.r-great{color:var(--green)}.r-perfect{color:var(--mauve)}.r-err{color:var(--red)}
+.r-low{color:var(--red)}
+.r-fair{color:var(--peach)}
+.r-good{color:var(--subtext)}
+.r-great{color:var(--green)}
+.r-perfect{color:var(--mauve)}
+.r-err{color:var(--red)}
 .summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:16px}
 @media (max-width:420px){.summary{grid-template-columns:minmax(0,1fr)}}
 .sum{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:10px 12px;min-width:0}
 .sum .v{font-family:var(--mono);font-weight:700;font-size:16px;overflow-wrap:anywhere;color:var(--blue)}
 .sum .k{font-size:11px;text-transform:uppercase;letter-spacing:.7px;color:var(--overlay)}
-.verdict{margin-top:14px;padding:12px 14px;border-radius:10px;background:var(--mantle);border-left:3px solid var(--mauve);font-size:14px}
-.verdict b{color:var(--mauve);font-family:var(--mono);font-weight:700}
-.err{margin-top:14px;padding:12px 14px;border-radius:10px;border:1px solid color-mix(in srgb,var(--red) 60%,transparent);background:color-mix(in srgb,var(--red) 8%,var(--base));color:var(--red);font-size:14px}
-
+.verdict{margin-top:14px;padding:12px 14px;background:var(--mantle);border-left:3px solid var(--mauve);font-size:14px}
+.verdict b{color:var(--mauve);font-weight:700}
+.err{margin-top:14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--red) 60%,transparent);background:color-mix(in srgb,var(--red) 8%,var(--base));color:var(--red);font-size:14px}
 details.win>summary{list-style:none;cursor:pointer;color:var(--text)}
 details.win>summary::-webkit-details-marker{display:none}
-details.win>summary .titlebar::after{content:"Show";font-size:12px;font-weight:500;color:var(--overlay);margin-left:auto}
+details.win>summary .titlebar::after{content:"Show";font-weight:500;color:var(--overlay);margin-left:auto}
 details.win[open]>summary .titlebar::after{content:"Hide"}
 details.win>summary .titlebar{border-bottom:0}
 details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
@@ -207,13 +186,12 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .guide p{margin:0 0 14px;color:var(--subtext);font-size:14px}
 .guide code{font-family:var(--mono);font-size:12.5px;color:var(--yellow);overflow-wrap:anywhere}
 .upd code{font-family:var(--mono);font-size:12px;color:var(--yellow);white-space:nowrap}
-
 .subtabs{display:flex;gap:4px;flex-wrap:wrap}
 .subtabs button{border:1px solid var(--surface0);background:var(--base);color:var(--subtext);border-radius:8px;padding:3px 12px;font-size:12.5px;font-weight:600;cursor:pointer}
 .subtabs button:hover{color:var(--text)}
 .subtabs button[aria-selected="true"]{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
 .titlebar.withtabs{padding-block:6px}
-.tier-free #party,.tier-free #gain,.tier-free .tools2,.tier-free .loc,.tier-free label[for="evWild"],.tier-free .favloc{display:none!important}
+.tier-free #party,.tier-free #gain,.tier-free .tools2,.tier-free .loc,.tier-free label[for="evWild"],.tier-free .hpcalc{display:none !important}
 #proCard{display:none}
 .tier-free #proCard{display:block}
 .pro-list{margin:8px 0 14px;padding-left:20px;line-height:1.7;color:var(--subtext);font-size:13.5px}
@@ -246,7 +224,6 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .ptable td.v.best{text-decoration:underline;text-underline-offset:3px}
 .ptable td.nat{font-size:12.5px;color:var(--subtext)}
 .ptable tr:hover td{background:color-mix(in srgb,var(--surface0) 45%,var(--base))}
-
 .tools{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:12px}
 .tools .grow{flex:1 1 240px;min-width:0}
 .seg{display:flex;flex-wrap:wrap;gap:4px}
@@ -265,7 +242,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .sheet-wrap{max-height:68vh;overflow:auto;border:1px solid var(--surface0);border-radius:10px;background:var(--mantle)}
 .sheet{min-width:900px;border-collapse:separate;border-spacing:0}
 .sheet th{position:sticky;top:0;z-index:1;background:var(--mantle);padding:0;border-bottom:1px solid var(--surface1)}
-.sheet th button{all:unset;box-sizing:border-box;display:block;width:100%;padding:9px 10px;cursor:pointer;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--overlay);white-space:nowrap}
+.sheet th button{all:unset;box-sizing:border-box;display:block;width:100%;padding:9px 10px;cursor:pointer;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--overlay)}
 .sheet th button:disabled{cursor:default}
 .sheet th button:not(:disabled):hover{color:var(--text)}
 .sheet th button:focus-visible{outline:2px solid var(--mauve);outline-offset:-2px}
@@ -273,13 +250,13 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .sheet th.n button,.sheet td.n{text-align:center}
 .sheet td{padding:7px 10px;border-bottom:1px solid var(--surface0);background:var(--base)}
 .sheet tr:hover td{background:color-mix(in srgb,var(--surface0) 45%,var(--base))}
-.sheet td.no{font-family:var(--mono);font-size:12px;color:var(--overlay);white-space:nowrap}
+.sheet td.no{white-space:nowrap}
 .sheet td.pk{font-weight:600;white-space:nowrap}
 .sheet td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .sheet td.zero{color:var(--surface1)}
 .sheet td.tot{font-weight:700;color:var(--text)}
 .sheet td.fv{width:40px;text-align:center;padding:4px 2px 4px 8px}
-.sheet td.loc{min-width:220px;max-width:320px;font-size:13px;color:var(--subtext);line-height:1.45}
+.sheet td.loc{max-width:320px;font-size:13px;color:var(--subtext);line-height:1.45}
 .place{color:var(--text)}
 .how{color:var(--overlay);font-size:12px}
 .none{color:var(--overlay);font-style:italic}
@@ -289,14 +266,18 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .more:hover{text-decoration:underline}
 .more:focus-visible{outline:2px solid var(--mauve);outline-offset:2px;border-radius:3px}
 .ev{display:inline-block;min-width:26px;padding:1px 7px;border-radius:6px;font-weight:700;background:color-mix(in srgb,currentColor 14%,transparent);text-align:center}
-.c-hp{color:var(--green)}.c-atk{color:var(--peach)}.c-def{color:var(--yellow)}.c-spa{color:var(--blue)}.c-spd{color:var(--teal)}.c-spe{color:var(--mauve)}
+.c-hp{color:var(--green)}
+.c-atk{color:var(--peach)}
+.c-def{color:var(--yellow)}
+.c-spa{color:var(--blue)}
+.c-spd{color:var(--teal)}
+.c-spe{color:var(--mauve)}
 .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:10px;margin-top:14px}
 .note{border:1px solid var(--surface0);background:var(--mantle);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--subtext)}
 .note>b:first-child{display:block;font-size:13px;margin-bottom:2px}
 .note b{color:var(--text)}
 .note.warn{border-color:color-mix(in srgb,var(--peach) 60%,transparent);background:color-mix(in srgb,var(--peach) 8%,var(--mantle))}
 .note.warn>b:first-child{color:var(--peach)}
-
 .berries{min-width:720px}
 .berries td{vertical-align:top}
 .berry{display:flex;align-items:center;gap:8px;font-weight:600;white-space:nowrap}
@@ -305,16 +286,32 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .berries td.where b{color:var(--text);font-weight:500}
 .berries .vit{font-family:var(--mono);font-size:12.5px;white-space:nowrap}
 .status{font-family:var(--mono);font-size:12px;font-weight:700;white-space:nowrap}
-.status.no{color:var(--red)}.status.yes{color:var(--green)}
-
-.star{all:unset;cursor:pointer;display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;font-size:17px;line-height:1;color:var(--surface1);transition:color .15s,background .15s}
+.status.no{color:var(--red)}
+.status.yes{color:var(--green)}
+.star{all:unset;cursor:pointer;display:inline-grid;place-items:center;width:28px;height:28px;font-size:17px;line-height:1;color:var(--surface1);transition:color .15s,background .15s}
 .star:hover{color:var(--yellow);background:var(--surface0)}
 .star[aria-pressed="true"]{color:var(--yellow)}
 .star:focus-visible{outline:2px solid var(--mauve);outline-offset:1px}
 .who .star{width:32px;height:32px;font-size:20px}
-
-.ty{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;padding:2px 8px;border-radius:5px;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.35);white-space:nowrap;line-height:1.5}
-.t0{background:#8f8f6e}.t1{background:#e0682b}.t2{background:#4a7fe0}.t3{background:#d9a90f}.t4{background:#4f9e3a}.t5{background:#3fb3b0}.t6{background:#b8322a}.t7{background:#94449a}.t8{background:#b88f3c}.t9{background:#7f84d8}.t10{background:#e24f7c}.t11{background:#8a9c1d}.t12{background:#a38f3a}.t13{background:#62508f}.t14{background:#5b3fd6}.t15{background:#5e4a3d}.t16{background:#8a8aa3}.t17{background:#d76fa8}
+.ty{display:inline-block;color:#fff;text-shadow:0 1px 1px rgba(0,0,0,.35);white-space:nowrap;line-height:1.5}
+.t0{background:#8f8f6e}
+.t1{background:#e0682b}
+.t2{background:#4a7fe0}
+.t3{background:#d9a90f}
+.t4{background:#4f9e3a}
+.t5{background:#3fb3b0}
+.t6{background:#b8322a}
+.t7{background:#94449a}
+.t8{background:#b88f3c}
+.t9{background:#7f84d8}
+.t10{background:#e24f7c}
+.t11{background:#8a9c1d}
+.t12{background:#a38f3a}
+.t13{background:#62508f}
+.t14{background:#5b3fd6}
+.t15{background:#5e4a3d}
+.t16{background:#8a8aa3}
+.t17{background:#d76fa8}
 .mgrid{display:grid;gap:10px}
 .mrow{display:grid;grid-template-columns:92px minmax(0,1fr);gap:10px;align-items:start;font-size:13px}
 .mrow .k{font-family:var(--mono);font-weight:700;padding-top:2px}
@@ -325,7 +322,11 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .mper{margin-top:10px;padding-top:8px;border-top:1px dashed var(--surface0)}
 .mper .mrow{margin-top:6px}
 .mnote{margin:12px 0 0}
-.mrow .k.x4{color:var(--red)}.mrow .k.x2{color:var(--peach)}.mrow .k.h{color:var(--green)}.mrow .k.q{color:var(--teal)}.mrow .k.z{color:var(--blue)}
+.mrow .k.x4{color:var(--red)}
+.mrow .k.x2{color:var(--peach)}
+.mrow .k.h{color:var(--green)}
+.mrow .k.q{color:var(--teal)}
+.mrow .k.z{color:var(--blue)}
 .typechart-wrap{overflow:auto;border:1px solid var(--surface0);border-radius:10px;background:var(--mantle);max-height:76vh}
 .typechart{border-collapse:separate;border-spacing:0;font-family:var(--mono);font-size:12px;width:auto}
 .typechart th,.typechart td{padding:0;border:0;text-align:center}
@@ -336,6 +337,8 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .typechart td{width:32px;min-width:32px;height:30px;border-right:1px solid var(--base);border-bottom:1px solid var(--base);font-weight:700;color:var(--subtext)}
 .chart-sel{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px;min-height:30px}
 .typechart [data-pick]{cursor:pointer}
+.tpick{all:unset;cursor:pointer;display:inline-block;border-radius:4px}
+.tpick:focus-visible{outline:2px solid var(--mauve);outline-offset:2px}
 .typechart th.sel .ty{outline:2px solid var(--text);outline-offset:1px}
 .typechart tr.rowsel td,.typechart td.colsel{box-shadow:inset 0 0 0 999px rgba(255,255,255,.10)}
 .typechart tr.rowsel td.colsel{box-shadow:inset 0 0 0 999px rgba(255,255,255,.22),inset 0 0 0 2px var(--text)}
@@ -348,30 +351,18 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .chart-key{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px;color:var(--subtext);margin:10px 0 0}
 .chart-key span{display:inline-flex;align-items:center;gap:6px}
 .chart-key i{width:16px;height:16px;border-radius:4px;display:inline-block;border:1px solid var(--surface0)}
-
 .fav-head{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-bottom:14px}
 .savenote{font-size:12.5px;color:var(--overlay);display:flex;align-items:center;gap:6px}
 .savenote i{width:8px;height:8px;border-radius:50%;background:var(--overlay);display:inline-block}
 .savenote.cloud i{background:var(--green)}
 .savenote.local i{background:var(--peach)}
-.favlist{display:grid;gap:14px}
-.card{border:1px solid var(--surface0);background:var(--mantle);border-radius:12px;overflow:hidden;min-width:0}
-.card-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;padding:10px 14px;border-bottom:1px solid var(--surface0);background:var(--base)}
-.card-name{display:flex;align-items:center;flex-wrap:wrap;gap:6px;min-width:0}
-.card-name h3{margin:0;font-size:20px;font-weight:600}
-.card-name .no{font-family:var(--mono);font-size:13px;color:var(--overlay)}
 .gennote{font-size:12px;color:var(--peach)}
-.card-body{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:1px;background:var(--surface0)}
-.cell{background:var(--mantle);padding:12px 14px;min-width:0}
-.cell h4{margin:0 0 8px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--overlay)}
-.cell h4+*{margin-bottom:12px}
-.cell>*:last-child{margin-bottom:0}
 .bs{display:grid;grid-template-columns:44px 36px minmax(0,1fr);gap:4px 8px;align-items:center;font-size:13px}
 .bs .k{color:var(--subtext)}
 .bs .k.key{color:var(--yellow);font-weight:600}
 .bs .v{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;color:var(--text)}
-.bs .track{height:8px;background:var(--surface0);border-radius:4px;overflow:hidden}
-.bs .track i{display:block;height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--mauve))}
+.bs .track{height:8px;overflow:hidden}
+.bs .track i{display:block;height:100%}
 .bs .tot{grid-column:1/-1;font-size:12px;color:var(--overlay);margin-top:2px}
 .bs .tot b{font-family:var(--mono);color:var(--text)}
 .evrow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
@@ -384,7 +375,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .evo .arrow{color:var(--overlay)}
 .hist{font-size:12.5px;color:var(--subtext);margin:8px 0 0}
 .hist b{color:var(--text);font-family:var(--mono);font-weight:600}
-.mini{display:grid;gap:6px;font-size:12.5px}
+.mini{display:grid;gap:6px}
 .mini div{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
 .mini .k{font-family:var(--mono);font-weight:700;min-width:30px}
 .fav-empty{border:1px dashed var(--surface1);border-radius:12px;padding:36px 20px;text-align:center;color:var(--subtext)}
@@ -416,8 +407,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .bar.cap i.over{background:var(--red)}
 .evc .pts{font-family:var(--mono);font-weight:700;color:var(--green);white-space:nowrap}
 .evc .pts small{display:block;font-weight:500;color:var(--overlay);font-size:11px;white-space:normal;line-height:1.35}
-.tiles.tools2{grid-template-columns:minmax(0,6fr) minmax(0,5fr)}
-@media (max-width:860px){.tiles.tools2{grid-template-columns:minmax(0,1fr)}}
+.tiles.tools2{grid-template-columns:minmax(0,1fr)}
 .evc .nextpt{font-family:var(--mono);font-size:12px;color:var(--subtext);white-space:nowrap}
 .summary.four{grid-template-columns:repeat(4,minmax(0,1fr))}
 @media (max-width:560px){.summary.four{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -443,12 +433,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .conv tr.you td{background:var(--keybg);color:var(--yellow)}
 .conv tr.you td small{color:var(--yellow)}
 .ty.big{font-size:14px;padding:3px 12px}
-.hptable td,.hptable th{text-align:center;padding:6px 5px}
-.hptable td:first-child,.hptable th:first-child{text-align:left}
-.hptable td{font-family:var(--mono);font-variant-numeric:tabular-nums}
-.hptable tr.cur td{background:var(--keybg)}
 .iv30{color:var(--peach);font-weight:700;font-family:var(--mono)}
-.hptable .mini{white-space:nowrap}
 .sheet.sp{min-width:860px}
 .sheet.sp th button small{display:block;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--overlay);margin-top:1px}
 .sheet.sp td.kind{font-size:12.5px;color:var(--subtext);white-space:nowrap}
@@ -464,18 +449,16 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .sheet.later td.anim{font-weight:600}
 .mod.ver{font:inherit;color:var(--green);cursor:pointer}
 .mod.ver:hover{border-color:var(--green)}
-.upd{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;border:1px solid color-mix(in srgb,var(--mauve) 55%,transparent);background:color-mix(in srgb,var(--mauve) 9%,var(--base));border-radius:12px;padding:10px 14px;font-size:14px}
+.upd{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 16px;border:1px solid color-mix(in srgb,var(--mauve) 55%,transparent);padding:10px 14px;font-size:14px}
 .upd.ok{border-color:color-mix(in srgb,var(--green) 55%,transparent);background:color-mix(in srgb,var(--green) 9%,var(--base))}
 .upd.warn{border-color:color-mix(in srgb,var(--peach) 60%,transparent);background:color-mix(in srgb,var(--peach) 9%,var(--base))}
 .upd-text{flex:1 1 320px;min-width:0;color:var(--text)}
 .upd-notes{display:block;color:var(--subtext);font-size:13px;margin-top:2px}
 .upd-actions{display:flex;flex-wrap:wrap;gap:6px}
-.btn.primary{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
 .btn.primary:hover{color:var(--crust);filter:brightness(1.08)}
 .guide .toggle{margin:0 0 12px}
-.upd{max-width:1088px;margin:10px auto 0;box-sizing:border-box}
+.upd{box-sizing:border-box}
 @media (max-width:1152px){.upd{margin-inline:16px}}
-.btn:disabled{opacity:.5;cursor:default}
 @media (max-width:640px){
 .store .bar-inner{background:var(--mantle);backdrop-filter:none;-webkit-backdrop-filter:none}
 .store .mods{flex:1}
@@ -489,12 +472,12 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .store .desk{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 }
 @media (max-width:480px){.evc th.barcell,.evc td.barcell{display:none}.evc td,.evc th{padding-inline:3px}.evc td.pts{min-width:0}.evc .nextpt{white-space:normal;font-size:11px}.ctl input{width:48px}.hptable td,.hptable th{padding-inline:3px}}
-
 html,body{background:var(--desk)}
 body{background-image:radial-gradient(1200px 800px at 50% 0%,rgba(255,255,255,.05),transparent 65%)}
 .device{position:relative;max-width:1560px;margin:0 auto;display:grid;grid-template-columns:176px minmax(0,1fr) 176px;border-radius:40px;padding:16px 0;background:linear-gradient(160deg,#3b4048 0%,#272b31 42%,#1a1d21 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.10),inset 0 -8px 16px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,255,255,.04),0 26px 60px rgba(0,0,0,.45)}
 .dev-grip{position:absolute;top:18%;bottom:18%;width:10px;border-radius:6px;background:repeating-linear-gradient(0deg,#16181b 0 3px,#30353b 3px 6px);box-shadow:inset 0 0 0 1px rgba(0,0,0,.5)}
-.dev-grip.l{left:7px}.dev-grip.r{right:7px}
+.dev-grip.l{left:7px}
+.dev-grip.r{right:7px}
 .dev-side{display:flex;flex-direction:column;align-items:center;gap:12px;padding:8px 18px;min-width:0}
 .dev-fill{flex:1}
 .dev-brand{display:flex;align-items:center;gap:10px;color:#a9b2bd;font-family:var(--pixel);font-size:17px;letter-spacing:.2em}
@@ -522,22 +505,22 @@ body{background-image:radial-gradient(1200px 800px at 50% 0%,rgba(255,255,255,.0
 .dp.lt::before{border-right-color:#5b636d;margin-left:-3px}
 .dp.rt::before{border-left-color:#5b636d;margin-left:3px}
 .dp:hover::before{filter:brightness(1.6)}
-.dp:active,.dp.pressed{background:#0f1113}
+.dp:active{background:#0f1113}
 .dkey{display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--pixel);font-size:9px;letter-spacing:.14em;color:#7b8590}
 .rkey{width:58px;height:16px;border-radius:9px;border:0;cursor:pointer;background:linear-gradient(180deg,#2a2e33,#16181b);box-shadow:0 2px 0 #08090b,inset 0 1px 0 rgba(255,255,255,.08);position:relative}
 .rkey::after{content:"";position:absolute;right:8px;top:5px;width:6px;height:6px;border-radius:50%;background:#3b4048}
 .rkey[aria-pressed="true"]::after{background:#5ad1ff;box-shadow:0 0 6px #5ad1ff}
-.rkey:active,.rkey.pressed{transform:translateY(2px);box-shadow:none}
+.rkey:active{transform:translateY(2px);box-shadow:none}
 .round{width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;font:400 15px/1 var(--pixel);color:rgba(255,255,255,.75);box-shadow:0 4px 0 #08090b,inset 0 2px 0 rgba(255,255,255,.18),inset 0 -6px 10px rgba(0,0,0,.35)}
 .round.b{background:radial-gradient(circle at 38% 30%,#5a6270,#353b45)}
 .round.a{background:radial-gradient(circle at 38% 30%,#57a8ff,#1f62b8)}
-.round:active,.round.pressed{transform:translateY(3px);box-shadow:0 1px 0 #08090b,inset 0 2px 6px rgba(0,0,0,.4)}
+.round:active{transform:translateY(3px);box-shadow:0 1px 0 #08090b,inset 0 2px 6px rgba(0,0,0,.4)}
 .round:disabled{opacity:.55;cursor:default}
 .bar-top{position:sticky;top:0;padding:10px 14px 0;background:linear-gradient(180deg,var(--crust) 70%,transparent)}
 .bar-inner{max-width:none;background:var(--mantle);border:2px solid var(--surface0);border-radius:8px;backdrop-filter:none;-webkit-backdrop-filter:none;font-family:var(--pixel);font-size:11px;padding:5px}
 .ws a{border-radius:5px;color:var(--subtext);text-transform:uppercase;letter-spacing:.05em;padding:5px 10px;border:1px solid transparent}
 .ws a:hover{background:var(--base);color:var(--text);border-color:var(--surface0)}
-.ws a.on{background:var(--mauve);color:var(--crust);box-shadow:0 0 12px var(--glow)}
+.ws a.on{background:var(--mauve);box-shadow:0 0 12px var(--glow)}
 .ws a b{font-weight:700}
 .navbtns{display:none;gap:5px}
 .navb{width:30px;height:30px;border-radius:6px;border:2px solid var(--surface0);background:var(--base);color:var(--mauve);font:700 13px/1 var(--pixel);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0}
@@ -569,6 +552,7 @@ select:focus-visible,input:focus-visible{outline:none;border-color:var(--mauve);
 .btn{font-family:var(--pixel);font-weight:400;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;border:2px solid var(--surface1);border-radius:5px;background:var(--mantle);color:var(--text)}
 .btn:hover{border-color:var(--mauve);color:var(--mauve);background:var(--base)}
 .btn:active{transform:translateY(1px);filter:brightness(1.25)}
+a.btn{text-decoration:none;display:inline-block}
 .btn.small{font-size:10.5px;padding:5px 10px}
 .btn.primary{background:var(--mauve);border-color:var(--mauve);color:var(--crust)}
 .btn:disabled{opacity:.45;cursor:default;transform:none}
@@ -586,12 +570,11 @@ td.iv.r-err{color:var(--red)}
 .verdict{border-radius:4px;border-left-width:4px}
 .verdict b{font-family:var(--mono)}
 .err{border-radius:4px}
-.note,.legend,.plan,.natchip,.card,.cell,.panel,.sheet-wrap,.typechart-wrap,.datanote,.summary>*{border-radius:5px}
-.note>b:first-child,.panel h4,.cell h4,.mside h4{font-family:var(--pixel);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mauve)}
+.note,.legend,.plan,.natchip,.panel,.sheet-wrap,.typechart-wrap,.datanote,.summary>*{border-radius:5px}
+.note>b:first-child,.panel h4,.mside h4{font-family:var(--pixel);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--mauve)}
 .keychip{border-radius:3px;font-family:var(--pixel);font-weight:400;font-size:10.5px;text-transform:uppercase;letter-spacing:.04em}
 .natchip b{font-family:var(--pixel);font-weight:400;letter-spacing:.03em}
 .sheet td.no{font-family:var(--lcd);font-size:17px;color:var(--overlay)}
-.card-head h3{font-family:var(--pixel);font-weight:400;letter-spacing:.02em}
 .upd{border-radius:6px;background:var(--mantle);margin:10px 14px 0;max-width:none}
 .star{border-radius:3px}
 a.dexlink{color:inherit;text-decoration:none;border-bottom:1px dotted var(--overlay);cursor:pointer}
@@ -670,6 +653,23 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 .sheet.sp th button small{white-space:normal}
 .sheet.sp td,.sheet.sp th button{padding-left:6px;padding-right:6px}
 .sheet td.loc{min-width:150px}
+.hpcalc{border:2px solid var(--surface0);border-radius:6px;background:var(--mantle);padding:12px 14px;margin-bottom:14px}
+.hpcalc .hp-h{margin:0 0 6px;font-family:var(--pixel);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mauve)}
+.hpcalc .summary{margin-top:10px}
+.sheet.ph tr.cur td{background:var(--keybg)}
+.favlist{display:grid;gap:8px}
+.favrow{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.4fr) auto;gap:8px 16px;align-items:center;border:2px solid var(--surface0);border-radius:6px;background:var(--mantle);padding:8px 12px}
+.fr-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0}
+.fr-name h3{margin:0;font-family:var(--pixel);font-weight:400;font-size:14px;letter-spacing:.02em}
+.fr-name .no{font-family:var(--lcd);font-size:18px;color:var(--overlay)}
+.fr-info{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;min-width:0}
+.fr-info .k2{gap:5px}
+.fr-acts{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:860px){.favrow{grid-template-columns:minmax(0,1fr)}.fr-acts{justify-content:flex-start}}
+details.win{position:relative}
+.view{position:relative}
+.tip-btn.float{position:absolute;z-index:6;margin:0}
+.ws a.on{color:var(--base)}
 </style>
 </head>
 <body>
@@ -718,7 +718,7 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
         <div class="logo" aria-hidden="true">IV<span>/</span>31</div>
         <div>
           <h1 id="appTitle">iv<span>31</span> · Pokédex IV Checker</h1>
-          <p class="sub" id="introSub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below you can compare several party members side by side, and use the EV and Hidden Power calculators. The game picker in the top bar sets base stats, types and locations everywhere in the app.</p>
+          <p class="sub" id="introSub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below you can compare several party members side by side and track EVs. Hidden Power is in the Powers tab. The game picker sets base stats, types and locations everywhere in the app.</p>
         </div>
       </div>
     </div>
@@ -867,32 +867,6 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
       </div>
     </section>
 
-    <section class="win" id="hpcalc" aria-labelledby="hpc-h">
-      <div class="win-body">
-        <div class="titlebar"><span id="hpc-h">Hidden Power calculator</span><span class="dot"></span></div>
-        <div class="pane">
-          <p class="evc-who">Enter six IVs to see the Hidden Power they make, or pick a type below to get the IVs you need.</p>
-          <div class="stats" id="hpIvs"></div>
-          <div class="evc-actions hp-actions">
-            <button class="btn small" id="hpFromReadout" type="button">Use IVs from the readout</button>
-            <button class="btn small" id="hpAll31" type="button">Set all to 31</button>
-          </div>
-          <div id="hpMsg"></div>
-          <div class="summary" id="hpOut"></div>
-          <div id="hpNote"></div>
-          <div class="panel">
-            <h4>Aim for a type</h4>
-            <p class="pnote">The highest IVs that give each type. A <span class="iv30">30</span> marks a stat that has to be even. Pick a row to load it.</p>
-            <div class="scroll">
-              <table class="hptable">
-                <thead><tr><th>Type</th><th>HP</th><th>Atk</th><th>Def</th><th>SpA</th><th>SpD</th><th>Spe</th><th><span class="sr">Load</span></th></tr></thead>
-                <tbody id="hpBest"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 
   <details class="win" id="guide">
@@ -904,7 +878,7 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
         <div><h3>Key stats and natures</h3><p>Starred stats (★) are the two this Pokémon relies on most, judged from its final evolution in the selected generation. The suggested natures raise one of them and lower the attacking stat it doesn't use. HP is never starred because no nature changes it.</p></div>
         <div><h3>EV calculator</h3><p>Type the EVs your Pokémon has, or add them as you train: pick what you defeated, how many times, and any Macho Brace, Power item or Pokérus. It keeps you inside the limits (510 in total, and 252 per stat from Gen VI on, 255 before that) and shows the stat points the EVs give at its level and at level 100. Use "Send EVs to Summary" so the IV readout accounts for them.</p></div>
         <div><h3>Hidden Power</h3><p>Hidden Power's type comes from whether each IV is odd or even, and in Gen III to V its power (30 to 70) comes from the second-lowest bit of each IV. The "Aim for a type" table lists the highest IVs that give each type, which is handy when breeding.</p></div>
-        <div id="guideUpd"><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number in the top bar to check any time. Nothing about you is sent; it only downloads a small version file.</p>
+        <div id="guideUpd"><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number to check any time. Nothing about you is sent; it only downloads a small version file.</p>
         <label class="toggle" for="autoUpd"><input type="checkbox" id="autoUpd" checked> Check for updates when iv31 starts</label></div>
         <div><h3>Pokémon that have battled</h3><p>The stats screen only shows each IV and a quarter of its EVs added together, so iv31 can't always tell them apart. Set <b>EVs</b> on a level entry to <b>None yet</b> for a Pokémon that's just been caught or hatched, <b>Has battled</b> if it has fought and you don't know its EVs, or leave it on <b>Not sure</b> to let iv31 decide stat by stat. When EVs are raising a stat, the readout shows the IV and EV ranges that fit. Typing known EVs, or adding the stats again at a higher level, narrows them. To see what one training session added, use <b>EVs gained</b> in the EV Training tab.</p></div>
         <div><h3>Gen I and II</h3><p>Red, Blue, Yellow, Gold, Silver and Crystal use DVs from 0 to 15 instead of IVs, Stat Experience instead of EVs, and no natures. The HP DV isn't stored; it comes from whether the other four DVs are odd or even, so iv31 only keeps DV combinations where they agree. Gen I has one Special stat. In Gen II, Sp. Atk and Sp. Def share the Special DV, and DVs also decide Hidden Power and whether a Pokémon is shiny.</p></div>
@@ -1004,12 +978,12 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
         <div class="pane">
           <div class="row2">
             <div class="pick">
-              <label for="mcSearch">Pokémon</label>
+              <label for="mcSearch">Pokémon data page</label>
               <input type="search" id="mcSearch" placeholder="Search by name or number" autocomplete="off">
               <select id="mcSpecies" aria-label="Pokémon for matchups"></select>
             </div>
             <div class="pick">
-              <span class="lbl">Or pick types</span>
+              <span class="lbl">Types to check</span>
               <select id="mcT1" aria-label="First type"></select>
               <select id="mcT2" aria-label="Second type"></select>
             </div>
@@ -1054,6 +1028,18 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
         <span class="dot"></span>
       </div>
       <div class="pane" id="pane-pw-hp" role="tabpanel" aria-labelledby="tab-pw-hp" hidden>
+        <div class="hpcalc" id="hpcalc">
+          <h4 class="hp-h">Hidden Power calculator</h4>
+          <p class="evc-who">Enter six IVs to see the Hidden Power they make, or press <b>Load</b> on a type in the chart below.</p>
+          <div class="stats" id="hpIvs"></div>
+          <div class="evc-actions hp-actions">
+            <button class="btn small" id="hpFromReadout" type="button">Use IVs from the readout</button>
+            <button class="btn small" id="hpAll31" type="button">Set all to 31</button>
+          </div>
+          <div id="hpMsg"></div>
+          <div class="summary" id="hpOut"></div>
+          <div id="hpNote"></div>
+        </div>
         <div class="legend"><p id="phLegend"></p></div>
         <div class="sheet-wrap" id="phWrap"><table class="sheet ph" id="phTable"></table></div>
         <div class="notes" id="phNotes"></div>
@@ -1383,15 +1369,24 @@ function solveIvs(base, nat, shed, entries, g){
   });
   return {sets, entered, unk, evr, lim};
 }
+function dvCombos(cand){
+  const combos = [];
+  if (!Object.values(cand).every(c => c.length)) return combos;
+  const hpSet = new Set(cand.hp);
+  for (const a of cand.atk) for (const d of cand.def) for (const s of cand.spe) for (const c of cand.spc){
+    const h = ((a & 1) << 3) | ((d & 1) << 2) | ((s & 1) << 1) | (c & 1);
+    if (hpSet.has(h)) combos.push({hp:h, atk:a, def:d, spe:s, spc:c});
+  }
+  return combos;
+}
 function calcOldB(base, dv, b, lv, k){
   const core = Math.floor((((base + dv) * 2 + b) * lv) / 100);
   return k === "hp" ? core + lv + 10 : core + 5;
 }
-const seBonus = se => Math.floor(Math.ceil(Math.sqrt(se)) / 4);
 const seFrom = b => b <= 0 ? 0 : (4 * b - 1) ** 2 + 1;
 const seTo = b => Math.min(65535, (4 * b + 3) ** 2);
 function solveDvs(base, entries, groups){
-  const entered = {}, cand = {}, unk = {}, ser = {};
+  const entered = {}, cand = {}, unk = {};
   const blank = (x, k) => x.e[k] == null;
   Object.entries(groups).forEach(([gk, keys]) => {
     const used = entries.filter(x => keys.some(k => Number.isFinite(x.s[k])));
@@ -1494,14 +1489,13 @@ function setCalcMode(g){
   $("ivTh").textContent = old ? "DV" : "IV";
   $("rangeTh").textContent = old ? "Range on 0–15" : "Range on 0–31";
   $("totalK").textContent = old ? "DV total" : "IV total";
-  [["evcalc", g === 1 || g === 2], ["hpcalc", old]].forEach(([id, on]) => {
-    const pane = $(id).querySelector(".pane");
+  {
+    const on = g === 1 || g === 2, pane = $("evcalc").querySelector(".pane");
     let note = pane.querySelector(".oldnote");
     if (!note){ note = document.createElement("div"); note.className = "oldnote verdict"; pane.prepend(note); }
     [...pane.children].forEach(ch => { ch.hidden = ch === note ? !on : on; });
-    if (id === "evcalc") note.innerHTML = `<b>Gen ${ROMAN[g]} uses Stat Experience, not EVs.</b> Every Pokémon you defeat adds its base stats to your Pokémon's Stat Exp in every stat, up to 65,535 each, and each vitamin adds 2,560 up to 25,600. There's no 510 total. This calculator covers Gen III onward. To include Stat Exp in the IV readout, open "Known Stat Exp" under a level entry in the Summary screen, or set Stat Exp to "Has battled" if you don't know it.`;
-    else note.innerHTML = g === 1 ? `<b>Hidden Power doesn't exist in Gen I.</b> It was added in Gold, Silver and Crystal.` : `<b>In Gen II, Hidden Power comes from DVs.</b> The type depends on the Attack and Defense DVs, and the power (31 to 70) on the top bit of each DV plus the Special DV. Enter your Pokémon in the Summary screen and the IV readout shows its Hidden Power.`;
-  });
+    note.innerHTML = `<b>Gen ${ROMAN[g]} uses Stat Experience, not EVs.</b> Every Pokémon you defeat adds its base stats to your Pokémon's Stat Exp in every stat, up to 65,535 each, and each vitamin adds 2,560 up to 25,600. There's no 510 total. This calculator covers Gen III onward. To include Stat Exp in the IV readout, open "Known Stat Exp" under a level entry in the Summary screen, or set Stat Exp to "Has battled" if you don't know it.`;
+  }
 }
 function calcOld(base, dv, se, lv, k){
   const core = Math.floor((((base + dv) * 2 + Math.floor(Math.ceil(Math.sqrt(se)) / 4)) * lv) / 100);
@@ -1532,14 +1526,7 @@ function runOld(num, E){
   const specKeys = g === 1 ? ["spa"] : ["spa","spd"];
   const groups = {hp:["hp"], atk:["atk"], def:["def"], spe:["spe"], spc:specKeys};
   const dsol = solveDvs(base, entries, groups), entered = dsol.entered, cand = dsol.cand;
-  const combos = [];
-  if (Object.values(cand).every(c => c.length)){
-    const hpSet = new Set(cand.hp);
-    for (const a of cand.atk) for (const d of cand.def) for (const s of cand.spe) for (const c of cand.spc){
-      const h = ((a & 1) << 3) | ((d & 1) << 2) | ((s & 1) << 1) | (c & 1);
-      if (hpSet.has(h)) combos.push({hp:h, atk:a, def:d, spe:s, spc:c});
-    }
-  }
+  const combos = dvCombos(cand);
   const sets = {};
   Object.keys(groups).forEach(gk => { sets[gk] = [...new Set(combos.map(c => c[gk]))].sort((x,y) => x - y); });
   const rowsSpec = g === 1 ? [["hp","HP"],["atk","Attack"],["def","Defense"],["spc","Special"],["spe","Speed"]] : [["hp","HP"],["atk","Attack"],["def","Defense"],["spc","Sp. Atk"],["spc","Sp. Def"],["spe","Speed"]];
@@ -1680,14 +1667,7 @@ function solveMember(num, natIdx, entries, g){
     const spc = g === 1 ? ["spa"] : ["spa","spd"];
     const groups = {hp:["hp"], atk:["atk"], def:["def"], spe:["spe"], spc};
     const dsol = solveDvs(base, entries, groups), cand = dsol.cand, entered = dsol.entered;
-    const combos = [];
-    if (Object.values(cand).every(c => c.length)){
-      const hpSet = new Set(cand.hp);
-      for (const a of cand.atk) for (const d of cand.def) for (const s of cand.spe) for (const c of cand.spc){
-        const h = ((a & 1) << 3) | ((d & 1) << 2) | ((s & 1) << 1) | (c & 1);
-        if (hpSet.has(h)) combos.push({hp:h, atk:a, def:d, spe:s, spc:c});
-      }
-    }
+    const combos = dvCombos(cand);
     const uniq = gk => [...new Set(combos.map(c => c[gk]))].sort((x,y) => x - y);
     const sets = {hp:uniq("hp"), atk:uniq("atk"), def:uniq("def"), spa:uniq("spc"), spd:uniq("spc"), spe:uniq("spe")};
     const ent = {hp:entered.hp || Object.values(entered).some(Boolean), atk:entered.atk, def:entered.def, spa:entered.spc, spd:entered.spc, spe:entered.spe};
@@ -1797,7 +1777,7 @@ function restoreParty(){
   partyRestored = true;
 }
 const INTRO_FULL = $("introSub").innerHTML;
-const INTRO_FREE = "Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. The game picker in the top bar sets base stats and types everywhere in the app.";
+const INTRO_FREE = "Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. The game picker sets base stats and types everywhere in the app.";
 function applyTier(){
   const t = tier();
   $("introSub").innerHTML = t === "free" ? INTRO_FREE : INTRO_FULL;
@@ -2046,18 +2026,16 @@ function matchupHtml(def, g){
 }
 function renderMatchups(){
   const g = era().g, t1 = mcT1.value, t2 = mcT2.value;
-  if (t1 === ""){ $("mcOut").innerHTML = `<div class="verdict">Pick a Pokémon, or choose one or two types, to see what hits it hard, what it shrugs off, and what its own types are strong against.</div>`; return; }
+  if (t1 === ""){ $("mcOut").innerHTML = `<div class="verdict">Choose one or two types to see what hits them hard, what they shrug off, and what they're strong against. Pick a Pokémon to open its data page, which shows its matchups too.</div>`; return; }
   const def = [Number(t1)]; if (t2 !== "" && t2 !== t1) def.push(Number(t2));
-  const num = Number(mcSpecies.value);
-  const title = num && typesOf(num,g).join() === def.join() ? `${dexLink(num)} · ` : "";
-  $("mcOut").innerHTML = `<p class="note-sm" style="margin:0 0 10px">${title}${typeChips(def)} in Gen ${ROMAN[g]}</p>${matchupHtml(def, g)}`;
+  $("mcOut").innerHTML = `<p class="note-sm" style="margin:0 0 10px">${typeChips(def)} in Gen ${ROMAN[g]}</p>${matchupHtml(def, g)}`;
 }
 function renderTypeChart(){
   const g = era().g, list = attackTypes(g);
   const ps = i => g <= 3 ? `<span class="ps">${SPECIAL_G3.has(i) ? "Spec" : "Phys"}</span>` : "";
   [...chartSel].forEach(t => { if (!list.includes(t)) chartSel.delete(t); });
-  const head = `<thead><tr><th class="corner">Attack ↓<br>Defend →</th>${list.map(d => `<th scope="col" data-col="${d}" data-pick="${d}" class="${chartSel.has(d) ? "sel" : ""}" tabindex="0" aria-pressed="${chartSel.has(d)}"><span class="ty t${d}">${TYPES[d]}</span></th>`).join("")}</tr></thead>`;
-  const body = `<tbody>${list.map(a => `<tr class="${chartSel.has(a) ? "rowsel" : ""}"><th scope="row" data-pick="${a}" class="${chartSel.has(a) ? "sel" : ""}" tabindex="0" aria-pressed="${chartSel.has(a)}"><span class="ty t${a}">${TYPES[a]}</span>${ps(a)}</th>${list.map(d => { const v = eff(a,[d],g); const cls = v===2?"e2":v===.5?"e5":v===0?"e0":"e1"; const txt = v===2?"2":v===.5?"½":v===0?"0":"1"; return `<td class="${cls}${chartSel.has(d) ? " colsel" : ""}" data-col="${d}" title="${TYPES[a]} → ${TYPES[d]}: ${txt}×">${txt}</td>`; }).join("")}</tr>`).join("")}</tbody>`;
+  const head = `<thead><tr><th class="corner">Attack ↓<br>Defend →</th>${list.map(d => `<th scope="col" data-col="${d}" class="${chartSel.has(d) ? "sel" : ""}"><button type="button" class="tpick" data-pick="${d}" aria-pressed="${chartSel.has(d)}"><span class="ty t${d}">${TYPES[d]}</span></button></th>`).join("")}</tr></thead>`;
+  const body = `<tbody>${list.map(a => `<tr class="${chartSel.has(a) ? "rowsel" : ""}"><th scope="row" class="${chartSel.has(a) ? "sel" : ""}"><button type="button" class="tpick" data-pick="${a}" aria-pressed="${chartSel.has(a)}"><span class="ty t${a}">${TYPES[a]}</span></button>${ps(a)}</th>${list.map(d => { const v = eff(a,[d],g); const cls = v===2?"e2":v===.5?"e5":v===0?"e0":"e1"; const txt = v===2?"2":v===.5?"½":v===0?"0":"1"; return `<td class="${cls}${chartSel.has(d) ? " colsel" : ""}" data-col="${d}" title="${TYPES[a]} → ${TYPES[d]}: ${txt}×">${txt}</td>`; }).join("")}</tr>`).join("")}</tbody>`;
   $("typeChart").innerHTML = head + body;
   $("chartClear").hidden = !chartSel.size;
   $("chartSelTxt").innerHTML = chartSel.size ? `Highlighted: ${typeChips([...chartSel])}. Rows show what they hit; columns show what hits them.` : "Click any type to highlight its row and column. Click more types to compare them.";
@@ -2065,7 +2043,6 @@ function renderTypeChart(){
 const chartSel = new Set();
 const chartPick = t => { chartSel.has(t) ? chartSel.delete(t) : chartSel.add(t); renderTypeChart(); };
 $("typeChart").addEventListener("click", e => { const h = e.target.closest("[data-pick]"); if (h) chartPick(Number(h.dataset.pick)); });
-$("typeChart").addEventListener("keydown", e => { const h = e.target.closest("[data-pick]"); if (h && (e.key === "Enter" || e.key === " ")){ e.preventDefault(); chartPick(Number(h.dataset.pick)); const again = $("typeChart").querySelector(`${h.tagName === "TH" && h.scope === "col" ? "thead" : "tbody"} [data-pick="${h.dataset.pick}"]`); if (again) again.focus(); } });
 $("chartClear").addEventListener("click", () => { chartSel.clear(); renderTypeChart(); });
 $("typeChart").addEventListener("mouseover", e => {
   const c = e.target.closest("[data-col]"), col = c ? c.dataset.col : null;
@@ -2085,15 +2062,14 @@ function renderTypeNotes(){
   $("typeNotes").innerHTML = notes.join("");
 }
 function renderTypes(){
-  speciesOptions(mcSpecies, mcSearch, "Choose a Pokémon…");
+  mcSpecies.value = ""; speciesOptions(mcSpecies, mcSearch, "Open a Pokémon's data page…");
   fillTypeSelects();
-  const num = Number(mcSpecies.value);
-  if (num){ const ts = typesOf(num, era().g); mcT1.value = ts[0]; mcT2.value = ts[1] ?? ""; }
   renderMatchups(); renderTypeChart(); renderTypeNotes();
 }
-mcSearch.addEventListener("input", () => { speciesOptions(mcSpecies, mcSearch, "Choose a Pokémon…"); const num = Number(mcSpecies.value); if (num){ const ts = typesOf(num, era().g); mcT1.value = ts[0]; mcT2.value = ts[1] ?? ""; } renderMatchups(); });
-mcSpecies.addEventListener("change", () => { const num = Number(mcSpecies.value); if (num){ const ts = typesOf(num, era().g); mcT1.value = ts[0]; mcT2.value = ts[1] ?? ""; } else { mcT1.value = ""; mcT2.value = ""; } renderMatchups(); });
-[mcT1, mcT2].forEach(s => s.addEventListener("change", () => { mcSpecies.value = ""; renderMatchups(); }));
+mcSearch.addEventListener("input", () => speciesOptions(mcSpecies, mcSearch, "Open a Pokémon's data page…"));
+mcSearch.addEventListener("keydown", e => { if (e.key === "Enter"){ const v = Number(mcSpecies.value) || Number(mcSpecies.options[0] && mcSpecies.options[0].value); if (v){ mcSearch.value = ""; openDex(v); } } });
+mcSpecies.addEventListener("change", () => { const num = Number(mcSpecies.value); if (num){ mcSearch.value = ""; openDex(num); } });
+[mcT1, mcT2].forEach(s => s.addEventListener("change", renderMatchups));
 
 function introEra(n){ return ERAS.findIndex(e => n <= e.max); }
 function evoLine(n, max){
@@ -2136,22 +2112,12 @@ function foundHtml(i){
   const p = earliestWild(ver, n);
   return p ? `<p class="muted">Not found in the wild. Evolve ${dexLink(p)}, found at ${placesFor(ver,p).slice(0,3).map(x=>esc(x.place)).join(", ")}${placesFor(ver,p).length>3?" and more":""}.</p>` : `<p class="muted">Not found in the wild in ${esc(ver)}.</p>`;
 }
-function favCard(n){
-  const i = dexInfo(n), m = matchups(i.ts, i.g);
-  const mini = (label, cls, list) => list.length ? `<div><span class="k" style="color:var(--${cls})">${label}</span>${typeChips(list)}</div>` : "";
-  return `<article class="card" aria-labelledby="fav-${n}">
-    <div class="card-head">
-      <div class="card-name">${starBtn(n)}<span class="no">${dexLink(n, dexNo(n))}</span><h3 id="fav-${n}">${dexLink(n)}</h3>${typeChips(i.ts)}${i.gennote}</div>
-      <div class="card-acts"><a class="btn small" href="#dex/${n}" data-dex="${n}">Data page</a><button type="button" class="btn small" data-open="${n}" data-era="${i.useEi}">Open in IV calculator</button></div>
-    </div>
-    <div class="card-body">
-      <div class="cell"><h4>Base stats · Gen ${ROMAN[i.g]}</h4>${statBarsHtml(i)}</div>
-      <div class="cell"><h4>Builds around</h4><div class="k2">${i.key.map(k=>`<span class="keychip">★ ${labelFor(k,i.g)}</span>`).join("")}</div>
-        <h4>Suggested natures</h4>${naturesHtml(i)}</div>
-      <div class="cell"><h4>Weak and resistant · Gen ${ROMAN[i.g]}</h4><div class="mini">${mini("4×","red",m.x4)}${mini("2×","peach",m.x2)}${mini("½","green",m.h)}${mini("¼","teal",m.q)}${mini("0×","blue",m.z)}</div></div>
-      <div class="cell"><h4>${i.old ? "Stat Exp yield" : "EV yield"}</h4><div class="evrow">${evYieldHtml(i)}</div><h4>Evolution line</h4><div class="evo">${evoLine(n, i.EE.max)}</div></div>
-      <div class="cell favloc"><h4>Found in · ${esc(i.ver)}</h4>${foundHtml(i)}</div>
-    </div>
+function favRow(n){
+  const i = dexInfo(n);
+  return `<article class="favrow" aria-labelledby="fav-${n}">
+    <div class="fr-name">${starBtn(n)}<span class="no">${dexLink(n, dexNo(n))}</span><h3 id="fav-${n}">${dexLink(n)}</h3>${typeChips(i.ts)}${i.gennote}</div>
+    <div class="fr-info"><span class="evrow">${evYieldHtml(i)}</span><span class="k2">${i.key.map(k => `<span class="keychip">★ ${labelFor(k, i.g)}</span>`).join("")}${i.old ? "" : `<span class="note-sm">${NATURES[i.sugg[0]][0]}</span>`}</span></div>
+    <div class="fr-acts"><a class="btn small" href="#dex/${n}" data-dex="${n}">Data page</a><button type="button" class="btn small" data-open="${n}" data-era="${i.useEi}">Check IVs</button></div>
   </article>`;
 }
 function renderDex(){
@@ -2171,7 +2137,7 @@ function renderDex(){
     <header class="dexhead">
       <div class="dexno">${dexNo(n)}</div>
       <div class="dexname"><h2>${esc(i.name)}</h2><div class="dextypes">${typeChips(i.ts)}${starBtn(n)}</div>
-        <p class="note-sm">First seen in Gen ${ROMAN[first.g]} · showing ${i.useEi === i.ei ? esc(i.ver) : `Gen ${ROMAN[i.g]}`} data${i.gennote ? ` (it isn't in ${esc(i.ver)})` : ""}. Change the game in the top bar.</p></div>
+        <p class="note-sm">First seen in Gen ${ROMAN[first.g]} · showing ${i.useEi === i.ei ? esc(i.ver) : `Gen ${ROMAN[i.g]}`} data${i.gennote ? ` (it isn't in ${esc(i.ver)})` : ""}. Change the game picker.</p></div>
       <div class="dexacts">
         <button type="button" class="btn" data-open="${n}" data-era="${i.useEi}">Check its IVs</button>
         ${t !== "free" ? `<button type="button" class="btn" id="dexParty">Add to party</button>` : ""}
@@ -2213,26 +2179,24 @@ function renderDex(){
 }
 function openDex(n){ try { location.hash = "dex/" + n; } catch(_) { state.dex = n; showView("dex"); } }
 function dexBack(){ if (navPos > 0) navGo(-1); else showView("calc"); }
-$("dexBody").addEventListener("click", e => {
-  const s = e.target.closest(".star"); if (s){ toggleFav(Number(s.dataset.fav)); renderDex(); return; }
-  const o = e.target.closest("[data-open]"); if (!o) return;
+function openInCalc(o){
   const n = Number(o.dataset.open);
   if (Number(o.dataset.era) !== state.ei) setGame(Number(o.dataset.era), null);
   searchIn.value = ""; speciesOptions(speciesSel, searchIn, "Choose a Pokémon…"); speciesSel.value = n; runCalc();
   showView("calc");
+}
+$("dexBody").addEventListener("click", e => {
+  const s = e.target.closest(".star"); if (s){ toggleFav(Number(s.dataset.fav)); renderDex(); return; }
+  const o = e.target.closest("[data-open]"); if (o) openInCalc(o);
 });
 function renderFavs(){
-  $("favGame").textContent = `Showing details for Gen ${ROMAN[era().g]} · ${state.ver}. Change the game in the top bar.`;
+  $("favGame").textContent = `Showing details for Gen ${ROMAN[era().g]} · ${state.ver}. Change the game picker.`;
   const nums = [...favs].sort((a,b)=>a-b);
-  $("favList").innerHTML = nums.length ? nums.map(favCard).join("") : `<div class="fav-empty"><div class="big">☆</div><p><b>No favorites yet.</b></p><p>Tap the ☆ next to any Pokémon in EV Training, or next to its name in the IV readout. It shows up here with all its details on one card.</p></div>`;
+  $("favList").innerHTML = nums.length ? nums.map(favRow).join("") : `<div class="fav-empty"><div class="big">☆</div><p><b>No favorites yet.</b></p><p>Tap the ☆ next to any Pokémon in EV Training, or next to its name in the IV readout. It shows up here with all its details on one card.</p></div>`;
 }
 $("favList").addEventListener("click", e => {
   const s = e.target.closest(".star"); if (s) return toggleFav(Number(s.dataset.fav));
-  const o = e.target.closest("[data-open]"); if (!o) return;
-  const n = Number(o.dataset.open);
-  if (Number(o.dataset.era) !== state.ei) setGame(Number(o.dataset.era), null);
-  searchIn.value = ""; speciesOptions(speciesSel, searchIn, "Choose a Pokémon…"); speciesSel.value = n; runCalc();
-  showView("calc");
+  const o = e.target.closest("[data-open]"); if (o) openInCalc(o);
 });
 function persistFavs(){
   const nums = [...favs].sort((a,b)=>a-b);
@@ -2269,8 +2233,10 @@ let bootDone = false;
 const SND_KEY = "iv31-sound", THEME_KEY = "iv31-theme";
 let sndOn = (() => { try { return localStorage.getItem(SND_KEY) !== "off"; } catch(_) { return true; } })();
 let actx = null;
+let userActed = false;
+["pointerdown","keydown"].forEach(ev => window.addEventListener(ev, () => { userActed = true; }, {capture:true, once:true}));
 function tone(freq, dur, when, vol, type){
-  if (!sndOn) return;
+  if (!sndOn || !userActed) return;
   try {
     actx = actx || new (window.AudioContext || window.webkitAudioContext)();
     if (actx.state === "suspended") actx.resume();
@@ -2465,14 +2431,10 @@ function renderHp(){
     if (g >= 6 && g <= 7) bits.push(`From Gen VI on, Hidden Power is always 60 power, so only the type depends on IVs.`);
     note.innerHTML = bits.length ? `<div class="verdict">${bits.join(" ")}</div>` : "";
   }
-  $("hpBest").innerHTML = HP_TYPES.map(t => {
-    const b = HP_BEST[t].iv;
-    return `<tr${t === cur ? ' class="cur"' : ""}><td>${tchip(t, true)}</td>${KEYS.map(k => `<td${b[k] === 30 ? ' class="iv30"' : ""}>${b[k]}</td>`).join("")}<td><button type="button" class="mini" data-hpt="${t}" aria-label="Load IVs for ${t} Hidden Power">Load</button></td></tr>`;
-  }).join("");
+  document.querySelectorAll("#phTable tr[data-t]").forEach(tr => tr.classList.toggle("cur", tr.dataset.t === cur));
 }
 $("hpIvs").addEventListener("input", () => { $("hpMsg").innerHTML = ""; renderHp(); });
 $("hpAll31").addEventListener("click", () => { setHpIvs(Object.fromEntries(KEYS.map(k => [k,31]))); $("hpMsg").innerHTML = ""; renderHp(); });
-$("hpBest").addEventListener("click", e => { const b = e.target.closest("[data-hpt]"); if (!b) return; setHpIvs(HP_BEST[b.dataset.hpt].iv); $("hpMsg").innerHTML = ""; renderHp(); });
 $("hpFromReadout").addEventListener("click", () => {
   const st = calcState(), msg = $("hpMsg");
   if (!st.num || !st.nat || !st.sets){ msg.innerHTML = `<div class="verdict">Pick a Pokémon and its nature in the Summary screen and enter its stats first.</div>`; return; }
@@ -2733,7 +2695,7 @@ function renderGain(){
   }).join("");
   const got = KEYS.filter(k => res[k]);
   const notes = [];
-  if (bad.length) notes.push(`<div class="err">No IV and EV combination produces the ${bad.join(", ")} you typed. Check the Pokémon, the nature, the game in the top bar, and the numbers.${zero ? " If it had already battled before the Before check, untick “No EVs yet”." : ""}</div>`);
+  if (bad.length) notes.push(`<div class="err">No IV and EV combination produces the ${bad.join(", ")} you typed. Check the Pokémon, the nature, the game picker, and the numbers.${zero ? " If it had already battled before the Before check, untick “No EVs yet”." : ""}</div>`);
   if (g <= 4 && a.lv === b.lv) notes.push(`<div class="verdict">In Gen ${ROMAN[g]} the stats only change when it levels up, so EVs from today's training won't show yet. Level it up once (a Rare Candy works), then type the new level and stats in <b>After</b>.</div>`);
   if (got.length){
     const sum = f => [got.reduce((t, k) => t + res[k][f][0], 0), got.reduce((t, k) => t + res[k][f][1], 0)];
@@ -2858,7 +2820,7 @@ function renderSecret(){
   if (state.pwSub === "hp") return renderPowerHp();
   const np = state.pwSub === "np", gi = spGameIndex(), notes = $("spNotes"), head = $("spHead"), body = $("spBody"), g = era().g;
   const off = html => { $("spSearchBox").hidden = true; $("spFilterBox").hidden = true; $("spKey").innerHTML = ""; head.innerHTML = ""; body.innerHTML = ""; $("spLegend").innerHTML = html; $("spMeta").innerHTML = ""; notes.innerHTML = ""; };
-  if (g <= 2) return off(`<b>Not in Gen ${ROMAN[g]}.</b> Secret Power and Nature Power were both added in Ruby and Sapphire (Gen III), so ${esc(state.ver)} doesn't have them. Pick a game from Gen III on in the top bar.`);
+  if (g <= 2) return off(`<b>Not in Gen ${ROMAN[g]}.</b> Secret Power and Nature Power were both added in Ruby and Sapphire (Gen III), so ${esc(state.ver)} doesn't have them. Pick a game from Gen III on in the game picker.`);
   if (gi < 0){
     if (!np) return off(`<b>Not in ${esc(state.ver)}.</b> Secret Power was removed in Sword and Shield and hasn't come back. Its last games were Sun, Moon, Ultra Sun and Ultra Moon.`);
     $("spSearchBox").hidden = true; $("spFilterBox").hidden = true; $("spKey").innerHTML = "";
@@ -2884,7 +2846,7 @@ function renderSecret(){
       : `<th><button type="button" disabled>Where you battle</button></th><th><button type="button" disabled>Looks like</button></th><th><button type="button" disabled>Extra effect (30%)</button></th>`;
     body.innerHTML = SP_LATER[G.g].map(([w,a,e,n]) => np ? `<tr><td>${w}</td><td class="anim">${n}</td></tr>` : `<tr><td>${w}</td><td class="anim">${a}</td><td>${e}</td></tr>`).join("");
     head.closest("table").classList.add("later");
-    notes.innerHTML = `<div class="note"><b>Area-by-area list</b>The route-by-route table is available for the Gen 3 games, where it's worked out from the games' own map data. Pick a Gen 3 game in the top bar to see it.</div>` + (np ? "" : `<div class="note"><b>Getting the move</b>${G.g === 4 ? "TM43 teaches Secret Power." : G.g === 6 ? "In Omega Ruby and Alpha Sapphire it's TM94." : "It isn't a TM in this generation, but Pokémon that learned it earlier can keep it."}</div>`);
+    notes.innerHTML = `<div class="note"><b>Area-by-area list</b>The route-by-route table is available for the Gen 3 games, where it's worked out from the games' own map data. Pick a Gen 3 game in the game picker to see it.</div>` + (np ? "" : `<div class="note"><b>Getting the move</b>${G.g === 4 ? "TM43 teaches Secret Power." : G.g === 6 ? "In Omega Ruby and Alpha Sapphire it's TM94." : "It isn't a TM in this generation, but Pokémon that learned it earlier can keep it."}</div>`);
     return;
   }
   head.closest("table").classList.remove("later");
@@ -2922,6 +2884,7 @@ function renderSecret(){
 function renderPowerHp(){
   const g = era().g, tbl = $("phTable"), leg = $("phLegend"), notes = $("phNotes"), canLoad = tier() !== "free";
   tbl.classList.toggle("g2", g === 2);
+  $("hpcalc").hidden = g <= 2 || g >= 8;
   if (g === 1){ leg.innerHTML = `<b>Not in Gen I.</b> Hidden Power was added in Gold, Silver and Crystal.`; tbl.innerHTML = ""; notes.innerHTML = ""; return; }
   if (g >= 8){ leg.innerHTML = `<b>Not in ${esc(state.ver)}.</b> Hidden Power was removed in Sword and Shield. Its last games were Sun, Moon, Ultra Sun and Ultra Moon.`; tbl.innerHTML = ""; notes.innerHTML = ""; return; }
   if (g === 2){
@@ -2932,14 +2895,14 @@ function renderPowerHp(){
     return;
   }
   const fixed = g >= 6;
-  leg.innerHTML = `<b>How it works:</b> Hidden Power's type comes from whether each IV is odd or even, and ${fixed ? "from Gen VI on its power is always 60" : "its power, 30 to 70, comes from the second-lowest bit of each IV"}. The chart lists the highest IVs that give each type. A <span class="iv30">30</span> marks a stat that has to be even; every 31 can be any odd IV instead.${canLoad ? " Press <b>Load</b> to send a row to the Hidden Power calculator in the IV Calculator tab." : ""}`;
-  tbl.innerHTML = `<thead><tr><th>Type</th>${KEYS.map(k => `<th>${SHORT[k]}</th>`).join("")}<th>Power</th>${canLoad ? "<th><span class=\"sr\">Load</span></th>" : ""}</tr></thead><tbody>${HP_TYPES.map(t => { const b = HP_BEST[t]; if (!b) return ""; return `<tr><td>${tchip(t, true)}</td>${KEYS.map(k => `<td>${b.iv[k] === 30 ? '<span class="iv30">30</span>' : "31"}</td>`).join("")}<td>${fixed ? 60 : hpFromIvs(b.iv).power}</td>${canLoad ? `<td><button type="button" class="mini" data-phload="${t}">Load</button></td>` : ""}</tr>`; }).join("")}</tbody>`;
+  leg.innerHTML = `<b>How it works:</b> Hidden Power's type comes from whether each IV is odd or even, and ${fixed ? "from Gen VI on its power is always 60" : "its power, 30 to 70, comes from the second-lowest bit of each IV"}. The chart lists the highest IVs that give each type. A <span class="iv30">30</span> marks a stat that has to be even; every 31 can be any odd IV instead.${canLoad ? " Press <b>Load</b> to put a row's IVs in the calculator above." : ""}`;
+  tbl.innerHTML = `<thead><tr><th>Type</th>${KEYS.map(k => `<th>${SHORT[k]}</th>`).join("")}<th>Power</th>${canLoad ? "<th><span class=\"sr\">Load</span></th>" : ""}</tr></thead><tbody>${HP_TYPES.map(t => { const b = HP_BEST[t]; if (!b) return ""; return `<tr data-t="${t}"><td>${tchip(t, true)}</td>${KEYS.map(k => `<td>${b.iv[k] === 30 ? '<span class="iv30">30</span>' : "31"}</td>`).join("")}<td>${fixed ? 60 : hpFromIvs(b.iv).power}</td>${canLoad ? `<td><button type="button" class="mini" data-phload="${t}">Load</button></td>` : ""}</tr>`; }).join("")}</tbody>`;
+  if (canLoad) renderHp();
   notes.innerHTML = `<div class="note"><b>The order that counts</b>The game reads the IVs as HP, Attack, Defense, Speed, Sp. Atk, Sp. Def, so Speed and the special stats are the costly ones to make even.</div><div class="note"><b>Your Pokémon</b>The IV readout in the IV Calculator shows its Hidden Power once its IVs are known.</div>`;
 }
 $("phTable").addEventListener("click", e => {
   const b = e.target.closest("[data-phload]"); if (!b) return;
   setHpIvs(HP_BEST[b.dataset.phload].iv); $("hpMsg").innerHTML = ""; renderHp();
-  showView("calc");
   const hp = $("hpcalc"); hp.scrollIntoView({block:"start", behavior:"smooth"}); hp.classList.add("flash"); setTimeout(() => hp.classList.remove("flash"), 1200);
 });
 function setPwSub(sub){
@@ -2955,7 +2918,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.7.2";
+const APP_VERSION = "1.8.0";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3006,7 +2969,7 @@ async function checkForUpdates(manual){
     return;
   }
   if (!inApp()){
-    if (manual) updShow(`You're viewing iv31 as a web page, so it can't update itself. Get the latest version from <b>github.com/scooby5328-design/iV31</b>.`, [["OK", updHide]]);
+    if (manual) updShow(window.IV31_WEB ? `You have iv31 <b>${escHtml(curVersion())}</b> online. It updates itself: when a new version is out, you'll be asked to reload. It also works offline once it has loaded. For the desktop app, see <b>github.com/scooby5328-design/iV31</b>.` : `You're viewing iv31 as a web page, so it can't update itself. Get the latest version from <b>github.com/scooby5328-design/iV31</b>.`, [["OK", updHide]], window.IV31_WEB ? "ok" : "");
     return;
   }
   if (manual) updShow("Checking for updates…", []);
@@ -3200,49 +3163,46 @@ function tick(){
 
 const TIPS = {
   "in-h": {t:"Summary screen", for:"Type in a Pokémon from your game's Summary screen so iv31 can work out its hidden IVs.",
-    how:["Pick your game in the top bar.","Search for the Pokémon and pick it, then choose its nature.","Type its level and six stats exactly as the game shows them.","Set <b>EVs</b>: <b>None yet</b> if it was just caught or hatched, <b>Has battled</b> if it has fought, or leave <b>Not sure</b>. Type any EVs you know under <b>Known EVs</b>.","After it levels up, press <b>+ Add stats at another level</b> and type the new stats to narrow the ranges."],
-    with:[["The <b>IV readout</b> updates as you type."],["<b>EV calculator</b>: “Send EVs to Summary” fills Known EVs here, and “Load EVs from Summary” copies them back.",1],["<b>Party comparison</b>: “Copy from Summary screen” adds this Pokémon.",1],["<b>Hidden Power calculator</b>: “Use IVs from the readout”.",1],["<b>EVs gained</b> in EV Training: “Use the Summary screen” copies this Pokémon as the Before check.",1],["Press <b>☆</b> next to its name in the readout to save it to <b>Favorites</b>."]]},
+    how:["Pick your game in the game picker.","Search for the Pokémon and pick it, then choose its nature.","Type its level and six stats exactly as the game shows them.","Set <b>EVs</b>: <b>None yet</b> if it was just caught or hatched, <b>Has battled</b> if it has fought, or leave <b>Not sure</b>. Type any EVs you know under <b>Known EVs</b>.","After it levels up, press <b>+ Add stats at another level</b> and type the new stats to narrow the ranges."],
+    with:[["The <b>IV readout</b> updates as you type."],["<b>EV calculator</b>: “Send EVs to Summary” fills Known EVs here, and “Load EVs from Summary” copies them back.",1],["<b>Party comparison</b>: “Copy from Summary screen” adds this Pokémon.",1],["<b>Hidden Power calculator</b> (Powers tab): “Use IVs from the readout”.",1],["<b>EVs gained</b> in EV Training: “Use the Summary screen” copies this Pokémon as the Before check.",1],["Press <b>☆</b> next to its name in the readout to save it to <b>Favorites</b>."]]},
   "out-h": {t:"IV readout", for:"Shows the IVs that match what you typed in the Summary screen. Nothing to fill in here.",
     how:["The <b>IV</b> column is the exact IV, or a range when more than one fits.","The bar shows where that sits between 0 and 31, and the pill rates it.","A small <b>EVs</b> line under a stat means EVs are raising it, with the EVs that fit.","The bottom shows the IV total and Hidden Power, and the message suggests natures and what to check next.","Stars mark the stats this Pokémon relies on. ▲ and ▼ show what its nature raises and lowers."],
-    with:[["Follows the <b>Summary screen</b> as you type."],["The <b>EV calculator</b> uses these IVs for exact stat points.",1],["The <b>Hidden Power calculator</b> can load these IVs.",1]]},
+    with:[["Follows the <b>Summary screen</b> as you type."],["The <b>EV calculator</b> uses these IVs for exact stat points.",1],["The <b>Hidden Power calculator</b> in the Powers tab can load these IVs.",1]]},
   "party-h": {t:"Party comparison", for:"Lines up the IVs of several Pokémon side by side, up to 30 at once.",
     how:["Press <b>+ Add party member</b> and fill in its card: Pokémon, nature, level and stats.","Or press <b>Copy from Summary screen</b> to add the Pokémon you entered above.","The table compares every card. Click a row to jump to its card.","<b>Remove</b> takes out one card; <b>Clear</b> empties the party."],
-    with:[["<b>Summary screen</b>: copy a Pokémon in with one click."],["The game in the top bar sets the base stats for every card."]]},
+    with:[["<b>Summary screen</b>: copy a Pokémon in with one click."],["The game picker sets the base stats for every card."]]},
   "evc-h": {t:"EV calculator", for:"Tracks the EVs a Pokémon has and shows the stat points they give at its level and at level 100.",
     how:["Type EVs straight into the table, or add them as you train.","Under <b>Add EVs</b>, pick the Pokémon you defeated, how many times, any held item and Pokérus, then press <b>Add</b>.","Pick a vitamin and how many, then press <b>Use</b>.","<b>Undo</b> appears in the log after each change. <b>Reset</b> clears everything.","It keeps you inside 510 in total and 255 per stat (252 from Gen VI on)."],
     with:[["<b>Send EVs to Summary</b> puts these EVs into the Summary screen so the IV readout counts them."],["<b>Load EVs from Summary</b> copies the Summary screen's EVs here."],["The <b>EV Training</b> table shows which Pokémon give the EVs you want and where to find them."],["<b>EVs gained</b> can send what a training session added with “Add to EV calculator”."]]},
-  "hpc-h": {t:"Hidden Power calculator", for:"Works out Hidden Power's type and power from six IVs, or the IVs you need for a type.",
-    how:["Type six IVs, or press <b>Use IVs from the readout</b>.","The type and power appear below.","To aim for a type, pick its row under <b>Aim for a type</b> to load the highest IVs that give it. A 30 marks a stat that has to be even.","From Gen VI on its power is always 60, and it isn't in Gen VIII or later."],
-    with:[["Loads IVs from the <b>IV readout</b>."],["The <b>Hidden Power</b> chart in the Powers tab can load any type's IVs here."]]},
   "guide": {t:"How the IV calculator works", for:"The formulas and rules behind the numbers, and tips for accurate results. Click the bar to open or close it.", how:[], with:[]},
   "gain": {t:"EVs gained", for:"Shows how many EVs a training session added, by comparing a Pokémon's stats before and after.",
     how:["Pick the Pokémon and nature, or press <b>Use the Summary screen</b>.","<b>Before</b>: type its level and stats before you train. Leave <b>No EVs yet</b> ticked if it hasn't battled.","Go train.","<b>After</b>: type the new level and stats. In Gen III–IV level it up first, because the stats only change on level-up.","Read the EVs gained, the EVs it has now and the room left. <b>After becomes Before</b> starts the next session."],
     with:[["<b>Add to EV calculator</b> sends the EVs to the EV calculator in the IV Calculator tab."],["The <b>EV yields</b> table below shows where to train."],["<b>Use the Summary screen</b> copies the Pokémon from the IV calculator."],["What you type is kept until you press <b>Clear</b>."]]},
   "evs": {t:"EV Training", for:"Shows the EVs every Pokémon gives when you defeat it and where to find it in your game. The second tab lists the berries that lower EVs.",
     how:["Search by name, Pokédex number or place, such as Route 110.","Use the <b>Gives EVs in</b> buttons to show only Pokémon that give one stat.","Tick <b>Story order</b>, or click <b>Found in</b>, to list them in the order you reach places in the game.","Click a column heading to sort. With Story order on, it sorts within each place.","Press <b>☆</b> to save a Pokémon to Favorites."],
-    with:[["The <b>EV calculator</b>'s “Defeated Pokémon” uses these same EV yields.",1],["<b>EVs gained</b> above checks what your training added.",1],["The game in the top bar picks the locations and EV yields."]]},
-  "mc-h": {t:"Matchup checker", for:"Shows what a Pokémon, or any one or two types, is weak to, resists and is immune to, and what its own types are strong against.",
-    how:["Search for a Pokémon and pick it, or pick one or two types.","Read the weaknesses, resistances and immunities below."],
-    with:[["Uses the type chart of the game in the top bar."],["The IV readout shows the same weaknesses for the Pokémon you entered."]]},
-  "tn-h": {t:"Type notes", for:"Explains how types in the selected game differ from today's games. Nothing to fill in.", how:[], with:[["Changes with the game in the top bar."]]},
+    with:[["The <b>EV calculator</b>'s “Defeated Pokémon” uses these same EV yields.",1],["<b>EVs gained</b> above checks what your training added.",1],["The game picker sets the locations and EV yields."]]},
+  "mc-h": {t:"Matchup checker", for:"Shows what any one or two types are weak to, resist and are immune to, and what they're strong against.",
+    how:["Pick one or two types and read the matchups below.","To check a Pokémon, search for it and pick it: its data page opens with its matchups."],
+    with:[["Uses the type chart of the game picker."],["Every Pokémon's data page has the same matchups for its types."]]},
+  "tn-h": {t:"Type notes", for:"Explains how types in the selected game differ from today's games. Nothing to fill in.", how:[], with:[["Changes with the game picker."]]},
   "tc-h": {t:"Weakness and resistance chart", for:"The full type chart for the selected game.",
     how:["Rows are the attacking type, columns the defending type.","Green is 2×, red is ½×, dark is no effect, blank is normal damage.","Click any type, in a row or column heading, to highlight its row and column. Click more types to compare them; <b>Clear</b> removes the highlights.","For two defending types, multiply their columns."],
-    with:[["Changes with the game in the top bar."]]},
-  "pw-hp": {t:"Hidden Power chart", for:"Shows which IVs give each Hidden Power type in the selected game, and its power. In Gold, Silver and Crystal it shows the type for each Attack and Defense DV.",
-    how:["Find the type you want. A <b>30</b> marks a stat that has to be even; a 31 can be any odd IV.","The <b>Power</b> column shows how strong those IVs make it (always 60 from Gen VI on).","Switch to <b>Secret Power</b> or <b>Nature Power</b> with the tabs above."],
-    with:[["<b>Load</b> sends a row to the <b>Hidden Power calculator</b> in the IV Calculator tab.",1],["The <b>IV readout</b> shows your own Pokémon's Hidden Power."],["Changes with the game in the top bar."]]},
+    with:[["Changes with the game picker."]]},
+  "pw-hp": {t:"Hidden Power", for:"Works out Hidden Power's type and power from six IVs, and charts the IVs that give each type in the selected game. In Gold, Silver and Crystal it shows the type for each Attack and Defense DV.",
+    how:["Type six IVs in the calculator, or press <b>Use IVs from the readout</b>. The type and power appear below it, and that type's row lights up in the chart.","To aim for a type, press <b>Load</b> on its row. A <b>30</b> marks a stat that has to be even; a 31 can be any odd IV.","The <b>Power</b> column shows how strong those IVs make it (always 60 from Gen VI on).","Switch to <b>Secret Power</b> or <b>Nature Power</b> with the tabs above."],
+    with:[["<b>Use IVs from the readout</b> takes the IVs from the IV Calculator tab.",1],["The <b>IV readout</b> also shows your own Pokémon's Hidden Power."],["Changes with the game picker."]]},
   "pw-sp": {t:"Secret Power chart", for:"Shows what Secret Power looks like, and its 30% extra effect, in each area of the selected game.",
     how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one move.","Each column is a kind of ground. The number is how much of the area is that ground, and the outlined one is the most common.","Click a column heading to sort. The cards above explain each ground."],
-    with:[["The <b>Nature Power</b> tab uses the same ground."],["Changes with the game in the top bar. Gen III games get the area-by-area chart; later games list each place."]]},
+    with:[["The <b>Nature Power</b> tab uses the same ground."],["Changes with the game picker. Gen III games get the area-by-area chart; later games list each place."]]},
   "pw-np": {t:"Nature Power chart", for:"Shows which attack Nature Power turns into in each area of the selected game.",
     how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one attack.","Each column is an attack. The number is how much of the area gives it, and the outlined one is the most common.","From Sword and Shield on it depends on terrain instead, shown as a short list."],
-    with:[["The <b>Secret Power</b> tab uses the same ground."],["Changes with the game in the top bar."]]},
-  "dex-h": {t:"Pokémon data page", for:"Everything iv31 knows about one Pokémon for the game in the top bar: base stats, the two stats to focus, the proper nature, the EVs it gives, its evolutions, where to find it and its type matchups.",
-    how:["Open it by clicking any Pokémon's name or number: in the EV Training table, the IV readout, Party comparison, Favorites, the matchup checker or an evolution line.","Use <b>\u25c2 \u25b8</b> next to the number to step through the Pokédex, or type a name in <b>Jump to a Pokémon</b>.","<b>Back</b> and <b>Forward</b> move through the pages you've visited, like a browser. The same buttons are at the top left of every page."],
+    with:[["The <b>Secret Power</b> tab uses the same ground."],["Changes with the game picker."]]},
+  "dex-h": {t:"Pokémon data page", for:"Everything iv31 knows about one Pokémon for the game picker: base stats, the two stats to focus, the proper nature, the EVs it gives, its evolutions, where to find it and its type matchups.",
+    how:["Open it by clicking any Pokémon's name or number: in the EV Training table, the IV readout, Party comparison, Favorites, the matchup checker or an evolution line.","Use <b>\u25c2 \u25b8</b> next to the number to step through the Pokédex, or type a name in <b>Jump to a Pokémon</b>.","<b>Back</b> and <b>Forward</b> move through the pages you've visited, like a browser. On the device they're the <b>B</b> and <b>A</b> buttons; on phones they sit at the top of the screen."],
     with:[["<b>Check its IVs</b> opens it in the IV calculator."],["<b>Add to party</b> adds it to Party comparison.",1],["<b>Defeated one: add its EVs</b> adds its EV yield to the EV calculator.",1]]},
-  "fav-h": {t:"Favorites", for:"Keeps the Pokémon you care about on cards with their stats, natures, weaknesses, EV yield, evolutions and locations.",
-    how:["Press <b>☆</b> next to a Pokémon in the IV readout or the EV Training table to add it.","Press <b>★</b> again to remove it."],
-    with:[["Cards follow the game in the top bar."]]}
+  "fav-h": {t:"Favorites", for:"A short list of the Pokémon you care about: number, types, the EVs they give, the 2 stats to focus and the proper nature.",
+    how:["Press <b>☆</b> next to a Pokémon in the IV readout, the EV Training table or its data page to add it.","Press <b>★</b> again to remove it.","<b>Data page</b> opens everything about it; <b>Check IVs</b> opens it in the IV calculator."],
+    with:[["Follows the game picker."]]}
 };
 const tipPop = document.createElement("div");
 tipPop.id = "tipPop"; tipPop.hidden = true; tipPop.setAttribute("role", "dialog");
@@ -3274,8 +3234,15 @@ function addTip(bar, key){
   const b = document.createElement("button");
   b.type = "button"; b.className = "tip-btn"; b.dataset.tip = key; b.textContent = "?";
   b.setAttribute("aria-label", `What is ${TIPS[key].t}?`); b.setAttribute("aria-expanded", "false");
-  const first = bar.firstElementChild;
-  first ? bar.insertBefore(b, first.nextSibling) : bar.appendChild(b);
+  const first = bar.firstElementChild, sum = bar.closest("summary");
+  if (sum){
+    const det = sum.parentElement, host = det.parentElement;
+    b.classList.add("float"); host.insertBefore(b, det.nextSibling);
+    const place = () => { b.style.left = (det.offsetLeft + first.offsetLeft + first.offsetWidth + 10) + "px"; b.style.top = (det.offsetTop + bar.offsetTop + (bar.offsetHeight - 20) / 2) + "px"; };
+    place();
+    if (window.ResizeObserver){ const ro = new ResizeObserver(place); ro.observe(bar); ro.observe(host); }
+  }
+  else first ? bar.insertBefore(b, first.nextSibling) : bar.appendChild(b);
   b.addEventListener("click", e => {
     e.preventDefault(); e.stopPropagation();
     if (tipOwner === b && tipPinned) hideTip(); else { showTip(b); tipPinned = true; }
@@ -3285,7 +3252,7 @@ function addTip(bar, key){
     b.addEventListener("mouseleave", () => { clearTimeout(tipTimer); if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
   }
 }
-["in-h","out-h","party-h","evc-h","hpc-h","mc-h","tn-h","tc-h","fav-h","dex-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
+["in-h","out-h","party-h","evc-h","mc-h","tn-h","tc-h","fav-h","dex-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
 addTip(document.querySelector("#guide .titlebar"), "guide");
 addTip(document.querySelector("#gain .titlebar"), "gain");
 addTip(document.querySelector("#view-evs .titlebar.withtabs"), "evs");
@@ -3342,17 +3309,21 @@ const FIT_SEL = ".scroll,.sheet-wrap,.typechart-wrap";
 let fitQueued = false;
 function fitWide(){
   fitQueued = false;
-  document.querySelectorAll(FIT_SEL).forEach(w => {
+  const view = document.querySelector(".view:not([hidden])");
+  if (!view) return;
+  view.querySelectorAll(FIT_SEL).forEach(w => {
     const t = w.firstElementChild;
     if (!t || w.offsetParent === null) return;
-    t.style.zoom = "";
-    let z = 1;
-    for (let i = 0; i < 4; i++){
+    let z = parseFloat(t.style.zoom) || 1;
+    const cw0 = w.clientWidth;
+    if (z < 1 && cw0 > (+w.dataset.fitw || 0)){ t.style.zoom = ""; z = 1; }
+    for (let i = 0; i < 5; i++){
       const sw = w.scrollWidth, cw = w.clientWidth;
       if (sw <= cw || z <= .55) break;
       z = Math.max(.55, z * (cw - 1) / sw);
       t.style.zoom = z.toFixed(3);
     }
+    w.dataset.fitw = w.clientWidth;
   });
 }
 const queueFit = () => { if (!fitQueued){ fitQueued = true; requestAnimationFrame(fitWide); } };
@@ -3360,6 +3331,14 @@ new MutationObserver(queueFit).observe(document.querySelector(".desk"), {childLi
 if (window.ResizeObserver) new ResizeObserver(queueFit).observe($("screen"));
 window.addEventListener("resize", queueFit);
 queueFit();
+
+if (window.IV31_WEB && "serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost") && !IS_STORE){
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (hadController) updShow("A new version of iv31 is ready.", [["Reload", () => location.reload()], ["Later", updHide]], "ok");
+  });
+}
 </script>
 </body>
 </html>

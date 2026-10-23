@@ -18,7 +18,7 @@ It covers every main-series game from Red/Blue/Yellow to Scarlet/Violet. Gen Iâ€
 
 | Path | What it is |
 | --- | --- |
-| `src/index.html` | The app: HTML, CSS and JavaScript in one file. Has placeholders `__LOC__`, `__DEX__`, `__SP__` for data. |
+| `src/index.html` | The app: HTML, CSS and JavaScript in one file. Has placeholders `__LOC__`, `__DEX__`, `__SP__`, `__PROG__` for data. |
 | `src/data/pokedex.json` | Every PokÃ©mon: stats, evolutions, EV yields, types, older-generation stats (`eras`, `pre6`, `gen1`, `gen1types`). |
 | `src/data/locations.json` | Wild locations per game version. |
 | `src/data/secret-power.json` | Secret Power ground types for every Gen III area. |
@@ -34,6 +34,9 @@ It covers every main-series game from Red/Blue/Yellow to Scarlet/Violet. Gen Iâ€
 | `.github/workflows/release.yml` | Publishes releases and the apt repository. |
 | `.github/workflows/runtime.yml` | Builds the Catalina-compatible Mac runtime. |
 | `apt` branch | The apt repository. Generated; never edit by hand. |
+| `app/web/` | Website-only files: `manifest.webmanifest`, icons, and `sw.js` (offline cache; `__VERSION__` and `__FILES__` are filled in by the build). |
+| `tools/build_web.py` | Builds the website into `dist/web`. |
+| `.github/workflows/pages.yml` | Publishes `dist/web` to GitHub Pages when a release is pushed. |
 
 ## Releasing a new version (order of work)
 
@@ -58,6 +61,9 @@ It covers every main-series game from Red/Blue/Yellow to Scarlet/Violet. Gen Iâ€
 Pushing the new `updates/manifest.json` is what makes installed copies offer the update, so only push it when the release is ready.
 
 ## How updates reach people
+
+**Website** (https://scooby5328-design.github.io/iV31/): the **Website** workflow rebuilds and deploys it whenever `updates/manifest.json` changes, so it always matches the latest release. Browsers load the page from the network first and fall back to the offline cache; a new deployment changes `sw.js`, and open pages show "A new version of iv31 is ready". GitHub Pages must be turned on once: repository **Settings â†’ Pages â†’ Build and deployment â†’ Source: GitHub Actions**.
+
 
 | Install | How it updates |
 | --- | --- |
@@ -125,3 +131,4 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.6.2 Powers tab (view id still `secret`): `renderSecret` draws Secret or Nature Power by `state.pwSub`, `renderPowerHp` draws the Hidden Power chart.
 - 1.6.8 Field-guide redesign (theme tokens and the layer at the end of the main `<style>`; `--pixel` and `--lcd` fonts), data page view `dex` (`renderDex`), app history `navHist`/`navGo` behind Back/Forward and `window.iv31NavBack` for Android.
 - 1.7.0 Device frame: markup `.device` > `#screen` (the scrolling main screen; use `getY`/`setY`, not `window.scrollY`), `.dev-side.left` (game picker, D-pad, SOUND) and `.dev-side.right` (version, clock, A/B, DAY/NIGHT) since 1.7.1. Sounds are `sfx(...)` tones; the start-up screen is `runBoot`. Desktop scrolls inside `#screen` from 721px wide; below that the page scrolls normally.
+- 1.8.0 Website on GitHub Pages (`tools/build_web.py`, `app/web/`, `pages.yml`); Favorites compact list (`favRow`); Hidden Power calculator in Powers; matchup checker opens data pages; style consolidation (overridden declarations removed; verify with before/after screenshots); accessibility and contrast fixes.
