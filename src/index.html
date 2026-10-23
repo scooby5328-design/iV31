@@ -665,6 +665,11 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 @media (prefers-reduced-motion:reduce){.desk.swap,.boot-in,.boot.out,.boot-bar i{animation:none}.boot-bar i{width:100%}}
 .store .device{padding-bottom:0}
 .store .ws{background:var(--mantle);border-top:2px solid var(--surface0)}
+.sheet,.sheet.sp,.sheet.later{min-width:0}
+.sheet th button{white-space:normal;line-height:1.25}
+.sheet.sp th button small{white-space:normal}
+.sheet.sp td,.sheet.sp th button{padding-left:6px;padding-right:6px}
+.sheet td.loc{min-width:150px}
 </style>
 </head>
 <body>
@@ -2950,7 +2955,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.7.1";
+const APP_VERSION = "1.7.2";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3332,6 +3337,29 @@ function runBoot(){
   document.addEventListener("keydown", end, {once:true});
 }
 runBoot();
+
+const FIT_SEL = ".scroll,.sheet-wrap,.typechart-wrap";
+let fitQueued = false;
+function fitWide(){
+  fitQueued = false;
+  document.querySelectorAll(FIT_SEL).forEach(w => {
+    const t = w.firstElementChild;
+    if (!t || w.offsetParent === null) return;
+    t.style.zoom = "";
+    let z = 1;
+    for (let i = 0; i < 4; i++){
+      const sw = w.scrollWidth, cw = w.clientWidth;
+      if (sw <= cw || z <= .55) break;
+      z = Math.max(.55, z * (cw - 1) / sw);
+      t.style.zoom = z.toFixed(3);
+    }
+  });
+}
+const queueFit = () => { if (!fitQueued){ fitQueued = true; requestAnimationFrame(fitWide); } };
+new MutationObserver(queueFit).observe(document.querySelector(".desk"), {childList:true, subtree:true});
+if (window.ResizeObserver) new ResizeObserver(queueFit).observe($("screen"));
+window.addEventListener("resize", queueFit);
+queueFit();
 </script>
 </body>
 </html>

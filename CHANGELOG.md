@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.7.2] - 2026-10-23
+
+### Changed
+- Wide tables fit the screen instead of scrolling sideways: tables no longer have fixed minimum widths, headings wrap, and any table still too wide is scaled down (`fitWide` in `src/index.html`, down to 55%).
+
 ## [1.7.1] - 2026-10-23
 
 ### Changed
