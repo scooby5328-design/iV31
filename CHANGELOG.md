@@ -19,6 +19,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - 32-bit handheld style for the screen: hard pixel drop shadows, bevelled buttons and inputs, smaller corner radii, and accent tokens (`--acc` yellow for selected states and titles, `--acc2` red for main buttons, `--acc3` green for help buttons). Title bars are blue bands with yellow pixel text.
 - Disabled B/A buttons dim their letters instead of turning see-through.
 
+### Checksums (SHA-256)
+
+```
+adc4868ad5bc6b46dbbbc3a3f37167af7d6a0bfeda479a0f64edbdbb080f589c  iv31-Setup-1.9.0.exe
+0500001412b7af575656e33870f797989b33759ef189faffbb4ce565e70bc79e  iv31-1.9.0-mac.zip
+72db475b08515003802dde500fced0e2067b35b306140a2c0be731aeecafaccf  iv31-1.9.0-linux-x64.tar.gz
+178dbc47ba49334c62cbd3944ef917aea4c06c6b0aeae4c88516bab624111165  iv31-1.9.0-linux-arm64.tar.gz
+383aad0f8b81722b2064f34a65ea965925dde9f0da793d6cf5e0f30b993637c9  iv31_1.9.0_amd64.deb
+7b6eeb987ab51f8a98167eab2b10a02db0d51beea1a7e37872219617d81934ae  iv31_1.9.0_arm64.deb
+e984843cec1970dbcb5047f4ee78f0f4d622e211cd1e0f3a5ed4a03650b084e8  iv31-1.9.0-x86_64.AppImage
+8ecbac6ec00917ed4f3db9f42ab3d446a29e91a74a60d703aa49da3b84256712  iv31-1.9.0-aarch64.AppImage
+```
+
 ## [1.8.10] - 2026-10-24
 
 ### Changed
