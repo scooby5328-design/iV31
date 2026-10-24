@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.2] - 2026-10-23
+
+### Fixed
+- The website's update prompt compares the newest offline cache version with the page's version, so it no longer appears when the page already loaded the new version from the network.
+
 ## [1.8.1] - 2026-10-23
 
 ### Changed

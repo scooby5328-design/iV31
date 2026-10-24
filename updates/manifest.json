@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.1",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.1.neu",
+  "version": "1.8.2",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.2.neu",
   "data": {
-    "sha256": "399f8cee2f668ed75ed60f5512451abb3dac8bf9a2802514ce094b6c5cb25e79",
-    "size": 914845,
-    "notes": "EV Training is now Pok\u00e9 Data: types, weaknesses, matchup filters and EVs for every Pok\u00e9mon in one table, with remembered filters.",
+    "sha256": "d22ae1623860e22c92fc2382c38f2f5c371e25098aa10bd3ddc5a2f156ddc032",
+    "size": 915095,
+    "notes": "The website only offers a reload when the page is really out of date.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {
