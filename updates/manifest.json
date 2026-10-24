@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.10",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.10.neu",
+  "version": "1.9.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.0.neu",
   "data": {
-    "sha256": "c8a000631a92bec7cea04faa94b4802760a5924c517420f26c99d8317a7c86d2",
-    "size": 928478,
-    "notes": "Behind-the-scenes cleanup. Everything looks and works the same.",
+    "sha256": "9ab75f736d7d352d60e2cbd61060ac4cc66de9f13e93b50fdd2af7b73403c21b",
+    "size": 934414,
+    "notes": "Red shell, a 32-bit style screen with accent colours, and a working power button.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

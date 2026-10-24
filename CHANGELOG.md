@@ -9,6 +9,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.0] - 2026-10-24
+
+### Added
+- Power button: the green light by the logo turns the screen off with a CRT-style animation (eyelid close to a centre line, line shrinks to a dot, flicker, off). Pressing it again reopens the screen and plays the start-up screen. The screen is inert and scrolling is locked while off.
+
+### Changed
+- Red shell with black buttons; brand and labels in cream.
+- 32-bit handheld style for the screen: hard pixel drop shadows, bevelled buttons and inputs, smaller corner radii, and accent tokens (`--acc` yellow for selected states and titles, `--acc2` red for main buttons, `--acc3` green for help buttons). Title bars are blue bands with yellow pixel text.
+- Disabled B/A buttons dim their letters instead of turning see-through.
+
 ## [1.8.10] - 2026-10-24
 
 ### Changed
@@ -19,6 +29,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ### Fixed
 - The Favorites count on open side tabs shows in its normal yellow.
+
+### Checksums (SHA-256)
+
+```
+12339c0b96c5dcb84415b293e1f5acbc57b2fa009976eaf40918d060d44deb20  iv31-Setup-1.8.10.exe
+7a79a9c2001d7c64eee7fc62b1c88a382731ff55744ea03f7ada8d2645f06d5f  iv31-1.8.10-mac.zip
+a4471b98829dd659377765f55b9cd8ca826439065f27ac221c5999359a57f335  iv31-1.8.10-linux-x64.tar.gz
+247558a6c5ad7b6e850db069f163887849fbc053041096c0bf006381fecbd7db  iv31-1.8.10-linux-arm64.tar.gz
+b823837237b0bc02784a6551d9ba94517655691d34f00a871c1dd6beefff9c63  iv31_1.8.10_amd64.deb
+a4c8968fd581cf615f9859d6e6bc6b33317d73c76c823a1b87d98ed335682dec  iv31_1.8.10_arm64.deb
+3f2cd1e0e4fb1e53551192ee771eee32225819906daa986fa75d5945b2579cde  iv31-1.8.10-x86_64.AppImage
+5c1b0235f022fd0acb32dce7ee3d5d0a5e3bc1b5aa87e014a6c0490e0c9a739e  iv31-1.8.10-aarch64.AppImage
+```
 
 ## [1.8.9] - 2026-10-24
 

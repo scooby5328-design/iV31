@@ -146,6 +146,7 @@ If iv31 doesn't open, install WebKitGTK: `sudo apt install libwebkit2gtk-4.1-0` 
 12. Open **Powers** for **Hidden Power** (a calculator plus the IVs that give each type), **Secret Power** and **Nature Power** (what each move turns into in every area).
 13. Tap ☆ next to any Pokémon to keep it in **Favorites**, a short list that links to each data page.
 14. Stuck? Press the **?** next to any section's title.
+15. The green light next to the iv31 logo is the power button. Press it to turn the screen off, and again to turn it back on.
 
 ## How the math works
 
