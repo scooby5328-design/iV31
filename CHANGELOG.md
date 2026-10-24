@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.9] - 2026-10-24
+
+### Changed
+- Tucked-in side tabs no longer slide out on hover or focus; the open tab highlights its square and symbol. Full tabs with names show only when opened with the three-line button.
+
 ## [1.8.8] - 2026-10-24
 
 ### Added

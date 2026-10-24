@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.8",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.8.neu",
+  "version": "1.8.9",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.9.neu",
   "data": {
-    "sha256": "7234e0f045cd51304b23bc134ff694da8452519fb10dfde34bd7a623ab15d5b3",
-    "size": 932074,
-    "notes": "Side tabs slide out on hover, a menu button keeps them open, and each tab has a symbol.",
+    "sha256": "1c862092e14a6553bac1d19936e777619b00a345cd20822b32da12ee2c898a07",
+    "size": 932089,
+    "notes": "Tucked-in side tabs light up their symbol instead of sliding out; the menu button opens the full tabs.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {
