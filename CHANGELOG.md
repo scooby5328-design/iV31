@@ -15,6 +15,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Phones: the data page header stacks into one column (the narrow-screen rule was being overridden by a later rule).
 - Floating **?** buttons on folding panels follow the end of a wrapped title, account for the SIZE zoom, and hide when their panel is hidden (for example EVs gained in the free tier).
 
+### Checksums (SHA-256)
+
+```
+a893d794fe495d2d049ab77e4f0d12147ab5861b165b6fdfbf8ded13625fdfd5  iv31-Setup-1.8.6.exe
+3404db90209795752f9d5ce4e265643b5f05825bf13bc4aad2d52f505f958a1b  iv31-1.8.6-mac.zip
+2229935c13f56e1ef602960b5240a9bf0d844c944bdc6746390acccefb6c7fb0  iv31-1.8.6-linux-x64.tar.gz
+4603373be75e61d70c602de68d8e289582fa87736ee161f62d67b2c4fa93e155  iv31-1.8.6-linux-arm64.tar.gz
+4ae0a34feb3473e1e93388d7fdc07d60fa4548069d1b5fdbdd443c622d0eb8e9  iv31_1.8.6_amd64.deb
+63362c8984d9f2b1f8625abb25c25d69c8816a58cd110e62a970c50a415cc9f9  iv31_1.8.6_arm64.deb
+9f5033cd3e60cedcca511ef431e8d6ad1578e52e48f2a024fab28e2041120efa  iv31-1.8.6-x86_64.AppImage
+a54709cd178f0030960746090c09dfe56f813c005267952c29203a89acbb1644  iv31-1.8.6-aarch64.AppImage
+```
+
 ## [1.8.5] - 2026-10-24
 
 ### Added
