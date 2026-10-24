@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.2",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.2.neu",
+  "version": "1.8.3",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.3.neu",
   "data": {
-    "sha256": "d22ae1623860e22c92fc2382c38f2f5c371e25098aa10bd3ddc5a2f156ddc032",
-    "size": 915095,
-    "notes": "The website only offers a reload when the page is really out of date.",
+    "sha256": "2fcf52a61c753e5f67e33b3342bc13431a29b9a5e7e8b28abd71309e0be3a7d2",
+    "size": 915981,
+    "notes": "Pok\u00e9 Data has a Strong against column: the types each Pok\u00e9mon hits for 2\u00d7.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

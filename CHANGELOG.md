@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.3] - 2026-10-23
+
+### Added
+- **Strong against** column in Poké Data (types the Pokémon's own types hit for 2×, from `offense()`), sortable, clickable to filter by that type, and optional under Columns (`pd.strong`).
+
 ## [1.8.2] - 2026-10-23
 
 ### Fixed

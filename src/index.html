@@ -991,7 +991,7 @@ details.win{position:relative}
           <div><label for="pdType">Type</label><select id="pdType"></select></div>
           <div><label for="pdVs">Matchup against</label><select id="pdVs"></select></div>
           <div><span class="lbl" id="pdModeLbl">Show</span><div class="seg" id="pdMode" role="group" aria-labelledby="pdModeLbl"></div></div>
-          <div class="pdcols"><span class="lbl">Columns</span><label class="toggle" for="pdShowWeak"><input type="checkbox" id="pdShowWeak" checked> Weak to</label><label class="toggle loc" for="pdShowLoc"><input type="checkbox" id="pdShowLoc" checked> Found in</label></div>
+          <div class="pdcols"><span class="lbl">Columns</span><label class="toggle" for="pdShowWeak"><input type="checkbox" id="pdShowWeak" checked> Weak to</label><label class="toggle" for="pdShowStrong"><input type="checkbox" id="pdShowStrong" checked> Strong against</label><label class="toggle loc" for="pdShowLoc"><input type="checkbox" id="pdShowLoc" checked> Found in</label></div>
           <button type="button" class="btn small" id="pdClear" hidden>Clear filters</button>
         </div>
         <div class="legend">
@@ -1900,13 +1900,13 @@ $("partyBody").addEventListener("click", e => {
 
 const evSearch = $("evSearch"), evFilter = $("evFilter"), evWild = $("evWild"), expanded = new Set();
 const PD_KEY = "iv31-pokedata";
-const pd = (() => { const d = {type:"", vs:"", mode:"all", weak:true, loc:true, sortBy:"no", sortDir:1, evStat:"all", route:false, wild:false}; try { const v = JSON.parse(localStorage.getItem(PD_KEY) || "null"); if (v && typeof v === "object") Object.keys(d).forEach(k => { if (typeof v[k] === typeof d[k]) d[k] = v[k]; }); } catch(_) {} return d; })();
-const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"type",label:"Type"},...(pd.weak ? [{id:"weak",label:"Weak to",cls:"weakc"}] : []),...(pd.vs !== "" ? [{id:"vs",label:`vs ${TYPES[Number(pd.vs)]}`,n:true}] : []),...(pd.loc ? [{id:"loc",label:"Found in",cls:"loc"}] : []),...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
+const pd = (() => { const d = {type:"", vs:"", mode:"all", weak:true, strong:true, loc:true, sortBy:"no", sortDir:1, evStat:"all", route:false, wild:false}; try { const v = JSON.parse(localStorage.getItem(PD_KEY) || "null"); if (v && typeof v === "object") Object.keys(d).forEach(k => { if (typeof v[k] === typeof d[k]) d[k] = v[k]; }); } catch(_) {} return d; })();
+const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"type",label:"Type"},...(pd.weak ? [{id:"weak",label:"Weak to",cls:"weakc"}] : []),...(pd.strong ? [{id:"strong",label:"Strong against",cls:"weakc"}] : []),...(pd.vs !== "" ? [{id:"vs",label:`vs ${TYPES[Number(pd.vs)]}`,n:true}] : []),...(pd.loc ? [{id:"loc",label:"Found in",cls:"loc"}] : []),...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
 let sortBy = pd.sortBy, sortDir = pd.sortDir, evStat = pd.evStat, routeOrder = pd.route;
 function savePd(){ Object.assign(pd, {sortBy, sortDir, evStat, route:routeOrder, wild:evWild.checked}); try { localStorage.setItem(PD_KEY, JSON.stringify(pd)); } catch(_) {} }
 evFilter.innerHTML = [["all","All"],...KEYS.map(k=>[k,SHORT[k]])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v===evStat}">${l}</button>`).join("");
 evWild.checked = pd.wild;
-$("pdShowWeak").checked = pd.weak; $("pdShowLoc").checked = pd.loc;
+$("pdShowWeak").checked = pd.weak; $("pdShowStrong").checked = pd.strong; $("pdShowLoc").checked = pd.loc;
 $("pdMode").innerHTML = [["all","All"],["weak","Weak to it"],["resist","Resist it"],["immune","Immune"]].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v===pd.mode}">${l}</button>`).join("");
 const MULT_TXT = m => m === 4 ? "4×" : m === 2 ? "2×" : m === 1 ? "1×" : m === .5 ? "½×" : m === .25 ? "¼×" : "0×";
 const MULT_CLS = m => m >= 4 ? "m4" : m >= 2 ? "m2" : m === 1 ? "m1" : m > 0 ? "mh" : "m0";
@@ -1930,9 +1930,9 @@ function renderSheet(){
   fillPdSelects();
   evFilter.closest("div").hidden = old;
   if (old && evStat !== "all"){ evStat = "all"; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === "all")); }
-  if (!["no","name","tot","type","weak","vs"].includes(sortBy) && !sk.includes(sortBy)){ sortBy = "no"; sortDir = 1; }
+  if (!["no","name","tot","type","weak","strong","vs"].includes(sortBy) && !sk.includes(sortBy)){ sortBy = "no"; sortDir = 1; }
   if (sortBy === "vs" && pd.vs === ""){ sortBy = "no"; sortDir = 1; }
-  if (sortBy === "weak" && !pd.weak){ sortBy = "no"; sortDir = 1; }
+  if ((sortBy === "weak" && !pd.weak) || (sortBy === "strong" && !pd.strong)){ sortBy = "no"; sortDir = 1; }
   $("pdMode").parentElement.hidden = pd.vs === "";
   $("pdMode").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === pd.mode));
   const byRoute = routeOrder && tier() !== "free" && !!LOCDATA.found[ver] && pd.loc;
@@ -1949,10 +1949,10 @@ function renderSheet(){
     if (fv >= 0 && pd.mode !== "all" && !(pd.mode === "weak" ? vm >= 2 : pd.mode === "resist" ? vm > 0 && vm < 1 : vm === 0)) continue;
     if (evWild.checked && tier() !== "free" && !placesFor(ver, n).length) continue;
     if (q && !(fold(p[0]).includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q)) || (typeQ >= 0 && ts.includes(typeQ)) || (tier() !== "free" && placesFor(ver, n).some(x => x.place.toLowerCase().includes(q))))) continue;
-    const m = pd.weak ? matchups(ts, g) : null;
-    rows.push({no:n, name:p[0], ev, ts, vm, m, wk: m ? m.x4.length * 2 + m.x2.length : 0, tot:ev.reduce((a,b) => a + b, 0)});
+    const m = pd.weak ? matchups(ts, g) : null, st = pd.strong ? offense(ts, g).x2 : null;
+    rows.push({no:n, name:p[0], ev, ts, vm, m, st, wk: m ? m.x4.length * 2 + m.x2.length : 0, sg: st ? st.length : 0, tot:ev.reduce((a,b) => a + b, 0)});
   }
-  const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : sortBy==="type" ? r.ts[0] * 100 + (r.ts[1] ?? -1) : sortBy==="weak" ? r.wk : sortBy==="vs" ? r.vm : r.ev[sk.indexOf(sortBy)];
+  const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : sortBy==="type" ? r.ts[0] * 100 + (r.ts[1] ?? -1) : sortBy==="weak" ? r.wk : sortBy==="strong" ? r.sg : sortBy==="vs" ? r.vm : r.ev[sk.indexOf(sortBy)];
   const byCol = (a,b) => { const x = val(a), y = val(b); const c = typeof x === "string" ? x.localeCompare(y) : x - y; return c ? c*sortDir : a.no - b.no; };
   if (byRoute){
     rows.forEach(r => { const pl = placesFor(ver, r.no)[0]; r.lk = pl ? placeKey(ver, pl.place) : null; });
@@ -1969,7 +1969,7 @@ function renderSheet(){
     ? `<th class="loc"${byRoute?` aria-sort="ascending"`:""}><button type="button" data-c="loc" aria-pressed="${byRoute}" title="Turn story order ${byRoute?"off":"on"}">${c.label}${byRoute?" ▲":""}</button></th>`
     : `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
   const chip = (t, attr, extra) => `<button type="button" class="tyb${extra || ""}" ${attr}="${t}" title="${attr === "data-ft" ? `Show only ${TYPES[t]} types` : `Show what's weak to ${TYPES[t]}`}"><span class="ty t${t}">${TYPES[t]}</span></button>`;
-  const rowHtml = r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexLink(r.no, dexNo(r.no))}</td><td class="pk">${dexLink(r.no)}</td><td class="tyc">${r.ts.map(t => chip(t, "data-ft", ft === t ? " on" : "")).join("")}</td>${pd.weak ? `<td class="weakc">${r.m.x4.map(t => chip(t, "data-fv", " x4")).join("")}${r.m.x2.map(t => chip(t, "data-fv", "")).join("")}</td>` : ""}${fv >= 0 ? `<td class="n"><span class="mult ${MULT_CLS(r.vm)}">${MULT_TXT(r.vm)}</span></td>` : ""}${pd.loc ? `<td class="loc">${foundCell(ver, r.no)}</td>` : ""}${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${KEYS[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`;
+  const rowHtml = r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexLink(r.no, dexNo(r.no))}</td><td class="pk">${dexLink(r.no)}</td><td class="tyc">${r.ts.map(t => chip(t, "data-ft", ft === t ? " on" : "")).join("")}</td>${pd.weak ? `<td class="weakc">${r.m.x4.map(t => chip(t, "data-fv", " x4")).join("")}${r.m.x2.map(t => chip(t, "data-fv", "")).join("")}</td>` : ""}${pd.strong ? `<td class="weakc">${r.st.map(t => chip(t, "data-ft", ft === t ? " on" : "")).join("")}</td>` : ""}${fv >= 0 ? `<td class="n"><span class="mult ${MULT_CLS(r.vm)}">${MULT_TXT(r.vm)}</span></td>` : ""}${pd.loc ? `<td class="loc">${foundCell(ver, r.no)}</td>` : ""}${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${KEYS[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`;
   const body = $("evBody"), token = (renderSheet.token = (renderSheet.token || 0) + 1);
   if (!rows.length){ body.innerHTML = `<tr><td colspan="${colsFor(g).length}" class="empty">No Pokémon match these filters. <button type="button" class="btn small" data-clear="1">Clear filters</button></td></tr>`; }
   else {
@@ -1988,7 +1988,7 @@ function renderSheet(){
   $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${active.length ? " " + active.join(", ") : ""} · ${esc(ver)}`;
   $("evLegend").innerHTML = old
     ? `<b>How to read it:</b> in Gen ${ROMAN[E.g]} there are no EVs. Defeating a Pokémon adds its base stats, shown in each row, to your Pokémon's Stat Experience in every stat${E.g === 1 ? ", with one Special stat" : ""}. Higher numbers mean faster training. <b>Found in</b> lists where it appears in the selected version. Tap <b>☆</b> to save it to Favorites.`
-    : `<b>How to read it:</b> one row per Pokémon in Pokédex order. <b>Type</b> and <b>Weak to</b> come from its types in Gen ${ROMAN[g]} (a red outline means 4×). Each colored square is a stat it gives EVs in, with how many for defeating it once. <b>Found in</b> lists where it appears in ${esc(ver)}. Click a type to filter by it, or a weakness to see everything weak to that type. Click a name for its full data page, or <b>☆</b> to save it to Favorites.`;
+    : `<b>How to read it:</b> one row per Pokémon in Pokédex order. <b>Type</b>, <b>Weak to</b> and <b>Strong against</b> come from its types in Gen ${ROMAN[g]}: a red outline means 4×, and Strong against lists the types its own type moves hit for 2×. Each colored square is a stat it gives EVs in, with how many for defeating it once. <b>Found in</b> lists where it appears in ${esc(ver)}. Click a type, or a type it's strong against, to filter by it; click a weakness to see everything weak to that type. Click a name for its full data page, or <b>☆</b> to save it to Favorites.`;
   $("evLegendKeys").hidden = old;
   const dn = $("evDataNote");
   dn.hidden = !!LOCDATA.found[ver] && !PARTIAL.has(ver);
@@ -2012,6 +2012,7 @@ $("pdType").addEventListener("change", e => { pd.type = e.target.value; renderSh
 $("pdVs").addEventListener("change", e => { pd.vs = e.target.value; if (pd.vs !== "" && pd.mode === "all") pd.mode = "weak"; if (pd.vs !== ""){ sortBy = "vs"; sortDir = -1; } renderSheet(); });
 $("pdMode").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; pd.mode = b.dataset.v; renderSheet(); });
 $("pdShowWeak").addEventListener("change", e => { pd.weak = e.target.checked; renderSheet(); });
+$("pdShowStrong").addEventListener("change", e => { pd.strong = e.target.checked; renderSheet(); });
 $("pdShowLoc").addEventListener("change", e => { pd.loc = e.target.checked; renderSheet(); });
 function clearPd(){ evSearch.value = ""; evStat = "all"; pd.type = ""; pd.vs = ""; pd.mode = "all"; evWild.checked = false; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === "all")); renderSheet(); }
 $("pdClear").addEventListener("click", clearPd);
@@ -2981,7 +2982,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.8.2";
+const APP_VERSION = "1.8.3";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3241,8 +3242,8 @@ const TIPS = {
   "gain": {t:"EVs gained", for:"Shows how many EVs a training session added, by comparing a Pokémon's stats before and after.",
     how:["Pick the Pokémon and nature, or press <b>Use the Summary screen</b>.","<b>Before</b>: type its level and stats before you train. Leave <b>No EVs yet</b> ticked if it hasn't battled.","Go train.","<b>After</b>: type the new level and stats. In Gen III–IV level it up first, because the stats only change on level-up.","Read the EVs gained, the EVs it has now and the room left. <b>After becomes Before</b> starts the next session."],
     with:[["<b>Add to EV calculator</b> sends the EVs to the EV calculator in the IV Calculator tab."],["The <b>Poké Data</b> tab shows which Pokémon give the EVs you want and where to find them."],["<b>Use the Summary screen</b> copies the Pokémon from the IV calculator."],["What you type is kept until you press <b>Clear</b>."]]},
-  "evs": {t:"Poké Data", for:"Every Pokémon's fixed data in one table, in Pokédex order: its types, what it's weak to, the EVs it gives and where to find it in your game.",
-    how:["Search by name, Pokédex number, type or place, such as Route 110. Press <b>/</b> to jump to the search box and <b>Esc</b> to clear it.","Filter by <b>Gives EVs in</b>, by <b>Type</b>, or pick a type under <b>Matchup against</b> to see how hard it hits each Pokémon, then show only those weak to it, resisting it or immune.","Click a type chip in a row to filter by that type, or a weakness chip to see everything weak to it.","Click a column heading to sort. Tick <b>Story order</b>, or click <b>Found in</b>, to list Pokémon in the order you reach places.","Hide the <b>Weak to</b> or <b>Found in</b> columns to make the table narrower. <b>Clear filters</b> resets everything. Your filters and sorting are remembered."],
+  "evs": {t:"Poké Data", for:"Every Pokémon's fixed data in one table, in Pokédex order: its types, what it's weak to, what it's strong against, the EVs it gives and where to find it in your game.",
+    how:["Search by name, Pokédex number, type or place, such as Route 110. Press <b>/</b> to jump to the search box and <b>Esc</b> to clear it.","Filter by <b>Gives EVs in</b>, by <b>Type</b>, or pick a type under <b>Matchup against</b> to see how hard it hits each Pokémon, then show only those weak to it, resisting it or immune.","Click a type chip in a row to filter by that type, or a weakness chip to see everything weak to it.","Click a column heading to sort. Tick <b>Story order</b>, or click <b>Found in</b>, to list Pokémon in the order you reach places.","<b>Strong against</b> lists the types its own type moves hit for 2×; click one to list Pokémon of that type.","Hide the <b>Weak to</b>, <b>Strong against</b> or <b>Found in</b> columns to make the table narrower. <b>Clear filters</b> resets everything. Your filters and sorting are remembered."],
     with:[["Click a Pokémon's name or number for its full <b>data page</b>."],["The <b>Matchup checker</b> above works out any one or two types; <b>Filter the table to this type</b> applies it here."],["The <b>EV calculator</b>'s “Defeated Pokémon” uses these same EV yields.",1],["The game picker sets types, EVs and locations for the game."]]},
   "mc-h": {t:"Matchup checker", for:"Shows what any one or two types are weak to, resist and are immune to, and what they're strong against.",
     how:["Pick one or two types and read the matchups below.","Press <b>Filter the table to this type</b> to list those Pokémon in Poké Data."],
