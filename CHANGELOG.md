@@ -9,6 +9,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.6] - 2026-10-24
+
+### Fixed
+- Phones: the data page header stacks into one column (the narrow-screen rule was being overridden by a later rule).
+- Floating **?** buttons on folding panels follow the end of a wrapped title, account for the SIZE zoom, and hide when their panel is hidden (for example EVs gained in the free tier).
+
 ## [1.8.5] - 2026-10-24
 
 ### Added

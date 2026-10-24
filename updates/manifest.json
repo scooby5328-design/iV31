@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.5",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.5.neu",
+  "version": "1.8.6",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.6.neu",
   "data": {
-    "sha256": "a7a6af55998474e457c7564fff8ade56caf36a5dbe11f1bdb6796d1ae9526198",
-    "size": 922282,
-    "notes": "Every section folds open and closed, a SIZE control makes the screen bigger or smaller, and the D-pad scrolls half a screen.",
+    "sha256": "ae13732756919caa78d2af52ff70d9f0ef6762bcd3d5effe2fe08451fc9738b6",
+    "size": 923134,
+    "notes": "Phone layout fixes for the data page header and the ? buttons.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

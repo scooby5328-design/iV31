@@ -693,7 +693,7 @@ details.win[open]{border-style:solid;border-color:var(--surface0)}
 details.win>summary .titlebar{justify-content:flex-start;gap:10px;transition:background .15s}
 details.win>summary .titlebar::before{content:"";flex:none;width:0;height:0;border:6px solid transparent;border-left:8px solid var(--mauve);border-right:0;transition:transform .15s}
 details.win[open]>summary .titlebar::before{transform:rotate(90deg)}
-details.win>summary .titlebar::after{content:"Open \25BE";margin-left:auto;font-family:var(--pixel);font-size:10px;letter-spacing:.06em;color:var(--crust);background:var(--mauve);border-radius:4px;padding:4px 10px;text-shadow:none;box-shadow:0 0 10px var(--glow)}
+details.win>summary .titlebar::after{content:"Open \25BE";margin-left:auto;white-space:nowrap;flex:none;font-family:var(--pixel);font-size:10px;letter-spacing:.06em;color:var(--crust);background:var(--mauve);border-radius:4px;padding:4px 10px;text-shadow:none;box-shadow:0 0 10px var(--glow)}
 details.win[open]>summary .titlebar::after{content:"Close \25B4";color:var(--mauve);background:transparent;border:1px solid var(--mauve);box-shadow:none}
 details.win>summary:hover .titlebar{background:linear-gradient(90deg,color-mix(in srgb,var(--mauve) 28%,var(--mantle)),var(--mantle) 70%)}
 details.win>summary:hover .titlebar::after{filter:brightness(1.15)}
@@ -718,6 +718,7 @@ details.win>summary:focus-visible{outline:2px solid var(--mauve);outline-offset:
 .win.min{background:transparent;border:2px dashed var(--surface1);box-shadow:none}
 .titlebar .partycount{margin-left:auto}
 .titlebar .partycount+.minbtn{margin-left:10px}
+@media (max-width:760px){.dexhead{grid-template-columns:minmax(0,1fr)}.dexno{justify-self:start;font-size:44px}.dexacts{flex-direction:row;flex-wrap:wrap}details.win>summary .titlebar{padding-right:10px}details.win>summary .titlebar>span:first-child{padding-right:34px}}
 </style>
 </head>
 <body>
@@ -3010,7 +3011,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.8.5";
+const APP_VERSION = "1.8.6";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3334,9 +3335,11 @@ function addTip(bar, key){
   if (sum){
     const det = sum.parentElement, host = det.parentElement;
     b.classList.add("float"); host.insertBefore(b, det.nextSibling);
-    const place = () => { b.style.left = (det.offsetLeft + first.offsetLeft + first.offsetWidth + 10) + "px"; b.style.top = (det.offsetTop + bar.offsetTop + (bar.offsetHeight - 20) / 2) + "px"; };
+    const place = () => { b.hidden = det.offsetParent === null; if (b.hidden) return; const rg = document.createRange(); rg.selectNodeContents(first); const r = [...rg.getClientRects()].filter(x => x.width > 0), last = r[r.length - 1], br = bar.getBoundingClientRect(), z = (bar.getBoundingClientRect().width / bar.offsetWidth) || 1; b.style.left = (det.offsetLeft + bar.offsetLeft + (last ? (last.right - br.left) / z : first.offsetWidth) + 8) + "px"; b.style.top = (det.offsetTop + bar.offsetTop + (last ? (last.top - br.top) / z + (last.height / z - 20) / 2 : (bar.offsetHeight - 20) / 2)) + "px"; };
     place();
-    if (window.ResizeObserver){ const ro = new ResizeObserver(place); ro.observe(bar); ro.observe(host); }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    window.addEventListener("load", place);
+    if (window.ResizeObserver){ const ro = new ResizeObserver(place); ro.observe(bar); ro.observe(host); ro.observe(first); }
   }
   else first ? bar.insertBefore(b, first.nextSibling) : bar.appendChild(b);
   b.addEventListener("click", e => {
