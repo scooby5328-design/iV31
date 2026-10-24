@@ -26,12 +26,17 @@ def old_engine_fallbacks(page):
     return MIX.sub(mix, page)
 
 
-def build_page(stage):
-    page = old_engine_fallbacks((ROOT / "src/index.html").read_text(encoding="utf-8"))
+def inline_data(page):
     for key, name in (("__LOC__", "locations.json"), ("__DEX__", "pokedex.json"), ("__SP__", "secret-power.json"), ("__PROG__", "progression.json")):
         if page.count(key) != 1:
             sys.exit(f"src/index.html must contain {key} exactly once")
-        page = page.replace(key, compact(ROOT / "src/data" / name))
+        literal = json.dumps(compact(ROOT / "src/data" / name), ensure_ascii=False).replace("</", "<\\/")
+        page = page.replace(key, f"JSON.parse({literal})")
+    return page
+
+
+def build_page(stage):
+    page = inline_data(old_engine_fallbacks((ROOT / "src/index.html").read_text(encoding="utf-8")))
     (stage / "resources/index.html").write_text(page, encoding="utf-8")
 
 

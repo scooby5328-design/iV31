@@ -9,6 +9,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.1] - 2026-10-24
+
+### Changed
+- Poké Data renders 80 rows, then 40 more whenever the bottom of the table comes within about 1,400px of view (`pdFill`, triggered on scroll and resize). Opening the tab dropped from 4–7 s to about 0.2–0.5 s at 4× CPU slowdown; revisits and game changes are 5–15× faster.
+- `fitWide` measures at most three times, scales in one proportional step, and lets an already-fitted table absorb up to 8px before refitting, so appended rows no longer trigger full-table re-layouts. Name and type columns have minimum widths so later rows can't widen the table.
+- Tab switches hide every view before resetting the scroll position, and the screen-change animation uses the Web Animations API (opacity and position only), removing two forced full-page layouts per switch.
+- Data is inlined as `JSON.parse("…")` strings, which browsers parse faster than large object literals: first paint at 4× slowdown went from 1.34 s to 0.44 s.
+- The clock reuses two cached date formatters and only touches the page when the text changes.
+
 ## [1.9.0] - 2026-10-24
 
 ### Added

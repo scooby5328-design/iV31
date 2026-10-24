@@ -242,7 +242,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .sheet td{padding:7px 10px;border-bottom:1px solid var(--surface0);background:var(--base)}
 .sheet tr:hover td{background:color-mix(in srgb,var(--surface0) 45%,var(--base))}
 .sheet td.no{white-space:nowrap}
-.sheet td.pk{font-weight:600;white-space:nowrap}
+.sheet td.pk{font-weight:600;white-space:nowrap;min-width:100px}
 .sheet td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .sheet td.zero{color:var(--surface1)}
 .sheet td.tot{font-weight:700;color:var(--text)}
@@ -590,8 +590,6 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 @keyframes bootOn{0%{opacity:0;transform:scaleY(.02)}60%{opacity:1;transform:scaleY(.02)}100%{opacity:1;transform:none}}
 @keyframes bootBar{to{width:100%}}
 @keyframes bootOff{0%{opacity:1;transform:none}70%{opacity:1;transform:scaleY(.01);filter:brightness(2)}100%{opacity:0;transform:scaleY(0)}}
-.desk.swap{animation:swapIn .26s steps(5) both}
-@keyframes swapIn{0%{opacity:0;filter:brightness(2.2);transform:translateY(4px)}100%{opacity:1;filter:none;transform:none}}
 @media (min-width:721px) and (max-width:1000px){
   .device{grid-template-columns:132px minmax(0,1fr) 132px}
   .dev-side{padding:8px 10px}
@@ -623,7 +621,7 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
   .dev-screen{border-width:6px;border-radius:12px}
   .boot{position:fixed;border-radius:0}
 }
-@media (prefers-reduced-motion:reduce){.desk.swap,.boot-in,.boot.out,.boot-bar i{animation:none}.boot-bar i{width:100%}}
+@media (prefers-reduced-motion:reduce){.boot-in,.boot.out,.boot-bar i{animation:none}.boot-bar i{width:100%}}
 .store .device{padding-bottom:0}
 .sheet,.sheet.sp,.sheet.later{min-width:0}
 .sheet th button{white-space:normal;line-height:1.25}
@@ -656,7 +654,7 @@ details.win{position:relative}
 .tyb.on .ty{outline:2px solid var(--text);outline-offset:1px}
 .tyb.x4 .ty{box-shadow:0 0 0 2px var(--red)}
 .tyb.x4 .ty::before{content:"4× "}
-.sheet td.tyc{white-space:nowrap}
+.sheet td.tyc{white-space:nowrap;min-width:140px}
 .sheet td.weakc{min-width:120px;max-width:220px;white-space:normal;line-height:1.7}
 .weakc .ty{font-size:9px;padding:1px 5px}
 .mult{font-family:var(--lcd);font-size:19px;line-height:1;padding:0 6px;border-radius:3px}
@@ -2017,7 +2015,16 @@ function foundCell(ver, n){
   const open = expanded.has(n), shown = open ? places : places.slice(0,3), extra = places.length - 3;
   return shown.map(x => `<span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}`).join(", ") + (extra > 0 ? `<button type="button" class="more" data-n="${n}">${open ? "show less" : `+${extra} more`}</button>` : "");
 }
-function renderSheet(){
+const PD_FIRST = 80, PD_STEP = 40;
+let pdMore = null, pdFillQueued = false;
+function pdFill(){
+  pdFillQueued = false;
+  if (!pdMore || state.view !== "evs") return;
+  const sc = screenEl(), limit = (sc ? sc.getBoundingClientRect().bottom : innerHeight) + 1400;
+  if ($("evBody").getBoundingClientRect().bottom < limit){ pdMore(); queuePdFill(); }
+}
+function queuePdFill(){ if (!pdFillQueued){ pdFillQueued = true; requestAnimationFrame(pdFill); } }
+function renderSheet(keep){
   const E = era(), g = E.g, ver = state.ver, raw = evSearch.value.trim(), q = fold(raw).replace(/^#0*/,""), old = g <= 2, sk = statKeys(g);
   fillPdSelects();
   evFilter.closest("div").hidden = old;
@@ -2062,13 +2069,13 @@ function renderSheet(){
     : `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
   const chip = (t, attr, extra) => `<button type="button" class="tyb${extra || ""}" ${attr}="${t}" title="${attr === "data-ft" ? `Show only ${TYPES[t]} types` : `Show what's weak to ${TYPES[t]}`}"><span class="ty t${t}">${TYPES[t]}</span></button>`;
   const rowHtml = r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexLink(r.no, dexNo(r.no))}</td><td class="pk">${dexLink(r.no)}</td><td class="tyc">${r.ts.map(t => chip(t, "data-ft", ft === t ? " on" : "")).join("")}</td>${pd.weak ? `<td class="weakc">${r.m.x4.map(t => chip(t, "data-fv", " x4")).join("")}${r.m.x2.map(t => chip(t, "data-fv", "")).join("")}</td>` : ""}${pd.strong ? `<td class="weakc">${r.st.map(t => chip(t, "data-ft", ft === t ? " on" : "")).join("")}</td>` : ""}${fv >= 0 ? `<td class="n"><span class="mult ${MULT_CLS(r.vm)}">${MULT_TXT(r.vm)}</span></td>` : ""}${pd.loc ? `<td class="loc">${foundCell(ver, r.no)}</td>` : ""}${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${KEYS[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`;
-  const body = $("evBody"), token = (renderSheet.token = (renderSheet.token || 0) + 1);
-  if (!rows.length){ body.innerHTML = `<tr><td colspan="${colsFor(g).length}" class="empty">No Pokémon match these filters. <button type="button" class="btn small" data-clear="1">Clear filters</button></td></tr>`; }
+  const body = $("evBody"), first = keep ? Math.max(PD_FIRST, body.rows.length) : PD_FIRST;
+  if (!rows.length){ pdMore = null; body.innerHTML = `<tr><td colspan="${colsFor(g).length}" class="empty">No Pokémon match these filters. <button type="button" class="btn small" data-clear="1">Clear filters</button></td></tr>`; }
   else {
-    body.innerHTML = rows.slice(0, 120).map(rowHtml).join("");
-    let at = 120;
-    const more = () => { if (token !== renderSheet.token || at >= rows.length) return; body.insertAdjacentHTML("beforeend", rows.slice(at, at + 300).map(rowHtml).join("")); at += 300; setTimeout(more, 0); };
-    setTimeout(more, 0);
+    body.innerHTML = rows.slice(0, first).map(rowHtml).join("");
+    let at = first;
+    pdMore = at < rows.length ? () => { body.insertAdjacentHTML("beforeend", rows.slice(at, at + PD_STEP).map(rowHtml).join("")); at += PD_STEP; if (at >= rows.length) pdMore = null; } : null;
+    queuePdFill();
   }
   const active = [];
   if (raw) active.push(`matching “${esc(raw)}”`);
@@ -2117,7 +2124,7 @@ $("evBody").addEventListener("click", e => {
   const tb = e.target.closest(".tyb");
   if (tb){ if (tb.dataset.ft !== undefined){ pd.type = pd.type === tb.dataset.ft ? "" : tb.dataset.ft; } else { pd.vs = tb.dataset.fv; pd.mode = "weak"; sortBy = "vs"; sortDir = -1; } renderSheet(); return; }
   const b = e.target.closest(".more"); if (!b) return;
-  const n = Number(b.dataset.n); expanded.has(n) ? expanded.delete(n) : expanded.add(n); renderSheet();
+  const n = Number(b.dataset.n); expanded.has(n) ? expanded.delete(n) : expanded.add(n); renderSheet(true);
 });
 let evTimer = 0;
 evSearch.addEventListener("input", () => { clearTimeout(evTimer); evTimer = setTimeout(renderSheet, 120); });
@@ -2383,7 +2390,8 @@ function renderActive(){
   if (v === "secret" && dirty.secret){ dirty.secret = false; renderSecret(); }
   if (v === "dex") renderDex();
 }
-const screenEl = () => window.matchMedia("(min-width:721px)").matches ? document.getElementById("screen") : null;
+const WIDE = window.matchMedia("(min-width:721px)"), REDUCE_MOTION = window.matchMedia("(prefers-reduced-motion:reduce)");
+const screenEl = () => WIDE.matches ? document.getElementById("screen") : null;
 const getY = () => { const e = screenEl(); return e ? e.scrollTop : window.scrollY; };
 const setY = y => { const e = screenEl(); if (e) e.scrollTop = y; else window.scrollTo(0, y); };
 let bootDone = false;
@@ -2451,11 +2459,12 @@ function showView(v){
   navLeaveY = getY();
   const changing = v !== state.view || v === "dex";
   state.view = v;
-  VIEWS.forEach(x => { $("view-" + x).hidden = x !== v; });
+  VIEWS.forEach(x => { $("view-" + x).hidden = true; });
+  if (navLeaveY) setY(0);
+  $("view-" + v).hidden = false;
   wsLinks.forEach(a => a.classList.toggle("on", a.dataset.view === v));
   renderActive();
-  setY(0);
-  if (changing && bootDone){ const dk = document.querySelector(".desk"); dk.classList.remove("swap"); void dk.offsetWidth; dk.classList.add("swap"); if (!navMoving) sfx("nav"); }
+  if (changing && bootDone){ if (!REDUCE_MOTION.matches) document.querySelector(".desk").animate([{opacity:0, transform:"translateY(4px)"}, {opacity:1, transform:"none"}], {duration:260, easing:"steps(5)"}); if (!navMoving) sfx("nav"); }
   try { history.replaceState(history.state, "", "#" + (v === "evs" ? "pokedata" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v)); } catch(_) {}
   navRecord();
 }
@@ -3075,7 +3084,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.0";
+const APP_VERSION = "1.9.1";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3293,9 +3302,10 @@ if (inApp()){
   if (autoUpdateOn()) setTimeout(() => checkForUpdates(false), 2500);
 }
 
+const CLOCK_DAY = new Intl.DateTimeFormat(undefined, {weekday:"short"}), CLOCK_TIME = new Intl.DateTimeFormat([], {hour:"2-digit", minute:"2-digit"});
 function tick(){
-  const d = new Date();
-  $("clock").textContent = d.toLocaleDateString(undefined,{weekday:"short"}) + " " + d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});
+  const d = new Date(), t = CLOCK_DAY.format(d) + " " + CLOCK_TIME.format(d), c = $("clock");
+  if (c.textContent !== t) c.textContent = t;
 }
 
 (() => {
@@ -3457,7 +3467,7 @@ document.addEventListener("click", e => {
   sfx("click");
 }, true);
 function runBoot(force){
-  const boot = $("boot"), reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const boot = $("boot"), reduce = REDUCE_MOTION.matches;
   let seen = false; try { seen = sessionStorage.getItem("iv31-booted") === "1"; } catch(_) {}
   if ((seen && !force) || reduce){ bootDone = true; return; }
   try { sessionStorage.setItem("iv31-booted", "1"); } catch(_) {}
@@ -3479,7 +3489,7 @@ function placeScrOff(){
 }
 function setPower(on){
   if (powerBusy) return;
-  const o = $("scrOff"), led = $("power"), sc = $("screen"), reduce = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  const o = $("scrOff"), led = $("power"), sc = $("screen"), reduce = REDUCE_MOTION.matches;
   led.setAttribute("aria-pressed", on); led.setAttribute("aria-label", on ? "Turn the screen off" : "Turn the screen on");
   if (!on){
     placeScrOff(); document.documentElement.classList.add("power-off"); sc.inert = true;
@@ -3507,21 +3517,25 @@ function fitWide(){
     const t = w.firstElementChild;
     if (!t || w.offsetParent === null) return;
     let z = parseFloat(t.style.zoom) || 1;
-    const cw0 = w.clientWidth;
-    if (z < 1 && cw0 > (+w.dataset.fitw || 0)){ t.style.zoom = ""; z = 1; }
-    for (let i = 0; i < 5; i++){
-      const sw = w.scrollWidth, cw = w.clientWidth;
-      if (sw <= cw || z <= zMin) break;
-      z = Math.max(zMin, z * (cw - 1) / sw);
+    const cw = w.clientWidth;
+    if (z < 1 && cw > (+w.dataset.fitw || 0) + 1){ t.style.zoom = ""; z = 1; }
+    let sw = w.scrollWidth;
+    const slack = z < 1 ? 8 : 1;
+    for (let i = 0; i < 3 && sw > cw + slack && z > zMin; i++){
+      z = Math.max(zMin, z * (cw - 2) / sw);
       t.style.zoom = z.toFixed(3);
+      sw = w.scrollWidth;
     }
-    w.classList.toggle("xscroll", w.scrollWidth > w.clientWidth + 1);
-    w.dataset.fitw = w.clientWidth;
+    w.classList.toggle("xscroll", sw > cw + slack);
+    w.dataset.fitw = cw;
   });
 }
 const queueFit = () => { if (!fitQueued){ fitQueued = true; requestAnimationFrame(fitWide); } };
 new MutationObserver(queueFit).observe(document.querySelector(".desk"), {childList:true, subtree:true});
-if (window.ResizeObserver) new ResizeObserver(queueFit).observe($("screen"));
+if (window.ResizeObserver) new ResizeObserver(() => { queueFit(); if (pdMore) queuePdFill(); }).observe($("screen"));
+const onScrollFill = () => { if (pdMore) queuePdFill(); };
+$("screen").addEventListener("scroll", onScrollFill, {passive:true});
+window.addEventListener("scroll", onScrollFill, {passive:true});
 window.addEventListener("resize", queueFit);
 queueFit();
 

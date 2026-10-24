@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import ROOT, compact, old_engine_fallbacks
+from build import ROOT, inline_data, old_engine_fallbacks
 
 SITE = "https://scooby5328-design.github.io/iV31/"
 
@@ -19,11 +19,7 @@ def main():
         shutil.copy2(ROOT / "app/web" / name, out / name)
     shutil.copy2(ROOT / "app/resources/icon.png", out / "icon.png")
 
-    page = old_engine_fallbacks((ROOT / "src/index.html").read_text(encoding="utf-8"))
-    for key, name in (("__LOC__", "locations.json"), ("__DEX__", "pokedex.json"), ("__SP__", "secret-power.json"), ("__PROG__", "progression.json")):
-        if page.count(key) != 1:
-            sys.exit(f"src/index.html must contain {key} exactly once")
-        page = page.replace(key, compact(ROOT / "src/data" / name))
+    page = inline_data(old_engine_fallbacks((ROOT / "src/index.html").read_text(encoding="utf-8")))
     tag = '<script src="js/neutralino.js"></script>'
     if page.count(tag) != 1:
         sys.exit("Expected one neutralino.js script tag")

@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.0",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.0.neu",
+  "version": "1.9.1",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.1.neu",
   "data": {
-    "sha256": "9ab75f736d7d352d60e2cbd61060ac4cc66de9f13e93b50fdd2af7b73403c21b",
-    "size": 934414,
-    "notes": "Red shell, a 32-bit style screen with accent colours, and a working power button.",
+    "sha256": "e4001a57eaf62417d5c2386cda902d6c4a76600d5fb80706526fb934371a6902",
+    "size": 958148,
+    "notes": "Much faster Pok\u00e9 Data, start-up and tab switching.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {
