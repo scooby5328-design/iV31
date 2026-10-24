@@ -18,6 +18,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - D-pad ▴ ▾ scroll half a screen.
 
+### Checksums (SHA-256)
+
+```
+0117bc54c3eb290aa680753779048750c859cd2339d1e4efde44571b5b79513a  iv31-Setup-1.8.5.exe
+b8888159c8edd28c60f69baefafadb034b609fc50628d8e149c789d5790d5a59  iv31-1.8.5-mac.zip
+1d012602aa5952e72c15062a8ab2186d3f278463973729269854444defca7047  iv31-1.8.5-linux-x64.tar.gz
+9ac84494ebc08ed411a8f3a973d80400d56db180f71061f3f03883b301a4778b  iv31-1.8.5-linux-arm64.tar.gz
+72eee9bbc75954ff37a57f4364cfd46d4795ea1d1ca7744ee7a2613b3f4fb2b5  iv31_1.8.5_amd64.deb
+20eaf14c912cd650ed08259ff902c23b4ea054b83118cf3f2c684780b535547e  iv31_1.8.5_arm64.deb
+8116f307dab822679ba190ed02d9c62ca7bdad69c1dcfd7f3c9a2152cfa65d14  iv31-1.8.5-x86_64.AppImage
+720626404ddd60b05728b642b6387dedad8a3f73e8c97af4b19708a436b84617  iv31-1.8.5-aarch64.AppImage
+```
+
 ## [1.8.4] - 2026-10-23
 
 ### Changed
