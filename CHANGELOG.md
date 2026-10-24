@@ -9,6 +9,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.1] - 2026-10-23
+
+### Changed
+- **EV Training is now Poké Data** (`#pokedata`; `#evs` still works): Type and Weak to columns, a Type filter, **Matchup against** an attacking type with a multiplier column and Weak / Resist / Immune filters, clickable type and weakness chips, search by type name, and the matchup checker as a folding panel with **Filter the table to this type**.
+- Quality of life: filters, sorting and column choices are remembered (`iv31-pokedata`), **Clear filters**, active filters listed in the count line, **/** focuses search and **Esc** clears it, optional Weak to and Found in columns, and rows render in chunks so the tab opens faster.
+- **EVs gained** and **EV-lowering berries** moved to the IV Calculator tab under the EV calculator (`#berries` opens the berries there). The Types tab keeps the chart and type notes.
+- Tips stay open while the screen scrolls into place.
+
 ## [1.8.0] - 2026-10-23
 
 ### Added

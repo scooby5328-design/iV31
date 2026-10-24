@@ -670,6 +670,27 @@ details.win{position:relative}
 .view{position:relative}
 .tip-btn.float{position:absolute;z-index:6;margin:0}
 .ws a.on{color:var(--base)}
+.pdtools{margin-top:-4px}
+.pdtools .pdcols{display:flex;flex-direction:column;gap:4px}
+.pdtools .pdcols .lbl{margin-bottom:0}
+.pdtools select{width:auto;min-width:150px}
+.tyb{all:unset;cursor:pointer;display:inline-block;margin:1px 3px 1px 0;border-radius:4px}
+.tyb:focus-visible{outline:2px solid var(--mauve);outline-offset:1px}
+.tyb:hover .ty{filter:brightness(1.2)}
+.tyb.on .ty{outline:2px solid var(--text);outline-offset:1px}
+.tyb.x4 .ty{box-shadow:0 0 0 2px var(--red)}
+.tyb.x4 .ty::before{content:"4× "}
+.sheet td.tyc{white-space:nowrap}
+.sheet td.weakc{min-width:210px;max-width:300px;white-space:normal;line-height:1.7}
+.weakc .ty{font-size:9px;padding:1px 5px}
+.mult{font-family:var(--lcd);font-size:19px;line-height:1;padding:0 6px;border-radius:3px}
+.mult.m4{color:var(--red);background:color-mix(in srgb,var(--red) 18%,transparent)}
+.mult.m2{color:var(--peach);background:color-mix(in srgb,var(--peach) 14%,transparent)}
+.mult.m1{color:var(--overlay)}
+.mult.mh{color:var(--green);background:color-mix(in srgb,var(--green) 14%,transparent)}
+.mult.m0{color:var(--blue);background:color-mix(in srgb,var(--blue) 16%,transparent)}
+.sheet td.empty{text-align:center;padding:26px 10px;color:var(--subtext)}
+.sheet td.empty .btn{margin-left:8px}
 </style>
 </head>
 <body>
@@ -699,7 +720,7 @@ details.win{position:relative}
     <div class="navbtns"><button type="button" class="navb" id="navBack" aria-label="Back" title="Back (Alt+←)" disabled>◂</button><button type="button" class="navb" id="navFwd" aria-label="Forward" title="Forward (Alt+→)" disabled>▸</button></div>
     <div class="ws">
       <a href="#calc" data-view="calc"><b>1</b><span>IV Calculator</span></a>
-      <a href="#evs" data-view="evs"><b>2</b><span>EV Training</span></a>
+      <a href="#pokedata" data-view="evs"><b>2</b><span>Poké Data</span></a>
       <a href="#types" data-view="types"><b>3</b><span>Types</span></a>
       <a href="#secret" data-view="secret"><b>4</b><span>Powers</span></a>
       <a href="#favs" data-view="favs"><b>5</b><span>Favorites</span> <em class="count" id="favCount"></em></a>
@@ -784,7 +805,7 @@ details.win{position:relative}
           <li>Party comparison: up to 30 Pokémon side by side</li>
           <li>Your party is saved between visits</li>
           <li>The EV calculator and Hidden Power calculator</li>
-          <li>Wild locations in the EV Training table and Favorites</li>
+          <li>Wild locations in Poké Data and on data pages</li>
           <li>EVs gained: see what training added by comparing stats before and after</li>
         </ul>
         <div class="pro-actions">
@@ -868,28 +889,6 @@ details.win{position:relative}
     </section>
 
   </div>
-
-  <details class="win" id="guide">
-    <summary><div class="titlebar"><span>How the IV calculator works</span></div></summary>
-    <div class="win-body" style="border-radius:0 0 12px 12px">
-      <div class="pane guide">
-        <div><h3>The basics</h3><p>Every stat since Ruby comes from the species' base stat, the Pokémon's IV, its EVs (points earned from battles and vitamins), its level and its nature. The calculator tries every IV from 0 to 31 and keeps the ones that match your numbers.</p></div>
-        <div><h3>The formula</h3><p><code>HP = ⌊(2×Base + IV + ⌊EV/4⌋) × Level/100⌋ + Level + 10</code><br><code>Other = ⌊(⌊(2×Base + IV + ⌊EV/4⌋) × Level/100⌋ + 5) × Nature⌋</code><br>Nature is 1.1 for the raised stat, 0.9 for the lowered one, otherwise 1.</p></div>
-        <div><h3>Key stats and natures</h3><p>Starred stats (★) are the two this Pokémon relies on most, judged from its final evolution in the selected generation. The suggested natures raise one of them and lower the attacking stat it doesn't use. HP is never starred because no nature changes it.</p></div>
-        <div><h3>EV calculator</h3><p>Type the EVs your Pokémon has, or add them as you train: pick what you defeated, how many times, and any Macho Brace, Power item or Pokérus. It keeps you inside the limits (510 in total, and 252 per stat from Gen VI on, 255 before that) and shows the stat points the EVs give at its level and at level 100. Use "Send EVs to Summary" so the IV readout accounts for them.</p></div>
-        <div><h3>Hidden Power</h3><p>Hidden Power's type comes from whether each IV is odd or even, and in Gen III to V its power (30 to 70) comes from the second-lowest bit of each IV. The "Aim for a type" table lists the highest IVs that give each type, which is handy when breeding.</p></div>
-        <div id="guideUpd"><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number to check any time. Nothing about you is sent; it only downloads a small version file.</p>
-        <label class="toggle" for="autoUpd"><input type="checkbox" id="autoUpd" checked> Check for updates when iv31 starts</label></div>
-        <div><h3>Pokémon that have battled</h3><p>The stats screen only shows each IV and a quarter of its EVs added together, so iv31 can't always tell them apart. Set <b>EVs</b> on a level entry to <b>None yet</b> for a Pokémon that's just been caught or hatched, <b>Has battled</b> if it has fought and you don't know its EVs, or leave it on <b>Not sure</b> to let iv31 decide stat by stat. When EVs are raising a stat, the readout shows the IV and EV ranges that fit. Typing known EVs, or adding the stats again at a higher level, narrows them. To see what one training session added, use <b>EVs gained</b> in the EV Training tab.</p></div>
-        <div><h3>Gen I and II</h3><p>Red, Blue, Yellow, Gold, Silver and Crystal use DVs from 0 to 15 instead of IVs, Stat Experience instead of EVs, and no natures. The HP DV isn't stored; it comes from whether the other four DVs are odd or even, so iv31 only keeps DV combinations where they agree. Gen I has one Special stat. In Gen II, Sp. Atk and Sp. Def share the Special DV, and DVs also decide Hidden Power and whether a Pokémon is shiny.</p></div>
-        <div><h3>Getting accurate results</h3><p>Ranges are widest at low levels. A freshly caught Pokémon has 0 EVs, so check it before it battles. Changed base stats from older games show in red. Let's Go Pikachu/Eevee and Legends: Arceus use different stat systems and aren't supported.</p></div>
-      </div>
-    </div>
-  </details>
-
-</div>
-
-<div class="view" id="view-evs" hidden>
   <details class="win" id="gain">
     <summary><div class="titlebar"><span>EVs gained: compare stats before and after training</span></div></summary>
     <div class="win-body" style="border-radius:0 0 12px 12px">
@@ -926,20 +925,74 @@ details.win{position:relative}
       </div>
     </div>
   </details>
+  <details class="win" id="berries">
+    <summary><div class="titlebar"><span>EV-lowering berries</span></div></summary>
+    <div class="win-body" style="border-radius:0 0 12px 12px">
+      <div class="pane" id="pane-berries">
+        <div class="notes" id="berryRule" style="margin:0 0 14px"></div>
+        <div class="scroll">
+          <table class="berries">
+            <thead><tr><th>Berry</th><th>Lowers</th><th>In this game</th><th>Raise it instead</th><th id="berryWhereHead">Where to get it</th></tr></thead>
+            <tbody id="berryBody"></tbody>
+          </table>
+        </div>
+        <div class="notes" id="berryNotes"></div>
+      </div>
+    </div>
+  </details>
+
+  <details class="win" id="guide">
+    <summary><div class="titlebar"><span>How the IV calculator works</span></div></summary>
+    <div class="win-body" style="border-radius:0 0 12px 12px">
+      <div class="pane guide">
+        <div><h3>The basics</h3><p>Every stat since Ruby comes from the species' base stat, the Pokémon's IV, its EVs (points earned from battles and vitamins), its level and its nature. The calculator tries every IV from 0 to 31 and keeps the ones that match your numbers.</p></div>
+        <div><h3>The formula</h3><p><code>HP = ⌊(2×Base + IV + ⌊EV/4⌋) × Level/100⌋ + Level + 10</code><br><code>Other = ⌊(⌊(2×Base + IV + ⌊EV/4⌋) × Level/100⌋ + 5) × Nature⌋</code><br>Nature is 1.1 for the raised stat, 0.9 for the lowered one, otherwise 1.</p></div>
+        <div><h3>Key stats and natures</h3><p>Starred stats (★) are the two this Pokémon relies on most, judged from its final evolution in the selected generation. The suggested natures raise one of them and lower the attacking stat it doesn't use. HP is never starred because no nature changes it.</p></div>
+        <div><h3>EV calculator</h3><p>Type the EVs your Pokémon has, or add them as you train: pick what you defeated, how many times, and any Macho Brace, Power item or Pokérus. It keeps you inside the limits (510 in total, and 252 per stat from Gen VI on, 255 before that) and shows the stat points the EVs give at its level and at level 100. Use "Send EVs to Summary" so the IV readout accounts for them.</p></div>
+        <div><h3>Hidden Power</h3><p>Hidden Power's type comes from whether each IV is odd or even, and in Gen III to V its power (30 to 70) comes from the second-lowest bit of each IV. The "Aim for a type" table lists the highest IVs that give each type, which is handy when breeding.</p></div>
+        <div id="guideUpd"><h3>Updates</h3><p>When iv31 starts it quietly checks GitHub for a newer version. If there is one, a bar appears at the top: choose <b>Update now</b> and it downloads the update, checks its fingerprint, installs it and restarts, keeping everything you've saved. You can also click the version number to check any time. Nothing about you is sent; it only downloads a small version file.</p>
+        <label class="toggle" for="autoUpd"><input type="checkbox" id="autoUpd" checked> Check for updates when iv31 starts</label></div>
+        <div><h3>Pokémon that have battled</h3><p>The stats screen only shows each IV and a quarter of its EVs added together, so iv31 can't always tell them apart. Set <b>EVs</b> on a level entry to <b>None yet</b> for a Pokémon that's just been caught or hatched, <b>Has battled</b> if it has fought and you don't know its EVs, or leave it on <b>Not sure</b> to let iv31 decide stat by stat. When EVs are raising a stat, the readout shows the IV and EV ranges that fit. Typing known EVs, or adding the stats again at a higher level, narrows them. To see what one training session added, use <b>EVs gained</b> below the EV calculator.</p></div>
+        <div><h3>Gen I and II</h3><p>Red, Blue, Yellow, Gold, Silver and Crystal use DVs from 0 to 15 instead of IVs, Stat Experience instead of EVs, and no natures. The HP DV isn't stored; it comes from whether the other four DVs are odd or even, so iv31 only keeps DV combinations where they agree. Gen I has one Special stat. In Gen II, Sp. Atk and Sp. Def share the Special DV, and DVs also decide Hidden Power and whether a Pokémon is shiny.</p></div>
+        <div><h3>Getting accurate results</h3><p>Ranges are widest at low levels. A freshly caught Pokémon has 0 EVs, so check it before it battles. Changed base stats from older games show in red. Let's Go Pikachu/Eevee and Legends: Arceus use different stat systems and aren't supported.</p></div>
+      </div>
+    </div>
+  </details>
+
+</div>
+
+<div class="view" id="view-evs" hidden>
+  <details class="win" id="mcwin">
+    <summary><div class="titlebar"><span id="mc-h">Matchup checker: any one or two types</span></div></summary>
+    <div class="win-body" style="border-radius:0 0 12px 12px">
+      <div class="pane">
+        <div class="row2">
+          <div class="pick">
+            <span class="lbl">Types to check</span>
+            <select id="mcT1" aria-label="First type"></select>
+            <select id="mcT2" aria-label="Second type"></select>
+          </div>
+          <div class="pick"><span class="lbl">Show these Pokémon</span><button type="button" class="btn small" id="mcFilter">Filter the table to this type</button></div>
+        </div>
+        <div id="mcOut"></div>
+      </div>
+    </div>
+  </details>
   <section class="win active">
     <div class="win-body">
-      <div class="titlebar withtabs">
-        <div class="subtabs" role="tablist" aria-label="EV training">
-          <button type="button" role="tab" id="tab-yields" aria-controls="pane-yields" aria-selected="true">EV yields</button>
-          <button type="button" role="tab" id="tab-berries" aria-controls="pane-berries" aria-selected="false">EV-lowering berries</button>
-        </div>
-        <span class="dot"></span>
-      </div>
+      <div class="titlebar"><span id="pd-h">Poké Data</span><span class="dot"></span></div>
 
-      <div class="pane" id="pane-yields" role="tabpanel" aria-labelledby="tab-yields">
+      <div class="pane" id="pane-yields">
         <div class="tools">
-          <div class="grow"><label for="evSearch">Search</label><input type="search" id="evSearch" placeholder="Name, number, or place (e.g. Route 110)" autocomplete="off"></div>
+          <div class="grow"><label for="evSearch">Search</label><input type="search" id="evSearch" placeholder="Name, number, type or place (press / to jump here)" autocomplete="off"></div>
           <div><span class="lbl" id="evFilterLbl">Gives EVs in</span><div class="seg" id="evFilter" role="group" aria-labelledby="evFilterLbl"></div></div>
+        </div>
+        <div class="tools pdtools">
+          <div><label for="pdType">Type</label><select id="pdType"></select></div>
+          <div><label for="pdVs">Matchup against</label><select id="pdVs"></select></div>
+          <div><span class="lbl" id="pdModeLbl">Show</span><div class="seg" id="pdMode" role="group" aria-labelledby="pdModeLbl"></div></div>
+          <div class="pdcols"><span class="lbl">Columns</span><label class="toggle" for="pdShowWeak"><input type="checkbox" id="pdShowWeak" checked> Weak to</label><label class="toggle loc" for="pdShowLoc"><input type="checkbox" id="pdShowLoc" checked> Found in</label></div>
+          <button type="button" class="btn small" id="pdClear" hidden>Clear filters</button>
         </div>
         <div class="legend">
           <p id="evLegend"><b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.</p>
@@ -956,50 +1009,12 @@ details.win{position:relative}
         <div class="notes" id="evNotes"></div>
       </div>
 
-      <div class="pane" id="pane-berries" role="tabpanel" aria-labelledby="tab-berries" hidden>
-        <div class="notes" id="berryRule" style="margin:0 0 14px"></div>
-        <div class="scroll">
-          <table class="berries">
-            <thead><tr><th>Berry</th><th>Lowers</th><th>In this game</th><th>Raise it instead</th><th id="berryWhereHead">Where to get it</th></tr></thead>
-            <tbody id="berryBody"></tbody>
-          </table>
-        </div>
-        <div class="notes" id="berryNotes"></div>
-      </div>
     </div>
   </section>
 </div>
 
 <div class="view" id="view-types" hidden>
-  <div class="tiles">
-    <section class="win active" aria-labelledby="mc-h">
-      <div class="win-body">
-        <div class="titlebar"><span id="mc-h">Matchup checker</span><span class="dot"></span></div>
-        <div class="pane">
-          <div class="row2">
-            <div class="pick">
-              <label for="mcSearch">Pokémon data page</label>
-              <input type="search" id="mcSearch" placeholder="Search by name or number" autocomplete="off">
-              <select id="mcSpecies" aria-label="Pokémon for matchups"></select>
-            </div>
-            <div class="pick">
-              <span class="lbl">Types to check</span>
-              <select id="mcT1" aria-label="First type"></select>
-              <select id="mcT2" aria-label="Second type"></select>
-            </div>
-          </div>
-          <div id="mcOut"></div>
-        </div>
-      </div>
-    </section>
-    <section class="win" aria-labelledby="tn-h">
-      <div class="win-body">
-        <div class="titlebar"><span id="tn-h">Type notes for this game</span><span class="dot"></span></div>
-        <div class="pane"><div class="notes" id="typeNotes" style="margin:0"></div></div>
-      </div>
-    </section>
-  </div>
-  <section class="win" aria-labelledby="tc-h">
+  <section class="win active" aria-labelledby="tc-h">
     <div class="win-body">
       <div class="titlebar"><span id="tc-h">Weakness and resistance chart</span><span class="dot"></span></div>
       <div class="pane">
@@ -1012,6 +1027,12 @@ details.win{position:relative}
           <span>Blank = normal damage. Rows attack, columns defend. Dual types multiply.</span>
         </div>
       </div>
+    </div>
+  </section>
+  <section class="win" aria-labelledby="tn-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="tn-h">Type notes for this game</span><span class="dot"></span></div>
+      <div class="pane"><div class="notes" id="typeNotes" style="margin:0"></div></div>
     </div>
   </section>
 </div>
@@ -1192,7 +1213,7 @@ const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const nameToNum = {}; DEX.forEach((p,i) => nameToNum[p[0]] = i+1);
 const PREVO = {}; DEX.forEach((p,i) => p[7].forEach(k => { PREVO[k] = i+1; }));
 
-const state = {ei:0, ver:"Ruby", view:"calc", evSub:"yields", pwSub:"sp"};
+const state = {ei:0, ver:"Ruby", view:"calc", pwSub:"sp"};
 const dirty = {evs:true, types:true, favs:true, secret:true};
 const era = () => ERAS[state.ei];
 
@@ -1878,9 +1899,25 @@ $("partyBody").addEventListener("click", e => {
 });
 
 const evSearch = $("evSearch"), evFilter = $("evFilter"), evWild = $("evWild"), expanded = new Set();
-const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"loc",label:"Found in",cls:"loc"},...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
-let sortBy = "no", sortDir = 1, evStat = "all", routeOrder = false;
-evFilter.innerHTML = [["all","All"],...KEYS.map(k=>[k,SHORT[k]])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v==="all"}">${l}</button>`).join("");
+const PD_KEY = "iv31-pokedata";
+const pd = (() => { const d = {type:"", vs:"", mode:"all", weak:true, loc:true, sortBy:"no", sortDir:1, evStat:"all", route:false, wild:false}; try { const v = JSON.parse(localStorage.getItem(PD_KEY) || "null"); if (v && typeof v === "object") Object.keys(d).forEach(k => { if (typeof v[k] === typeof d[k]) d[k] = v[k]; }); } catch(_) {} return d; })();
+const colsFor = g => [{id:"fav",label:"☆",nosort:true,n:true,aria:"Favorite"},{id:"no",label:"#"},{id:"name",label:"Pokémon"},{id:"type",label:"Type"},...(pd.weak ? [{id:"weak",label:"Weak to",cls:"weakc"}] : []),...(pd.vs !== "" ? [{id:"vs",label:`vs ${TYPES[Number(pd.vs)]}`,n:true}] : []),...(pd.loc ? [{id:"loc",label:"Found in",cls:"loc"}] : []),...statKeys(g).map(k=>({id:k,label:shortFor(k,g),n:true})),{id:"tot",label:"Total",n:true}];
+let sortBy = pd.sortBy, sortDir = pd.sortDir, evStat = pd.evStat, routeOrder = pd.route;
+function savePd(){ Object.assign(pd, {sortBy, sortDir, evStat, route:routeOrder, wild:evWild.checked}); try { localStorage.setItem(PD_KEY, JSON.stringify(pd)); } catch(_) {} }
+evFilter.innerHTML = [["all","All"],...KEYS.map(k=>[k,SHORT[k]])].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v===evStat}">${l}</button>`).join("");
+evWild.checked = pd.wild;
+$("pdShowWeak").checked = pd.weak; $("pdShowLoc").checked = pd.loc;
+$("pdMode").innerHTML = [["all","All"],["weak","Weak to it"],["resist","Resist it"],["immune","Immune"]].map(([v,l]) => `<button type="button" data-v="${v}" aria-pressed="${v===pd.mode}">${l}</button>`).join("");
+const MULT_TXT = m => m === 4 ? "4×" : m === 2 ? "2×" : m === 1 ? "1×" : m === .5 ? "½×" : m === .25 ? "¼×" : "0×";
+const MULT_CLS = m => m >= 4 ? "m4" : m >= 2 ? "m2" : m === 1 ? "m1" : m > 0 ? "mh" : "m0";
+function fillPdSelects(){
+  const list = attackTypes(era().g);
+  if (pd.type !== "" && !list.includes(Number(pd.type))) pd.type = "";
+  if (pd.vs !== "" && !list.includes(Number(pd.vs))) pd.vs = "";
+  $("pdType").innerHTML = `<option value="">Any type</option>` + list.map(i => `<option value="${i}">${TYPES[i]}</option>`).join("");
+  $("pdVs").innerHTML = `<option value="">No matchup</option>` + list.map(i => `<option value="${i}">${TYPES[i]} attacks</option>`).join("");
+  $("pdType").value = pd.type; $("pdVs").value = pd.vs;
+}
 function foundCell(ver, n){
   if (!LOCDATA.found[ver]) return `<span class="none">No location data for ${esc(ver)}</span>`;
   const places = placesFor(ver, n);
@@ -1889,40 +1926,69 @@ function foundCell(ver, n){
   return shown.map(x => `<span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}`).join(", ") + (extra > 0 ? `<button type="button" class="more" data-n="${n}">${open ? "show less" : `+${extra} more`}</button>` : "");
 }
 function renderSheet(){
-  const E = era(), ver = state.ver, q = fold(evSearch.value.trim()).replace(/^#0*/,""), old = E.g <= 2, sk = statKeys(E.g);
+  const E = era(), g = E.g, ver = state.ver, raw = evSearch.value.trim(), q = fold(raw).replace(/^#0*/,""), old = g <= 2, sk = statKeys(g);
+  fillPdSelects();
   evFilter.closest("div").hidden = old;
   if (old && evStat !== "all"){ evStat = "all"; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === "all")); }
-  if (!["no","name","tot"].includes(sortBy) && !sk.includes(sortBy)){ sortBy = "no"; sortDir = 1; }
-  const byRoute = routeOrder && tier() !== "free" && !!LOCDATA.found[ver];
+  if (!["no","name","tot","type","weak","vs"].includes(sortBy) && !sk.includes(sortBy)){ sortBy = "no"; sortDir = 1; }
+  if (sortBy === "vs" && pd.vs === ""){ sortBy = "no"; sortDir = 1; }
+  if (sortBy === "weak" && !pd.weak){ sortBy = "no"; sortDir = 1; }
+  $("pdMode").parentElement.hidden = pd.vs === "";
+  $("pdMode").querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === pd.mode));
+  const byRoute = routeOrder && tier() !== "free" && !!LOCDATA.found[ver] && pd.loc;
   $("evRoute").checked = routeOrder;
+  const typeQ = TYPES.findIndex((t, i) => attackTypes(g).includes(i) && fold(t) === q);
+  const ft = pd.type === "" ? -1 : Number(pd.type), fv = pd.vs === "" ? -1 : Number(pd.vs);
   const si = evStat === "all" ? -1 : KEYS.indexOf(evStat), rows = [];
   for (let n = 1; n <= E.max; n++){
-    const p = DEX[n-1], ev = old ? (b => sk.map(k => b[k]))(baseStats(n, E.g)) : p[8];
+    const p = DEX[n-1], ev = old ? (b => sk.map(k => b[k]))(baseStats(n, g)) : p[8];
     if (si >= 0 && !ev[si]) continue;
+    const ts = typesOf(n, g);
+    if (ft >= 0 && !ts.includes(ft)) continue;
+    const vm = fv >= 0 ? eff(fv, ts, g) : null;
+    if (fv >= 0 && pd.mode !== "all" && !(pd.mode === "weak" ? vm >= 2 : pd.mode === "resist" ? vm > 0 && vm < 1 : vm === 0)) continue;
     if (evWild.checked && tier() !== "free" && !placesFor(ver, n).length) continue;
-    if (q && !(fold(p[0]).includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q)) || (tier() !== "free" && placesFor(ver, n).some(x => x.place.toLowerCase().includes(q))))) continue;
-    rows.push({no:n, name:p[0], ev, tot:ev.reduce((a,b) => a + b, 0)});
+    if (q && !(fold(p[0]).includes(q) || (/^\d+$/.test(q) && String(n).startsWith(q)) || (typeQ >= 0 && ts.includes(typeQ)) || (tier() !== "free" && placesFor(ver, n).some(x => x.place.toLowerCase().includes(q))))) continue;
+    const m = pd.weak ? matchups(ts, g) : null;
+    rows.push({no:n, name:p[0], ev, ts, vm, m, wk: m ? m.x4.length * 2 + m.x2.length : 0, tot:ev.reduce((a,b) => a + b, 0)});
   }
-  const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : r.ev[sk.indexOf(sortBy)];
+  const val = r => sortBy==="no" ? r.no : sortBy==="name" ? r.name : sortBy==="tot" ? r.tot : sortBy==="type" ? r.ts[0] * 100 + (r.ts[1] ?? -1) : sortBy==="weak" ? r.wk : sortBy==="vs" ? r.vm : r.ev[sk.indexOf(sortBy)];
   const byCol = (a,b) => { const x = val(a), y = val(b); const c = typeof x === "string" ? x.localeCompare(y) : x - y; return c ? c*sortDir : a.no - b.no; };
   if (byRoute){
-    rows.forEach(r => { const p = placesFor(ver, r.no)[0]; r.lk = p ? placeKey(ver, p.place) : null; });
+    rows.forEach(r => { const pl = placesFor(ver, r.no)[0]; r.lk = pl ? placeKey(ver, pl.place) : null; });
     rows.sort((a,b) => {
       if (!a.lk || !b.lk) return (a.lk ? -1 : b.lk ? 1 : 0) || byCol(a,b);
       return cmpPlace(a.lk, b.lk) || byCol(a,b);
     });
   }
   else rows.sort(byCol);
-  $("evHead").innerHTML = colsFor(E.g).map(c => c.nosort
+  savePd();
+  $("evHead").innerHTML = colsFor(g).map(c => c.nosort
     ? `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"><button type="button" disabled${c.aria?` aria-label="${c.aria}"`:""}>${c.label}</button></th>`
     : c.id === "loc"
     ? `<th class="loc"${byRoute?` aria-sort="ascending"`:""}><button type="button" data-c="loc" aria-pressed="${byRoute}" title="Turn story order ${byRoute?"off":"on"}">${c.label}${byRoute?" ▲":""}</button></th>`
     : `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"${sortBy===c.id?` aria-sort="${sortDir>0?"ascending":"descending"}"`:""}><button type="button" data-c="${c.id}">${c.label}${sortBy===c.id?(sortDir>0?" ▲":" ▼"):""}</button></th>`).join("");
-  $("evBody").innerHTML = rows.length ? rows.map(r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexLink(r.no, dexNo(r.no))}</td><td class="pk">${dexLink(r.no)}</td><td class="loc">${foundCell(ver, r.no)}</td>${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${sk[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`).join("") : `<tr><td colspan="${sk.length + 5}" class="empty">No Pokémon match these filters.</td></tr>`;
-  $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${si<0 ? "" : ` that give ${LABEL[evStat]} EVs`} · ${esc(ver)}`;
+  const chip = (t, attr, extra) => `<button type="button" class="tyb${extra || ""}" ${attr}="${t}" title="${attr === "data-ft" ? `Show only ${TYPES[t]} types` : `Show what's weak to ${TYPES[t]}`}"><span class="ty t${t}">${TYPES[t]}</span></button>`;
+  const rowHtml = r => `<tr><td class="fv">${starBtn(r.no)}</td><td class="no">${dexLink(r.no, dexNo(r.no))}</td><td class="pk">${dexLink(r.no)}</td><td class="tyc">${r.ts.map(t => chip(t, "data-ft", ft === t ? " on" : "")).join("")}</td>${pd.weak ? `<td class="weakc">${r.m.x4.map(t => chip(t, "data-fv", " x4")).join("")}${r.m.x2.map(t => chip(t, "data-fv", "")).join("")}</td>` : ""}${fv >= 0 ? `<td class="n"><span class="mult ${MULT_CLS(r.vm)}">${MULT_TXT(r.vm)}</span></td>` : ""}${pd.loc ? `<td class="loc">${foundCell(ver, r.no)}</td>` : ""}${r.ev.map((v,i)=> old ? `<td class="n">${v}</td>` : v ? `<td class="n"><span class="ev c-${KEYS[i]}">${v}</span></td>` : `<td class="n zero">·</td>`).join("")}<td class="n tot">${r.tot}</td></tr>`;
+  const body = $("evBody"), token = (renderSheet.token = (renderSheet.token || 0) + 1);
+  if (!rows.length){ body.innerHTML = `<tr><td colspan="${colsFor(g).length}" class="empty">No Pokémon match these filters. <button type="button" class="btn small" data-clear="1">Clear filters</button></td></tr>`; }
+  else {
+    body.innerHTML = rows.slice(0, 120).map(rowHtml).join("");
+    let at = 120;
+    const more = () => { if (token !== renderSheet.token || at >= rows.length) return; body.insertAdjacentHTML("beforeend", rows.slice(at, at + 300).map(rowHtml).join("")); at += 300; setTimeout(more, 0); };
+    setTimeout(more, 0);
+  }
+  const active = [];
+  if (raw) active.push(`matching “${esc(raw)}”`);
+  if (si >= 0) active.push(`giving ${LABEL[evStat]} EVs`);
+  if (ft >= 0) active.push(`${TYPES[ft]} type`);
+  if (fv >= 0 && pd.mode !== "all") active.push(pd.mode === "weak" ? `weak to ${TYPES[fv]}` : pd.mode === "resist" ? `resisting ${TYPES[fv]}` : `immune to ${TYPES[fv]}`);
+  if (evWild.checked && tier() !== "free") active.push("found in this version");
+  $("pdClear").hidden = !active.length;
+  $("evCount").innerHTML = `Showing <b>${rows.length}</b> of ${E.max} Pokémon${active.length ? " " + active.join(", ") : ""} · ${esc(ver)}`;
   $("evLegend").innerHTML = old
     ? `<b>How to read it:</b> in Gen ${ROMAN[E.g]} there are no EVs. Defeating a Pokémon adds its base stats, shown in each row, to your Pokémon's Stat Experience in every stat${E.g === 1 ? ", with one Special stat" : ""}. Higher numbers mean faster training. <b>Found in</b> lists where it appears in the selected version. Tap <b>☆</b> to save it to Favorites.`
-    : `<b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.`;
+    : `<b>How to read it:</b> one row per Pokémon in Pokédex order. <b>Type</b> and <b>Weak to</b> come from its types in Gen ${ROMAN[g]} (a red outline means 4×). Each colored square is a stat it gives EVs in, with how many for defeating it once. <b>Found in</b> lists where it appears in ${esc(ver)}. Click a type to filter by it, or a weakness to see everything weak to that type. Click a name for its full data page, or <b>☆</b> to save it to Favorites.`;
   $("evLegendKeys").hidden = old;
   const dn = $("evDataNote");
   dn.hidden = !!LOCDATA.found[ver] && !PARTIAL.has(ver);
@@ -1942,16 +2008,27 @@ function renderSheet(){
     <div class="note"><b>Boosters</b>${items} Pokérus doubles EVs too.</div>`;
 }
 evFilter.addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; evStat = b.dataset.v; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x===b)); renderSheet(); });
-$("evHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (c === "loc"){ routeOrder = !routeOrder; return renderSheet(); } if (sortBy===c) sortDir = -sortDir; else { sortBy = c; sortDir = (c==="no"||c==="name") ? 1 : -1; } renderSheet(); });
+$("pdType").addEventListener("change", e => { pd.type = e.target.value; renderSheet(); });
+$("pdVs").addEventListener("change", e => { pd.vs = e.target.value; if (pd.vs !== "" && pd.mode === "all") pd.mode = "weak"; if (pd.vs !== ""){ sortBy = "vs"; sortDir = -1; } renderSheet(); });
+$("pdMode").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; pd.mode = b.dataset.v; renderSheet(); });
+$("pdShowWeak").addEventListener("change", e => { pd.weak = e.target.checked; renderSheet(); });
+$("pdShowLoc").addEventListener("change", e => { pd.loc = e.target.checked; renderSheet(); });
+function clearPd(){ evSearch.value = ""; evStat = "all"; pd.type = ""; pd.vs = ""; pd.mode = "all"; evWild.checked = false; evFilter.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x.dataset.v === "all")); renderSheet(); }
+$("pdClear").addEventListener("click", clearPd);
+document.addEventListener("keydown", e => { if (e.key === "/" && state.view === "evs" && !/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName)){ e.preventDefault(); evSearch.focus(); evSearch.select(); } else if (e.key === "Escape" && document.activeElement === evSearch && evSearch.value){ evSearch.value = ""; renderSheet(); } });
+$("evHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (c === "loc"){ routeOrder = !routeOrder; return renderSheet(); } if (sortBy===c) sortDir = -sortDir; else { sortBy = c; sortDir = (c==="no"||c==="name"||c==="type") ? 1 : -1; } renderSheet(); });
 $("evRoute").addEventListener("change", e => { routeOrder = e.target.checked; renderSheet(); });
 $("evBody").addEventListener("click", e => {
   const s = e.target.closest(".star"); if (s) return toggleFav(Number(s.dataset.fav));
+  if (e.target.closest("[data-clear]")) return clearPd();
+  const tb = e.target.closest(".tyb");
+  if (tb){ if (tb.dataset.ft !== undefined){ pd.type = pd.type === tb.dataset.ft ? "" : tb.dataset.ft; } else { pd.vs = tb.dataset.fv; pd.mode = "weak"; sortBy = "vs"; sortDir = -1; } renderSheet(); return; }
   const b = e.target.closest(".more"); if (!b) return;
   const n = Number(b.dataset.n); expanded.has(n) ? expanded.delete(n) : expanded.add(n); renderSheet();
 });
 let evTimer = 0;
 evSearch.addEventListener("input", () => { clearTimeout(evTimer); evTimer = setTimeout(renderSheet, 120); });
-evWild.addEventListener("change", renderSheet);
+evWild.addEventListener("change", () => { savePd(); renderSheet(); });
 
 function berryRule(ver, g){
   if (g <= 2) return {usable:false, none:true, text:`EV-lowering berries don't exist in Gen ${ROMAN[g]}. These games use Stat Experience instead of EVs, and nothing in them lowers it. EV-lowering berries first appear in Emerald.`};
@@ -1991,16 +2068,8 @@ function renderBerries(){
     <div class="note"><b>Vitamins</b>${g >= 8 ? "Each vitamin adds 10 EVs, up to 252 in that stat." : `Each vitamin adds 10 EVs, but only works until that stat has ${vitCap} EVs. Battles have to do the rest.`} They cost ₽9,800 each at most department stores.</div>
     <div class="note"><b>Grow more</b>Plant a berry in soft soil to grow a tree. In Ruby and Emerald, water it with the Wailmer Pail and it gives several berries back.</div>`;
 }
-function setEvSub(sub){
-  state.evSub = sub;
-  [["yields","tab-yields","pane-yields"],["berries","tab-berries","pane-berries"]].forEach(([k,t,p]) => { $(t).setAttribute("aria-selected", k===sub); $(p).hidden = k!==sub; });
-  if (sub === "berries") renderBerries(); else renderSheet();
-  if (state.view === "evs"){ try { history.replaceState(null, "", "#" + curHash()); } catch(_) {} navReplace(); }
-}
-$("tab-yields").addEventListener("click", () => setEvSub("yields"));
-$("tab-berries").addEventListener("click", () => setEvSub("berries"));
 
-const mcSearch = $("mcSearch"), mcSpecies = $("mcSpecies"), mcT1 = $("mcT1"), mcT2 = $("mcT2");
+const mcT1 = $("mcT1"), mcT2 = $("mcT2");
 function fillTypeSelects(){
   const g = era().g, list = attackTypes(g), v1 = mcT1.value, v2 = mcT2.value;
   mcT1.innerHTML = `<option value="">First type…</option>` + list.map(i => `<option value="${i}">${TYPES[i]}</option>`).join("");
@@ -2026,7 +2095,7 @@ function matchupHtml(def, g){
 }
 function renderMatchups(){
   const g = era().g, t1 = mcT1.value, t2 = mcT2.value;
-  if (t1 === ""){ $("mcOut").innerHTML = `<div class="verdict">Choose one or two types to see what hits them hard, what they shrug off, and what they're strong against. Pick a Pokémon to open its data page, which shows its matchups too.</div>`; return; }
+  if (t1 === ""){ $("mcOut").innerHTML = `<div class="verdict">Choose one or two types to see what hits them hard, what they shrug off, and what they're strong against. Each Pokémon's own matchups are in its row below and on its data page.</div>`; return; }
   const def = [Number(t1)]; if (t2 !== "" && t2 !== t1) def.push(Number(t2));
   $("mcOut").innerHTML = `<p class="note-sm" style="margin:0 0 10px">${typeChips(def)} in Gen ${ROMAN[g]}</p>${matchupHtml(def, g)}`;
 }
@@ -2061,15 +2130,9 @@ function renderTypeNotes(){
   notes.push(`<div class="note"><b>Same-type bonus</b>A move that matches the user's own type does 1.5× damage. Weakness and STAB stack.</div>`);
   $("typeNotes").innerHTML = notes.join("");
 }
-function renderTypes(){
-  mcSpecies.value = ""; speciesOptions(mcSpecies, mcSearch, "Open a Pokémon's data page…");
-  fillTypeSelects();
-  renderMatchups(); renderTypeChart(); renderTypeNotes();
-}
-mcSearch.addEventListener("input", () => speciesOptions(mcSpecies, mcSearch, "Open a Pokémon's data page…"));
-mcSearch.addEventListener("keydown", e => { if (e.key === "Enter"){ const v = Number(mcSpecies.value) || Number(mcSpecies.options[0] && mcSpecies.options[0].value); if (v){ mcSearch.value = ""; openDex(v); } } });
-mcSpecies.addEventListener("change", () => { const num = Number(mcSpecies.value); if (num){ mcSearch.value = ""; openDex(num); } });
+function renderTypes(){ renderTypeChart(); renderTypeNotes(); }
 [mcT1, mcT2].forEach(s => s.addEventListener("change", renderMatchups));
+$("mcFilter").addEventListener("click", () => { if (mcT1.value === ""){ mcT1.focus(); return; } pd.type = mcT1.value; savePd(); renderSheet(); $("evSearch").closest(".win").scrollIntoView({block:"start", behavior:"smooth"}); });
 
 function introEra(n){ return ERAS.findIndex(e => n <= e.max); }
 function evoLine(n, max){
@@ -2192,7 +2255,7 @@ $("dexBody").addEventListener("click", e => {
 function renderFavs(){
   $("favGame").textContent = `Showing details for Gen ${ROMAN[era().g]} · ${state.ver}. Change the game picker.`;
   const nums = [...favs].sort((a,b)=>a-b);
-  $("favList").innerHTML = nums.length ? nums.map(favRow).join("") : `<div class="fav-empty"><div class="big">☆</div><p><b>No favorites yet.</b></p><p>Tap the ☆ next to any Pokémon in EV Training, or next to its name in the IV readout. It shows up here with all its details on one card.</p></div>`;
+  $("favList").innerHTML = nums.length ? nums.map(favRow).join("") : `<div class="fav-empty"><div class="big">☆</div><p><b>No favorites yet.</b></p><p>Tap the ☆ next to any Pokémon in Poké Data, or next to its name in the IV readout. It shows up here with all its details on one card.</p></div>`;
 }
 $("favList").addEventListener("click", e => {
   const s = e.target.closest(".star"); if (s) return toggleFav(Number(s.dataset.fav));
@@ -2220,7 +2283,8 @@ const VIEWS = ["calc","evs","types","secret","favs","dex"];
 const wsLinks = [...document.querySelectorAll(".ws a")];
 function renderActive(){
   const v = state.view;
-  if (v === "evs" && dirty.evs){ dirty.evs = false; state.evSub === "berries" ? renderBerries() : renderSheet(); if (window.gainReady) renderGain(); }
+  if (v === "evs" && dirty.evs){ dirty.evs = false; fillTypeSelects(); renderMatchups(); renderSheet(); }
+  if (v === "calc"){ if (window.gainReady) renderGain(); if ($("berries").open) renderBerries(); }
   if (v === "types" && dirty.types){ dirty.types = false; renderTypes(); }
   if (v === "favs" && dirty.favs){ dirty.favs = false; renderFavs(); }
   if (v === "secret" && dirty.secret){ dirty.secret = false; renderSecret(); }
@@ -2257,7 +2321,7 @@ const SFX = {
 const sfx = k => { if (SFX[k]) SFX[k](); };
 const navHist = [];
 let navPos = -1, navMoving = false, navLeaveY = 0;
-function curHash(){ const v = state.view; return v === "evs" && state.evSub === "berries" ? "berries" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v; }
+function curHash(){ const v = state.view; return v === "evs" ? "pokedata" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v; }
 function updNav(){
   const b = $("navBack"), f = $("navFwd");
   if (b) b.disabled = navPos <= 0;
@@ -2298,16 +2362,15 @@ function showView(v){
   renderActive();
   setY(0);
   if (changing && bootDone){ const dk = document.querySelector(".desk"); dk.classList.remove("swap"); void dk.offsetWidth; dk.classList.add("swap"); if (!navMoving) sfx("nav"); }
-  try { history.replaceState(history.state, "", "#" + (v === "evs" && state.evSub === "berries" ? "berries" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v)); } catch(_) {}
+  try { history.replaceState(history.state, "", "#" + (v === "evs" ? "pokedata" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v)); } catch(_) {}
   navRecord();
 }
 function routeHash(h, fromNav){
   const dm = /^dex\/(\d+)$/.exec(h);
   if (dm){ state.dex = Number(dm[1]); showView("dex"); return; }
-  if (h === "berries"){ state.evSub = "berries"; $("tab-yields").setAttribute("aria-selected","false"); $("tab-berries").setAttribute("aria-selected","true"); $("pane-yields").hidden = true; $("pane-berries").hidden = false; dirty.evs = true; showView("evs"); return; }
+  if (h === "berries"){ showView("calc"); const bd = $("berries"); bd.open = true; renderBerries(); requestAnimationFrame(() => bd.scrollIntoView({block:"start"})); return; }
   if (h === "hiddenpower" || h === "naturepower" || h === "secret"){ setPwSub(h === "hiddenpower" ? "hp" : h === "naturepower" ? "np" : "sp"); showView("secret"); return; }
-  if (h === "evs" && state.evSub !== "yields"){ state.evSub = "yields"; $("tab-yields").setAttribute("aria-selected","true"); $("tab-berries").setAttribute("aria-selected","false"); $("pane-yields").hidden = false; $("pane-berries").hidden = true; dirty.evs = true; }
-  showView({summary:"calc",readout:"calc",about:"calc",manual:"calc",powers:"secret"}[h] || h || "calc");
+  showView({summary:"calc",readout:"calc",about:"calc",manual:"calc",powers:"secret",pokedata:"evs",evs:"evs"}[h] || h || "calc");
 }
 window.addEventListener("hashchange", () => {
   const h = location.hash.slice(1);
@@ -2918,7 +2981,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.8.0";
+const APP_VERSION = "1.8.1";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3164,7 +3227,7 @@ function tick(){
 const TIPS = {
   "in-h": {t:"Summary screen", for:"Type in a Pokémon from your game's Summary screen so iv31 can work out its hidden IVs.",
     how:["Pick your game in the game picker.","Search for the Pokémon and pick it, then choose its nature.","Type its level and six stats exactly as the game shows them.","Set <b>EVs</b>: <b>None yet</b> if it was just caught or hatched, <b>Has battled</b> if it has fought, or leave <b>Not sure</b>. Type any EVs you know under <b>Known EVs</b>.","After it levels up, press <b>+ Add stats at another level</b> and type the new stats to narrow the ranges."],
-    with:[["The <b>IV readout</b> updates as you type."],["<b>EV calculator</b>: “Send EVs to Summary” fills Known EVs here, and “Load EVs from Summary” copies them back.",1],["<b>Party comparison</b>: “Copy from Summary screen” adds this Pokémon.",1],["<b>Hidden Power calculator</b> (Powers tab): “Use IVs from the readout”.",1],["<b>EVs gained</b> in EV Training: “Use the Summary screen” copies this Pokémon as the Before check.",1],["Press <b>☆</b> next to its name in the readout to save it to <b>Favorites</b>."]]},
+    with:[["The <b>IV readout</b> updates as you type."],["<b>EV calculator</b>: “Send EVs to Summary” fills Known EVs here, and “Load EVs from Summary” copies them back.",1],["<b>Party comparison</b>: “Copy from Summary screen” adds this Pokémon.",1],["<b>Hidden Power calculator</b> (Powers tab): “Use IVs from the readout”.",1],["<b>EVs gained</b> below: “Use the Summary screen” copies this Pokémon as the Before check.",1],["Press <b>☆</b> next to its name in the readout to save it to <b>Favorites</b>."]]},
   "out-h": {t:"IV readout", for:"Shows the IVs that match what you typed in the Summary screen. Nothing to fill in here.",
     how:["The <b>IV</b> column is the exact IV, or a range when more than one fits.","The bar shows where that sits between 0 and 31, and the pill rates it.","A small <b>EVs</b> line under a stat means EVs are raising it, with the EVs that fit.","The bottom shows the IV total and Hidden Power, and the message suggests natures and what to check next.","Stars mark the stats this Pokémon relies on. ▲ and ▼ show what its nature raises and lowers."],
     with:[["Follows the <b>Summary screen</b> as you type."],["The <b>EV calculator</b> uses these IVs for exact stat points.",1],["The <b>Hidden Power calculator</b> in the Powers tab can load these IVs.",1]]},
@@ -3173,17 +3236,20 @@ const TIPS = {
     with:[["<b>Summary screen</b>: copy a Pokémon in with one click."],["The game picker sets the base stats for every card."]]},
   "evc-h": {t:"EV calculator", for:"Tracks the EVs a Pokémon has and shows the stat points they give at its level and at level 100.",
     how:["Type EVs straight into the table, or add them as you train.","Under <b>Add EVs</b>, pick the Pokémon you defeated, how many times, any held item and Pokérus, then press <b>Add</b>.","Pick a vitamin and how many, then press <b>Use</b>.","<b>Undo</b> appears in the log after each change. <b>Reset</b> clears everything.","It keeps you inside 510 in total and 255 per stat (252 from Gen VI on)."],
-    with:[["<b>Send EVs to Summary</b> puts these EVs into the Summary screen so the IV readout counts them."],["<b>Load EVs from Summary</b> copies the Summary screen's EVs here."],["The <b>EV Training</b> table shows which Pokémon give the EVs you want and where to find them."],["<b>EVs gained</b> can send what a training session added with “Add to EV calculator”."]]},
+    with:[["<b>Send EVs to Summary</b> puts these EVs into the Summary screen so the IV readout counts them."],["<b>Load EVs from Summary</b> copies the Summary screen's EVs here."],["The <b>Poké Data</b> table shows which Pokémon give the EVs you want and where to find them."],["<b>EVs gained</b> can send what a training session added with “Add to EV calculator”."]]},
   "guide": {t:"How the IV calculator works", for:"The formulas and rules behind the numbers, and tips for accurate results. Click the bar to open or close it.", how:[], with:[]},
   "gain": {t:"EVs gained", for:"Shows how many EVs a training session added, by comparing a Pokémon's stats before and after.",
     how:["Pick the Pokémon and nature, or press <b>Use the Summary screen</b>.","<b>Before</b>: type its level and stats before you train. Leave <b>No EVs yet</b> ticked if it hasn't battled.","Go train.","<b>After</b>: type the new level and stats. In Gen III–IV level it up first, because the stats only change on level-up.","Read the EVs gained, the EVs it has now and the room left. <b>After becomes Before</b> starts the next session."],
-    with:[["<b>Add to EV calculator</b> sends the EVs to the EV calculator in the IV Calculator tab."],["The <b>EV yields</b> table below shows where to train."],["<b>Use the Summary screen</b> copies the Pokémon from the IV calculator."],["What you type is kept until you press <b>Clear</b>."]]},
-  "evs": {t:"EV Training", for:"Shows the EVs every Pokémon gives when you defeat it and where to find it in your game. The second tab lists the berries that lower EVs.",
-    how:["Search by name, Pokédex number or place, such as Route 110.","Use the <b>Gives EVs in</b> buttons to show only Pokémon that give one stat.","Tick <b>Story order</b>, or click <b>Found in</b>, to list them in the order you reach places in the game.","Click a column heading to sort. With Story order on, it sorts within each place.","Press <b>☆</b> to save a Pokémon to Favorites."],
-    with:[["The <b>EV calculator</b>'s “Defeated Pokémon” uses these same EV yields.",1],["<b>EVs gained</b> above checks what your training added.",1],["The game picker sets the locations and EV yields."]]},
+    with:[["<b>Add to EV calculator</b> sends the EVs to the EV calculator in the IV Calculator tab."],["The <b>Poké Data</b> tab shows which Pokémon give the EVs you want and where to find them."],["<b>Use the Summary screen</b> copies the Pokémon from the IV calculator."],["What you type is kept until you press <b>Clear</b>."]]},
+  "evs": {t:"Poké Data", for:"Every Pokémon's fixed data in one table, in Pokédex order: its types, what it's weak to, the EVs it gives and where to find it in your game.",
+    how:["Search by name, Pokédex number, type or place, such as Route 110. Press <b>/</b> to jump to the search box and <b>Esc</b> to clear it.","Filter by <b>Gives EVs in</b>, by <b>Type</b>, or pick a type under <b>Matchup against</b> to see how hard it hits each Pokémon, then show only those weak to it, resisting it or immune.","Click a type chip in a row to filter by that type, or a weakness chip to see everything weak to it.","Click a column heading to sort. Tick <b>Story order</b>, or click <b>Found in</b>, to list Pokémon in the order you reach places.","Hide the <b>Weak to</b> or <b>Found in</b> columns to make the table narrower. <b>Clear filters</b> resets everything. Your filters and sorting are remembered."],
+    with:[["Click a Pokémon's name or number for its full <b>data page</b>."],["The <b>Matchup checker</b> above works out any one or two types; <b>Filter the table to this type</b> applies it here."],["The <b>EV calculator</b>'s “Defeated Pokémon” uses these same EV yields.",1],["The game picker sets types, EVs and locations for the game."]]},
   "mc-h": {t:"Matchup checker", for:"Shows what any one or two types are weak to, resist and are immune to, and what they're strong against.",
-    how:["Pick one or two types and read the matchups below.","To check a Pokémon, search for it and pick it: its data page opens with its matchups."],
-    with:[["Uses the type chart of the game picker."],["Every Pokémon's data page has the same matchups for its types."]]},
+    how:["Pick one or two types and read the matchups below.","Press <b>Filter the table to this type</b> to list those Pokémon in Poké Data."],
+    with:[["Uses the type chart of the game picker."],["Each Pokémon's own matchups are in its row and on its data page."]]},
+  "berries": {t:"EV-lowering berries", for:"The berries that lower one stat's EVs, how much they lower it in your game, and where to get them.",
+    how:["Find the stat you want to reset and use its berry on the Pokémon.","Check <b>In this game</b>: in Ruby, Sapphire, FireRed and LeafGreen they can't be used to lower EVs."],
+    with:[["Pair with the <b>EV calculator</b> to keep your EV count right after using berries."]]},
   "tn-h": {t:"Type notes", for:"Explains how types in the selected game differ from today's games. Nothing to fill in.", how:[], with:[["Changes with the game picker."]]},
   "tc-h": {t:"Weakness and resistance chart", for:"The full type chart for the selected game.",
     how:["Rows are the attacking type, columns the defending type.","Green is 2×, red is ½×, dark is no effect, blank is normal damage.","Click any type, in a row or column heading, to highlight its row and column. Click more types to compare them; <b>Clear</b> removes the highlights.","For two defending types, multiply their columns."],
@@ -3197,11 +3263,11 @@ const TIPS = {
   "pw-np": {t:"Nature Power chart", for:"Shows which attack Nature Power turns into in each area of the selected game.",
     how:["Search an area, such as Route 119.","Use <b>Shows up as</b> to list only areas where it becomes one attack.","Each column is an attack. The number is how much of the area gives it, and the outlined one is the most common.","From Sword and Shield on it depends on terrain instead, shown as a short list."],
     with:[["The <b>Secret Power</b> tab uses the same ground."],["Changes with the game picker."]]},
-  "dex-h": {t:"Pokémon data page", for:"Everything iv31 knows about one Pokémon for the game picker: base stats, the two stats to focus, the proper nature, the EVs it gives, its evolutions, where to find it and its type matchups.",
-    how:["Open it by clicking any Pokémon's name or number: in the EV Training table, the IV readout, Party comparison, Favorites, the matchup checker or an evolution line.","Use <b>\u25c2 \u25b8</b> next to the number to step through the Pokédex, or type a name in <b>Jump to a Pokémon</b>.","<b>Back</b> and <b>Forward</b> move through the pages you've visited, like a browser. On the device they're the <b>B</b> and <b>A</b> buttons; on phones they sit at the top of the screen."],
+  "dex-h": {t:"Pokémon data page", for:"Everything iv31 knows about one Pokémon in the game you picked: base stats, the two stats to focus, the proper nature, the EVs it gives, its evolutions, where to find it and its type matchups.",
+    how:["Open it by clicking any Pokémon's name or number: in the Poké Data table, the IV readout, Party comparison, Favorites or an evolution line.","Use <b>\u25c2 \u25b8</b> next to the number to step through the Pokédex, or type a name in <b>Jump to a Pokémon</b>.","<b>Back</b> and <b>Forward</b> move through the pages you've visited, like a browser. On the device they're the <b>B</b> and <b>A</b> buttons; on phones they sit at the top of the screen."],
     with:[["<b>Check its IVs</b> opens it in the IV calculator."],["<b>Add to party</b> adds it to Party comparison.",1],["<b>Defeated one: add its EVs</b> adds its EV yield to the EV calculator.",1]]},
   "fav-h": {t:"Favorites", for:"A short list of the Pokémon you care about: number, types, the EVs they give, the 2 stats to focus and the proper nature.",
-    how:["Press <b>☆</b> next to a Pokémon in the IV readout, the EV Training table or its data page to add it.","Press <b>★</b> again to remove it.","<b>Data page</b> opens everything about it; <b>Check IVs</b> opens it in the IV calculator."],
+    how:["Press <b>☆</b> next to a Pokémon in the IV readout, the Poké Data table or its data page to add it.","Press <b>★</b> again to remove it.","<b>Data page</b> opens everything about it; <b>Check IVs</b> opens it in the IV calculator."],
     with:[["Follows the game picker."]]}
 };
 const tipPop = document.createElement("div");
@@ -3214,6 +3280,7 @@ function tipHtml(key){
   return `<h4>${d.t}</h4><p>${d.for}</p>` + (d.how.length ? `<div class="tl">How to use it</div><ol>${d.how.map(x => `<li>${x}</li>`).join("")}</ol>` : "") + (withList.length ? `<div class="tl">Works with</div><ul>${withList.map(w => `<li>${w[0]}</li>`).join("")}</ul>` : "");
 }
 function showTip(btn){
+  showTip.at = Date.now();
   tipOwner && tipOwner !== btn && tipOwner.setAttribute("aria-expanded", "false");
   tipOwner = btn;
   tipPop.innerHTML = tipHtml(btn.dataset.tip);
@@ -3252,20 +3319,24 @@ function addTip(bar, key){
     b.addEventListener("mouseleave", () => { clearTimeout(tipTimer); if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
   }
 }
-["in-h","out-h","party-h","evc-h","mc-h","tn-h","tc-h","fav-h","dex-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
+["in-h","out-h","party-h","evc-h","tn-h","tc-h","fav-h","dex-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
 addTip(document.querySelector("#guide .titlebar"), "guide");
 addTip(document.querySelector("#gain .titlebar"), "gain");
-addTip(document.querySelector("#view-evs .titlebar.withtabs"), "evs");
+addTip($("pd-h").parentElement, "evs");
+addTip(document.querySelector("#mcwin .titlebar"), "mc-h");
+addTip(document.querySelector("#berries .titlebar"), "berries");
 addTip(document.querySelector("#view-secret .titlebar.withtabs"), "pw-" + state.pwSub);
 tipPop.addEventListener("mouseenter", () => clearTimeout(tipTimer));
 tipPop.addEventListener("mouseleave", () => { if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
 document.addEventListener("click", e => { if (!tipPop.hidden && !tipPop.contains(e.target) && !e.target.closest(".tip-btn")) hideTip(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !tipPop.hidden){ const o = tipOwner; hideTip(); o && o.focus(); } });
-window.addEventListener("scroll", () => { if (!tipPop.hidden) hideTip(); }, {passive:true});
-$("screen").addEventListener("scroll", () => { if (!tipPop.hidden) hideTip(); }, {passive:true});
+const tipScroll = () => { if (!tipPop.hidden && Date.now() - (showTip.at || 0) > 400) hideTip(); };
+window.addEventListener("scroll", tipScroll, {passive:true});
+$("screen").addEventListener("scroll", tipScroll, {passive:true});
 window.addEventListener("resize", () => { if (!tipPop.hidden) hideTip(); });
 
 const TAB_ORDER = ["calc","evs","types","secret","favs"];
+$("berries").addEventListener("toggle", () => { if ($("berries").open) renderBerries(); });
 function stepTab(d){
   if (state.view === "dex"){ const n = state.dex + d, max = Math.min(DEX.length, ERAS[ERAS.length-1].max); if (n >= 1 && n <= max){ sfx("key"); openDex(n); } return; }
   const i = TAB_ORDER.indexOf(state.view), t = TAB_ORDER[(i + d + TAB_ORDER.length) % TAB_ORDER.length];

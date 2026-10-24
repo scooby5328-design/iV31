@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.0",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.0.neu",
+  "version": "1.8.1",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.1.neu",
   "data": {
-    "sha256": "9d3ae8f10d253527c396e4182c0f3a917b5061d173dff4ed91e64e3ab4e22782",
-    "size": 907040,
-    "notes": "iv31 is online, with Favorites, Hidden Power and matchups consolidated and a front-to-back cleanup.",
+    "sha256": "399f8cee2f668ed75ed60f5512451abb3dac8bf9a2802514ce094b6c5cb25e79",
+    "size": 914845,
+    "notes": "EV Training is now Pok\u00e9 Data: types, weaknesses, matchup filters and EVs for every Pok\u00e9mon in one table, with remembered filters.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {
