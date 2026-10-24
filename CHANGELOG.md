@@ -16,6 +16,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - A three-line menu button above the side tabs keeps them open (pushing the page over) or tucks them away; the choice is saved in `iv31-tabs`.
 - Tab symbols: calculator, table, linked circles, lightning bolt and star. Phones show them above the short tab names.
 
+### Checksums (SHA-256)
+
+```
+27321ff095149d40108304b9ea094e3afc5dfad4525f4ad7a483f2d8226fc26a  iv31-Setup-1.8.8.exe
+2ca82d7fdc3a6bd0a22f60431991b4e8fc52604aeff9ecd329fba06b90261ba2  iv31-1.8.8-mac.zip
+106d7da0eaa9461c58f97c985dd43cdb1c576e8154e7385ecb7928bf295731f3  iv31-1.8.8-linux-x64.tar.gz
+5f70dbfff56c7e09ae9fb0c92796f81fc0defc0bf99004f21a8240e3e0125ea2  iv31-1.8.8-linux-arm64.tar.gz
+0588b7183fc0b731c1c94a6a1f9395d62fe7437271b1e2e9722ad2606e700225  iv31_1.8.8_amd64.deb
+52f6e15f44eab664c0dd36047a731c3d569ecaf7ec31608553c3052667c2ee98  iv31_1.8.8_arm64.deb
+9caa2a7a5885d8cf109d6381a84c71fef6e83cfa03d76356b158e5df87ee60e4  iv31-1.8.8-x86_64.AppImage
+a1b0b8b51b53778e1401f15aaad94ccecda07c3f95effed44dd5f03f3fe523ad  iv31-1.8.8-aarch64.AppImage
+```
+
 ## [1.8.7] - 2026-10-24
 
 ### Changed
