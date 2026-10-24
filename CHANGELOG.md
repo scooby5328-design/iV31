@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 - **Strong against** column in Poké Data (types the Pokémon's own types hit for 2×, from `offense()`), sortable, clickable to filter by that type, and optional under Columns (`pd.strong`).
 
+### Checksums (SHA-256)
+
+```
+e27a4662bad9f993c4bf7a0f2afe1c3f79d735022e14c6c98834d4dc353be5a0  iv31-Setup-1.8.3.exe
+3bfe4f53dbd155f6b1de443ce7bed80c312e969d1b972c4e1d9858b59952a32a  iv31-1.8.3-mac.zip
+cad4b2e5cc996c3721ec94e760866a7d83af8d44fa8349f9cd62853736b301a9  iv31-1.8.3-linux-x64.tar.gz
+8538c7c3e87d452bde530ea24ed6e3b7a029e35247133924b69e619d05c376e7  iv31-1.8.3-linux-arm64.tar.gz
+fee355ce34f222a22aa2b2a704abe208757c2bb3b5742694073d619df5bc159a  iv31_1.8.3_amd64.deb
+7000ee33cc65a47c4202ce86f3e223b2609a215aa99f797307762534988a3d97  iv31_1.8.3_arm64.deb
+427aa2c771bff25f591e8bd63c8d4678ac45085a29dda8512fb28072db1d1c05  iv31-1.8.3-x86_64.AppImage
+af5a1e0bf3c486522c7f3a7d9f13d8297be5e8bd2f21e29739f37b0765021600  iv31-1.8.3-aarch64.AppImage
+```
+
 ## [1.8.2] - 2026-10-23
 
 ### Fixed
