@@ -9,6 +9,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.5] - 2026-10-24
+
+### Added
+- Every section (`section.win` in a view) folds with an **Open ▾ / Close ▴** button or a click on its title bar; folded sections are remembered (`iv31-folded`).
+- **SIZE** control on the device's left panel (80–150%, Ctrl/⌘ + / − / 0), applied as `zoom` on the screen's content and remembered (`iv31-size`). Side-by-side panels stack when the scaled screen is narrower than 900 px.
+
+### Changed
+- D-pad ▴ ▾ scroll half a screen.
+
 ## [1.8.4] - 2026-10-23
 
 ### Changed

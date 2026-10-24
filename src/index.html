@@ -649,7 +649,7 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 .sheet th button{white-space:normal;line-height:1.25}
 .sheet.sp th button small{white-space:normal}
 .sheet.sp td,.sheet.sp th button{padding-left:6px;padding-right:6px}
-.sheet td.loc{min-width:150px}
+.sheet td.loc{min-width:120px}
 .hpcalc{border:2px solid var(--surface0);border-radius:6px;background:var(--mantle);padding:12px 14px;margin-bottom:14px}
 .hpcalc .hp-h{margin:0 0 6px;font-family:var(--pixel);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mauve)}
 .hpcalc .summary{margin-top:10px}
@@ -678,7 +678,7 @@ details.win{position:relative}
 .tyb.x4 .ty{box-shadow:0 0 0 2px var(--red)}
 .tyb.x4 .ty::before{content:"4× "}
 .sheet td.tyc{white-space:nowrap}
-.sheet td.weakc{min-width:210px;max-width:300px;white-space:normal;line-height:1.7}
+.sheet td.weakc{min-width:120px;max-width:220px;white-space:normal;line-height:1.7}
 .weakc .ty{font-size:9px;padding:1px 5px}
 .mult{font-family:var(--lcd);font-size:19px;line-height:1;padding:0 6px;border-radius:3px}
 .mult.m4{color:var(--red);background:color-mix(in srgb,var(--red) 18%,transparent)}
@@ -699,6 +699,25 @@ details.win>summary:hover .titlebar{background:linear-gradient(90deg,color-mix(i
 details.win>summary:hover .titlebar::after{filter:brightness(1.15)}
 #mcFilter{justify-self:start;align-self:start}
 details.win>summary:focus-visible{outline:2px solid var(--mauve);outline-offset:2px}
+.sizekeys{display:flex;align-items:center;gap:6px}
+.szk{width:26px;height:22px;border:0;border-radius:6px;cursor:pointer;background:linear-gradient(180deg,#2a2e33,#16181b);box-shadow:0 2px 0 #08090b,inset 0 1px 0 rgba(255,255,255,.08);color:#9aa3ad;font:700 14px/1 var(--pixel)}
+.szk:active{transform:translateY(2px);box-shadow:none}
+.szk:disabled{opacity:.4;cursor:default}
+.szv{min-width:40px;text-align:center;font-family:var(--lcd);font-size:16px;color:#5ad1ff;background:#0b0d10;border-radius:4px;padding:1px 4px}
+#screen>.bar-top,#screen>.desk,#screen>.upd{zoom:var(--ui,1)}
+#screen.narrow .tiles{grid-template-columns:minmax(0,1fr)}
+.win.foldable>.win-body>.titlebar{cursor:pointer;justify-content:flex-start;gap:10px}
+.win.foldable>.win-body>.titlebar::before{content:"";flex:none;width:0;height:0;border:6px solid transparent;border-left:8px solid var(--mauve);border-right:0;transform:rotate(90deg);transition:transform .15s}
+.win.foldable.min>.win-body>.titlebar::before{transform:none}
+.win.foldable>.win-body>.titlebar:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--mauve) 28%,var(--mantle)),var(--mantle) 70%)}
+.win.foldable>.win-body>.titlebar .dot{display:none}
+.minbtn{margin-left:auto;flex:none;font-family:var(--pixel);font-size:10px;letter-spacing:.06em;color:var(--mauve);background:transparent;border:1px solid var(--mauve);border-radius:4px;padding:3px 10px;cursor:pointer;text-shadow:none}
+.win.min .minbtn{color:var(--crust);background:var(--mauve);border-color:var(--mauve);box-shadow:0 0 10px var(--glow)}
+.win.min>.win-body>:not(.titlebar){display:none!important}
+.win.min>.win-body>.titlebar{border-bottom:0}
+.win.min{background:transparent;border:2px dashed var(--surface1);box-shadow:none}
+.titlebar .partycount{margin-left:auto}
+.titlebar .partycount+.minbtn{margin-left:10px}
 </style>
 </head>
 <body>
@@ -719,6 +738,7 @@ details.win>summary:focus-visible{outline:2px solid var(--mauve);outline-offset:
     <button type="button" class="dp dn" id="dpDown" aria-label="Scroll down" title="Scroll down"></button>
   </div>
   <div class="dev-fill"></div>
+  <div class="dkey"><div class="sizekeys"><button type="button" class="szk" id="sizeDown" aria-label="Smaller screen text" title="Smaller (Ctrl −)">−</button><span class="szv" id="sizeVal">100%</span><button type="button" class="szk" id="sizeUp" aria-label="Bigger screen text" title="Bigger (Ctrl +)">+</button></div><span>SIZE</span></div>
   <div class="dkey"><button type="button" class="rkey" id="keySound" aria-pressed="true" aria-label="Sound on or off"></button><span>SOUND</span></div>
 </aside>
 <div class="dev-screen" id="screen">
@@ -2990,7 +3010,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.8.4";
+const APP_VERSION = "1.8.5";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3351,7 +3371,7 @@ function stepTab(d){
   const i = TAB_ORDER.indexOf(state.view), t = TAB_ORDER[(i + d + TAB_ORDER.length) % TAB_ORDER.length];
   showView(t);
 }
-function scrollScreen(d){ const e = screenEl(); sfx("key"); if (e) e.scrollBy({top: d * e.clientHeight * .7, behavior:"smooth"}); else window.scrollBy({top: d * window.innerHeight * .7, behavior:"smooth"}); }
+function scrollScreen(d){ const e = screenEl(); sfx("key"); if (e) e.scrollBy({top: d * e.clientHeight * .5, behavior:"smooth"}); else window.scrollBy({top: d * window.innerHeight * .5, behavior:"smooth"}); }
 $("dpLeft").addEventListener("click", () => stepTab(-1));
 $("dpRight").addEventListener("click", () => stepTab(1));
 $("dpUp").addEventListener("click", () => scrollScreen(-1));
@@ -3422,6 +3442,53 @@ if (window.IV31_WEB && "serviceWorker" in navigator && (location.protocol === "h
     if (latest && cmpVer(latest, APP_VERSION) > 0) updShow(`iv31 <b>${escHtml(latest)}</b> is ready.`, [["Reload", () => location.reload()], ["Later", updHide]], "ok");
   });
 }
+
+const UI_KEY = "iv31-size", UI_STEPS = [.8, .9, 1, 1.1, 1.2, 1.35, 1.5];
+let uiScale = (() => { try { const v = parseFloat(localStorage.getItem(UI_KEY)); return UI_STEPS.includes(v) ? v : 1; } catch(_) { return 1; } })();
+function applyScale(){
+  document.documentElement.style.setProperty("--ui", uiScale);
+  $("sizeVal").textContent = Math.round(uiScale * 100) + "%";
+  $("sizeDown").disabled = uiScale <= UI_STEPS[0]; $("sizeUp").disabled = uiScale >= UI_STEPS[UI_STEPS.length - 1];
+  try { localStorage.setItem(UI_KEY, String(uiScale)); } catch(_) {}
+  fitColumns();
+  queueFit();
+}
+function fitColumns(){ const sc = $("screen"); sc.classList.toggle("narrow", sc.clientWidth / uiScale < 900); }
+window.addEventListener("resize", fitColumns);
+function stepScale(d){ const i = UI_STEPS.indexOf(uiScale), j = d === 0 ? UI_STEPS.indexOf(1) : Math.max(0, Math.min(UI_STEPS.length - 1, i + d)); if (j !== i){ uiScale = UI_STEPS[j]; applyScale(); sfx("key"); } }
+$("sizeDown").addEventListener("click", () => stepScale(-1));
+$("sizeUp").addEventListener("click", () => stepScale(1));
+document.addEventListener("keydown", e => { if ((e.ctrlKey || e.metaKey) && !e.altKey){ if (e.key === "=" || e.key === "+"){ e.preventDefault(); stepScale(1); } else if (e.key === "-" || e.key === "_"){ e.preventDefault(); stepScale(-1); } else if (e.key === "0"){ e.preventDefault(); stepScale(0); } } });
+applyScale();
+const FOLD_KEY = "iv31-folded";
+const folded = new Set((() => { try { return JSON.parse(localStorage.getItem(FOLD_KEY) || "[]"); } catch(_) { return []; } })());
+function setFold(win, min){
+  win.classList.toggle("min", min);
+  const b = win.querySelector(":scope > .win-body > .titlebar > .minbtn");
+  if (b){ b.textContent = min ? "Open ▾" : "Close ▴"; b.setAttribute("aria-expanded", String(!min)); }
+  const key = win.dataset.fold;
+  min ? folded.add(key) : folded.delete(key);
+  try { localStorage.setItem(FOLD_KEY, JSON.stringify([...folded])); } catch(_) {}
+  if (!min) queueFit();
+}
+document.querySelectorAll(".view section.win").forEach(win => {
+  const bar = win.querySelector(":scope > .win-body > .titlebar");
+  if (!bar || win.closest("#view-dex")) return;
+  const label = bar.querySelector("span[id]") || bar.querySelector(".subtabs");
+  win.dataset.fold = win.id || (label && label.id) || (win.closest(".view").id + "-" + [...win.parentElement.children].indexOf(win));
+  win.classList.add("foldable");
+  const b = document.createElement("button");
+  b.type = "button"; b.className = "minbtn";
+  b.setAttribute("aria-label", "Open or close this section");
+  const dot = bar.querySelector(".dot");
+  dot ? bar.insertBefore(b, dot) : bar.appendChild(b);
+  setFold(win, folded.has(win.dataset.fold));
+  bar.addEventListener("click", e => {
+    if (e.target.closest("button:not(.minbtn),a,input,select,label,[role=tab]")) return;
+    setFold(win, !win.classList.contains("min"));
+    if (!e.target.closest(".minbtn")) sfx("click");
+  });
+});
 </script>
 </body>
 </html>
