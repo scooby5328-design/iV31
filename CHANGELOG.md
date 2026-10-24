@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Folding panels (`details.win`) look clickable: dashed outline while folded, a turning arrow, an **Open ▾** / **Close ▴** button, and a hover highlight. The matchup checker's filter button no longer stretches.
 
+### Checksums (SHA-256)
+
+```
+c93b568942cf4df3b89a07b3a11bd4eaa0ceaa0bb517a2a61fec237149cdb77e  iv31-Setup-1.8.4.exe
+dc37bdd2a042bcb1727408eccb5714bf616c1008f1061e02323b4e8798a4b24a  iv31-1.8.4-mac.zip
+9c4c4ea05c896d57835fdb0b449d3fe2c5f5f5808fa303a50bc38e2c2b62f64b  iv31-1.8.4-linux-x64.tar.gz
+05b6147f37c4109c0585987f289bd85602bdc154910c138dcd77e80a06e53e63  iv31-1.8.4-linux-arm64.tar.gz
+edd4c9be879a06ae4e6d41b043e3ee70494684d9e865787bdb416c1f1836e3d0  iv31_1.8.4_amd64.deb
+9fea9d62c085171e8935107f9c990aff591f7991d2addd335d19f3a3c90c3d8f  iv31_1.8.4_arm64.deb
+c2e6f505b02de99caaf7930a7c95a4675cdb1e7f439d9d9163b6f4dc666ff18c  iv31-1.8.4-x86_64.AppImage
+385c51b26b91bf39ead01a6fa46d7465330d02c25ca432f6b6ef349e20ba7b49  iv31-1.8.4-aarch64.AppImage
+```
+
 ## [1.8.3] - 2026-10-23
 
 ### Added
