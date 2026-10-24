@@ -9,11 +9,31 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.8] - 2026-10-24
+
+### Added
+- Side tabs tuck in to symbols and slide out over the page on hover or keyboard focus, without moving the page.
+- A three-line menu button above the side tabs keeps them open (pushing the page over) or tucks them away; the choice is saved in `iv31-tabs`.
+- Tab symbols: calculator, table, linked circles, lightning bolt and star. Phones show them above the short tab names.
+
 ## [1.8.7] - 2026-10-24
 
 ### Changed
 - Tabs are folder tabs: a column down the left side on wider screens (numbers only below 1100px), tabs along the top on phones, and folder tabs along the bottom in the Android app. The open tab joins onto its page.
 - The Poké Data table and the type chart no longer scroll inside the screen, so there is one scrollbar. Column headings stay pinned while scrolling. A table that can't shrink enough to fit falls back to scrolling sideways.
+
+### Checksums (SHA-256)
+
+```
+4992bbcd65a0ae32c02d12ce893861d8bfc9a1d939a32332bdb2c056aa15ed5e  iv31-Setup-1.8.7.exe
+13457b269cb65c016eaa103cd027907a3b009dae47e11ad1a4bdd7c2eedf27bd  iv31-1.8.7-mac.zip
+ab7c6eb75e7d08548158b974b9e10fa1b75046e1339c9847161ac17181dcdb8b  iv31-1.8.7-linux-x64.tar.gz
+1e91ddc30f0ba0b27e63c5fda1d5c26e91203f7402063cf7381a45bd5f47bd1d  iv31-1.8.7-linux-arm64.tar.gz
+ac205b4f3526cee781645cc19bf6b2e685b6327987b844d0b2cfcdbdd9f9a67a  iv31_1.8.7_amd64.deb
+6b9e918dfbdf5614dfd2f3b986715a75508b29ab3d03487d53d14cd486c90226  iv31_1.8.7_arm64.deb
+51a38b1861ea92eee4be21e82c9b8364b5141f5f68197ce04e39568920267922  iv31-1.8.7-x86_64.AppImage
+8bb6c1a870c13d75922bb48ec16fdd49980f99170c98730b06aa3c393e41fbd3  iv31-1.8.7-aarch64.AppImage
+```
 
 ## [1.8.6] - 2026-10-24
 

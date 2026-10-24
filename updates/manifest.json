@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.7",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.7.neu",
+  "version": "1.8.8",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.8.neu",
   "data": {
-    "sha256": "bc19818f905b852b35f9f81940e9f9c796d335050a8aa138657474358c4afb3f",
-    "size": 927887,
-    "notes": "Folder-style tabs down the left side, and one scrollbar for the Pok\u00e9 Data table.",
+    "sha256": "7234e0f045cd51304b23bc134ff694da8452519fb10dfde34bd7a623ab15d5b3",
+    "size": 932074,
+    "notes": "Side tabs slide out on hover, a menu button keeps them open, and each tab has a symbol.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

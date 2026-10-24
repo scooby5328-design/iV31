@@ -136,3 +136,4 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.8.5 Foldable sections (`setFold`, `iv31-folded`), SIZE control (`--ui` zoom on `#screen` content, `iv31-size`, `#screen.narrow` stacks tiles), D-pad half-screen scroll.
 - 1.8.6 Phone fixes: data page header stacks, floating ? buttons measure wrapped titles.
 - 1.8.7 Folder tabs: `#screen` is a grid at ≥721px (tab column + `.desk` panel); phones get top tabs labelled from `data-short`; Android keeps bottom tabs. Table wrappers use `overflow-x:clip` (no inner scroller, sticky headers follow `#screen`); `fitWide` adds `.xscroll` when a table still overflows at its minimum zoom. `.win-body` uses `overflow:clip` so sticky headers work.
+- 1.8.8 Sliding side tabs: collapsed `.bar-top` is 58px wide and tabs widen over the page on `:hover` / `:has(:focus-visible)`; `#tabToggle` sets `#screen.tabs-open` (saved in `iv31-tabs`) via `setTabsOpen`. Tab symbols are inline `svg.ti`.
