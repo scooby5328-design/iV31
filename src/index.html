@@ -177,8 +177,6 @@ td.barcell{width:42%}
 .err{margin-top:14px;padding:12px 14px;border:1px solid color-mix(in srgb,var(--red) 60%,transparent);background:color-mix(in srgb,var(--red) 8%,var(--base));color:var(--red);font-size:14px}
 details.win>summary{list-style:none;cursor:pointer;color:var(--text)}
 details.win>summary::-webkit-details-marker{display:none}
-details.win>summary .titlebar::after{content:"Show";font-weight:500;color:var(--overlay);margin-left:auto}
-details.win[open]>summary .titlebar::after{content:"Hide"}
 details.win>summary .titlebar{border-bottom:0}
 details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .guide{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:4px 24px}
@@ -533,7 +531,6 @@ body{background-image:radial-gradient(1200px 800px at 50% 0%,rgba(255,255,255,.0
 .win.active{background:var(--mauve);box-shadow:0 0 14px var(--glow)}
 .win-body{border-radius:8px;margin:2px;position:relative;background:var(--base)}
 .win-body::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:repeating-linear-gradient(0deg,rgba(0,0,0,var(--scan)) 0 1px,transparent 1px 3px);z-index:5}
-details.win>summary .titlebar::after{font-family:var(--pixel);font-size:10px}
 .titlebar{background:linear-gradient(90deg,var(--surface0),var(--mantle) 60%);border-bottom:2px solid var(--surface0);font-family:var(--pixel);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--text);text-shadow:var(--phos)}
 .win.active .titlebar{background:linear-gradient(90deg,color-mix(in srgb,var(--mauve) 40%,var(--mantle)),var(--mantle) 65%)}
 .titlebar .dot{width:9px;height:9px;border-radius:2px;background:var(--surface1)}
@@ -691,6 +688,17 @@ details.win{position:relative}
 .mult.m0{color:var(--blue);background:color-mix(in srgb,var(--blue) 16%,transparent)}
 .sheet td.empty{text-align:center;padding:26px 10px;color:var(--subtext)}
 .sheet td.empty .btn{margin-left:8px}
+details.win{border:2px dashed var(--surface1);padding:0;background:transparent}
+details.win[open]{border-style:solid;border-color:var(--surface0)}
+details.win>summary .titlebar{justify-content:flex-start;gap:10px;transition:background .15s}
+details.win>summary .titlebar::before{content:"";flex:none;width:0;height:0;border:6px solid transparent;border-left:8px solid var(--mauve);border-right:0;transition:transform .15s}
+details.win[open]>summary .titlebar::before{transform:rotate(90deg)}
+details.win>summary .titlebar::after{content:"Open \25BE";margin-left:auto;font-family:var(--pixel);font-size:10px;letter-spacing:.06em;color:var(--crust);background:var(--mauve);border-radius:4px;padding:4px 10px;text-shadow:none;box-shadow:0 0 10px var(--glow)}
+details.win[open]>summary .titlebar::after{content:"Close \25B4";color:var(--mauve);background:transparent;border:1px solid var(--mauve);box-shadow:none}
+details.win>summary:hover .titlebar{background:linear-gradient(90deg,color-mix(in srgb,var(--mauve) 28%,var(--mantle)),var(--mantle) 70%)}
+details.win>summary:hover .titlebar::after{filter:brightness(1.15)}
+#mcFilter{justify-self:start;align-self:start}
+details.win>summary:focus-visible{outline:2px solid var(--mauve);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -963,7 +971,7 @@ details.win{position:relative}
 
 <div class="view" id="view-evs" hidden>
   <details class="win" id="mcwin">
-    <summary><div class="titlebar"><span id="mc-h">Matchup checker: any one or two types</span></div></summary>
+    <summary><div class="titlebar"><span id="mc-h">Matchup checker: check any one or two types</span></div></summary>
     <div class="win-body" style="border-radius:0 0 12px 12px">
       <div class="pane">
         <div class="row2">
@@ -2982,7 +2990,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.8.3";
+const APP_VERSION = "1.8.4";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

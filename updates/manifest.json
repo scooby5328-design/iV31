@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.3",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.3.neu",
+  "version": "1.8.4",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.4.neu",
   "data": {
-    "sha256": "2fcf52a61c753e5f67e33b3342bc13431a29b9a5e7e8b28abd71309e0be3a7d2",
-    "size": 915981,
-    "notes": "Pok\u00e9 Data has a Strong against column: the types each Pok\u00e9mon hits for 2\u00d7.",
+    "sha256": "03d27359e19c29025a08e16d832257d8dbd5de578ede345748a4dab24c25f45c",
+    "size": 917072,
+    "notes": "Folding panels like the Matchup checker now clearly show they can be opened.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

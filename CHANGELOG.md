@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.4] - 2026-10-23
+
+### Changed
+- Folding panels (`details.win`) look clickable: dashed outline while folded, a turning arrow, an **Open ▾** / **Close ▴** button, and a hover highlight. The matchup checker's filter button no longer stretches.
+
 ## [1.8.3] - 2026-10-23
 
 ### Added
