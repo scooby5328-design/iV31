@@ -17,6 +17,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - **EVs gained** and **EV-lowering berries** moved to the IV Calculator tab under the EV calculator (`#berries` opens the berries there). The Types tab keeps the chart and type notes.
 - Tips stay open while the screen scrolls into place.
 
+### Checksums (SHA-256)
+
+```
+82f22609eb434819786e26b04e62ff36f4fc9e84d2d921529b47d614300bcaf6  iv31-Setup-1.8.1.exe
+2cbb7c7e0e730d44abddb9d52cd1a98ba7bb4f29699ca35cb3e24916217e1101  iv31-1.8.1-mac.zip
+24b3d0d632111d5dc7a1f6cf1d55bc12bb8d9285f9bdded7995be53abfae665b  iv31-1.8.1-linux-x64.tar.gz
+b7a03ef2383ee4498cc2258b8934a66402ca7573ac06b9ae2b57423e7307522b  iv31-1.8.1-linux-arm64.tar.gz
+b4aaf0136754eb68af34f3c2ad6e38b8281eb62f5546b65dbd629925e3889bba  iv31_1.8.1_amd64.deb
+b2d33a972084b1c13eb6ab68f383da586b79cf7334b8dcba586056170789eda9  iv31_1.8.1_arm64.deb
+3f6284cc9d9b32c40b19a61b5da4663b3e7190ef96f15066c34562ae61e9f04a  iv31-1.8.1-x86_64.AppImage
+f9c08388cbbf76cd1eda1f941f46fb8467fcce948d2ac678c5002a52c9436867  iv31-1.8.1-aarch64.AppImage
+```
+
 ## [1.8.0] - 2026-10-23
 
 ### Added
