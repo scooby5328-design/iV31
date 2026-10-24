@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.6",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.6.neu",
+  "version": "1.8.7",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.7.neu",
   "data": {
-    "sha256": "ae13732756919caa78d2af52ff70d9f0ef6762bcd3d5effe2fe08451fc9738b6",
-    "size": 923134,
-    "notes": "Phone layout fixes for the data page header and the ? buttons.",
+    "sha256": "bc19818f905b852b35f9f81940e9f9c796d335050a8aa138657474358c4afb3f",
+    "size": 927887,
+    "notes": "Folder-style tabs down the left side, and one scrollbar for the Pok\u00e9 Data table.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

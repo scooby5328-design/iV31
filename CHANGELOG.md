@@ -9,6 +9,12 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.7] - 2026-10-24
+
+### Changed
+- Tabs are folder tabs: a column down the left side on wider screens (numbers only below 1100px), tabs along the top on phones, and folder tabs along the bottom in the Android app. The open tab joins onto its page.
+- The Poké Data table and the type chart no longer scroll inside the screen, so there is one scrollbar. Column headings stay pinned while scrolling. A table that can't shrink enough to fit falls back to scrolling sideways.
+
 ## [1.8.6] - 2026-10-24
 
 ### Fixed
