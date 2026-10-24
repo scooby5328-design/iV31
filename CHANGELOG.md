@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Fixed
 - The website's update prompt compares the newest offline cache version with the page's version, so it no longer appears when the page already loaded the new version from the network.
 
+### Checksums (SHA-256)
+
+```
+eb5de7411d783ad52407307a1ddc369898aa33df4eef62184bc8c7f1fba7228c  iv31-Setup-1.8.2.exe
+df986d3f3fafc6ea927f4bbc8be2fd4881c475a78ba80b55b43f4016848b264a  iv31-1.8.2-mac.zip
+55894363b5489a0746b7d8accfeb28d2240f8b75b5d5a63ee9d0ce8772d550d3  iv31-1.8.2-linux-x64.tar.gz
+9e6f8235a39d5edb89da39d9d616edb1300080cf26244192dbc087e223655e79  iv31-1.8.2-linux-arm64.tar.gz
+fca0e155fb2924d1aca5a453d0874c1bb2f6d3c7bb4940f78b1f8ba782e6df7c  iv31_1.8.2_amd64.deb
+ea1c963f4eb6d3290025dbba21cc4ac7e19b3cc34fcaf9797e99f9ada2ec8417  iv31_1.8.2_arm64.deb
+251e7d7c0f77452dddcbcfcdecfeaa17ee5b352e37d9413c907062dc05d6ee3e  iv31-1.8.2-x86_64.AppImage
+8adbc5b7a67f91059d683bb757f9802bfa434019600f06e8dd5331f59cf7e5dc  iv31-1.8.2-aarch64.AppImage
+```
+
 ## [1.8.1] - 2026-10-23
 
 ### Changed
