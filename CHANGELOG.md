@@ -18,6 +18,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Data is inlined as `JSON.parse("…")` strings, which browsers parse faster than large object literals: first paint at 4× slowdown went from 1.34 s to 0.44 s.
 - The clock reuses two cached date formatters and only touches the page when the text changes.
 
+### Checksums (SHA-256)
+
+```
+655f8c7db231ed0748184aa180993dcc90bd6d1664091332dfd506636d173acf  iv31-Setup-1.9.1.exe
+9ec1ee22d4f871da3d02a14c9f3f77152f55f3b822cab954319d9c60062d3510  iv31-1.9.1-mac.zip
+c2b4b9dcb510176de32b11bd59af95a46f4ef94b15fc39daf67361bf088f338c  iv31-1.9.1-linux-x64.tar.gz
+d92757be4488253950563453eb69a9647b2b44ec517de70b5b782742ab93d28d  iv31-1.9.1-linux-arm64.tar.gz
+8fabbc2f0d1d7f7c8be0bde5051b62b7a8621883e47387c7c9458dfad290da97  iv31_1.9.1_amd64.deb
+516558fc73cad26b6846cc8fbef1d74085838009314887e17413de15b6fc78af  iv31_1.9.1_arm64.deb
+8c7067bd6df34d81d99c9206d707f0f577a3a77f4494927402b499c5c51f8fb4  iv31-1.9.1-x86_64.AppImage
+cf3ba70ad214256b4e4ce53b81ca015b8335a1aa751b9caa2ae72bcf26de4c7d  iv31-1.9.1-aarch64.AppImage
+```
+
 ## [1.9.0] - 2026-10-24
 
 ### Added
