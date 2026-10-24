@@ -52,6 +52,9 @@ def main():
     build_page(stage)
 
     neu = ROOT / "updates" / f"iv31-{version}.neu"
+    for old in (ROOT / "updates").glob("iv31-*.neu"):
+        if old != neu:
+            old.unlink()
     subprocess.run(["node", str(ROOT / "tools/pack.mjs"), str(stage), str(neu)], check=True, cwd=ROOT)
     digest = hashlib.sha256(neu.read_bytes()).hexdigest()
     summary = json.loads((ROOT / "src/release.json").read_text(encoding="utf-8"))["summary"]

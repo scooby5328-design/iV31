@@ -9,10 +9,34 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.8.10] - 2026-10-24
+
+### Changed
+- Tab bar styles consolidated into one block (replacing rules stacked across eight places); removed unused rules (`.hptable`, hidden tab numbers, store-only overrides that never applied).
+- Table wrapper rules folded into their original definitions.
+- `tools/build.py` now deletes older `updates/iv31-*.neu` packages; only the current one is kept in the repository.
+- README describes the side tabs and where the version number is.
+
+### Fixed
+- The Favorites count on open side tabs shows in its normal yellow.
+
 ## [1.8.9] - 2026-10-24
 
 ### Changed
 - Tucked-in side tabs no longer slide out on hover or focus; the open tab highlights its square and symbol. Full tabs with names show only when opened with the three-line button.
+
+### Checksums (SHA-256)
+
+```
+196ae6751c47da2e9df7f926b6aa701f37b0b717541d51b97043601399dfe8f6  iv31-Setup-1.8.9.exe
+d56936673fdb702b6c0531abd8f421ce14526ad5d02286dda25fde128c6a837c  iv31-1.8.9-mac.zip
+34d2d38cd0b820b2f929bd1ef6241d3eb7bb07724b69af093d1febaec7fc2844  iv31-1.8.9-linux-x64.tar.gz
+5c0f71dc95edbb450167c624444fea942b6f885a34a7a984618a943d89369d2d  iv31-1.8.9-linux-arm64.tar.gz
+2fa358c09564bb73ad8c10d23ca3c9a87df3835b3525e656c0bf03c09bc37dba  iv31_1.8.9_amd64.deb
+6fb2a04217a8f3873853ac5df91c80daaec60c94053f72ac4c2051002045dd56  iv31_1.8.9_arm64.deb
+2be1eaa90d0b52c29cabf5f3d2eca43e8b3332c2987d5aab6188a9826a94a5cf  iv31-1.8.9-x86_64.AppImage
+82653a9515a262c3ce62fbe0e774dc7cd3b6cc0a6991f791b775fee4105927d0  iv31-1.8.9-aarch64.AppImage
+```
 
 ## [1.8.8] - 2026-10-24
 

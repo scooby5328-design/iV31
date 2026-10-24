@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.8.9",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.9.neu",
+  "version": "1.8.10",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.8.10.neu",
   "data": {
-    "sha256": "1c862092e14a6553bac1d19936e777619b00a345cd20822b32da12ee2c898a07",
-    "size": 932089,
-    "notes": "Tucked-in side tabs light up their symbol instead of sliding out; the menu button opens the full tabs.",
+    "sha256": "c8a000631a92bec7cea04faa94b4802760a5924c517420f26c99d8317a7c86d2",
+    "size": 928478,
+    "notes": "Behind-the-scenes cleanup. Everything looks and works the same.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

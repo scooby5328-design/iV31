@@ -77,7 +77,7 @@ From version 1.2.0 on, iv31 updates itself:
 2. If there is one, a bar appears at the top with what's new. Click **Update now**.
 3. iv31 downloads the update, checks its fingerprint, installs it and restarts. Your saved favorites and EVs are kept.
 
-Click the version number in the top bar to check any time. To stop the automatic check, untick **Check for updates when iv31 starts** in the Guide.
+Click the version number on the right side of the device (top right on phones) to check any time. To stop the automatic check, untick **Check for updates when iv31 starts** in the Guide.
 
 If you have **1.1.0 or older**, install the latest version once with the installer above. It installs over the old version and keeps your saved data.
 
@@ -132,7 +132,7 @@ If iv31 doesn't open, install WebKitGTK: `sudo apt install libwebkit2gtk-4.1-0` 
 
 ## How to use
 
-1. Pick your game in the game picker (top left on the device). Every tab follows it.
+1. Pick your game in the game picker (top left on the device). Every tab follows it. The tabs run down the left side of the screen as symbols; click the three-line button above them to show their names. On phones they run along the top (along the bottom in the Android app).
 2. Choose a Pokémon from the list, or search by name or Pokédex number.
 3. Enter its **level** and **nature**.
 4. Enter the six stats shown on its summary screen (HP, Attack, Defense, Sp. Atk, Sp. Def, Speed).

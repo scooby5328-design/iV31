@@ -26,7 +26,7 @@ It covers every main-series game from Red/Blue/Yellow to Scarlet/Violet. Gen Iâ€
 | `src/release.json` | One-line summary shown in the in-app update bar. |
 | `app/neutralino.config.json` | App id, version, window settings and the native-API allow list. |
 | `app/resources/` | Fonts, icon and the Neutralino client library `js/neutralino.js`. |
-| `tools/build.py` | Builds `updates/iv31-<v>.neu` and rewrites `updates/manifest.json`. |
+| `tools/build.py` | Builds `updates/iv31-<v>.neu`, deletes older packages and rewrites `updates/manifest.json`. |
 | `updates/` | The update channel every installed copy reads. |
 | `updates/runtime/<id>/` | The program file for each system (Windows, Mac, Linux x64/arm64). `updates/runtime/current` names the one every package and update uses. |
 | `release-notes/<v>.md` | The GitHub release text for each version. |
@@ -138,3 +138,4 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.8.7 Folder tabs: `#screen` is a grid at â‰¥721px (tab column + `.desk` panel); phones get top tabs labelled from `data-short`; Android keeps bottom tabs. Table wrappers use `overflow-x:clip` (no inner scroller, sticky headers follow `#screen`); `fitWide` adds `.xscroll` when a table still overflows at its minimum zoom. `.win-body` uses `overflow:clip` so sticky headers work.
 - 1.8.8 Sliding side tabs: collapsed `.bar-top` is 58px wide and tabs widen over the page on `:hover` / `:has(:focus-visible)`; `#tabToggle` sets `#screen.tabs-open` (saved in `iv31-tabs`) via `setTabsOpen`. Tab symbols are inline `svg.ti`.
 - 1.8.9 Hover/focus expansion removed: collapsed tabs are 46px icon squares (active one outlined), full tabs only with `#screen.tabs-open`.
+- 1.8.10 Cleanup: all tab bar CSS lives in one block (base, `min-width:721px`, `max-width:720px`, store `max-width:640px`); `build.py` prunes older `.neu` files.
