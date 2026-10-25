@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 - The device scales with the window: `applyFit` sets `--fit` to the smaller of window width ÷ 1240 and height ÷ 860 (1 to 2.4, desktop layout only). The side panels zoom by `--fit`, their columns, the shell radius and the screen bezel scale with it, and screen content zooms by `--ui × --fit`, so the SIZE control still works on top. Windows at or below the default size, and phones, are unchanged.
 
+### Checksums (SHA-256)
+
+```
+c3e66bd5d3296da48ddb5f078ad53d48d72c1742aa1eb968812f74c1194f487e  iv31-Setup-1.9.2.exe
+516a21ea36a10e46b1f93cdaf63313bb981e86bbb569f0ea20b1931e0c4ebdb8  iv31-1.9.2-mac.zip
+40c9c5631917b6763dcada040ee85569f6cfad1408b86af84ee2aa086ac484c6  iv31-1.9.2-linux-x64.tar.gz
+738731931f1161ff8d806be55a761ef772fdc5302d8e9b489b47f701e68037a9  iv31-1.9.2-linux-arm64.tar.gz
+70722d006a4ffaa4891ffe6e821678c4c669df3e688bc22302bf6d05a0929222  iv31_1.9.2_amd64.deb
+2648e9193e5f7c9117b1a52ee378ce11336da2892048846da724bb6bbdf204cf  iv31_1.9.2_arm64.deb
+c6a06fe8341258f7ff5cb8d92b09047b52553b45c18891e29c33983b4a416ec5  iv31-1.9.2-x86_64.AppImage
+d9629a859fd43f46f2dbcbd0fe675ea441dcabf196eb4d1ad0947155cfc600b8  iv31-1.9.2-aarch64.AppImage
+```
+
 ## [1.9.1] - 2026-10-24
 
 ### Changed
