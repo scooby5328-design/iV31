@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.1",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.1.neu",
+  "version": "1.9.2",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.2.neu",
   "data": {
-    "sha256": "e4001a57eaf62417d5c2386cda902d6c4a76600d5fb80706526fb934371a6902",
-    "size": 958148,
-    "notes": "Much faster Pok\u00e9 Data, start-up and tab switching.",
+    "sha256": "8be084b30efe43758195d16cc99ae0281625d8244aca284b01c145024ff6771d",
+    "size": 958929,
+    "notes": "The whole device scales up to fill bigger windows and full screen.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.2] - 2026-10-25
+
+### Added
+- The device scales with the window: `applyFit` sets `--fit` to the smaller of window width ÷ 1240 and height ÷ 860 (1 to 2.4, desktop layout only). The side panels zoom by `--fit`, their columns, the shell radius and the screen bezel scale with it, and screen content zooms by `--ui × --fit`, so the SIZE control still works on top. Windows at or below the default size, and phones, are unchanged.
+
 ## [1.9.1] - 2026-10-24
 
 ### Changed

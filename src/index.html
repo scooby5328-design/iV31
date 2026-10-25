@@ -601,6 +601,11 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
   .dev-grille{width:72px}
 }
 .dev-lcd{overflow:hidden}
+@media (min-width:1001px){
+  .device{max-width:calc(1560px * var(--fit,1));grid-template-columns:calc(176px * var(--fit,1)) minmax(0,1fr) calc(176px * var(--fit,1));border-radius:calc(40px * var(--fit,1));padding:calc(16px * var(--fit,1)) 0}
+  .dev-side{zoom:var(--fit,1)}
+  .dev-screen{border-width:calc(10px * var(--fit,1));border-radius:calc(18px * var(--fit,1))}
+}
 @media (min-width:721px){
   body{overflow:hidden}
   .device{height:calc(100vh - 24px);height:calc(100dvh - 24px);margin:12px auto;grid-template-rows:minmax(0,1fr)}
@@ -681,7 +686,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
 .szk:active{transform:translateY(2px);box-shadow:none}
 .szk:disabled{opacity:.4;cursor:default}
 .szv{min-width:40px;text-align:center;font-family:var(--lcd);font-size:16px;color:#5ad1ff;background:#0b0d10;border-radius:4px;padding:1px 4px}
-#screen>.bar-top,#screen>.desk,#screen>.upd{zoom:var(--ui,1)}
+#screen>.bar-top,#screen>.desk,#screen>.upd{zoom:calc(var(--ui,1) * var(--fit,1))}
 #screen.narrow .tiles{grid-template-columns:minmax(0,1fr)}
 .win.foldable>.win-body>.titlebar{cursor:pointer;justify-content:flex-start;gap:10px}
 .win.foldable>.win-body>.titlebar::before{content:"";flex:none;width:0;height:0;border:6px solid transparent;border-left:8px solid var(--acc);border-right:0;transform:rotate(90deg);transition:transform .15s;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.6))}
@@ -713,7 +718,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
   #screen>.bar-top{grid-column:1;grid-row:1/3;align-self:start;z-index:6;width:58px;padding:14px 0 14px 10px}
   #screen.tabs-open>.bar-top{width:auto}
   #screen>.upd{grid-column:2;grid-row:1;margin:14px 14px 0 0}
-  #screen>.desk{grid-column:2;grid-row:2;align-self:stretch;margin:14px 14px 14px 0;padding:16px 16px 28px;background:var(--mantle);border:2px solid var(--surface1);border-radius:0 6px 6px 6px;min-height:calc((100dvh - 76px) / var(--ui,1));box-shadow:inset 0 0 40px rgba(0,0,0,.18)}
+  #screen>.desk{grid-column:2;grid-row:2;align-self:stretch;margin:14px 14px 14px 0;padding:16px 16px 28px;background:var(--mantle);border:2px solid var(--surface1);border-radius:0 6px 6px 6px;min-height:calc((100dvh - 76px) / (var(--ui,1) * var(--fit,1)));box-shadow:inset 0 0 40px rgba(0,0,0,.18)}
   #screen>.upd:not([hidden])+.desk{margin-top:10px}
   .win{scroll-margin-top:14px}
   .bar-inner{display:block}
@@ -3084,7 +3089,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.1";
+const APP_VERSION = "1.9.2";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3550,6 +3555,13 @@ if (window.IV31_WEB && "serviceWorker" in navigator && (location.protocol === "h
   });
 }
 
+let winFit = 1;
+function applyFit(){
+  const f = WIDE.matches ? Math.round(Math.max(1, Math.min(innerWidth / 1240, innerHeight / 860, 2.4)) * 100) / 100 : 1;
+  if (f === winFit) return;
+  winFit = f; document.documentElement.style.setProperty("--fit", f);
+  fitColumns(); queueFit(); if (!$("scrOff").hidden) placeScrOff();
+}
 const UI_KEY = "iv31-size", UI_STEPS = [.8, .9, 1, 1.1, 1.2, 1.35, 1.5];
 let uiScale = (() => { try { const v = parseFloat(localStorage.getItem(UI_KEY)); return UI_STEPS.includes(v) ? v : 1; } catch(_) { return 1; } })();
 function applyScale(){
@@ -3560,8 +3572,9 @@ function applyScale(){
   fitColumns();
   queueFit();
 }
-function fitColumns(){ const sc = $("screen"), d = sc.querySelector(".desk"); const w = d && d.offsetParent !== null ? d.getBoundingClientRect().width : sc.clientWidth; sc.classList.toggle("narrow", w / uiScale < 760); }
-window.addEventListener("resize", fitColumns);
+function fitColumns(){ const sc = $("screen"), d = sc.querySelector(".desk"); const w = d && d.offsetParent !== null ? d.getBoundingClientRect().width : sc.clientWidth; sc.classList.toggle("narrow", w / (uiScale * winFit) < 760); }
+window.addEventListener("resize", () => { applyFit(); fitColumns(); });
+applyFit();
 const TABS_KEY = "iv31-tabs";
 function setTabsOpen(open, save){
   $("screen").classList.toggle("tabs-open", open);
