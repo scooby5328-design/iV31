@@ -790,7 +790,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
 <div class="dev-grip l" aria-hidden="true"></div><div class="dev-grip r" aria-hidden="true"></div>
 <aside class="dev-side left">
   <div class="dev-brand"><button type="button" class="dev-led" id="power" aria-pressed="true" aria-label="Turn the screen off" title="Power"></button><span>iv31</span></div>
-  <small class="dev-model">FIELD UNIT</small>
+  <small class="dev-model">FIELD TERMINAL</small>
   <div class="dev-lcd"><div class="mods">
       <select id="game" aria-label="Game"></select>
   </div></div>
@@ -807,7 +807,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
   <div class="dkey"><button type="button" class="rkey" id="keySound" aria-pressed="true" aria-label="Sound on or off"></button><span>SOUND</span></div>
 </aside>
 <div class="dev-screen" id="screen">
-<div class="boot" id="boot" hidden><div class="boot-in"><div class="boot-logo">IV<span>/</span>31</div><div class="boot-sub">FIELD UNIT</div><div class="boot-bar"><i></i></div><div class="boot-msg" id="bootMsg">STARTING…</div></div></div>
+<div class="boot" id="boot" hidden><div class="boot-in"><div class="boot-logo">IV<span>/</span>31</div><div class="boot-sub">FIELD TERMINAL</div><div class="boot-bar"><i></i></div><div class="boot-msg" id="bootMsg">STARTING…</div></div></div>
 <nav class="bar-top" aria-label="Workspaces">
   <div class="bar-inner">
     <div class="navbtns"><button type="button" class="navb" id="navBack" aria-label="Back" title="Back (Alt+←)" disabled>◂</button><button type="button" class="navb" id="navFwd" aria-label="Forward" title="Forward (Alt+→)" disabled>▸</button></div>
@@ -3089,7 +3089,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.2";
+const APP_VERSION = "1.9.3";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

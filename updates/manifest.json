@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.2",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.2.neu",
+  "version": "1.9.3",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.3.neu",
   "data": {
-    "sha256": "8be084b30efe43758195d16cc99ae0281625d8244aca284b01c145024ff6771d",
-    "size": 958929,
-    "notes": "The whole device scales up to fill bigger windows and full screen.",
+    "sha256": "decff56d907123a028fb2b7f48e26b6a533bb1112b7facacd6b05cd4d0fc059b",
+    "size": 958937,
+    "notes": "The device label now reads FIELD TERMINAL.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {
