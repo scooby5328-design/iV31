@@ -15,7 +15,7 @@ def main():
     if out.exists():
         shutil.rmtree(out)
     shutil.copytree(ROOT / "app/resources/fonts", out / "fonts")
-    for name in ("icon-192.png", "icon-512.png", "apple-touch-icon.png", "manifest.webmanifest"):
+    for name in ("icon-192.png", "icon-512.png", "icon-maskable-512.png", "apple-touch-icon.png", "manifest.webmanifest"):
         shutil.copy2(ROOT / "app/web" / name, out / name)
     shutil.copy2(ROOT / "app/resources/icon.png", out / "icon.png")
 
@@ -30,7 +30,7 @@ def main():
     head = "\n".join([
         '<meta http-equiv="Content-Security-Policy" content="default-src \'self\'; style-src \'self\' \'unsafe-inline\'; script-src \'self\' \'unsafe-inline\'; font-src \'self\'; img-src \'self\' data:; connect-src \'self\'; manifest-src \'self\'; worker-src \'self\'">',
         f'<meta name="description" content="{desc}">',
-        '<meta name="theme-color" content="#14171b">',
+        '<meta name="theme-color" content="#c4202c">',
         '<link rel="manifest" href="manifest.webmanifest">',
         '<link rel="icon" type="image/png" href="icon-192.png">',
         '<link rel="apple-touch-icon" href="apple-touch-icon.png">',
@@ -44,7 +44,7 @@ def main():
     page = page[:csp_start] + head + page[csp_end:]
     (out / "index.html").write_text(page, encoding="utf-8")
 
-    files = ["./", "manifest.webmanifest", "icon-192.png", "icon-512.png"] + sorted(f"fonts/{p.name}" for p in (out / "fonts").iterdir())
+    files = ["./", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png"] + sorted(f"fonts/{p.name}" for p in (out / "fonts").iterdir())
     sw = (ROOT / "app/web/sw.js").read_text(encoding="utf-8").replace("__VERSION__", version).replace("__FILES__", json.dumps(files))
     (out / "sw.js").write_text(sw, encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")

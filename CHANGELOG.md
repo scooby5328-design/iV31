@@ -9,6 +9,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.4] - 2026-10-27
+
+### Changed
+- New app icon showing the field terminal (red shell, blue screen with IV/31, green power light, D-pad, two buttons). Three hand-tuned variants: full (64px and up), simplified without controls (32–48px), and "IV" only (16–24px). The Windows `.ico` holds 16–256px frames from these variants; the Mac `.icns`, Linux PNGs, Android launcher icons, website icons and Apple touch icon are regenerated.
+- Website: separate full-bleed maskable icon (`icon-maskable-512.png`) for Android home screens, and theme colour set to the shell red.
+- Large icon PNGs are palette-compressed (the 1024px app icon went from 295KB to 33KB).
+
 ## [1.9.3] - 2026-10-27
 
 ### Changed
