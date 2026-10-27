@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.4",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.4.neu",
+  "version": "1.9.5",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.5.neu",
   "data": {
-    "sha256": "4edb6731f7ec21d24a59bb79112d09ad77798b4d30978cdb24d3534a83189e23",
-    "size": 964903,
-    "notes": "New app icon showing the field terminal.",
+    "sha256": "b2e8479e73381304acbc5b5cd632858033117ecb1ecb084eb251e8749fd0e587",
+    "size": 968385,
+    "notes": "Windows updates now download and run the installer, so shortcuts and the icon stay current.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

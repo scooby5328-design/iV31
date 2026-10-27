@@ -80,8 +80,17 @@ Section "iv31 (required)" SecMain
 SectionEnd
 
 Section "Desktop shortcut" SecDesktop
+  IfSilent 0 make
+  IfFileExists "$DESKTOP\iv31.lnk" make done
+  make:
   CreateShortcut "$DESKTOP\iv31.lnk" "$INSTDIR\iv31.exe" "" "$INSTDIR\icon.ico"
+  done:
 SectionEnd
+
+Function .onInstSuccess
+  IfSilent 0 +2
+  Exec '"$INSTDIR\iv31.exe"'
+FunctionEnd
 
 !insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
   !insertmacro MUI_DESCRIPTION_TEXT ${SecMain} "The iv31 app."

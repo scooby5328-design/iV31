@@ -9,12 +9,32 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.5] - 2026-10-27
+
+### Changed
+- Windows: **Update now** installs through the installer. It reads the release from the GitHub API, downloads `iv31-Setup-<v>.exe.zip` with `curl.exe` into `%TEMP%\iv31-update`, checks the zip against GitHub's asset digest and the extracted installer against the SHA-256 in the release notes (`certutil`), unzips it with `tar.exe`, and runs it with `/S`. The installer closes iv31, installs and reopens it. If the release isn't published yet the user is asked to try again later; if `curl`/`tar`/`certutil` aren't available, it falls back to the in-app update. Mac and the Linux tarball keep the in-app update.
+- `commandAllowList` adds `curl.exe`, `tar.exe`, `certutil` and the downloaded installer path; `os.getEnv` is allowed; the content policy allows `https://api.github.com`.
+- Installer: after a silent install it starts iv31, and it only recreates the desktop shortcut if one already exists.
+
 ## [1.9.4] - 2026-10-27
 
 ### Changed
 - New app icon showing the field terminal (red shell, blue screen with IV/31, green power light, D-pad, two buttons). Three hand-tuned variants: full (64px and up), simplified without controls (32–48px), and "IV" only (16–24px). The Windows `.ico` holds 16–256px frames from these variants; the Mac `.icns`, Linux PNGs, Android launcher icons, website icons and Apple touch icon are regenerated.
 - Website: separate full-bleed maskable icon (`icon-maskable-512.png`) for Android home screens, and theme colour set to the shell red.
 - Large icon PNGs are palette-compressed (the 1024px app icon went from 295KB to 33KB).
+
+### Checksums (SHA-256)
+
+```
+f5082aa3cc8144978d2e2483fd8da8d92ae6ee10cb11a122a58e7508c8fb8d23  iv31-Setup-1.9.4.exe
+d7935fd472312a7669beacb40ac180f31f6251ffd1134f8df511d3dc5c25df81  iv31-1.9.4-mac.zip
+bb27f3dd630f8a98398f0791733117cc28c6b555bb1c24faebecd25cdd529b21  iv31-1.9.4-linux-x64.tar.gz
+6dffc2cd7f01bc861ef960bfa2307dfa38d967d0023e5084dcd3da7406d0a2fa  iv31-1.9.4-linux-arm64.tar.gz
+e685503259237d269045ac46808ec036319603832edb0325ba82b0ad823d00b3  iv31_1.9.4_amd64.deb
+fec81b33c6191c87669c360491114fec0737fc95d49881a6b443a676eb87f553  iv31_1.9.4_arm64.deb
+08c39b88602e75b47ea1e6b67e6ace9d68166cb0ba5e10a055c70e336570e397  iv31-1.9.4-x86_64.AppImage
+d1425aefab08dda2a4f9cada8543c06c13108ca6354f4af3e5f72be8f2690b86  iv31-1.9.4-aarch64.AppImage
+```
 
 ## [1.9.3] - 2026-10-27
 

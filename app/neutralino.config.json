@@ -1,6 +1,6 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.4",
+  "version": "1.9.5",
   "defaultMode": "window",
   "port": 31031,
   "documentRoot": "/resources/",
@@ -41,6 +41,7 @@
     "filesystem.move",
     "filesystem.remove",
     "filesystem.setPermissions",
+    "os.getEnv",
     "os.execCommand",
     "app.exit",
     "window.setMainMenu"
@@ -58,6 +59,10 @@
   },
   "commandAllowList": [
     "*iv31.exe",
-    "*/iv31"
+    "*/iv31",
+    "curl.exe",
+    "tar.exe",
+    "certutil",
+    "*\\iv31-update\\iv31-Setup-*.exe"
   ]
 }
