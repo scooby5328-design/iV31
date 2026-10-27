@@ -26,6 +26,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Checksums (SHA-256)
 
 ```
+d6fae2816a0967101652736de18d4f2bac834a806d2e03e528abd22be20ff443  iv31-Setup-1.9.6.exe
+fb381291a9b962c63ef99b831b4813b8fa51735de5836ed816d93d0a41dd7f3a  iv31-1.9.6-mac.zip
 5a3b250d44ded6b423f2149e18ed77bbac063bfbb14163065fc64075fe7ace6d  iv31-1.9.6-linux-x64.tar.gz
 8fbed00c92fb4c6c1143d13367bc94f8383f4971f3eded444387ef93c93ed9c6  iv31-1.9.6-linux-arm64.tar.gz
 54257d52b4cae106b2248ca42310b052111ec51ab76b5876ca1c75d46de07fee  iv31_1.9.6_amd64.deb
