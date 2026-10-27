@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Device label and start-up screen read "FIELD TERMINAL" instead of "FIELD UNIT".
 
+### Checksums (SHA-256)
+
+```
+21f8f26e6f883fbe012b7a7d2f1dc17f31e9d9385bc483558966bb075f484d7d  iv31-Setup-1.9.3.exe
+adea3a22b96aabe32342ef4ded92539a5ab31cbf4ac9e0a05fcb90031fe8a61e  iv31-1.9.3-mac.zip
+2b831beac49c6aadc49dbf29629efd7fcd66bf2cc8a7df6eef62e28504208b52  iv31-1.9.3-linux-x64.tar.gz
+fe8fac731d2c3574f1ee0c6bed80df161283c4c7463dde2f207636a8af29d23b  iv31-1.9.3-linux-arm64.tar.gz
+018c98c4b2d58ceb730610930a1c998c222f4f905bc1e75d05f20603654a5114  iv31_1.9.3_amd64.deb
+4a42341f9c18c5c3f36ea1f49e316d6f246b0d63487d5d6bcf9abfa8dd222dec  iv31_1.9.3_arm64.deb
+bc4f7334e8e136064f23dfe570582c2bc7d0523f2cfe426df0cd27e97dec154c  iv31-1.9.3-x86_64.AppImage
+79e2b530c4dee75fc3319cd7f775ec510ed028b7b60d9133a62af86461011df3  iv31-1.9.3-aarch64.AppImage
+```
+
 ## [1.9.2] - 2026-10-25
 
 ### Added
