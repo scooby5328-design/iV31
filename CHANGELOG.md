@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.7] - 2026-10-27
+
+### Changed
+- Types: when the chart and notes are side by side (1300px and wider), `fitTypesHeight` refits the chart from its width-fitted zoom down to as low as 0.6 so the whole screen fits without vertical scrolling; it runs on every fit, so game changes and window resizes start fresh. Type notes in that layout use tighter padding (12.5px text).
+
 ## [1.9.6] - 2026-10-27
 
 ### Changed
@@ -17,6 +22,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - `#screen>.desk` no longer has a viewport-based `min-height`; the grid row stretches it instead, so a screen whose sections are all closed has no scroll bar.
 - Types: at 1300px and wider, Type notes sit in a second column beside the weakness and resistance chart.
 - Powers: at 1100px and narrower, the Secret Power / Nature Power table hides the Kind column, shows the kind under the area name and lets area names wrap, so it fits without horizontal scrolling down to about 780px windows.
+
+### Checksums (SHA-256)
+
+```
+5a3b250d44ded6b423f2149e18ed77bbac063bfbb14163065fc64075fe7ace6d  iv31-1.9.6-linux-x64.tar.gz
+8fbed00c92fb4c6c1143d13367bc94f8383f4971f3eded444387ef93c93ed9c6  iv31-1.9.6-linux-arm64.tar.gz
+54257d52b4cae106b2248ca42310b052111ec51ab76b5876ca1c75d46de07fee  iv31_1.9.6_amd64.deb
+b5d92e1849ee5afd14aa544436976feeefe007c9f5521aeeb9d589a7af8f7018  iv31_1.9.6_arm64.deb
+f0e141d12090aa487a967ae97534ab290c7cd0bb8468319e5efab3038362c5bd  iv31-1.9.6-x86_64.AppImage
+0112018d4b3c4dfa312d4b8ac8da1cf93e93981d051127662b8e71f104bf64cf  iv31-1.9.6-aarch64.AppImage
+```
 
 ## [1.9.5] - 2026-10-27
 

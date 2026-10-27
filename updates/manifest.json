@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.6",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.6.neu",
+  "version": "1.9.7",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.7.neu",
   "data": {
-    "sha256": "4d95a1e6c5791e6b50973fcfcacd4a876d8530eef76b89346b210cf076d545ad",
-    "size": 971824,
-    "notes": "Game picker display like the clock, no scroll bar when sections are closed, type notes beside the chart.",
+    "sha256": "960fa21369dbd0fc2a5b218148011fe29908e784f111c31a3d6071ccf5e6005c",
+    "size": 972856,
+    "notes": "Types screen fits without a scroll bar.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

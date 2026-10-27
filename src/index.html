@@ -433,7 +433,8 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .sheet.sp .kind-sub{display:none}
 @media (min-width:1300px){
 #view-types{grid-template-columns:minmax(0,max-content) minmax(270px,1fr);align-items:start}
-#view-types .notes{font-size:13.5px}
+#view-types .notes{gap:8px}
+#view-types .notes .note{padding:8px 10px;font-size:12.5px;line-height:1.4}
 #view-types section+section .titlebar{letter-spacing:.03em}
 }
 @media (max-width:1100px){
@@ -3139,7 +3140,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.6";
+const APP_VERSION = "1.9.7";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3631,6 +3632,27 @@ function fitWide(){
     w.classList.toggle("xscroll", sw > cw + slack);
     w.dataset.fitw = cw;
   });
+  if (view.id === "view-types") fitTypesHeight();
+}
+const TYPES_SIDE = window.matchMedia("(min-width:1300px)");
+function fitTypesHeight(){
+  const sc = screenEl(), t = $("typeChart");
+  if (!sc || !TYPES_SIDE.matches || t.offsetParent === null) return;
+  const h = sc.clientHeight, w = t.parentElement;
+  t.style.zoom = "";
+  let z = 1;
+  for (let i = 0; i < 3 && w.scrollWidth > w.clientWidth + 1; i++){ z *= (w.clientWidth - 2) / w.scrollWidth; t.style.zoom = z.toFixed(3); }
+  let over = sc.scrollHeight - h, best = {z, over};
+  for (let i = 0; i < 10 && over > 0 && z > .6; i++){
+    const ht = t.getBoundingClientRect().height;
+    z = Math.max(.6, z * Math.min(.96, (ht - over - 2) / ht));
+    t.style.zoom = z.toFixed(3);
+    over = sc.scrollHeight - h;
+    if (over < best.over) best = {z, over};
+  }
+  t.style.zoom = best.z < 1 ? best.z.toFixed(3) : "";
+  w.classList.toggle("xscroll", w.scrollWidth > w.clientWidth + 8);
+  w.dataset.fitw = w.clientWidth;
 }
 const queueFit = () => { if (!fitQueued){ fitQueued = true; requestAnimationFrame(fitWide); } };
 new MutationObserver(queueFit).observe(document.querySelector(".desk"), {childList:true, subtree:true});
