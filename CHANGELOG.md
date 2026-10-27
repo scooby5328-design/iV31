@@ -9,6 +9,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.6] - 2026-10-27
+
+### Changed
+- Game picker: on screens 721px and wider, a scrollable LCD listbox (`#gameList`, `role="listbox"`, grouped by generation) replaces the native `<select>`, which stays as the source of truth and is still used on phones. Click, arrow keys, Page Up/Down, Home and End pick a game; the selected game is kept in view.
+- Clock display enlarged (22px) and game list set at 20px.
+- `#screen>.desk` no longer has a viewport-based `min-height`; the grid row stretches it instead, so a screen whose sections are all closed has no scroll bar.
+- Types: at 1300px and wider, Type notes sit in a second column beside the weakness and resistance chart.
+- Powers: at 1100px and narrower, the Secret Power / Nature Power table hides the Kind column, shows the kind under the area name and lets area names wrap, so it fits without horizontal scrolling down to about 780px windows.
+
 ## [1.9.5] - 2026-10-27
 
 ### Changed

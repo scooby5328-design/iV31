@@ -430,6 +430,17 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .sheet.sp th button small{display:block;font-size:10px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--overlay);margin-top:1px}
 .sheet.sp td.kind{font-size:12.5px;color:var(--subtext);white-space:nowrap}
 .sheet.sp td.kind .em{font-size:11px;color:var(--peach);margin-left:4px}
+.sheet.sp .kind-sub{display:none}
+@media (min-width:1300px){
+#view-types{grid-template-columns:minmax(0,max-content) minmax(270px,1fr);align-items:start}
+#view-types .notes{font-size:13.5px}
+#view-types section+section .titlebar{letter-spacing:.03em}
+}
+@media (max-width:1100px){
+.sheet.sp th:nth-child(2),.sheet.sp td.kind{display:none}
+.sheet.sp td.pk{white-space:normal;min-width:96px;max-width:130px}
+.sheet.sp .kind-sub{display:block;font-weight:400;font-size:11.5px;color:var(--subtext)}
+}
 .spc{display:inline-block;min-width:34px;padding:1px 7px;border-radius:6px;font-family:var(--mono);font-size:12px;font-weight:700;background:color-mix(in srgb,currentColor 15%,transparent)}
 .spc.main{box-shadow:inset 0 0 0 1px currentColor}
 .spdot{color:var(--surface1)}
@@ -506,7 +517,17 @@ body{background-image:radial-gradient(1200px 800px at 50% 0%,rgba(255,255,255,.0
 .round:disabled{cursor:default;color:rgba(255,255,255,.3)}
 .mods select{font-family:var(--pixel);font-size:11px;background:var(--mantle);color:var(--mauve);border:1px solid var(--surface0);border-radius:5px}
 .mod{font-family:var(--lcd);font-size:18px;line-height:1.05;background:transparent;border:1px solid var(--surface0);border-radius:5px;color:var(--mauve);text-shadow:var(--phos)}
-.mod.clock{color:var(--blue)}
+.mod.clock{color:var(--blue);font-size:22px;padding:6px 10px}
+.gamelist{display:none;white-space:normal;text-align:left !important;padding:4px;max-height:236px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--surface1) transparent;font-size:20px;line-height:1}
+.gamelist::-webkit-scrollbar{width:6px}
+.gamelist::-webkit-scrollbar-thumb{background:var(--surface1);border-radius:3px}
+.gamelist:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.gamelist .gl-h{font-family:var(--pixel);font-size:9px;letter-spacing:.14em;color:var(--overlay);text-shadow:none;padding:7px 4px 3px}
+.gamelist .gl-h:first-child{padding-top:2px}
+.gamelist [role="option"]{display:block;padding:3px 6px;border-radius:3px;cursor:pointer;overflow-wrap:anywhere}
+.gamelist [role="option"]:hover{background:color-mix(in srgb,var(--mauve) 18%,transparent)}
+.gamelist [role="option"][aria-selected="true"]{background:var(--mauve);color:var(--crust);text-shadow:none}
+@media (min-width:721px){.dev-lcd #game{display:none}.dev-lcd .gamelist{display:block}}
 .desk{max-width:none;padding:12px 14px 26px}
 .win{border-radius:4px;padding:0;background:var(--surface1);box-shadow:4px 4px 0 var(--drop);scroll-margin-top:64px}
 .win.active{background:var(--mauve);box-shadow:0 0 14px var(--glow)}
@@ -718,7 +739,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
   #screen>.bar-top{grid-column:1;grid-row:1/3;align-self:start;z-index:6;width:58px;padding:14px 0 14px 10px}
   #screen.tabs-open>.bar-top{width:auto}
   #screen>.upd{grid-column:2;grid-row:1;margin:14px 14px 0 0}
-  #screen>.desk{grid-column:2;grid-row:2;align-self:stretch;margin:14px 14px 14px 0;padding:16px 16px 28px;background:var(--mantle);border:2px solid var(--surface1);border-radius:0 6px 6px 6px;min-height:calc((100dvh - 76px) / (var(--ui,1) * var(--fit,1)));box-shadow:inset 0 0 40px rgba(0,0,0,.18)}
+  #screen>.desk{grid-column:2;grid-row:2;align-self:stretch;margin:14px 14px 14px 0;padding:16px 16px 28px;background:var(--mantle);border:2px solid var(--surface1);border-radius:0 6px 6px 6px;box-shadow:inset 0 0 40px rgba(0,0,0,.18)}
   #screen>.upd:not([hidden])+.desk{margin-top:10px}
   .win{scroll-margin-top:14px}
   .bar-inner{display:block}
@@ -793,6 +814,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
   <small class="dev-model">FIELD TERMINAL</small>
   <div class="dev-lcd"><div class="mods">
       <select id="game" aria-label="Game"></select>
+      <div class="mod gamelist" id="gameList" role="listbox" aria-label="Game" tabindex="0"></div>
   </div></div>
   <div class="dev-fill"></div>
   <div class="dpad" role="group" aria-label="Direction pad">
@@ -1398,9 +1420,36 @@ const starBtn = n => { const on = favs.has(n), nm = DEX[n-1][0]; return `<button
 
 const gameSel = $("game");
 gameSel.innerHTML = ERAS.map(e => `<optgroup label="Gen ${ROMAN[e.g]}">${e.vers.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join("")}</optgroup>`).join("");
+const gameList = $("gameList");
+gameList.innerHTML = ERAS.map((e, i) => `<div role="group" aria-labelledby="glh${i}"><div class="gl-h" id="glh${i}">GEN ${ROMAN[e.g]}</div>${e.vers.map(x => `<div role="option" id="gl-${esc(x).replace(/\W/g, "")}" data-ver="${esc(x)}" aria-selected="false">${esc(x)}</div>`).join("")}</div>`).join("");
+const glOpts = [...gameList.querySelectorAll('[role="option"]')];
+function syncGameList(){
+  let cur = null;
+  glOpts.forEach(o => { const on = o.dataset.ver === gameSel.value; o.setAttribute("aria-selected", on); if (on) cur = o; });
+  if (!cur) return;
+  gameList.setAttribute("aria-activedescendant", cur.id);
+  if (gameList.offsetParent === null) return;
+  const top = cur.offsetTop - gameList.offsetTop, h = gameList.clientHeight;
+  if (top < gameList.scrollTop + 4) gameList.scrollTop = top - 24;
+  else if (top + cur.offsetHeight > gameList.scrollTop + h - 4) gameList.scrollTop = top + cur.offsetHeight - h + 8;
+}
+function pickGame(ver){
+  if (!ver || ver === gameSel.value){ syncGameList(); return; }
+  gameSel.value = ver;
+  gameSel.dispatchEvent(new Event("change", {bubbles:true}));
+}
+gameList.addEventListener("click", e => { const o = e.target.closest('[role="option"]'); if (o) pickGame(o.dataset.ver); });
+gameList.addEventListener("keydown", e => {
+  const i = glOpts.findIndex(o => o.dataset.ver === gameSel.value);
+  const to = {ArrowDown:i + 1, ArrowUp:i - 1, Home:0, End:glOpts.length - 1, PageDown:i + 6, PageUp:i - 6}[e.key];
+  if (to === undefined) return;
+  e.preventDefault(); e.stopPropagation();
+  pickGame(glOpts[Math.max(0, Math.min(glOpts.length - 1, to))].dataset.ver);
+});
 function fillVersions(){
   if (!era().vers.includes(state.ver)) state.ver = era().vers[0];
   gameSel.value = state.ver;
+  syncGameList();
 }
 function saveGame(){ try { localStorage.setItem(GAME_KEY, JSON.stringify({ver:state.ver})); } catch(_) {} }
 
@@ -2507,8 +2556,9 @@ function setGame(ei, ver){
 gameSel.addEventListener("change", () => {
   const ver = gameSel.value, ei = ERAS.findIndex(e => e.vers.includes(ver));
   if (ei !== state.ei) return setGame(ei, ver);
-  state.ver = ver; saveGame(); dirty.evs = dirty.favs = dirty.secret = true; renderActive();
+  state.ver = ver; saveGame(); syncGameList(); dirty.evs = dirty.favs = dirty.secret = true; renderActive();
 });
+if (window.ResizeObserver) new ResizeObserver(syncGameList).observe(gameList);
 searchIn.addEventListener("input", () => { speciesOptions(speciesSel, searchIn, "Choose a Pokémon…"); runCalc(); });
 speciesSel.addEventListener("change", runCalc);
 natureSel.addEventListener("change", runCalc);
@@ -3045,7 +3095,7 @@ function renderSecret(){
   });
   const th = (id, label, sub) => `<th${id !== "area" && id !== "kind" ? ' class="n"' : ""}${spSort === id ? ` aria-sort="${spDir > 0 ? "ascending" : "descending"}"` : ""}><button type="button" data-c="${id}">${label}${spSort === id ? (spDir > 0 ? " ▲" : " ▼") : ""}${sub ? `<small>${sub}</small>` : ""}</button></th>`;
   head.innerHTML = th("area","Area") + th("kind","Kind") + cols.map(c => np ? th(c, c, envsOf(c).map(x => x.g).join(", ")) : th(c, envById[c].move, `${envById[c].g} · ${envById[c].short}`)).join("");
-  body.innerHTML = rows.length ? rows.map(r => { const m = mainOf(r); return `<tr><td class="pk">${r.n}</td><td class="kind">${r.k}${r.x ? `<span class="em">Emerald only</span>` : ""}</td>${cols.map(c => { const v = share(r, c), x = envsOf(c)[0]; return v < 0 ? `<td class="n"><span class="spdot" aria-label="none">·</span></td>` : `<td class="n"><span class="spc${m === c ? " main" : ""}" style="color:${x.c}" title="${np ? envsOf(c).map(e => e.where).join(". ") : `${x.where} · ${x.eff}`}">${v < 1 ? "<1" : v}%</span></td>`; }).join("")}</tr>`; }).join("") : `<tr><td colspan="${cols.length + 2}" class="empty">No areas match.</td></tr>`;
+  body.innerHTML = rows.length ? rows.map(r => { const m = mainOf(r); return `<tr><td class="pk">${r.n}<small class="kind-sub">${r.k}${r.x ? " · Emerald only" : ""}</small></td><td class="kind">${r.k}${r.x ? `<span class="em">Emerald only</span>` : ""}</td>${cols.map(c => { const v = share(r, c), x = envsOf(c)[0]; return v < 0 ? `<td class="n"><span class="spdot" aria-label="none">·</span></td>` : `<td class="n"><span class="spc${m === c ? " main" : ""}" style="color:${x.c}" title="${np ? envsOf(c).map(e => e.where).join(". ") : `${x.where} · ${x.eff}`}">${v < 1 ? "<1" : v}%</span></td>`; }).join("")}</tr>`; }).join("") : `<tr><td colspan="${cols.length + 2}" class="empty">No areas match.</td></tr>`;
   $("spMeta").innerHTML = `<span>Showing <b>${rows.length}</b> of ${rowsAll.length} areas · ${G.label}</span><span>Click a column heading to sort</span>`;
   const extra = G.data === "hoenn"
     ? `<div class="note"><b>Route 113 and the desert</b>Everywhere on Route 113 counts as sand because of the falling ash, and so does anywhere in a sandstorm.</div><div class="note"><b>Bridges</b>Surfing under the bridges on Routes 110 and 119 counts as sea water. Under Route 120's bridges it counts as pond water.</div>`
@@ -3089,7 +3139,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.5";
+const APP_VERSION = "1.9.6";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
