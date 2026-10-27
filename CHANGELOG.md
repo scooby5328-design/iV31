@@ -16,6 +16,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - `commandAllowList` adds `curl.exe`, `tar.exe`, `certutil` and the downloaded installer path; `os.getEnv` is allowed; the content policy allows `https://api.github.com`.
 - Installer: after a silent install it starts iv31, and it only recreates the desktop shortcut if one already exists.
 
+### Checksums (SHA-256)
+
+```
+9448e6e94800b176e08ca7867f96f1c4149e623a065c64b1d8baaecf7df795dc  iv31-Setup-1.9.5.exe
+6aa07df1bd8569e2d01d6cb4c6172fefc52601439f1c018b3c0afe781ebbaf94  iv31-1.9.5-mac.zip
+c361813b77c338f413ac7194a0f49dde7b6f619397029c372b97708a403b2d57  iv31-1.9.5-linux-x64.tar.gz
+58c1a0aa75f1e524b8e6e4c9c174188f4603a0a4e564f69e57a73924be757f99  iv31-1.9.5-linux-arm64.tar.gz
+5e5181de6623224488c0d1fb2f9ae47b474f3bbb8f626c564cf737242240006a  iv31_1.9.5_amd64.deb
+5438bb992e156f89fa41fd84b032a9813a1213291a884ceb7576c268a0cce0a7  iv31_1.9.5_arm64.deb
+b777d9b8baf2d6980e82d347271c4034e759b1c142ba27acfa093d07065271e6  iv31-1.9.5-x86_64.AppImage
+a7829a2ef01ac8c2c246821418c16485c13b243d1871d4a35a37cf835a1ae9ca  iv31-1.9.5-aarch64.AppImage
+```
+
 ## [1.9.4] - 2026-10-27
 
 ### Changed
