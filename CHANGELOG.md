@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Types: when the chart and notes are side by side (1300px and wider), `fitTypesHeight` refits the chart from its width-fitted zoom down to as low as 0.6 so the whole screen fits without vertical scrolling; it runs on every fit, so game changes and window resizes start fresh. Type notes in that layout use tighter padding (12.5px text).
 
+### Checksums (SHA-256)
+
+```
+f5b2d2b22790d9183e34727b267e7fac812dc08b99f4dcc4f4c6d06fbd33abb4  iv31-Setup-1.9.7.exe
+4ec11ba41d869c829eb2a0d4da4441b1492e2848f6bd95554de3997ad68652c3  iv31-1.9.7-mac.zip
+daa4ed8a7bcbb116f7308c279d8be993f28fd3f3911d384867797aab0590f4ca  iv31-1.9.7-linux-x64.tar.gz
+589304011b72d60458c004f8e191b60d0e793f4d4a5ff3f06184a7c79ceee11b  iv31-1.9.7-linux-arm64.tar.gz
+347a027c2a09dd90c13152907d292e13a253f5b9ac0a58e3f5175d28ff1bf427  iv31_1.9.7_amd64.deb
+27a5892e5c3297187698bca0c071488d4b7b13f95238400ca39dd6756ee8b6e2  iv31_1.9.7_arm64.deb
+edc59ea17d41f6dc62b3da76f7d676c41078c0384a7a07124b72056b9688cf1d  iv31-1.9.7-x86_64.AppImage
+07274bf2269648098547557f2124d973b9024e57ea8678d627dd6670df487d53  iv31-1.9.7-aarch64.AppImage
+```
+
 ## [1.9.6] - 2026-10-27
 
 ### Changed
