@@ -18,6 +18,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Closed sections no longer stretch to fill the screen: `.desk` and `.view` use `align-content:start`, and a minimised section has no inner margin, so closed panels are exactly title-bar height. Favorites no longer shows a large empty panel below its list.
 - Game picker generation headings use the stronger text colour for readable contrast.
 
+### Checksums (SHA-256)
+
+```
+611b9d3aef1a85d1353778a06513b9c9225023627aa51f898c164e3111b5700b  iv31-Setup-1.9.8.exe
+9cb6b9e4d181a80673d55aba62bff39d295fc30e31ad6a6f8bbf5775acd18721  iv31-1.9.8-mac.zip
+3265960c235dd0a51a1ffcaa7357ad3cd6b5a3379bbf0ea73c332f337ed0ffed  iv31-1.9.8-linux-x64.tar.gz
+60d3652418eae41cf901cbab5ecf63d2b88785025d8e0505894e4e34c7bb21e6  iv31-1.9.8-linux-arm64.tar.gz
+e47275a30f2f298997217851168ec810370b09e6eda1d5ace5874d47ee4a5f72  iv31_1.9.8_amd64.deb
+0eef29b5ec62b34d3c3a57fb8eb8a672a115e3448c6f59db7a317b2c5f435a3e  iv31_1.9.8_arm64.deb
+fffd51497bf0cae6f11e826d171e362eef7211ac4f18efd69a30fb962a8b3ad7  iv31-1.9.8-x86_64.AppImage
+ca33bf7e6aae52327e9db65da7154420f868ce10274d2a2981d9c15a150f9887  iv31-1.9.8-aarch64.AppImage
+```
+
 ## [1.9.7] - 2026-10-27
 
 ### Changed
