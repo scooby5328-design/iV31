@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Fixed
 - Training routes leave out places with no battles (`NO_BATTLE` / `canBattleAt`): the Safari Zone in Gen I and Gen III games, the Johto Safari Zone (HGSS) and the Great Marsh (DPPt). The ORAS Safari Zone and X/Y's Friend Safari still count. This applies to Poké Data ★ routes and data page route lists; Found in still lists these places.
 
+### Checksums (SHA-256)
+
+```
+c5572a6e048e89ea1b9dbbf761eb80ad6d47b5f419211d123d07d1284f58319f  iv31-Setup-1.9.10.exe
+89610e0fa3d57b63d3a84a54e667c3f1287378140950e3c924deb1556fc9d1bf  iv31-1.9.10-mac.zip
+af6599b564d531a0cc7b701cc35e992204880e7a12a2ddd42d3417a78a782f42  iv31-1.9.10-linux-x64.tar.gz
+dd24442c3360881024638d247ecdb24622163e29253c4d1ab95c4a57a0872fa8  iv31-1.9.10-linux-arm64.tar.gz
+2bd9f3d1a08c7aa392338bc98e1d47642e9f2ed58be556effc1b6476f832410c  iv31_1.9.10_amd64.deb
+11f1f68039d2de75ab2d061d88b96fd968dc2e0759fe913640ab71087fbb2bd0  iv31_1.9.10_arm64.deb
+89f069385a392d37b8ff96edcfaa50367a72f39768dbdad2d87d8557a2bf38ef  iv31-1.9.10-x86_64.AppImage
+d9b4c3b032ea3785c474bdb67bac47300e281e4bf3457b35dcac2043ffef7e60  iv31-1.9.10-aarch64.AppImage
+```
+
 ## [1.9.9] - 2026-10-28
 
 ### Added
