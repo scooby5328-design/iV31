@@ -17,6 +17,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Poké Data's ★ priority routes come from `trainingRoutes`, so both screens agree and one-time encounters no longer count.
 
+### Checksums (SHA-256)
+
+```
+80003fd813b9c4ead2ef1ba9926ae4fcf66d4c76aad795c60777a5675540fb1d  iv31-Setup-1.9.9.exe
+32c33f004f7e33446f8eb4a2c0798c17686d5064361891b2b5b805692ea59f72  iv31-1.9.9-mac.zip
+6a255ba68c3edc7ac58e8db1379638f05775672d5de229e0ab4dcd826abd66af  iv31-1.9.9-linux-x64.tar.gz
+3c82228da88e2be798cf93b4e91a8cabb7174e9de5ea61ced1c0ba8f07d1b4ab  iv31-1.9.9-linux-arm64.tar.gz
+359b6662b8414bb079abae4d590d8073ead5b826c00caea5073a5ca3ab53f20d  iv31_1.9.9_amd64.deb
+6edb3c92f9800044fb158235aadfcad62e56ef6857c187c759f75b20868bb60f  iv31_1.9.9_arm64.deb
+4f6a32cd6e3d7ea733f4c34e469ebd38419b64c38bb2f07b2a6f0d895d674a7e  iv31-1.9.9-x86_64.AppImage
+87b94af459291da296a05671e283d41b6b9657b77ef0fec6ce43cee605ddd86e  iv31-1.9.9-aarch64.AppImage
+```
+
 ## [1.9.8] - 2026-10-28
 
 ### Added
