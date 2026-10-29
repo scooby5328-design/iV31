@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.8",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.8.neu",
+  "version": "1.9.9",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.9.neu",
   "data": {
-    "sha256": "af43fe1d25b7b6b81c4d385ca3cdc6eca2dcbbfee278490bb23eacb734b0fa19",
-    "size": 975664,
-    "notes": "Pok\u00e9 Data highlights the best EV training routes for your Pok\u00e9mon, and closed sections shrink to their title bars.",
+    "sha256": "cf6e8a8b6b6779a2896c3f5fa8ba8ad5f6b9c1b7321e0d8ea58e6540d31da57e",
+    "size": 979706,
+    "notes": "Each Pok\u00e9mon data page lists the best routes to train its key stats.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

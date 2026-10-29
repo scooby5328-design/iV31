@@ -604,6 +604,16 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 .dexcell .lbl{margin:10px 0 6px}
 .dexcell .lbl:first-of-type{margin-top:0}
 .dexcell .places{max-height:320px;overflow:auto}
+.trainroutes{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
+.trainroutes li{border:1px solid var(--surface0);border-left:4px solid var(--acc);border-radius:2px;background:var(--base);padding:7px 10px}
+.tr-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
+.tr-h b{color:var(--text)}
+.tr-rank{font-family:var(--pixel);font-size:10px;color:var(--acc-ink);background:var(--acc);border-radius:2px;padding:1px 5px}
+.tr-sum{margin-left:auto;font-size:12px;color:var(--subtext)}
+.tr-mons{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:5px;font-size:13px}
+.tr-mon small{color:var(--subtext)}
+.tr-more{margin-top:8px}
+.tr-more summary{cursor:pointer;color:var(--acc);font-size:13px}
 .boot{position:absolute;inset:0;z-index:40;display:grid;place-items:center;background:var(--crust);border-radius:8px}
 .boot::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(0,0,0,var(--scan)) 0 1px,transparent 1px 3px)}
 .boot-in{text-align:center;display:grid;gap:10px;justify-items:center;animation:bootOn .5s steps(6) both}
@@ -2076,18 +2086,52 @@ function prioTarget(){
   return {num, key: roleFor(num, E.g, E.max).key};
 }
 function prioSig(){ const t = prioTarget(); return t ? state.ver + "|" + t.num : ""; }
+const trCache = new Map(), NO_REPEAT = new Set(["gift", "one-time", "roaming", "trade", "Devon Scope", "Max Raid", "Dynamax Adventure", "Island Scan"]);
+function battleSpots(ver, n){
+  const list = (LOCDATA.found[ver] || {})[n] || [];
+  return list.filter(([, mask]) => (mask & 1) || LOCDATA.methods.some((m, b) => b > 0 && (mask >> b & 1) && !NO_REPEAT.has(m)))
+    .map(([li, mask]) => ({place: LOCDATA.locs[li], how: LOCDATA.methods.filter((m, b) => m && (mask >> b & 1) && !NO_REPEAT.has(m))}));
+}
+function trainingRoutes(ver, key, max){
+  const ck = ver + "|" + key.join(",") + "|" + max;
+  if (trCache.has(ck)) return trCache.get(ck);
+  const idx = key.map(k => KEYS.indexOf(k)).filter(i => i >= 0), by = new Map(), all = new Map();
+  if (LOCDATA.found[ver]) for (let n = 1; n <= max; n++){
+    const ev = DEX[n-1][8];
+    const spots = battleSpots(ver, n);
+    for (const x of spots) all.set(x.place, (all.get(x.place) || 0) + 1);
+    if (!ev || !idx.some(i => ev[i] > 0)) continue;
+    const gives = idx.filter(i => ev[i] > 0).map(i => [KEYS[i], ev[i]]), pts = gives.reduce((a, x) => a + x[1], 0);
+    for (const x of spots){
+      if (!by.has(x.place)) by.set(x.place, {place:x.place, mons:[], pts:0});
+      const r = by.get(x.place); r.mons.push({n, gives, pts, how:x.how}); r.pts += pts;
+    }
+  }
+  const out = [...by.values()].filter(r => r.mons.length >= 2 && !/^Roaming\b/.test(r.place));
+  out.forEach(r => { r.total = all.get(r.place) || r.mons.length; r.score = r.pts * r.mons.length / r.total; });
+  out.sort((a, b) => b.score - a.score || b.pts - a.pts || cmpPlace(placeKey(ver, a.place), placeKey(ver, b.place)));
+  out.forEach(r => r.mons.sort((a, b) => b.pts - a.pts || a.n - b.n));
+  trCache.set(ck, out);
+  return out;
+}
+const givesText = m => m.gives.map(([k, v]) => `+${v} ${SHORT[k]}`).join(", ");
 function buildPrio(){
   const t = prioTarget(); pdPrioSig = prioSig(); pdPrio = null;
   if (!t) return null;
-  const E = era(), idx = t.key.map(k => KEYS.indexOf(k)), byPlace = new Map();
-  for (let n = 1; n <= E.max; n++){
-    const ev = DEX[n-1][8];
-    if (!ev || !idx.some(i => ev[i] > 0)) continue;
-    for (const x of placesFor(state.ver, n)){ if (!byPlace.has(x.place)) byPlace.set(x.place, []); byPlace.get(x.place).push(n); }
-  }
-  pdPrio = new Map([...byPlace].filter(([, ns]) => ns.length >= 2).map(([pl, ns]) => [pl, ns.map(n => `${DEX[n-1][0]} (${idx.filter(i => DEX[n-1][8][i] > 0).map(i => DEX[n-1][8][i] + " " + SHORT[KEYS[i]]).join(", ")})`).join(", ")]));
+  pdPrio = new Map(trainingRoutes(state.ver, t.key, era().max).map(r => [r.place, r.mons.map(m => `${DEX[m.n-1][0]} (${givesText(m)})`).join(", ")]));
   pdPrio.target = t;
   return pdPrio;
+}
+function trainHtml(i){
+  if (i.old) return `<p class="note-sm">In Gen ${ROMAN[i.g]} every Pokémon you defeat gives Stat Exp in every stat, so any route works. Pokémon with high ${i.key.map(k => labelFor(k, i.g)).join(" and ")} give the most.</p>`;
+  if (i.useEi !== i.ei) return `<p class="note-sm">${esc(i.name)} isn't in ${esc(i.ver)}. Pick a game it's in to see where to train it.</p>`;
+  if (!LOCDATA.found[i.ver]) return `<p class="note-sm">iv31 doesn't have route data for ${esc(i.ver)} yet.</p>`;
+  const list = trainingRoutes(i.ver, i.key, i.E.max);
+  if (!list.length) return `<p class="note-sm">No route in ${esc(i.ver)} has 2 or more wild Pokémon that give these EVs. Look for single Pokémon under Gives EVs in, in Poké Data.</p>`;
+  const li = (r, k) => `<li><div class="tr-h"><span class="tr-rank">${k + 1}</span><b>★ ${esc(r.place)}</b><span class="tr-sum">${r.mons.length} of ${r.total} Pokémon here · ${r.pts} EV points</span></div><div class="tr-mons">${r.mons.map(m => `<span class="tr-mon">${dexLink(m.n)} <small>${givesText(m)}${m.how.length ? ` · ${esc(m.how.join(", "))}` : ""}</small></span>`).join("")}</div></li>`;
+  const top = list.slice(0, 5), rest = list.slice(5);
+  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. Routes rank higher when more of the Pokémon you'll meet there give the right EVs. Gifts, one-time and roaming Pokémon aren't counted. EV points add up what one of each of those Pokémon gives.</p>
+    <ol class="trainroutes">${top.map(li).join("")}</ol>${rest.length ? `<details class="tr-more"><summary>${rest.length} more route${rest.length > 1 ? "s" : ""}</summary><ol class="trainroutes" start="6">${rest.map((r, k) => li(r, k + 5)).join("")}</ol></details>` : ""}`;
 }
 function foundCell(ver, n){
   if (!LOCDATA.found[ver]) return `<span class="none">No location data for ${esc(ver)}</span>`;
@@ -2400,7 +2444,8 @@ function renderDex(){
       <section class="dexcell"><h3>Base stats · Gen ${ROMAN[i.g]}</h3>${statBarsHtml(i)}</section>
       <section class="dexcell"><h3>Training focus</h3>
         <div class="lbl">The 2 stats to focus</div><div class="k2">${i.key.map(k=>`<span class="keychip">★ ${labelFor(k,i.g)}</span>`).join("")}</div>
-        <div class="lbl">Proper nature</div>${naturesHtml(i)}${natWhy}</section>
+        <div class="lbl">Proper nature</div>${naturesHtml(i)}${natWhy}
+        <div class="lbl">Best routes to train it · ${esc(i.ver)}</div>${trainHtml(i)}</section>
       <section class="dexcell"><h3>${i.old ? "Stat Exp it gives" : "EVs it gives"}</h3><div class="evrow">${evYieldHtml(i)}</div>${mult}
         <h3>Evolution line</h3><div class="evo">${evoLine(n, i.EE.max)}</div></section>
       <section class="dexcell loc"><h3>Where to find it · ${esc(i.ver)}</h3>${foundHtml(i)}</section>
@@ -3174,7 +3219,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.8";
+const APP_VERSION = "1.9.9";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

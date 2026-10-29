@@ -9,6 +9,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.9] - 2026-10-28
+
+### Added
+- Data pages: **Best routes to train it** under Training focus, for the selected game. `trainingRoutes(ver, key, max)` collects each place's repeatable wild Pokémon (`battleSpots` skips gifts, one-time, roaming, trade, Devon Scope, Max Raid, Dynamax Adventure and Island Scan encounters), keeps places where 2 or more give EVs in either key stat, and ranks by matching EV points × (matching Pokémon ÷ all repeatable Pokémon there). Top 5 shown with each Pokémon, its EVs and how it's found; the rest in a fold-out list. Gen I–II, games without route data, and Pokémon missing from the selected game get an explanation instead.
+
+### Changed
+- Poké Data's ★ priority routes come from `trainingRoutes`, so both screens agree and one-time encounters no longer count.
+
 ## [1.9.8] - 2026-10-28
 
 ### Added
