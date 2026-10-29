@@ -1,0 +1,63 @@
+Package: iv31
+Architecture: amd64
+Version: 1.9.10
+Priority: optional
+Section: games
+Maintainer: scooby5328-design <noreply@users.noreply.github.com>
+Installed-Size: 3908
+Depends: libgtk-3-0t64 | libgtk-3-0, libwebkit2gtk-4.1-0 | libwebkit2gtk-4.0-37, libxtst6, libxrandr2, libpng16-16t64 | libpng16-16
+Filename: pool/main/i/iv31/iv31_1.9.10_amd64.deb
+Size: 1194084
+MD5sum: cd1d6bb6778839907d4c8a230797942d
+SHA1: 39eb5353dffb0b4ca796b741113ab953f3974fe4
+SHA256: 2bd9f3d1a08c7aa392338bc98e1d47642e9f2ed58be556effc1b6476f832410c
+SHA512: 6daf0fc668ac5af21cb3f03171924bda5b91e03f28d890f5cbbd2a00291f6e0e69f4df4c03accd2da48232d896abb597c9d0bed672cf1f82bbe335e44efafef3
+Homepage: https://github.com/scooby5328-design/iV31
+Description: Offline Pokémon IV calculator for the whole National Pokédex
+ Pick a Pokémon, enter its level and stats, and iv31 works out its IVs,
+ the natures that suit it, and which stats matter most. Includes EV and
+ Hidden Power calculators, EV yields with wild locations, a type chart,
+ a Secret Power and Nature Power guide, and favorites. Covers Gen I to IX.
+
+Package: iv31
+Architecture: amd64
+Version: 1.9.8
+Priority: optional
+Section: games
+Maintainer: scooby5328-design <noreply@users.noreply.github.com>
+Installed-Size: 3904
+Depends: libgtk-3-0t64 | libgtk-3-0, libwebkit2gtk-4.1-0 | libwebkit2gtk-4.0-37, libxtst6, libxrandr2, libpng16-16t64 | libpng16-16
+Filename: pool/main/i/iv31/iv31_1.9.8_amd64.deb
+Size: 1192100
+MD5sum: a918e65a579d1bd43ece6b602bcec085
+SHA1: b93a6cbebf48c1d95dfc64871ceb07c64b7ee1ae
+SHA256: e47275a30f2f298997217851168ec810370b09e6eda1d5ace5874d47ee4a5f72
+SHA512: 493f6ea39ff0165dd447aaae5d17d01a4ae342fdc2d9795ca37db0ce1403bb64f8971da66d5de11391c54414f6a34c5ff6719a00c67c28445e4993528d7ecf77
+Homepage: https://github.com/scooby5328-design/iV31
+Description: Offline Pokémon IV calculator for the whole National Pokédex
+ Pick a Pokémon, enter its level and stats, and iv31 works out its IVs,
+ the natures that suit it, and which stats matter most. Includes EV and
+ Hidden Power calculators, EV yields with wild locations, a type chart,
+ a Secret Power and Nature Power guide, and favorites. Covers Gen I to IX.
+
+Package: iv31
+Architecture: amd64
+Version: 1.9.9
+Priority: optional
+Section: games
+Maintainer: scooby5328-design <noreply@users.noreply.github.com>
+Installed-Size: 3908
+Depends: libgtk-3-0t64 | libgtk-3-0, libwebkit2gtk-4.1-0 | libwebkit2gtk-4.0-37, libxtst6, libxrandr2, libpng16-16t64 | libpng16-16
+Filename: pool/main/i/iv31/iv31_1.9.9_amd64.deb
+Size: 1193280
+MD5sum: d05dd4b6080ab107639b5d70c0fcb34f
+SHA1: 1c9965a0b0feee6eb87f939e6e6fa65e8877f72a
+SHA256: 359b6662b8414bb079abae4d590d8073ead5b826c00caea5073a5ca3ab53f20d
+SHA512: 7f5ff87f40950412e5d0bf6d4ac971fb1227c9ce97b9932413c56f4a5628d137ba0059b79fd2acd77abae0309051ae1b8d384f82d49ba1cd6fa7e1ccd5bbde1c
+Homepage: https://github.com/scooby5328-design/iV31
+Description: Offline Pokémon IV calculator for the whole National Pokédex
+ Pick a Pokémon, enter its level and stats, and iv31 works out its IVs,
+ the natures that suit it, and which stats matter most. Includes EV and
+ Hidden Power calculators, EV yields with wild locations, a type chart,
+ a Secret Power and Nature Power guide, and favorites. Covers Gen I to IX.
+
