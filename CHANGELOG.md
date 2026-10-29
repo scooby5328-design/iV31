@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.10] - 2026-10-28
+
+### Fixed
+- Training routes leave out places with no battles (`NO_BATTLE` / `canBattleAt`): the Safari Zone in Gen I and Gen III games, the Johto Safari Zone (HGSS) and the Great Marsh (DPPt). The ORAS Safari Zone and X/Y's Friend Safari still count. This applies to Poké Data ★ routes and data page route lists; Found in still lists these places.
+
 ## [1.9.9] - 2026-10-28
 
 ### Added

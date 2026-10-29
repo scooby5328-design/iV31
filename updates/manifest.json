@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.9",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.9.neu",
+  "version": "1.9.10",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.10.neu",
   "data": {
-    "sha256": "cf6e8a8b6b6779a2896c3f5fa8ba8ad5f6b9c1b7321e0d8ea58e6540d31da57e",
-    "size": 979706,
-    "notes": "Each Pok\u00e9mon data page lists the best routes to train its key stats.",
+    "sha256": "9b4e0f7485088c20c50a154e7a3920dba86c70deedc351e6972204ae19e1c48e",
+    "size": 980110,
+    "notes": "Training routes no longer include Safari Zones where you can't battle.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

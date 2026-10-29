@@ -2087,8 +2087,10 @@ function prioTarget(){
 }
 function prioSig(){ const t = prioTarget(); return t ? state.ver + "|" + t.num : ""; }
 const trCache = new Map(), NO_REPEAT = new Set(["gift", "one-time", "roaming", "trade", "Devon Scope", "Max Raid", "Dynamax Adventure", "Island Scan"]);
+const NO_BATTLE = {"Safari Zone": new Set(["Red", "Blue", "Yellow", "Ruby", "Sapphire", "Emerald", "FireRed", "LeafGreen"]), "Johto Safari Zone": null, "Great Marsh": null};
+const canBattleAt = (ver, place) => !(place in NO_BATTLE) || (NO_BATTLE[place] !== null && !NO_BATTLE[place].has(ver));
 function battleSpots(ver, n){
-  const list = (LOCDATA.found[ver] || {})[n] || [];
+  const list = ((LOCDATA.found[ver] || {})[n] || []).filter(([li]) => canBattleAt(ver, LOCDATA.locs[li]));
   return list.filter(([, mask]) => (mask & 1) || LOCDATA.methods.some((m, b) => b > 0 && (mask >> b & 1) && !NO_REPEAT.has(m)))
     .map(([li, mask]) => ({place: LOCDATA.locs[li], how: LOCDATA.methods.filter((m, b) => m && (mask >> b & 1) && !NO_REPEAT.has(m))}));
 }
@@ -2130,7 +2132,7 @@ function trainHtml(i){
   if (!list.length) return `<p class="note-sm">No route in ${esc(i.ver)} has 2 or more wild Pokémon that give these EVs. Look for single Pokémon under Gives EVs in, in Poké Data.</p>`;
   const li = (r, k) => `<li><div class="tr-h"><span class="tr-rank">${k + 1}</span><b>★ ${esc(r.place)}</b><span class="tr-sum">${r.mons.length} of ${r.total} Pokémon here · ${r.pts} EV points</span></div><div class="tr-mons">${r.mons.map(m => `<span class="tr-mon">${dexLink(m.n)} <small>${givesText(m)}${m.how.length ? ` · ${esc(m.how.join(", "))}` : ""}</small></span>`).join("")}</div></li>`;
   const top = list.slice(0, 5), rest = list.slice(5);
-  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. Routes rank higher when more of the Pokémon you'll meet there give the right EVs. Gifts, one-time and roaming Pokémon aren't counted. EV points add up what one of each of those Pokémon gives.</p>
+  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. Routes rank higher when more of the Pokémon you'll meet there give the right EVs. Gifts, one-time and roaming Pokémon aren't counted, and neither are Safari Zones where you can't battle. EV points add up what one of each of those Pokémon gives.</p>
     <ol class="trainroutes">${top.map(li).join("")}</ol>${rest.length ? `<details class="tr-more"><summary>${rest.length} more route${rest.length > 1 ? "s" : ""}</summary><ol class="trainroutes" start="6">${rest.map((r, k) => li(r, k + 5)).join("")}</ol></details>` : ""}`;
 }
 function foundCell(ver, n){
@@ -3219,7 +3221,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.9";
+const APP_VERSION = "1.9.10";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
