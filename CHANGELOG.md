@@ -9,6 +9,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [1.9.8] - 2026-10-28
+
+### Added
+- Poké Data priority routes: with a Pokémon picked in the IV Calculator (Gen III and later, versions with location data), routes where 2 or more wild Pokémon give EVs in its two key stats (`roleFor().key`) are marked ★ under Found in, listed first in each cell, and titled with the Pokémon and EVs found there. A note above the table names the Pokémon and how many routes qualify. The table re-renders when the calculator's Pokémon changes (`prioSig`).
+
+### Fixed
+- Closed sections no longer stretch to fill the screen: `.desk` and `.view` use `align-content:start`, and a minimised section has no inner margin, so closed panels are exactly title-bar height. Favorites no longer shows a large empty panel below its list.
+- Game picker generation headings use the stronger text colour for readable contrast.
+
 ## [1.9.7] - 2026-10-27
 
 ### Changed
