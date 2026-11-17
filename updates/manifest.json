@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "2.0.0",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.0.neu",
+  "version": "2.0.1",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.1.neu",
   "data": {
-    "sha256": "273826027ba894754f8c3efe5e360bc372b3743321558374008b691648f90b05",
-    "size": 2246856,
-    "notes": "New Routes tab: every route with appearance rates, EV and EXP sorting, and full route pages with items, field moves and a mini map for Gen 3.",
+    "sha256": "89de3ea0e98d5918dcaa99092e62b63ebe38c4a9660bb66bb152a5ddd23a6d05",
+    "size": 2247299,
+    "notes": "Routes now name each route's main EV instead of showing EVs per battle.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

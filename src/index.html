@@ -2203,9 +2203,9 @@ function trainHtml(i){
   if (!LOCDATA.found[i.ver]) return `<p class="note-sm">iv31 doesn't have route data for ${esc(i.ver)} yet.</p>`;
   const list = trainingRoutes(i.ver, i.key, i.E.max);
   if (!list.length) return `<p class="note-sm">No route in ${esc(i.ver)} has 2 or more wild Pokémon that give these EVs. Look for single Pokémon under Gives EVs in, in Poké Data.</p>`;
-  const li = (r, k) => `<li><div class="tr-h"><span class="tr-rank">${k + 1}</span><b>★ ${placeLink(r.place)}</b><span class="tr-sum">${r.mons.length} of ${r.total} Pokémon here · ${r.per ? `≈${r.per.toFixed(2)} EVs per battle (${esc(r.at)})` : `${r.pts} EV points`}</span></div><div class="tr-mons">${r.mons.map(m => `<span class="tr-mon">${dexLink(m.n)} <small>${givesText(m)}${m.how.length ? ` · ${esc(m.how.join(", "))}` : ""}</small></span>`).join("")}</div></li>`;
+  const li = (r, k) => `<li><div class="tr-h"><span class="tr-rank">${k + 1}</span><b>★ ${placeLink(r.place)}</b><span class="tr-sum">${r.mons.length} of ${r.total} Pokémon here · ${r.per ? `best by ${esc(r.at)}` : `${r.pts} EV points`}</span></div><div class="tr-mons">${r.mons.map(m => `<span class="tr-mon">${dexLink(m.n)} <small>${givesText(m)}${m.how.length ? ` · ${esc(m.how.join(", "))}` : ""}</small></span>`).join("")}</div></li>`;
   const top = list.slice(0, 5), rest = list.slice(5);
-  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. ${RD && RD.v[i.ver] ? "Routes rank by how many of those EVs one battle gives on average at the best spot, counting how often each Pokémon appears." : "Routes rank higher when more of the Pokémon you'll meet there give the right EVs. EV points add up what one of each of those Pokémon gives."} Gifts, one-time and roaming Pokémon aren't counted, and neither are Safari Zones where you can't battle. Tap a route to open its page.</p>
+  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. ${RD && RD.v[i.ver] ? "Routes rank by how many of those EVs you'll get at the best spot, counting how often each Pokémon appears." : "Routes rank higher when more of the Pokémon you'll meet there give the right EVs. EV points add up what one of each of those Pokémon gives."} Gifts, one-time and roaming Pokémon aren't counted, and neither are Safari Zones where you can't battle. Tap a route to open its page.</p>
     <ol class="trainroutes">${top.map(li).join("")}</ol>${rest.length ? `<details class="tr-more"><summary>${rest.length} more route${rest.length > 1 ? "s" : ""}</summary><ol class="trainroutes" start="6">${rest.map((r, k) => li(r, k + 5)).join("")}</ol></details>` : ""}`;
 }
 function foundCell(ver, n){
@@ -2616,8 +2616,9 @@ function rdAreas(ver, place){
 const g3 = (ver, place) => RD && RD.gen3 && RD.gen3[ver] ? RD.gen3[ver].places[place] || null : null;
 const isHiddenMethod = m => RD.hiddenMethods.includes(m);
 function placeScores(ver, place){
-  const out = {ev:[0,0,0,0,0,0], evAt:["","","","","",""], exp:0, expAt:"", mons:new Set()};
+  const out = {ev:[0,0,0,0,0,0], evAt:["","","","","",""], mix:[0,0,0,0,0,0], exp:0, expAt:"", mons:new Set()};
   if (!canBattleAt(ver, place)) return out;
+  const fam = new Map();
   for (const a of rdAreas(ver, place)){
     const spots = new Map();
     for (const r of a.rows){
@@ -2634,11 +2635,16 @@ function placeScores(ver, place){
       for (let i = 0; i < 6; i++){
         const e = sp.rows.reduce((s, r) => s + r.rate * ((DEX[r.n-1] && DEX[r.n-1][8] || [])[i] || 0), 0) / tot;
         if (e > out.ev[i]){ out.ev[i] = e; out.evAt[i] = where; }
+        const mn = RD.methods[sp.method], fk = /Rod|fishing/i.test(mn) ? "fish" : /Surf|Rippling water/i.test(mn) ? "surf" : mn;
+        if (!fam.has(fk)) fam.set(fk, {sum:[0,0,0,0,0,0], n:0});
+        fam.get(fk).sum[i] += e;
       }
+      fam.get(/Rod|fishing/i.test(RD.methods[sp.method]) ? "fish" : /Surf|Rippling water/i.test(RD.methods[sp.method]) ? "surf" : RD.methods[sp.method]).n++;
       const x = sp.rows.reduce((s, r) => s + r.rate * (RD.bexp[r.n] || 0) * (r.lo + r.hi) / 2 / 7, 0) / tot;
       if (x > out.exp){ out.exp = x; out.expAt = where; }
     }
   }
+  for (const f of fam.values()) for (let i = 0; i < 6; i++) out.mix[i] += f.sum[i] / f.n;
   return out;
 }
 const TOWN = /\b(Town|City|Village|Island|Plateau|Isle)$/;
@@ -2659,18 +2665,18 @@ function renderRoutes(){
   const stat = KEYS.indexOf(rtSort), byExp = rtSort === "exp", old = g <= 2;
   const extra = p => { const d = g3(ver, p); return d ? [(d.items || []).length + (d.hidden || []).length, d.hm || []] : [0, []]; };
   const row = (p, rank) => {
-    const s = sc.get(p), [items, hm] = extra(p), best = s.ev.map((v, i) => [v, i]).filter(x => x[0] > 0.0049).sort((a, b) => b[0] - a[0]).slice(0, 2);
-    const val = stat >= 0 ? `<b>${s.ev[stat].toFixed(2)}</b> ${SHORT[KEYS[stat]]} <small>${esc(s.evAt[stat])}</small>` : byExp ? `<b>≈${Math.round(s.exp)}</b> EXP <small>${esc(s.expAt)}</small>` : "";
+    const s = sc.get(p), [items, hm] = extra(p);
+    const val = stat >= 0 ? `${mainEvHtml(s)} <small>${LABEL[KEYS[stat]]} EVs from ${esc(s.evAt[stat])}</small>` : byExp ? `<b>≈${Math.round(s.exp)}</b> EXP <small>${esc(s.expAt)}</small>` : "";
     return `<tr>${rank ? `<td class="rk">${rank}</td>` : ""}<td class="rt-name">${placeLink(p)}${!canBattleAt(ver, p) ? ` <span class="rt-tag">no battles</span>` : ""}</td>
       <td class="rt-n">${s.mons.size || "—"}</td>
-      ${rank ? `<td class="rt-val">${val}</td>` : `<td class="rt-ev">${old ? `<small>Stat Exp from every Pokémon</small>` : best.length ? best.map(([v, i]) => `<span class="evchip">${v.toFixed(2)} ${SHORT[KEYS[i]]}</span>`).join(" ") : "—"}</td><td class="rt-exp">${s.exp ? "≈" + Math.round(s.exp) : "—"}</td>`}
+      ${rank ? `<td class="rt-val">${val}</td>` : `<td class="rt-ev">${old ? `<small>Stat Exp from every Pokémon</small>` : mainEvHtml(s)}</td><td class="rt-exp">${s.exp ? "≈" + Math.round(s.exp) : "—"}</td>`}
       <td class="rt-x">${items ? `${items} item${items > 1 ? "s" : ""}` : ""}${hm.length ? ` <span class="hmchips">${hm.map(h => `<span class="hmchip">${HM_NAMES[h]}</span>`).join("")}</span>` : ""}</td></tr>`;
   };
-  const head = rank => `<thead><tr>${rank ? `<th>#</th>` : ""}<th>Place</th><th title="Different wild Pokémon">Pokémon</th>${rank ? `<th>${stat >= 0 ? `${LABEL[KEYS[stat]]} EVs per battle` : "EXP per battle"}</th>` : `<th title="Best EVs per battle">EVs per battle</th><th title="Average EXP per battle at the best spot">EXP</th>`}<th>Items · field moves</th></tr></thead>`;
+  const head = rank => `<thead><tr>${rank ? `<th>#</th>` : ""}<th>Place</th><th title="Different wild Pokémon">Pokémon</th>${rank ? `<th>${stat >= 0 ? "Main EV" : "EXP per battle"}</th>` : `<th title="The EV most of the Pokémon here give">Main EV</th><th title="Average EXP per battle at the best spot">EXP</th>`}<th>Items · field moves</th></tr></thead>`;
   if (stat >= 0 || byExp){
     if (old && stat >= 0){ body.innerHTML = `<p class="note-sm">In Gen ${ROMAN[g]} every Pokémon gives Stat Exp in every stat, so EV sorting doesn't apply. Sort by EXP instead.</p>`; return; }
     const ranked = places.filter(p => (stat >= 0 ? sc.get(p).ev[stat] : sc.get(p).exp) > 0).sort((a, b) => stat >= 0 ? sc.get(b).ev[stat] - sc.get(a).ev[stat] : sc.get(b).exp - sc.get(a).exp);
-    body.innerHTML = `<p class="note-sm">Best spot on each route, counting how often each Pokémon appears. ${byExp ? "EXP is an estimate for one battle at average levels." : "One defeat gives these EVs on average; Pokérus or a Macho Brace double them."} Safari Zones without battles are left out.</p>
+    body.innerHTML = `<p class="note-sm">${byExp ? "Ranked by the EXP one battle gives at the best spot on each route, counting how often each Pokémon appears." : `Ranked by how much ${LABEL[KEYS[stat]]} the Pokémon you'll meet give, at the best spot on each route. Main EV is the stat most of that route's Pokémon give.`} Safari Zones without battles are left out.</p>
       <div class="sheet-wrap"><table class="sheet rtable">${head(true)}<tbody>${ranked.map((p, i) => row(p, i + 1)).join("")}</tbody></table></div>`;
     return;
   }
@@ -2680,6 +2686,12 @@ function renderRoutes(){
   const sect = (title, list, note) => list.length ? `<h3 class="rt-h">${title} <small>${list.length}</small></h3>${note ? `<p class="note-sm">${note}</p>` : ""}<div class="sheet-wrap"><table class="sheet rtable">${head(false)}<tbody>${list.map(p => row(p, 0)).join("")}</tbody></table></div>` : "";
   body.innerHTML = sect("Routes", nums) + sect("Special areas", special, "Caves, mountains, forests and other places off the numbered routes, in story order.") + sect("Towns and cities", towns);
 }
+function mainEv(s){
+  const top = Math.max(...s.mix);
+  if (!(top > 0.0049)) return [];
+  return s.mix.map((v, i) => [v, i]).filter(x => x[0] >= top - 1e-9).map(x => x[1]);
+}
+const mainEvHtml = s => { const m = mainEv(s); return m.length ? m.map(i => `<span class="evchip">${LABEL[KEYS[i]]}</span>`).join(" ") : "—"; };
 const HM_NAMES = {cut:"Cut", rocksmash:"Rock Smash", strength:"Strength", surf:"Surf", waterfall:"Waterfall", dive:"Dive", flash:"Flash"};
 function isSeaRoute(ver, p){
   const walk = RD.methods.indexOf("Walking"), d = g3(ver, p), rows = rdAreas(ver, p).flatMap(a => a.rows);
@@ -2719,7 +2731,6 @@ function renderRoute(){
   const nameOf = x => routePlaces(ver).find(p => routeNo(p) === x);
   const step = `<div class="dexstep">${prevNo !== undefined ? `<a class="btn small" href="${routeHref(nameOf(prevNo))}">◂ ${esc(nameOf(prevNo))}</a>` : ""}${nextNo !== undefined ? `<a class="btn small" href="${routeHref(nameOf(nextNo))}">${esc(nameOf(nextNo))} ▸</a>` : ""}</div>`;
   const sc = placeScores(ver, place), noBattle = !canBattleAt(ver, place);
-  const best = sc.ev.map((v, i) => [v, i]).filter(x => x[0] > 0.0049).sort((a, b) => b[0] - a[0]);
   const all = areas.flatMap(a => a.rows.map(r => ({...r, area:a.area})));
   const areaKey = a => { const f = /^(B?)(\d+)F$/.exec(a); return !a ? [0, 0, ""] : f ? [1, f[1] ? -Number(f[2]) : Number(f[2]), ""] : [2, 0, a]; };
   const wild = areas.map(a => ({area:a.area, rows:a.rows.filter(r => !isHiddenMethod(r.method) && !r.conds.some(c => NAT_COND.test(c)))})).filter(a => a.rows.length)
@@ -2740,7 +2751,7 @@ function renderRoute(){
   const detail = !!(RD.gen3 && RD.gen3[ver]);
   body.innerHTML = nav.replace(`<div class="dexstep"><a class="btn small" href="#routes">`, `${step}<div class="dexstep"><a class="btn small" href="#routes">`) + `
     <header class="rt-head"><div><div class="dexno">${no !== null ? "R" + no : "◆"}</div></div><div><h2>${esc(place)}</h2><p class="note-sm">${esc(ver)}${noBattle ? " · <b>No battles here</b>: you throw balls and bait, so it gives no EVs or EXP" : ""}</p>
-      ${!old && best.length ? `<p class="rt-best">Best for training: ${best.slice(0, 3).map(([v, i]) => `<span class="evchip">${v.toFixed(2)} ${SHORT[KEYS[i]]}</span> <small>${esc(sc.evAt[i])}</small>`).join(" · ")} per battle${sc.exp ? ` · ≈${Math.round(sc.exp)} EXP` : ""}</p>` : ""}</div></header>
+      ${!old && mainEv(sc).length ? `<p class="rt-best">Main EV here: ${mainEvHtml(sc)}${sc.exp ? ` · ≈${Math.round(sc.exp)} EXP per battle` : ""}</p>` : ""}</div></header>
     ${miniMap(ver, place)}
     <div class="dexgrid">
       <section class="dexcell wide"><h3>Wild Pokémon</h3>${wildHtml}</section>
@@ -3506,7 +3517,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "2.0.0";
+const APP_VERSION = "2.0.1";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3840,7 +3851,7 @@ const TIPS = {
     how:["Open it by clicking any Pokémon's name or number: in the Poké Data table, the IV readout, Party comparison, Favorites or an evolution line.","Use <b>\u25c2 \u25b8</b> next to the number to step through the Pokédex, or type a name in <b>Jump to a Pokémon</b>.","<b>Back</b> and <b>Forward</b> move through the pages you've visited, like a browser. On the device they're the <b>B</b> and <b>A</b> buttons; on phones they sit at the top of the screen."],
     with:[["<b>Check its IVs</b> opens it in the IV calculator."],["<b>Add to party</b> adds it to Party comparison.",1],["<b>Defeated one: add its EVs</b> adds its EV yield to the EV calculator.",1]]},
   "routes-h": {t:"Routes", for:"Every route, cave, town and special area in the game you picked, with what you can train there.",
-    how:["Numbered routes come first, then <b>Special areas</b> (caves, mountains, forests) and <b>Towns and cities</b>.","<b>Sort by</b> a stat to rank every place by how many of those EVs one battle gives on average, or by <b>Most EXP</b>.","Rates count how often each Pokémon appears, at the best spot on each route.","Tap a place to open its route page."],
+    how:["Numbered routes come first, then <b>Special areas</b> (caves, mountains, forests) and <b>Towns and cities</b>.","<b>Main EV</b> is the stat most of the Pokémon there give.","<b>Sort by</b> a stat to rank every place by how much of it you'll get, or by <b>Most EXP</b>.","Rates count how often each Pokémon appears, at the best spot on each route.","Tap a place to open its route page."],
     with:[["<b>Poké Data</b>: places under Found in open their route page."],["<b>Pokémon data pages</b>: Where to find it and Best routes to train it link here too."]]},
   "route-h": {t:"Route page", for:"Everything iv31 knows about one place: where it is, every wild Pokémon with its levels and appearance rate, hidden and special Pokémon, items, hidden items, field moves and where it leads.",
     how:["The mini map at the top lights up this place; tap any other square to go there.","Wild Pokémon are grouped by area and by how you meet them (walking, surfing, each fishing rod and so on).","<b>Rate</b> is the chance each time you meet a Pokémon that way.","Use <b>◂ ▸</b> to step through the numbered routes, and <b>Back</b> and <b>Forward</b> like a browser."],

@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [2.0.1] - 2026-11-17
+
+### Changed
+- Routes tab and route pages show each place's main EV (`mainEv`: the stat with the largest rate-weighted yield across its encounter methods, with all fishing rods counted as one method and surfing as another) instead of EVs-per-battle figures. Sorted lists keep their ranking and name the method for the sorted stat. Data page training routes say which method is best instead of a per-battle figure.
+
 ## [2.0.0] - 2026-11-17
 
 ### Added
