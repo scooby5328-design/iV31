@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Routes tab and route pages show each place's main EV (`mainEv`: the stat with the largest rate-weighted yield across its encounter methods, with all fishing rods counted as one method and surfing as another) instead of EVs-per-battle figures. Sorted lists keep their ranking and name the method for the sorted stat. Data page training routes say which method is best instead of a per-battle figure.
 
+### Checksums (SHA-256)
+
+```
+868782b748e1a996ebb80d319d4732cad8aa2ace196de9a527536685e4a90258  iv31-Setup-2.0.1.exe
+1acadcf4c74c28e2317e789da343968ab036cae6a382cd3c163240603f68b7af  iv31-2.0.1-mac.zip
+26e592b201c29adecebe6560c266029e0f3fa03435b525b2a79619ea0fb95b4a  iv31-2.0.1-linux-x64.tar.gz
+2c1a90b910de5ae2a2727e74139e4bfe265f6c9bb809e5cea9bf088ec875533c  iv31-2.0.1-linux-arm64.tar.gz
+96e15f7836b18d8e28c6a45b0dc732eb76f6eb5c644ae94c381162f3e8ca34fe  iv31_2.0.1_amd64.deb
+7491c8682005be77eb312e44aacf41c686620dfe83d17fda7fc1b5b5a5d26433  iv31_2.0.1_arm64.deb
+56f6c0485ec78c94e5a54b3337dfd3c37c97f395d4d47eacc869ea9a69fb0271  iv31-2.0.1-x86_64.AppImage
+91400a902416ae93de68cfcb233f2e6e5bafe14d5084ded4f7bb0838b67bea10  iv31-2.0.1-aarch64.AppImage
+```
+
 ## [2.0.0] - 2026-11-17
 
 ### Added
