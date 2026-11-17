@@ -17,6 +17,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 - With a Pokémon picked in the IV Calculator, the Routes tab highlights its two key stats (`roleFor().key`) and stars routes whose two main EVs are both of them (`evMatch`). The list redraws when the calculator's Pokémon changes.
 
+### Checksums (SHA-256)
+
+```
+391ccb4a88b01a38eee21ce903c52d039c45b6409bb093518bf66f765140b114  iv31-Setup-2.0.2.exe
+e5630a5d763d45d3f1a12a89de73ca0829ab7dd6a67509a91e7bbc4f149747c4  iv31-2.0.2-mac.zip
+ec6ee75fc800baf8a901b37b889fd7952cb1f456936796d65394c14f46740dac  iv31-2.0.2-linux-x64.tar.gz
+f31b2fa4a3101da21f42bba2a46a5e62e66d9e291e330216d808be2ff916a9a5  iv31-2.0.2-linux-arm64.tar.gz
+f27e9cc29949429a5191f964c013a307455e0b48bccbca9e1de1de0fafb0d30d  iv31_2.0.2_amd64.deb
+8840f8206fc81232d76b1ea2937e7802031341f91338b16eee12cf519c8c7d73  iv31_2.0.2_arm64.deb
+2f3af47464ac9893675c45761b61fee71a7a4d49bff5bf82161fd4d33681c57b  iv31-2.0.2-x86_64.AppImage
+d67b642c9ca337a8549b5d6407a3cbbf0a51307e462e360f5caab0ea5240c035  iv31-2.0.2-aarch64.AppImage
+```
+
 ## [2.0.1] - 2026-11-17
 
 ### Changed
