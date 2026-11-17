@@ -16,6 +16,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Regional-form branches (Perrserker, Sirfetch'd, Mr. Rime, Runerigus, Cursola, Obstagoon, Clodsire, Sneasler, Overqwil, Basculegion) join the evolution line through `EVO.extra` and `evoKids`.
 - `tools/build_evos.py` builds `src/data/evolutions.json` from PokeAPI's `pokemon_evolution` table, inlined as `__EVO__`.
 
+### Checksums (SHA-256)
+
+```
+1e0eaa6a9b9fe96256285638b0d5e5c70dc7b06866dee3584634a7e033b94414  iv31-Setup-2.0.3.exe
+1ab1c4a7aa296e93a666ee74b92a00df5e709c0ab683dbf52b39b8cdbaa7e20d  iv31-2.0.3-mac.zip
+8225eda09b3c0bd70e1f4dc28abce1430761a82f3dfd156813e7b0471bd00173  iv31-2.0.3-linux-x64.tar.gz
+c48ac1e7de708fea60a5157fa2542eceba2a448281a12aa9782ca6a4c096cbb9  iv31-2.0.3-linux-arm64.tar.gz
+29ab8bf7f5a0a59f01d0a0dc9e5e19fcfbe7131750857258e581ad1bc37ecff8  iv31_2.0.3_amd64.deb
+0afbac7203de62cd360ce505ae9ae76ca8ced8bbab9d567a281eef466cb4e8ca  iv31_2.0.3_arm64.deb
+01383a742b1546e62f86326b27f1a40d57c57f640c9308b37cc24040fdec3a62  iv31-2.0.3-x86_64.AppImage
+625771f5861f603cbdee998241d04bd6148ab596a1777fcd45bfcc9169e9dcce  iv31-2.0.3-aarch64.AppImage
+```
+
 ## [2.0.2] - 2026-11-17
 
 ### Changed
