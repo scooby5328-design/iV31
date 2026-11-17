@@ -9,6 +9,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [2.0.0] - 2026-11-17
+
+### Added
+- **Routes tab** (`#routes`) listing every place in the selected game: numbered routes, Special areas and Towns and cities, each with Pokémon count, best EVs per battle, EXP, item count and field moves. Sort by any stat's EVs per battle or by EXP (rate-weighted, best spot per place).
+- **Route pages** (`#route/<place>`): mini map, wild Pokémon by area and method with levels, appearance rates and conditions, hidden and special encounters, National Pokédex-only Pokémon, items, hidden items, field moves (Surf, Dive, Waterfall, Cut, Rock Smash, Strength, Flash) and connections. Step through numbered routes with ◂ ▸.
+- Gen 3 map details (Ruby, Sapphire, Emerald, FireRed, LeafGreen) and original mini maps of Hoenn, Kanto and the Sevii Islands drawn from the games' region map grids.
+- `tools/build_routes.py` builds `src/data/routes.json` from PokeAPI (pinned commit `89aa167`, BSD 3-Clause); `tools/build_gen3.py` builds `src/data/gen3maps.json` from the pret decompilations (pinned commits). Both download into `.cache/`.
+- The page build writes `data/routes.js`, which the app loads in the background after start-up.
+
+### Changed
+- Found in places (Poké Data), Where to find it and Best routes to train it (data pages) link to route pages.
+- Training routes rank by expected EVs per battle using appearance rates once route data has loaded.
+- Six tabs: Routes sits after Poké Data; the phone tab bar fits six.
+
 ## [1.9.10] - 2026-10-28
 
 ### Fixed

@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "1.9.10",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-1.9.10.neu",
+  "version": "2.0.0",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.0.neu",
   "data": {
-    "sha256": "9b4e0f7485088c20c50a154e7a3920dba86c70deedc351e6972204ae19e1c48e",
-    "size": 980110,
-    "notes": "Training routes no longer include Safari Zones where you can't battle.",
+    "sha256": "273826027ba894754f8c3efe5e360bc372b3743321558374008b691648f90b05",
+    "size": 2246856,
+    "notes": "New Routes tab: every route with appearance rates, EV and EXP sorting, and full route pages with items, field moves and a mini map for Gen 3.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

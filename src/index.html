@@ -785,7 +785,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
   #screen>.desk{margin:0 8px 8px;padding:12px 10px 22px;background:var(--mantle);border:2px solid var(--surface1);border-top:0;border-radius:0 0 12px 12px}
   .bar-inner{align-items:flex-end}
   .navbtns{display:flex;align-self:center;padding-bottom:4px}
-  .ws{flex:1;min-width:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;align-items:end}
+  .ws{flex:1;min-width:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:3px;align-items:end}
   .ws a{flex-direction:column;justify-content:center;gap:1px;min-height:50px;padding:6px 2px 5px;border-bottom:0;border-radius:10px 10px 0 0;background:linear-gradient(180deg,var(--base),var(--crust));text-align:center;line-height:1.1;font-size:9px;letter-spacing:.03em}
   .ws a span{display:none}
   .ws a::after{content:attr(data-short)}
@@ -820,6 +820,54 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
 @keyframes beamOn{0%{opacity:0;transform:scale(.008,1.4)}15%{opacity:1;transform:scale(.008,1.4)}25%{opacity:.2}32%{opacity:1;transform:scale(.012,1.8)}85%{opacity:1;transform:scale(1,1)}100%{opacity:0;transform:scale(1,1)}}
 .power-off,.power-off body{overflow:hidden}
 .power-off #screen{overflow:hidden}
+a.place{text-decoration:none;color:var(--text);border-bottom:1px dotted var(--overlay)}
+a.place:hover{color:var(--acc);border-bottom-color:var(--acc)}
+a.place.prio{border-bottom:0}
+.rt-tools{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px 16px;margin-bottom:10px}
+.rt-tools label{display:grid;gap:4px}
+.rt-q input{min-width:220px}
+.rt-for{margin:0 0 4px}
+.rt-h{font-family:var(--pixel);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--acc);margin:18px 0 8px}
+.rt-h small{color:var(--subtext);font-size:11px}
+.rtable td{vertical-align:middle}
+.rtable .rk{font-family:var(--lcd);font-size:18px;color:var(--acc);text-align:right;width:2.5em}
+.rtable .rt-name{font-weight:600;white-space:nowrap}
+.rtable .rt-n,.rtable .rt-exp,.rtable .rt-rate{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rtable .rt-val small,.rtable .rt-x small{color:var(--subtext)}
+.rtable .nowrap{white-space:nowrap}
+.evchip{display:inline-block;font-size:12px;font-weight:600;color:var(--text);background:var(--surface0);border:1px solid var(--surface1);border-radius:2px;padding:0 5px;white-space:nowrap}
+.hmchips{display:inline-flex;flex-wrap:wrap;gap:3px;vertical-align:middle}
+.hmchip{display:inline-block;font-family:var(--pixel);font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--crust);background:var(--teal);border-radius:2px;padding:2px 5px;white-space:nowrap}
+.rt-tag{font-size:11px;color:var(--peach);border:1px solid var(--peach);border-radius:2px;padding:0 4px;font-weight:400}
+.rt-head{display:flex;gap:14px;align-items:center;margin:10px 0 12px}
+.rt-head h2{margin:0}
+.rt-head .dexno{min-width:3.2em;text-align:center}
+.rt-best{margin:6px 0 0;font-size:13px;color:var(--subtext)}
+.rt-area{font-family:var(--pixel);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin:16px 0 6px;padding-top:10px;border-top:1px dashed var(--surface1)}
+.rt-area:first-of-type{border-top:0;padding-top:0}
+.rt-method{font-size:13px;color:var(--acc);margin:10px 0 4px}
+.rt-items,.rt-hm{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.rt-items li small{color:var(--subtext)}
+.rt-hm li{font-size:13px}
+.rt-links{display:flex;flex-wrap:wrap;gap:6px 14px}
+.form{color:var(--subtext)}
+.rt-src{margin-top:12px}
+.minimap{margin:0 0 14px;padding:10px 12px;background:var(--crust);border:2px solid var(--surface1);border-radius:4px;box-shadow:inset 2px 2px 0 var(--bev-lo)}
+.minimap svg{display:block;width:100%;max-height:300px;image-rendering:pixelated;shape-rendering:crispEdges}
+.minimap figcaption{margin-top:8px;font-size:12px;color:var(--subtext);line-height:1.6}
+.minimap figcaption b{color:var(--text)}
+.mm-land{fill:var(--green);fill-opacity:.55}
+.mm-sea{fill:var(--blue);fill-opacity:.55}
+.mm-town{fill:var(--text);fill-opacity:.75}
+.mm-dot{fill:var(--peach)}
+.mm-cur{fill:var(--acc);animation:mmBlink 1s steps(2) infinite}
+.mm-ring{fill:none;stroke:var(--acc);stroke-width:1.5}
+.minimap a:hover rect{fill-opacity:1;stroke:var(--text);stroke-width:1}
+@keyframes mmBlink{50%{fill-opacity:.35}}
+.mm-key{display:inline-block;width:9px;height:9px;vertical-align:-1px;margin-left:4px}
+.mm-key.cur{background:var(--acc)}.mm-key.town{background:var(--text);opacity:.75}.mm-key.land{background:var(--green);opacity:.7}.mm-key.sea{background:var(--blue);opacity:.7}.mm-key.dot{background:var(--peach)}
+@media (prefers-reduced-motion:reduce){.mm-cur{animation:none}}
+@media (max-width:720px){.rt-q input{min-width:0;width:100%}.rt-q{flex:1 1 100%}.rtable .rt-x{min-width:7em}.rt-head{flex-direction:column;align-items:flex-start;gap:8px}.rt-head .dexno{font-size:26px;padding:6px 12px}.ws a{letter-spacing:0;font-size:8.5px}}
 </style>
 </head>
 <body>
@@ -851,11 +899,12 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
     <div class="navbtns"><button type="button" class="navb" id="navBack" aria-label="Back" title="Back (Alt+←)" disabled>◂</button><button type="button" class="navb" id="navFwd" aria-label="Forward" title="Forward (Alt+→)" disabled>▸</button></div>
     <button type="button" class="tabtoggle" id="tabToggle" aria-pressed="false" aria-label="Keep tabs open" title="Keep tabs open"><i></i><i></i><i></i></button>
     <div class="ws">
-      <a href="#calc" data-view="calc" data-short="IV Calc" title="IV Calculator (1)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7.5h8"/><circle cx="9" cy="12" r=".9" class="f"/><circle cx="12" cy="12" r=".9" class="f"/><circle cx="15" cy="12" r=".9" class="f"/><circle cx="9" cy="16" r=".9" class="f"/><circle cx="12" cy="16" r=".9" class="f"/><circle cx="15" cy="16" r=".9" class="f"/></svg><span>IV Calculator</span></a>
+      <a href="#calc" data-view="calc" data-short="Calc" title="IV Calculator (1)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7.5h8"/><circle cx="9" cy="12" r=".9" class="f"/><circle cx="12" cy="12" r=".9" class="f"/><circle cx="15" cy="12" r=".9" class="f"/><circle cx="9" cy="16" r=".9" class="f"/><circle cx="12" cy="16" r=".9" class="f"/><circle cx="15" cy="16" r=".9" class="f"/></svg><span>IV Calculator</span></a>
       <a href="#pokedata" data-view="evs" data-short="Data" title="Poké Data (2)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M3 14.5h18M9 9v11"/></svg><span>Poké Data</span></a>
-      <a href="#types" data-view="types" data-short="Types" title="Types (3)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M10.4 8.6 7.6 14.4M13.6 8.6l2.8 5.8M9 17h6"/></svg><span>Types</span></a>
-      <a href="#secret" data-view="secret" data-short="Powers" title="Powers (4)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12z"/></svg><span>Powers</span></a>
-      <a href="#favs" data-view="favs" data-short="Favs" title="Favorites (5)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/></svg><span>Favorites</span> <em class="count" id="favCount"></em></a>
+      <a href="#routes" data-view="routes" data-short="Routes" title="Routes (3)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21c3.5 0 3.5-5 7-5s3.5 5 7 5"/><path d="M12 2.5a4.2 4.2 0 0 1 4.2 4.2c0 3.1-4.2 7.3-4.2 7.3S7.8 9.8 7.8 6.7A4.2 4.2 0 0 1 12 2.5z"/><circle cx="12" cy="6.7" r="1.3" class="f"/></svg><span>Routes</span></a>
+      <a href="#types" data-view="types" data-short="Types" title="Types (4)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="6" r="3"/><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M10.4 8.6 7.6 14.4M13.6 8.6l2.8 5.8M9 17h6"/></svg><span>Types</span></a>
+      <a href="#secret" data-view="secret" data-short="Powers" title="Powers (5)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4.5 13.5H11L10 22l8.5-11.5H12z"/></svg><span>Powers</span></a>
+      <a href="#favs" data-view="favs" data-short="Favs" title="Favorites (6)"><svg class="ti" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2l2.7 5.5 6 .9-4.35 4.25 1.03 6L12 17l-5.38 2.85 1.03-6L3.3 9.6l6-.9z"/></svg><span>Favorites</span> <em class="count" id="favCount"></em></a>
     </div>
 
   </div>
@@ -1220,6 +1269,29 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
   </section>
 </div>
 
+<div class="view" id="view-routes" hidden>
+  <section class="win active" aria-labelledby="routes-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="routes-h">Routes</span><span class="dot"></span></div>
+      <div class="pane">
+        <div class="tools rt-tools">
+          <label class="rt-q"><span class="lbl">Find a place</span><input type="search" id="routeQ" placeholder="Route 119, Mt. Pyre…" autocomplete="off"></label>
+          <label><span class="lbl">Sort by</span><select id="routeSort"><option value="order">Route order</option><option value="hp">Most HP EVs</option><option value="atk">Most Attack EVs</option><option value="def">Most Defense EVs</option><option value="spa">Most Sp. Atk EVs</option><option value="spd">Most Sp. Def EVs</option><option value="spe">Most Speed EVs</option><option value="exp">Most EXP</option></select></label>
+          <p class="note-sm rt-for">Every place in <b id="routesGame"></b>. Tap one for its full page.</p>
+        </div>
+        <div id="routeList"></div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="view" id="view-route" hidden>
+  <section class="win active dexwin" aria-labelledby="route-h">
+    <div class="win-body">
+      <div class="titlebar"><span id="route-h">Route</span><span class="dot"></span></div>
+      <div class="pane" id="routeBody"></div>
+    </div>
+  </section>
+</div>
 <div class="view" id="view-dex" hidden>
   <section class="win active dexwin" aria-labelledby="dex-h">
     <div class="win-body">
@@ -1348,7 +1420,7 @@ const nameToNum = {}; DEX.forEach((p,i) => nameToNum[p[0]] = i+1);
 const PREVO = {}; DEX.forEach((p,i) => p[7].forEach(k => { PREVO[k] = i+1; }));
 
 const state = {ei:0, ver:"Ruby", view:"calc", pwSub:"sp"};
-const dirty = {evs:true, types:true, favs:true, secret:true};
+const dirty = {evs:true, types:true, favs:true, secret:true, routes:true};
 const era = () => ERAS[state.ei];
 
 function baseStats(num, g){
@@ -2097,6 +2169,7 @@ function battleSpots(ver, n){
 function trainingRoutes(ver, key, max){
   const ck = ver + "|" + key.join(",") + "|" + max;
   if (trCache.has(ck)) return trCache.get(ck);
+  if (RD && RD.v[ver]){ const r = trainingRoutesRD(ver, key, max); trCache.set(ck, r); return r; }
   const idx = key.map(k => KEYS.indexOf(k)).filter(i => i >= 0), by = new Map(), all = new Map();
   if (LOCDATA.found[ver]) for (let n = 1; n <= max; n++){
     const ev = DEX[n-1][8];
@@ -2130,9 +2203,9 @@ function trainHtml(i){
   if (!LOCDATA.found[i.ver]) return `<p class="note-sm">iv31 doesn't have route data for ${esc(i.ver)} yet.</p>`;
   const list = trainingRoutes(i.ver, i.key, i.E.max);
   if (!list.length) return `<p class="note-sm">No route in ${esc(i.ver)} has 2 or more wild Pokémon that give these EVs. Look for single Pokémon under Gives EVs in, in Poké Data.</p>`;
-  const li = (r, k) => `<li><div class="tr-h"><span class="tr-rank">${k + 1}</span><b>★ ${esc(r.place)}</b><span class="tr-sum">${r.mons.length} of ${r.total} Pokémon here · ${r.pts} EV points</span></div><div class="tr-mons">${r.mons.map(m => `<span class="tr-mon">${dexLink(m.n)} <small>${givesText(m)}${m.how.length ? ` · ${esc(m.how.join(", "))}` : ""}</small></span>`).join("")}</div></li>`;
+  const li = (r, k) => `<li><div class="tr-h"><span class="tr-rank">${k + 1}</span><b>★ ${placeLink(r.place)}</b><span class="tr-sum">${r.mons.length} of ${r.total} Pokémon here · ${r.per ? `≈${r.per.toFixed(2)} EVs per battle (${esc(r.at)})` : `${r.pts} EV points`}</span></div><div class="tr-mons">${r.mons.map(m => `<span class="tr-mon">${dexLink(m.n)} <small>${givesText(m)}${m.how.length ? ` · ${esc(m.how.join(", "))}` : ""}</small></span>`).join("")}</div></li>`;
   const top = list.slice(0, 5), rest = list.slice(5);
-  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. Routes rank higher when more of the Pokémon you'll meet there give the right EVs. Gifts, one-time and roaming Pokémon aren't counted, and neither are Safari Zones where you can't battle. EV points add up what one of each of those Pokémon gives.</p>
+  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. ${RD && RD.v[i.ver] ? "Routes rank by how many of those EVs one battle gives on average at the best spot, counting how often each Pokémon appears." : "Routes rank higher when more of the Pokémon you'll meet there give the right EVs. EV points add up what one of each of those Pokémon gives."} Gifts, one-time and roaming Pokémon aren't counted, and neither are Safari Zones where you can't battle. Tap a route to open its page.</p>
     <ol class="trainroutes">${top.map(li).join("")}</ol>${rest.length ? `<details class="tr-more"><summary>${rest.length} more route${rest.length > 1 ? "s" : ""}</summary><ol class="trainroutes" start="6">${rest.map((r, k) => li(r, k + 5)).join("")}</ol></details>` : ""}`;
 }
 function foundCell(ver, n){
@@ -2142,7 +2215,7 @@ function foundCell(ver, n){
   const isP = x => !!pdPrio && pdPrio.has(x.place);
   if (pdPrio) places = [...places.filter(isP), ...places.filter(x => !isP(x))];
   const open = expanded.has(n), shown = open ? places : places.slice(0,3), extra = places.length - 3;
-  return shown.map(x => `${isP(x) ? `<span class="place prio" title="${esc("Priority route for " + DEX[pdPrio.target.num-1][0] + ": " + pdPrio.get(x.place))}">★ ${esc(x.place)}</span>` : `<span class="place">${esc(x.place)}</span>`}${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}`).join(", ") + (extra > 0 ? `<button type="button" class="more" data-n="${n}">${open ? "show less" : `+${extra} more`}</button>` : "");
+  return shown.map(x => `${isP(x) ? `<a class="place prio" href="${routeHref(x.place)}" title="${esc("Priority route for " + DEX[pdPrio.target.num-1][0] + ": " + pdPrio.get(x.place))}">★ ${esc(x.place)}</a>` : placeLink(x.place)}${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}`).join(", ") + (extra > 0 ? `<button type="button" class="more" data-n="${n}">${open ? "show less" : `+${extra} more`}</button>` : "");
 }
 const PD_FIRST = 80, PD_STEP = 40;
 let pdMore = null, pdFillQueued = false;
@@ -2405,7 +2478,7 @@ function foundHtml(i){
   if (n > E.max) return `<p class="muted">Doesn't exist in ${esc(ver)}.</p>`;
   if (!LOCDATA.found[ver]) return `<p class="muted">No location data for ${esc(ver)}.</p>`;
   const places = placesFor(ver, n);
-  if (places.length) return `<ul class="places">${places.map(x => `<li><span class="place">${esc(x.place)}</span>${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}</li>`).join("")}</ul>`;
+  if (places.length) return `<ul class="places">${places.map(x => `<li>${placeLink(x.place)}${x.how.length ? ` <span class="how">(${x.how.join(", ")})</span>` : ""}</li>`).join("")}</ul>`;
   const p = earliestWild(ver, n);
   return p ? `<p class="muted">Not found in the wild. Evolve ${dexLink(p)}, found at ${placesFor(ver,p).slice(0,3).map(x=>esc(x.place)).join(", ")}${placesFor(ver,p).length>3?" and more":""}.</p>` : `<p class="muted">Not found in the wild in ${esc(ver)}.</p>`;
 }
@@ -2514,7 +2587,209 @@ function favsChanged(){
 function toggleFav(n){ if (!n) return; favs.has(n) ? favs.delete(n) : favs.add(n); persistFavs(); favsChanged(); }
 $("who").addEventListener("click", e => { const s = e.target.closest(".star"); if (s) toggleFav(Number(s.dataset.fav)); });
 
-const VIEWS = ["calc","evs","types","secret","favs","dex"];
+let RD = null, rdPromise = null;
+function loadRoutes(){
+  if (RD) return Promise.resolve(RD);
+  if (rdPromise) return rdPromise;
+  rdPromise = new Promise(res => {
+    const s = document.createElement("script");
+    s.src = "data/routes.js";
+    s.onload = () => { RD = window.IV31_ROUTES || null; trCache.clear(); res(RD); routesReady(); };
+    s.onerror = () => { rdPromise = null; res(null); };
+    document.head.append(s);
+  });
+  return rdPromise;
+}
+function routesReady(){
+  dirty.routes = true; pdPrioSig = "";
+  const v = state.view;
+  if (v === "routes" || v === "route" || v === "dex" || v === "evs") renderActive();
+}
+const SPECIAL_COND = /swarm|Radar|slot 2|radio|in party|Have .* in (bag|party)|Defeated|Acquired National|Trade|captur|nicknamed|Ghetsis|Wild Area News/i;
+const NAT_COND = /Acquired National/i;
+const routeHref = p => "#route/" + encodeURIComponent(p);
+const placeLink = (p, inner, cls) => `<a class="place${cls ? " " + cls : ""}" href="${routeHref(p)}" title="Open ${esc(p)}'s route page">${inner === undefined ? esc(p) : inner}</a>`;
+function rdAreas(ver, place){
+  const v = RD && RD.v[ver], list = v && v[place];
+  return list ? list.map(([a, pi]) => ({area: RD.areas[a], rows: RD.pool[pi].map(r => ({n:r[0], form:RD.forms[r[1]], method:r[2], lo:r[3], hi:r[4], rate:r[5], conds:RD.condsets[r[6]].map(c => RD.conds[c])}))})) : [];
+}
+const g3 = (ver, place) => RD && RD.gen3 && RD.gen3[ver] ? RD.gen3[ver].places[place] || null : null;
+const isHiddenMethod = m => RD.hiddenMethods.includes(m);
+function placeScores(ver, place){
+  const out = {ev:[0,0,0,0,0,0], evAt:["","","","","",""], exp:0, expAt:"", mons:new Set()};
+  if (!canBattleAt(ver, place)) return out;
+  for (const a of rdAreas(ver, place)){
+    const spots = new Map();
+    for (const r of a.rows){
+      out.mons.add(r.n);
+      if (isHiddenMethod(r.method) || r.conds.some(c => SPECIAL_COND.test(c))) continue;
+      const k = r.method + "|" + r.conds.join("+");
+      if (!spots.has(k)) spots.set(k, {method:r.method, rows:[]});
+      spots.get(k).rows.push(r);
+    }
+    for (const sp of spots.values()){
+      const tot = sp.rows.reduce((s, r) => s + r.rate, 0);
+      if (!tot) continue;
+      const where = (a.area ? a.area + ", " : "") + RD.methods[sp.method].toLowerCase();
+      for (let i = 0; i < 6; i++){
+        const e = sp.rows.reduce((s, r) => s + r.rate * ((DEX[r.n-1] && DEX[r.n-1][8] || [])[i] || 0), 0) / tot;
+        if (e > out.ev[i]){ out.ev[i] = e; out.evAt[i] = where; }
+      }
+      const x = sp.rows.reduce((s, r) => s + r.rate * (RD.bexp[r.n] || 0) * (r.lo + r.hi) / 2 / 7, 0) / tot;
+      if (x > out.exp){ out.exp = x; out.expAt = where; }
+    }
+  }
+  return out;
+}
+const TOWN = /\b(Town|City|Village|Island|Plateau|Isle)$/;
+function routePlaces(ver){
+  const set = new Set([...(RD && RD.v[ver] ? Object.keys(RD.v[ver]) : []), ...(RD && RD.gen3 && RD.gen3[ver] ? Object.keys(RD.gen3[ver].places) : [])]);
+  return [...set].filter(p => !/^Roaming\b/.test(p));
+}
+const routeNo = p => { const m = /^(?:Sea )?Route (\d+)$/.exec(p); return m ? Number(m[1]) : null; };
+let rtSort = "order";
+function renderRoutes(){
+  const body = $("routeList"), ver = state.ver, g = era().g;
+  $("routesGame").textContent = ver;
+  if (!RD){ body.innerHTML = `<p class="note-sm">Loading route data…</p>`; loadRoutes(); return; }
+  const q = fold($("routeQ").value.trim());
+  const places = routePlaces(ver).filter(p => !q || fold(p).includes(q));
+  if (!places.length){ body.innerHTML = `<p class="note-sm">${routePlaces(ver).length ? "No places match that search." : `iv31 doesn't have route data for ${esc(ver)} yet.`}</p>`; return; }
+  const sc = new Map(places.map(p => [p, placeScores(ver, p)]));
+  const stat = KEYS.indexOf(rtSort), byExp = rtSort === "exp", old = g <= 2;
+  const extra = p => { const d = g3(ver, p); return d ? [(d.items || []).length + (d.hidden || []).length, d.hm || []] : [0, []]; };
+  const row = (p, rank) => {
+    const s = sc.get(p), [items, hm] = extra(p), best = s.ev.map((v, i) => [v, i]).filter(x => x[0] > 0.0049).sort((a, b) => b[0] - a[0]).slice(0, 2);
+    const val = stat >= 0 ? `<b>${s.ev[stat].toFixed(2)}</b> ${SHORT[KEYS[stat]]} <small>${esc(s.evAt[stat])}</small>` : byExp ? `<b>≈${Math.round(s.exp)}</b> EXP <small>${esc(s.expAt)}</small>` : "";
+    return `<tr>${rank ? `<td class="rk">${rank}</td>` : ""}<td class="rt-name">${placeLink(p)}${!canBattleAt(ver, p) ? ` <span class="rt-tag">no battles</span>` : ""}</td>
+      <td class="rt-n">${s.mons.size || "—"}</td>
+      ${rank ? `<td class="rt-val">${val}</td>` : `<td class="rt-ev">${old ? `<small>Stat Exp from every Pokémon</small>` : best.length ? best.map(([v, i]) => `<span class="evchip">${v.toFixed(2)} ${SHORT[KEYS[i]]}</span>`).join(" ") : "—"}</td><td class="rt-exp">${s.exp ? "≈" + Math.round(s.exp) : "—"}</td>`}
+      <td class="rt-x">${items ? `${items} item${items > 1 ? "s" : ""}` : ""}${hm.length ? ` <span class="hmchips">${hm.map(h => `<span class="hmchip">${HM_NAMES[h]}</span>`).join("")}</span>` : ""}</td></tr>`;
+  };
+  const head = rank => `<thead><tr>${rank ? `<th>#</th>` : ""}<th>Place</th><th title="Different wild Pokémon">Pokémon</th>${rank ? `<th>${stat >= 0 ? `${LABEL[KEYS[stat]]} EVs per battle` : "EXP per battle"}</th>` : `<th title="Best EVs per battle">EVs per battle</th><th title="Average EXP per battle at the best spot">EXP</th>`}<th>Items · field moves</th></tr></thead>`;
+  if (stat >= 0 || byExp){
+    if (old && stat >= 0){ body.innerHTML = `<p class="note-sm">In Gen ${ROMAN[g]} every Pokémon gives Stat Exp in every stat, so EV sorting doesn't apply. Sort by EXP instead.</p>`; return; }
+    const ranked = places.filter(p => (stat >= 0 ? sc.get(p).ev[stat] : sc.get(p).exp) > 0).sort((a, b) => stat >= 0 ? sc.get(b).ev[stat] - sc.get(a).ev[stat] : sc.get(b).exp - sc.get(a).exp);
+    body.innerHTML = `<p class="note-sm">Best spot on each route, counting how often each Pokémon appears. ${byExp ? "EXP is an estimate for one battle at average levels." : "One defeat gives these EVs on average; Pokérus or a Macho Brace double them."} Safari Zones without battles are left out.</p>
+      <div class="sheet-wrap"><table class="sheet rtable">${head(true)}<tbody>${ranked.map((p, i) => row(p, i + 1)).join("")}</tbody></table></div>`;
+    return;
+  }
+  const nums = places.filter(p => routeNo(p) !== null).sort((a, b) => routeNo(a) - routeNo(b) || a.localeCompare(b));
+  const towns = places.filter(p => routeNo(p) === null && TOWN.test(p)).sort((a, b) => cmpPlace(placeKey(ver, a), placeKey(ver, b)));
+  const special = places.filter(p => routeNo(p) === null && !TOWN.test(p)).sort((a, b) => cmpPlace(placeKey(ver, a), placeKey(ver, b)));
+  const sect = (title, list, note) => list.length ? `<h3 class="rt-h">${title} <small>${list.length}</small></h3>${note ? `<p class="note-sm">${note}</p>` : ""}<div class="sheet-wrap"><table class="sheet rtable">${head(false)}<tbody>${list.map(p => row(p, 0)).join("")}</tbody></table></div>` : "";
+  body.innerHTML = sect("Routes", nums) + sect("Special areas", special, "Caves, mountains, forests and other places off the numbered routes, in story order.") + sect("Towns and cities", towns);
+}
+const HM_NAMES = {cut:"Cut", rocksmash:"Rock Smash", strength:"Strength", surf:"Surf", waterfall:"Waterfall", dive:"Dive", flash:"Flash"};
+function isSeaRoute(ver, p){
+  const walk = RD.methods.indexOf("Walking"), d = g3(ver, p), rows = rdAreas(ver, p).flatMap(a => a.rows);
+  if (rows.length) return !rows.some(r => r.method === walk) && rows.some(r => /Surf|Rod/.test(RD.methods[r.method]));
+  return !!d && (d.hm || []).includes("surf") && routeNo(p) !== null && !(d.items || []).length;
+}
+function miniMap(ver, place){
+  const G = RD.gen3 && RD.gen3[ver];
+  if (!G) return `<div class="minimap none"><p class="note-sm">A mini map for ${esc(ver)} is coming in a later update.</p></div>`;
+  const reg = G.regions.find(r => r.cells[place] || r.dots[place]) || G.regions[0], C = 12, W = reg.w * C, H = reg.h * C;
+  const on = !!(reg.cells[place] || reg.dots[place]);
+  const cells = Object.entries(reg.cells).map(([p, list]) => {
+    const kind = p === place ? "cur" : TOWN.test(p) ? "town" : isSeaRoute(ver, p) ? "sea" : "land";
+    return `<a href="${routeHref(p)}"><title>${esc(p)}</title>${list.map(([x, y]) => `<rect class="mm-${kind}" x="${x * C + 1}" y="${y * C + 1}" width="${C - 2}" height="${C - 2}"/>`).join("")}</a>`;
+  }).join("");
+  const dots = Object.entries(reg.dots).map(([p, list]) => `<a href="${routeHref(p)}"><title>${esc(p)}</title>${list.map(([x, y]) => p === place
+    ? `<rect class="mm-cur" x="${x * C + 2}" y="${y * C + 2}" width="${C - 4}" height="${C - 4}"/><rect class="mm-ring" x="${x * C - 2}" y="${y * C - 2}" width="${C + 4}" height="${C + 4}"/>`
+    : `<rect class="mm-dot" x="${x * C + 4}" y="${y * C + 4}" width="${C - 8}" height="${C - 8}"/>`).join("")}</a>`).join("");
+  return `<figure class="minimap"><svg viewBox="-4 -4 ${W + 8} ${H + 8}" role="group" aria-label="${esc(reg.name)} map with ${esc(place)} highlighted">${cells}${dots}</svg>
+    <figcaption><b>${esc(reg.name)}</b> · ${on ? `<span class="mm-key cur"></span> ${esc(place)}` : `${esc(place)} isn't marked on the region map`} · <span class="mm-key town"></span> towns <span class="mm-key land"></span> routes <span class="mm-key sea"></span> sea routes <span class="mm-key dot"></span> caves and other places. Tap a square to open it.</figcaption></figure>`;
+}
+const lvText = r => r.lo === r.hi ? `Lv. ${r.lo}` : `Lv. ${r.lo}–${r.hi}`;
+const evText = n => { const ev = DEX[n-1] && DEX[n-1][8] || []; const t = KEYS.map((k, i) => ev[i] ? `+${ev[i]} ${SHORT[k]}` : "").filter(Boolean); return t.length ? t.join(", ") : "—"; };
+const monName = r => `${dexLink(r.n)}${r.form ? ` <small class="form">${esc(r.form)}</small>` : ""}`;
+function renderRoute(){
+  const body = $("routeBody"), ver = state.ver, place = state.route || "", g = era().g, old = g <= 2;
+  $("route-h").textContent = place || "Route";
+  if (!RD){ body.innerHTML = `<p class="note-sm">Loading route data…</p>`; loadRoutes(); return; }
+  const areas = rdAreas(ver, place), d = g3(ver, place) || {};
+  const nav = `<div class="dexnav"><div class="dexstep"><button type="button" class="btn small" id="rtBack">◂ Back</button><button type="button" class="btn small" id="rtFwd">Forward ▸</button></div><div class="dexstep"><a class="btn small" href="#routes">All routes</a></div></div>`;
+  if (!areas.length && !Object.keys(d).length){
+    body.innerHTML = nav + `<div class="verdict">${esc(place)} isn't in iv31's route data for ${esc(ver)}. Change the game picker, or open <a href="#routes">every route in ${esc(ver)}</a>.</div>`;
+    hookRouteNav(); return;
+  }
+  const no = routeNo(place), list = routePlaces(ver).map(routeNo).filter(x => x !== null).sort((a, b) => a - b);
+  const prevNo = no !== null ? list.filter(x => x < no).pop() : undefined, nextNo = no !== null ? list.find(x => x > no) : undefined;
+  const nameOf = x => routePlaces(ver).find(p => routeNo(p) === x);
+  const step = `<div class="dexstep">${prevNo !== undefined ? `<a class="btn small" href="${routeHref(nameOf(prevNo))}">◂ ${esc(nameOf(prevNo))}</a>` : ""}${nextNo !== undefined ? `<a class="btn small" href="${routeHref(nameOf(nextNo))}">${esc(nameOf(nextNo))} ▸</a>` : ""}</div>`;
+  const sc = placeScores(ver, place), noBattle = !canBattleAt(ver, place);
+  const best = sc.ev.map((v, i) => [v, i]).filter(x => x[0] > 0.0049).sort((a, b) => b[0] - a[0]);
+  const all = areas.flatMap(a => a.rows.map(r => ({...r, area:a.area})));
+  const areaKey = a => { const f = /^(B?)(\d+)F$/.exec(a); return !a ? [0, 0, ""] : f ? [1, f[1] ? -Number(f[2]) : Number(f[2]), ""] : [2, 0, a]; };
+  const wild = areas.map(a => ({area:a.area, rows:a.rows.filter(r => !isHiddenMethod(r.method) && !r.conds.some(c => NAT_COND.test(c)))})).filter(a => a.rows.length)
+    .sort((x, y) => { const a = areaKey(x.area), b = areaKey(y.area); return a[0] - b[0] || a[1] - b[1] || a[2].localeCompare(b[2]); });
+  const hidden = all.filter(r => isHiddenMethod(r.method));
+  const natl = all.filter(r => !isHiddenMethod(r.method) && r.conds.some(c => NAT_COND.test(c)));
+  const byMethod = rows => { const m = new Map(); rows.forEach(r => { if (!m.has(r.method)) m.set(r.method, []); m.get(r.method).push(r); }); return [...m]; };
+  const when = r => r.conds.filter(c => !NAT_COND.test(c)).join(", ") || "Any time";
+  const methodTable = rows => `<div class="sheet-wrap"><table class="sheet rtable"><thead><tr><th>Pokémon</th><th>Levels</th><th title="Chance each time you meet a wild Pokémon this way">Rate</th><th>When</th><th>${old ? "Stat Exp" : "EVs"}</th></tr></thead><tbody>${rows.map(r => `<tr><td>${monName(r)}</td><td class="nowrap">${lvText(r)}</td><td class="rt-rate">${r.rate ? r.rate + "%" : "—"}</td><td>${esc(when(r))}</td><td class="nowrap">${old ? "All stats" : evText(r.n)}</td></tr>`).join("")}</tbody></table></div>`;
+  const wildHtml = wild.length ? wild.map(a => `${wild.length > 1 || a.area ? `<h4 class="rt-area">${esc(a.area || "Main area")}</h4>` : ""}${byMethod(a.rows).map(([m, rows]) => `<h5 class="rt-method">${esc(RD.methods[m])}</h5>${methodTable(rows)}`).join("")}`).join("") : `<p class="note-sm">No wild Pokémon here${areas.length ? " outside special encounters" : ""}.</p>`;
+  const hidHtml = hidden.length ? `<div class="sheet-wrap"><table class="sheet rtable"><thead><tr><th>Pokémon</th><th>How</th><th>Levels</th><th>Notes</th></tr></thead><tbody>${hidden.map(r => `<tr><td>${monName(r)}</td><td>${esc(RD.methods[r.method])}${r.area ? ` <small>${esc(r.area)}</small>` : ""}</td><td class="nowrap">${lvText(r)}</td><td>${esc(r.conds.join(", ") || (r.rate && r.rate < 100 ? r.rate + "%" : ""))}</td></tr>`).join("")}</tbody></table></div>` : `<p class="note-sm">No hidden or one-time Pokémon recorded here.</p>`;
+  const natHtml = natl.length ? methodTable(natl) : `<p class="note-sm">${g >= 4 && g <= 4 ? "No Pokémon here are added by the National Pokédex." : "iv31's data doesn't mark any Pokémon here as appearing only after the National Pokédex."}</p>`;
+  const itemList = (list, label) => list && list.length ? `<ul class="rt-items">${list.map(([it, where]) => `<li><b>${esc(it)}</b> <small>${esc(where)}</small></li>`).join("")}</ul>` : `<p class="note-sm">${label}</p>`;
+  const hm = d.hm || [];
+  const hmText = {surf:"Water you can Surf on.", waterfall:"A waterfall you can climb with Waterfall.", dive:`Dark, deep water where you can Dive${d.underwater ? " to the underwater area listed with the hidden items" : ""}${(d.dive || []).length ? ": leads to " + d.dive.map(p => placeLink(p)).join(", ") : ""}.`, cut:"Small trees to Cut.", rocksmash:"Cracked rocks to break with Rock Smash.", strength:"Boulders to push with Strength.", flash:"Dark inside: use Flash to light it up."};
+  const hmHtml = hm.length || (d.surface || []).length ? `<ul class="rt-hm">${hm.map(h => `<li><span class="hmchip">${HM_NAMES[h]}</span> ${hmText[h]}</li>`).join("")}${(d.surface || []).length ? `<li><span class="hmchip">Surface</span> Come up to ${d.surface.map(p => placeLink(p)).join(", ")}.</li>` : ""}</ul>` : `<p class="note-sm">${RD.gen3 && RD.gen3[ver] ? "No field moves needed here." : `Field move details for ${esc(ver)} are coming in a later update.`}</p>`;
+  const links = (d.links || []).filter(p => !/^Roaming\b/.test(p));
+  const detail = !!(RD.gen3 && RD.gen3[ver]);
+  body.innerHTML = nav.replace(`<div class="dexstep"><a class="btn small" href="#routes">`, `${step}<div class="dexstep"><a class="btn small" href="#routes">`) + `
+    <header class="rt-head"><div><div class="dexno">${no !== null ? "R" + no : "◆"}</div></div><div><h2>${esc(place)}</h2><p class="note-sm">${esc(ver)}${noBattle ? " · <b>No battles here</b>: you throw balls and bait, so it gives no EVs or EXP" : ""}</p>
+      ${!old && best.length ? `<p class="rt-best">Best for training: ${best.slice(0, 3).map(([v, i]) => `<span class="evchip">${v.toFixed(2)} ${SHORT[KEYS[i]]}</span> <small>${esc(sc.evAt[i])}</small>`).join(" · ")} per battle${sc.exp ? ` · ≈${Math.round(sc.exp)} EXP` : ""}</p>` : ""}</div></header>
+    ${miniMap(ver, place)}
+    <div class="dexgrid">
+      <section class="dexcell wide"><h3>Wild Pokémon</h3>${wildHtml}</section>
+      <section class="dexcell"><h3>Hidden and special Pokémon</h3>${hidHtml}</section>
+      <section class="dexcell"><h3>After the National Pokédex</h3>${natHtml}</section>
+      <section class="dexcell"><h3>Items</h3>${detail ? itemList(d.items, "No item balls here.") : `<p class="note-sm">Item details for ${esc(ver)} are coming in a later update.</p>`}<h3>Hidden items</h3>${detail ? itemList(d.hidden, "No hidden items here.") : `<p class="note-sm">Coming in a later update.</p>`}</section>
+      <section class="dexcell"><h3>Field moves</h3>${hmHtml}<h3>Connects to</h3>${links.length ? `<div class="rt-links">${links.map(p => placeLink(p)).join("")}</div>` : `<p class="note-sm">${detail ? "Nothing else connects here." : `Connections for ${esc(ver)} are coming in a later update.`}</p>`}</section>
+    </div>
+    <p class="note-sm rt-src">Encounters and rates from PokeAPI. ${detail ? "Items, field moves, connections and the map come from the community's decompiled game source." : ""}</p>`;
+  hookRouteNav();
+}
+function hookRouteNav(){
+  const b = $("rtBack"), f = $("rtFwd");
+  if (b) b.addEventListener("click", () => { if (!navGo(-1)) showView("routes"); });
+  if (f){ f.addEventListener("click", () => navGo(1)); f.disabled = navPos >= navHist.length - 1; }
+}
+function trainingRoutesRD(ver, key, max){
+  const idx = key.map(k => KEYS.indexOf(k)).filter(i => i >= 0), out = [];
+  const pts = n => { const ev = DEX[n-1] && DEX[n-1][8] || []; return idx.reduce((s, i) => s + (ev[i] || 0), 0); };
+  for (const place of routePlaces(ver)){
+    if (!canBattleAt(ver, place)) continue;
+    const species = new Set(), match = new Map();
+    let per = 0, at = "";
+    for (const a of rdAreas(ver, place)){
+      const spots = new Map();
+      for (const r of a.rows){
+        if (r.n > max || isHiddenMethod(r.method) || r.conds.some(c => SPECIAL_COND.test(c))) continue;
+        species.add(r.n);
+        const p = pts(r.n);
+        if (p){
+          if (!match.has(r.n)) match.set(r.n, {n:r.n, gives:idx.filter(i => DEX[r.n-1][8][i] > 0).map(i => [KEYS[i], DEX[r.n-1][8][i]]), pts:p, how:new Set()});
+          match.get(r.n).how.add(RD.methods[r.method].toLowerCase());
+        }
+        const k = r.method + "|" + r.conds.join("+");
+        if (!spots.has(k)) spots.set(k, {m:r.method, rows:[]});
+        spots.get(k).rows.push(r);
+      }
+      for (const sp of spots.values()){
+        const tot = sp.rows.reduce((s, r) => s + r.rate, 0);
+        if (!tot) continue;
+        const e = sp.rows.reduce((s, r) => s + r.rate * pts(r.n), 0) / tot;
+        if (e > per){ per = e; at = (a.area ? a.area + ", " : "") + RD.methods[sp.m].toLowerCase(); }
+      }
+    }
+    if (match.size >= 2 && per > 0) out.push({place, mons:[...match.values()].map(m => ({...m, how:[...m.how]})).sort((a, b) => b.pts - a.pts || a.n - b.n), total:species.size, per, at});
+  }
+  return out.sort((a, b) => b.per - a.per || b.mons.length - a.mons.length);
+}
+const VIEWS = ["calc","evs","routes","types","secret","favs","dex","route"];
 const wsLinks = [...document.querySelectorAll(".ws a")];
 function renderActive(){
   const v = state.view;
@@ -2525,6 +2800,8 @@ function renderActive(){
   if (v === "favs" && dirty.favs){ dirty.favs = false; renderFavs(); }
   if (v === "secret" && dirty.secret){ dirty.secret = false; renderSecret(); }
   if (v === "dex") renderDex();
+  if (v === "routes" && dirty.routes){ dirty.routes = false; renderRoutes(); }
+  if (v === "route") renderRoute();
 }
 const WIDE = window.matchMedia("(min-width:721px)"), REDUCE_MOTION = window.matchMedia("(prefers-reduced-motion:reduce)");
 const screenEl = () => WIDE.matches ? document.getElementById("screen") : null;
@@ -2559,7 +2836,7 @@ const SFX = {
 const sfx = k => { if (SFX[k]) SFX[k](); };
 const navHist = [];
 let navPos = -1, navMoving = false, navLeaveY = 0;
-function curHash(){ const v = state.view; return v === "evs" ? "pokedata" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v; }
+function curHash(){ const v = state.view; return v === "evs" ? "pokedata" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v === "route" ? "route/" + encodeURIComponent(state.route || "") : v; }
 function updNav(){
   const b = $("navBack"), f = $("navFwd");
   if (b) b.disabled = navPos <= 0;
@@ -2593,7 +2870,7 @@ window.iv31NavBack = () => navGo(-1);
 function showView(v){
   if (!VIEWS.includes(v)) v = "calc";
   navLeaveY = getY();
-  const changing = v !== state.view || v === "dex";
+  const changing = v !== state.view || v === "dex" || v === "route";
   state.view = v;
   VIEWS.forEach(x => { $("view-" + x).hidden = true; });
   if (navLeaveY) setY(0);
@@ -2601,12 +2878,14 @@ function showView(v){
   wsLinks.forEach(a => a.classList.toggle("on", a.dataset.view === v));
   renderActive();
   if (changing && bootDone){ if (!REDUCE_MOTION.matches) document.querySelector(".desk").animate([{opacity:0, transform:"translateY(4px)"}, {opacity:1, transform:"none"}], {duration:260, easing:"steps(5)"}); if (!navMoving) sfx("nav"); }
-  try { history.replaceState(history.state, "", "#" + (v === "evs" ? "pokedata" : v === "secret" ? ({hp:"hiddenpower", sp:"secret", np:"naturepower"})[state.pwSub] : v === "dex" ? "dex/" + state.dex : v)); } catch(_) {}
+  try { history.replaceState(history.state, "", "#" + curHash()); } catch(_) {}
   navRecord();
 }
 function routeHash(h, fromNav){
   const dm = /^dex\/(\d+)$/.exec(h);
   if (dm){ state.dex = Number(dm[1]); showView("dex"); return; }
+  const rm = /^route\/(.+)$/.exec(h);
+  if (rm){ try { state.route = decodeURIComponent(rm[1]); } catch(_) { state.route = rm[1]; } showView("route"); return; }
   if (h === "berries"){ showView("calc"); const bd = $("berries"); bd.open = true; renderBerries(); requestAnimationFrame(() => bd.scrollIntoView({block:"start"})); return; }
   if (h === "hiddenpower" || h === "naturepower" || h === "secret"){ setPwSub(h === "hiddenpower" ? "hp" : h === "naturepower" ? "np" : "sp"); showView("secret"); return; }
   showView({summary:"calc",readout:"calc",about:"calc",manual:"calc",powers:"secret",pokedata:"evs",evs:"evs"}[h] || h || "calc");
@@ -2621,6 +2900,12 @@ window.addEventListener("hashchange", () => {
 document.addEventListener("keydown", e => { if (e.altKey && !e.ctrlKey && !e.metaKey && (e.key === "ArrowLeft" || e.key === "ArrowRight") && !/^(INPUT|SELECT|TEXTAREA)$/.test(document.activeElement.tagName)){ e.preventDefault(); navGo(e.key === "ArrowLeft" ? -1 : 1); } });
 window.addEventListener("mouseup", e => { if (e.button === 3 || e.button === 4){ e.preventDefault(); navGo(e.button === 3 ? -1 : 1); } });
 wsLinks.forEach(a => a.addEventListener("click", e => { e.preventDefault(); showView(a.dataset.view); }));
+const RT_SORT_KEY = "iv31-routesort";
+try { const v = localStorage.getItem(RT_SORT_KEY); if (v && [...$("routeSort").options].some(o => o.value === v)) rtSort = v; } catch(_) {}
+$("routeSort").value = rtSort;
+$("routeSort").addEventListener("change", e => { rtSort = e.target.value; try { localStorage.setItem(RT_SORT_KEY, rtSort); } catch(_) {} renderRoutes(); });
+$("routeQ").addEventListener("input", () => renderRoutes());
+setTimeout(loadRoutes, 1200);
 $("navBack").addEventListener("click", () => navGo(-1));
 $("navFwd").addEventListener("click", () => navGo(1));
 const calcWins = [...document.querySelectorAll("#view-calc .win")];
@@ -2632,7 +2917,7 @@ function setGame(ei, ver){
   if (ver) state.ver = ver;
   fillVersions(); saveGame();
   speciesOptions(speciesSel, searchIn, "Choose a Pokémon…");
-  dirty.evs = dirty.types = dirty.favs = dirty.secret = true;
+  dirty.evs = dirty.types = dirty.favs = dirty.secret = dirty.routes = true;
   runCalc(); renderActive();
 }
 gameSel.addEventListener("change", () => {
@@ -3221,7 +3506,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "1.9.10";
+const APP_VERSION = "2.0.0";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
@@ -3554,6 +3839,12 @@ const TIPS = {
   "dex-h": {t:"Pokémon data page", for:"Everything iv31 knows about one Pokémon in the game you picked: base stats, the two stats to focus, the proper nature, the EVs it gives, its evolutions, where to find it and its type matchups.",
     how:["Open it by clicking any Pokémon's name or number: in the Poké Data table, the IV readout, Party comparison, Favorites or an evolution line.","Use <b>\u25c2 \u25b8</b> next to the number to step through the Pokédex, or type a name in <b>Jump to a Pokémon</b>.","<b>Back</b> and <b>Forward</b> move through the pages you've visited, like a browser. On the device they're the <b>B</b> and <b>A</b> buttons; on phones they sit at the top of the screen."],
     with:[["<b>Check its IVs</b> opens it in the IV calculator."],["<b>Add to party</b> adds it to Party comparison.",1],["<b>Defeated one: add its EVs</b> adds its EV yield to the EV calculator.",1]]},
+  "routes-h": {t:"Routes", for:"Every route, cave, town and special area in the game you picked, with what you can train there.",
+    how:["Numbered routes come first, then <b>Special areas</b> (caves, mountains, forests) and <b>Towns and cities</b>.","<b>Sort by</b> a stat to rank every place by how many of those EVs one battle gives on average, or by <b>Most EXP</b>.","Rates count how often each Pokémon appears, at the best spot on each route.","Tap a place to open its route page."],
+    with:[["<b>Poké Data</b>: places under Found in open their route page."],["<b>Pokémon data pages</b>: Where to find it and Best routes to train it link here too."]]},
+  "route-h": {t:"Route page", for:"Everything iv31 knows about one place: where it is, every wild Pokémon with its levels and appearance rate, hidden and special Pokémon, items, hidden items, field moves and where it leads.",
+    how:["The mini map at the top lights up this place; tap any other square to go there.","Wild Pokémon are grouped by area and by how you meet them (walking, surfing, each fishing rod and so on).","<b>Rate</b> is the chance each time you meet a Pokémon that way.","Use <b>◂ ▸</b> to step through the numbered routes, and <b>Back</b> and <b>Forward</b> like a browser."],
+    with:[["Tap a Pokémon to open its data page."],["<b>Connects to</b> opens the next route, town or cave."]]},
   "fav-h": {t:"Favorites", for:"A short list of the Pokémon you care about: number, types, the EVs they give, the 2 stats to focus and the proper nature.",
     how:["Press <b>☆</b> next to a Pokémon in the IV readout, the Poké Data table or its data page to add it.","Press <b>★</b> again to remove it.","<b>Data page</b> opens everything about it; <b>Check IVs</b> opens it in the IV calculator."],
     with:[["Follows the game picker."]]}
@@ -3609,7 +3900,7 @@ function addTip(bar, key){
     b.addEventListener("mouseleave", () => { clearTimeout(tipTimer); if (!tipPinned) tipTimer = setTimeout(hideTip, 200); });
   }
 }
-["in-h","out-h","party-h","evc-h","tn-h","tc-h","fav-h","dex-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
+["in-h","out-h","party-h","evc-h","tn-h","tc-h","fav-h","dex-h","routes-h","route-h"].forEach(id => { const el = $(id); if (el) addTip(el.parentElement, id); });
 addTip(document.querySelector("#guide .titlebar"), "guide");
 addTip(document.querySelector("#gain .titlebar"), "gain");
 addTip($("pd-h").parentElement, "evs");

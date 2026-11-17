@@ -35,9 +35,18 @@ def inline_data(page):
     return page
 
 
+def write_route_data(resources):
+    data = json.loads((ROOT / "src/data/routes.json").read_text(encoding="utf-8"))
+    data["gen3"] = json.loads((ROOT / "src/data/gen3maps.json").read_text(encoding="utf-8"))
+    text = json.dumps(json.dumps(data, ensure_ascii=False, separators=(",", ":")), ensure_ascii=False).replace("</", "<\\/")
+    (resources / "data").mkdir(parents=True, exist_ok=True)
+    (resources / "data/routes.js").write_text(f"window.IV31_ROUTES=JSON.parse({text});\n", encoding="utf-8")
+
+
 def build_page(stage):
     page = inline_data(old_engine_fallbacks((ROOT / "src/index.html").read_text(encoding="utf-8")))
     (stage / "resources/index.html").write_text(page, encoding="utf-8")
+    write_route_data(stage / "resources")
 
 
 def main():

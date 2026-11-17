@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from build import ROOT, inline_data, old_engine_fallbacks
+from build import ROOT, inline_data, old_engine_fallbacks, write_route_data
 
 SITE = "https://scooby5328-design.github.io/iV31/"
 
@@ -43,8 +43,9 @@ def main():
     ])
     page = page[:csp_start] + head + page[csp_end:]
     (out / "index.html").write_text(page, encoding="utf-8")
+    write_route_data(out)
 
-    files = ["./", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png"] + sorted(f"fonts/{p.name}" for p in (out / "fonts").iterdir())
+    files = ["./", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png", "data/routes.js"] + sorted(f"fonts/{p.name}" for p in (out / "fonts").iterdir())
     sw = (ROOT / "app/web/sw.js").read_text(encoding="utf-8").replace("__VERSION__", version).replace("__FILES__", json.dumps(files))
     (out / "sw.js").write_text(sw, encoding="utf-8")
     (out / ".nojekyll").write_text("", encoding="utf-8")

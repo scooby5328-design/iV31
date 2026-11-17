@@ -41,6 +41,7 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 - **EV calculator:** add EVs by Pokémon defeated (with Macho Brace, Power items and Pokérus) or vitamins, within the 510 and per-stat limits, and see the stat points they give.
 - **EVs gained:** compare a Pokémon's stats before and after training to see the EVs it earned (under the EV calculator, with the EV-lowering berries).
 - **Poké Data:** every Pokémon's fixed data in one table in Pokédex order: types, weaknesses, what it's strong against, the EVs it gives and where it lives in your version. Filter by EV stat, type or matchup against any attacking type, search by name, number, type or place, sort by any column or story order, and click a type to filter. Your filters are remembered. A matchup checker for any one or two types sits on top.
+- **Routes:** every route, cave and town in your version, with appearance rates, sorting by the EVs or EXP one battle gives, and a page for each place: wild Pokémon with levels and rates, hidden and special Pokémon, National Pokédex-only Pokémon, and for Gen 3 the items, hidden items, field moves, connections and a mini map.
 - **Party comparison** of up to 30 Pokémon side by side.
 - **Types:** a weakness and resistance chart for the selected generation where you can highlight any types, plus notes on how types work in your game.
 - **Powers:** a Hidden Power calculator and chart, and Secret Power and Nature Power charts for every area of the Gen III games (terrain tables for later games).
@@ -141,6 +142,7 @@ If iv31 doesn't open, install WebKitGTK: `sudo apt install libwebkit2gtk-4.1-0` 
 7. Use the **EV calculator** panel to plan or track EV training. Add each Pokémon you defeat and it tallies the EVs and stat points for you. Click **Send EVs to Summary** so the IV readout accounts for them.
 8. To compare several Pokémon, press **+ Add party member** in the **Party comparison** panel and fill in each one, or click **Copy from Summary screen**. The table lines up their IVs side by side (up to 30; on phones this is part of iv31 Full).
 9. Open **Poké Data** to see which Pokémon to battle to train a stat, where to find them, their types and weaknesses, or which Pokémon are weak to a type. Press **/** to search. **EVs gained** and **EV-lowering berries** are under the EV calculator in the IV Calculator tab.
+   Open **Routes** to find where to train: sort by a stat to see which route gives the most of those EVs per battle, then tap a route for everything on it.
 10. Open **Types** for the weakness chart. Click types to highlight their rows and columns.
 11. Click any Pokémon's name or number to open its **data page**. On the device, **B** goes back and **A** goes forward; the D-pad switches tabs and scrolls the screen. On phones, use **◂ ▸** at the top.
 12. Open **Powers** for **Hidden Power** (a calculator plus the IVs that give each type), **Secret Power** and **Nature Power** (what each move turns into in every area).
@@ -268,3 +270,7 @@ iv31 is released under the [MIT License](LICENSE).
 - Installer: [NSIS](https://nsis.sourceforge.io) (zlib).
 
 Pokémon and all related names are trademarks of Nintendo, Game Freak and Creatures Inc. iv31 is an unofficial fan-made tool and is not affiliated with, endorsed by, or sponsored by Nintendo, Game Freak, Creatures Inc. or The Pokémon Company. No game assets are included.
+
+## Data credits
+
+Wild Pokémon encounter data comes from [PokeAPI](https://github.com/PokeAPI/pokeapi) (BSD 3-Clause). Gen 3 map details are read from the community decompilations at [pret](https://github.com/pret). Pokémon is © Nintendo, Creatures Inc. and GAME FREAK inc.; iv31 is an unofficial fan tool.
