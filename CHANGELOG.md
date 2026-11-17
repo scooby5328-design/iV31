@@ -23,6 +23,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Training routes rank by expected EVs per battle using appearance rates once route data has loaded.
 - Six tabs: Routes sits after Poké Data; the phone tab bar fits six.
 
+### Checksums (SHA-256)
+
+```
+a2fbf76d7ad3c61956f8d2fc4afc6281cd13bbc5c9cdac5e393fa1234a4194d2  iv31-Setup-2.0.0.exe
+991a665907ad29fa998579791fc9afe7682d26d52021e23eda36043d70e7c563  iv31-2.0.0-mac.zip
+798654487cb896947807626cb363ad736ea906f15b4387574fd9bd38ad4fe6f2  iv31-2.0.0-linux-x64.tar.gz
+e9dda485ef1f7ae4f22167b1e8f73b820dd29918c0b7bf61e7a75b7efe421e16  iv31-2.0.0-linux-arm64.tar.gz
+6bbba6ea5e27fb1ff9a7a866e003177524c7d28272fac40c8b9b00209453be14  iv31_2.0.0_amd64.deb
+cfbf42db4f1a94bdbcc9a80d8f2e2fecc32faa1fe2118678d0295e3c0d639baf  iv31_2.0.0_arm64.deb
+1c268c683481e88c4f974893234b9b47d2a9af5775b809dc0e36e75acae39067  iv31-2.0.0-x86_64.AppImage
+16aa4b681669f0613095b15ec62ed32b28e6504ad778893aa7e59d31e1baa44c  iv31-2.0.0-aarch64.AppImage
+```
+
 ## [1.9.10] - 2026-10-28
 
 ### Fixed
