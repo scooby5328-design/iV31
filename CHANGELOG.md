@@ -9,6 +9,13 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [2.0.3] - 2026-11-17
+
+### Added
+- Evolution requirements on Pokémon data pages (`evoHowHtml`, `evoHow`, `evoPick`): each step lists its method for the selected game, falls back to the nearest game where it works, and marks methods only listed for Legends: Arceus.
+- Regional-form branches (Perrserker, Sirfetch'd, Mr. Rime, Runerigus, Cursola, Obstagoon, Clodsire, Sneasler, Overqwil, Basculegion) join the evolution line through `EVO.extra` and `evoKids`.
+- `tools/build_evos.py` builds `src/data/evolutions.json` from PokeAPI's `pokemon_evolution` table, inlined as `__EVO__`.
+
 ## [2.0.2] - 2026-11-17
 
 ### Changed

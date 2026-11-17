@@ -37,7 +37,7 @@ Pick a Pokémon, enter its level and stats, and iv31 tells you its individual va
 - **IV calculation** from level, nature and current stats, with the possible range when a single value can't be pinned down.
 - **Pokémon that have battled:** when EVs have raised a stat, iv31 shows the IV and EV ranges that fit instead of failing. Gen I and II do the same for Stat Exp.
 - **Gen I and II rules:** DVs from 0 to 15 (the HP DV worked out from the others), Stat Experience, no natures, one Special stat in Gen I, and Gen II Hidden Power and shiny checks.
-- **Data page for every Pokémon:** base stats, the 2 stats to focus, the proper nature, the EVs it gives, where to find it, its evolutions and its type matchups. Click any name or number to open it.
+- **Data page for every Pokémon:** base stats, the 2 stats to focus, the proper nature, the EVs it gives, where to find it, its evolutions with what each one needs in your game, and its type matchups. Click any name or number to open it.
 - **EV calculator:** add EVs by Pokémon defeated (with Macho Brace, Power items and Pokérus) or vitamins, within the 510 and per-stat limits, and see the stat points they give.
 - **EVs gained:** compare a Pokémon's stats before and after training to see the EVs it earned (under the EV calculator, with the EV-lowering berries).
 - **Poké Data:** every Pokémon's fixed data in one table in Pokédex order: types, weaknesses, what it's strong against, the EVs it gives and where it lives in your version. Filter by EV stat, type or matchup against any attacking type, search by name, number, type or place, sort by any column or story order, and click a type to filter. Your filters are remembered. A matchup checker for any one or two types sits on top.
@@ -273,4 +273,4 @@ Pokémon and all related names are trademarks of Nintendo, Game Freak and Creatu
 
 ## Data credits
 
-Wild Pokémon encounter data comes from [PokeAPI](https://github.com/PokeAPI/pokeapi) (BSD 3-Clause). Gen 3 map details are read from the community decompilations at [pret](https://github.com/pret). Pokémon is © Nintendo, Creatures Inc. and GAME FREAK inc.; iv31 is an unofficial fan tool.
+Wild Pokémon encounter and evolution data comes from [PokeAPI](https://github.com/PokeAPI/pokeapi) (BSD 3-Clause). Gen 3 map details are read from the community decompilations at [pret](https://github.com/pret). Pokémon is © Nintendo, Creatures Inc. and GAME FREAK inc.; iv31 is an unofficial fan tool.

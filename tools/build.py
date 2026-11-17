@@ -27,7 +27,7 @@ def old_engine_fallbacks(page):
 
 
 def inline_data(page):
-    for key, name in (("__LOC__", "locations.json"), ("__DEX__", "pokedex.json"), ("__SP__", "secret-power.json"), ("__PROG__", "progression.json")):
+    for key, name in (("__LOC__", "locations.json"), ("__DEX__", "pokedex.json"), ("__SP__", "secret-power.json"), ("__PROG__", "progression.json"), ("__EVO__", "evolutions.json")):
         if page.count(key) != 1:
             sys.exit(f"src/index.html must contain {key} exactly once")
         literal = json.dumps(compact(ROOT / "src/data" / name), ensure_ascii=False).replace("</", "<\\/")

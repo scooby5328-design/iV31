@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "2.0.2",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.2.neu",
+  "version": "2.0.3",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.3.neu",
   "data": {
-    "sha256": "20c6c38d7cd5c3fe046510aadbdc9d772895d442fa5101fd9b59a3343f97179d",
-    "size": 2248834,
-    "notes": "Routes show their two main EVs and highlight your Pok\u00e9mon's two key stats.",
+    "sha256": "01e72be18769e7e90f6c505b2ec91680e1a26176bdd12d1ff9829f346bbb53c4",
+    "size": 2301468,
+    "notes": "Pok\u00e9mon data pages show how and when each Pok\u00e9mon evolves, including regional and alternate branches.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

@@ -369,6 +369,14 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .evo .stage{padding:2px 8px;border-radius:6px;border:1px solid var(--surface0);background:var(--base)}
 .evo .stage.me{border-color:var(--mauve);color:var(--mauve);font-weight:600}
 .evo .arrow{color:var(--overlay)}
+.evohow{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px;font-size:13px}
+.evohow li{display:grid;grid-template-columns:minmax(84px,auto) minmax(0,1fr);gap:2px 10px;align-items:baseline;padding:6px 8px;border:1px solid var(--surface0);border-radius:6px;background:var(--mantle)}
+.evohow li.me{border-color:var(--mauve)}
+.evohow .to{font-weight:600}
+.evohow .from{display:block;font-size:11px;font-weight:400;color:var(--overlay)}
+.evohow .req span{display:block}
+.evohow .req span+span::before{content:"or ";color:var(--overlay)}
+.evohow .alt{grid-column:2;font-size:12px;color:var(--peach)}
 .hist{font-size:12.5px;color:var(--subtext);margin:8px 0 0}
 .hist b{color:var(--text);font-family:var(--mono);font-weight:600}
 .mini{display:grid;gap:6px}
@@ -1345,6 +1353,7 @@ const LOCDATA = __LOC__;
 const SP = __SP__;
 const PROG = __PROG__;
 const DATA = __DEX__;
+const EVO = __EVO__;
 const DEX = DATA.dex, ERA_STATS = DATA.eras, PRE6 = DATA.pre6, GEN1 = DATA.gen1, GEN1TYPES = DATA.gen1types;
 const ERAS = [
   {g:1, max:151, label:"Gen 1", vers:["Red","Blue","Yellow"]},
@@ -1421,6 +1430,8 @@ const dexLink = (n, label) => `<a class="dexlink" href="#dex/${n}" data-dex="${n
 const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const nameToNum = {}; DEX.forEach((p,i) => nameToNum[p[0]] = i+1);
 const PREVO = {}; DEX.forEach((p,i) => p[7].forEach(k => { PREVO[k] = i+1; }));
+Object.entries(EVO.extra).forEach(([f, ks]) => ks.forEach(k => { PREVO[k] ??= +f; }));
+const evoKids = x => DEX[x-1][7].concat(EVO.extra[x] || []);
 
 const state = {ei:0, ver:"Ruby", view:"calc", pwSub:"sp"};
 const dirty = {evs:true, types:true, favs:true, secret:true, routes:true};
@@ -2448,9 +2459,39 @@ function introEra(n){ return ERAS.findIndex(e => n <= e.max); }
 function evoLine(n, max){
   let root = n; while (PREVO[root]) root = PREVO[root];
   const stages = []; let layer = [root];
-  while (layer.length && stages.length < 4){ stages.push(layer); layer = layer.flatMap(x => DEX[x-1][7].filter(k => k <= max)); }
+  while (layer.length && stages.length < 4){ stages.push(layer); layer = layer.flatMap(x => evoKids(x).filter(k => k <= max)); }
   if (stages.length === 1) return `<span class="muted">Doesn't evolve</span>`;
   return stages.map(l => l.map(x => x === n ? `<span class="stage me">${esc(DEX[x-1][0])}</span>` : `<a class="stage dexlink" href="#dex/${x}" data-dex="${x}">${esc(DEX[x-1][0])}</a>`).join('<span class="arrow">/</span>')).join('<span class="arrow">→</span>');
+}
+const EVO_BY = {}; EVO.rows.forEach(r => (EVO_BY[r[0]] ||= []).push(r));
+function evoPick(rows, gi){
+  const ok = rows.filter(r => r[1] >= 0 && r[1] <= gi && !r[6].includes(gi) && (!r[2] || r[2] === EVO.region[gi])), best = {};
+  ok.forEach(r => { if (!(best[r[3]] >= r[1])) best[r[3]] = r[1]; });
+  const m = new Map();
+  ok.filter(r => r[1] === best[r[3]]).forEach(r => { if (!m.has(r[4])) m.set(r[4], []); if (r[5] && !m.get(r[4]).includes(r[5])) m.get(r[4]).push(r[5]); });
+  return [...m].map(([t, locs]) => t.replace("{L}", locs.join(" or ")));
+}
+function evoHow(n, ver){
+  const rows = EVO_BY[n]; if (!rows) return null;
+  const cur = EVO.vers[ver] ?? EVO.names.length - 1, here = evoPick(rows, cur);
+  if (here.length) return {here};
+  for (let g = cur - 1; g >= 0; g--){ const t = evoPick(rows, g); if (t.length) return {here, other:t, where:EVO.names[g]}; }
+  for (let g = cur + 1; g < EVO.names.length; g++){ const t = evoPick(rows, g); if (t.length) return {here, other:t, where:EVO.names[g]}; }
+  const side = rows.filter(r => r[1] < 0);
+  return side.length ? {here, other:[...new Set(side.map(r => r[4].replace("{L}", r[5])))], where:side[0][7]} : {here};
+}
+function evoHowHtml(n, max, ver){
+  let root = n; while (PREVO[root]) root = PREVO[root];
+  const out = []; let layer = [root];
+  while (layer.length){ layer = layer.flatMap(x => evoKids(x).filter(k => k <= max).map(k => [x, k])).map(([from, k]) => { out.push([from, k]); return k; }); }
+  if (!out.length) return "";
+  return `<ul class="evohow">${out.map(([from, k]) => {
+    const h = evoHow(k, ver) || {here:[]}, nm = esc(DEX[k-1][0]);
+    const sideOnly = !h.here.length && h.other && !EVO.names.includes(h.where);
+    const how = h.here.length ? h.here.map(t => `<span>${esc(t)}</span>`).join("") : sideOnly ? `<span class="none">No method listed for ${esc(ver)}</span>` : `<span class="none">Can't evolve in ${esc(ver)}</span>`;
+    const alt = !h.here.length && h.other ? `<span class="alt">${sideOnly ? "Method in" : "In"} ${esc(h.where)}: ${h.other.map(esc).join(" or ")}</span>` : "";
+    return `<li${k === n ? ' class="me"' : ""}><span class="to">${k === n ? nm : `<a class="dexlink" href="#dex/${k}" data-dex="${k}">${nm}</a>`}<small class="from">from ${esc(DEX[from-1][0])}</small></span><span class="req">${how}</span>${alt}</li>`;
+  }).join("")}</ul>`;
 }
 function statHistory(n){
   const hist = ERA_STATS[n]; if (!hist) return "";
@@ -2525,7 +2566,7 @@ function renderDex(){
         <div class="lbl">Proper nature</div>${naturesHtml(i)}${natWhy}
         <div class="lbl">Best routes to train it · ${esc(i.ver)}</div>${trainHtml(i)}</section>
       <section class="dexcell"><h3>${i.old ? "Stat Exp it gives" : "EVs it gives"}</h3><div class="evrow">${evYieldHtml(i)}</div>${mult}
-        <h3>Evolution line</h3><div class="evo">${evoLine(n, i.EE.max)}</div></section>
+        <h3>Evolution line</h3><div class="evo">${evoLine(n, i.EE.max)}</div>${evoHowHtml(n, i.EE.max, i.useEi === i.ei ? i.ver : i.EE.vers[0])}</section>
       <section class="dexcell loc"><h3>Where to find it · ${esc(i.ver)}</h3>${foundHtml(i)}</section>
       <section class="dexcell wide"><h3>Type matchups · Gen ${ROMAN[i.g]}</h3>${matchupHtml(i.ts, i.g)}</section>
     </div>`;
@@ -3524,7 +3565,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "2.0.2";
+const APP_VERSION = "2.0.3";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";

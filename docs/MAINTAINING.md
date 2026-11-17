@@ -147,6 +147,7 @@ A manifest can set `"installer": true` in `data` when a release changes the runt
 - 1.9.8 Priority routes: `prioTarget` / `buildPrio` / `pdPrio` (Map of place → Pokémon list) used by `foundCell`; note in `#pdPrioNote`.
 - 1.9.9 `trainingRoutes` / `battleSpots` / `NO_REPEAT` rank EV training routes; used by `trainHtml` (data page) and `buildPrio` (Poké Data).
 - 2.0.0 Routes tab and route pages (`renderRoutes`, `renderRoute`, `miniMap`, `placeScores`, `trainingRoutesRD`). Route data is built by `tools/build_routes.py` (PokeAPI) and `tools/build_gen3.py` (pret Gen 3), stored in `src/data/routes.json` and `src/data/gen3maps.json`, written to `data/routes.js` by `build.write_route_data` and loaded lazily with `loadRoutes()`.
+- 2.0.3 Evolution requirements: `tools/build_evos.py` → `src/data/evolutions.json` (`__EVO__`). Rows are `[species, lineage index, region, kind, text, location, blocked indexes, side game]`; `evoPick` keeps the newest row of each kind up to the selected game, filtered by region and blocked mechanics (Beauty, Affection, clock, held items).
 - 1.9.6 Wide-screen game picker is `#gameList` (listbox) driven by `syncGameList`/`pickGame`; `#game` stays the real control and fires `change`. Desk height comes from the `#screen` grid (no `min-height`). Types view is two columns at 1300px+; Powers table hides Kind at 1100px and narrower (`.kind-sub`).
 - 1.9.7 `fitTypesHeight` (called from `fitWide` on the Types view, 1300px+) shrinks `#typeChart` zoom to fit the screen height, floor 0.6, keeping the zoom with the least overflow.
 
@@ -157,6 +158,7 @@ Rebuild only when updating the sources (both scripts download into `.cache/`, wh
 ```
 python3 tools/build_routes.py
 python3 tools/build_gen3.py
+python3 tools/build_evos.py
 ```
 
 `build_routes.py` must run first, because `build_gen3.py` matches its place names. Change the pinned commits at the top of each script to update a source.
