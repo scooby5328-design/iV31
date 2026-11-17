@@ -9,6 +9,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [2.0.2] - 2026-11-17
+
+### Changed
+- Routes tab and route pages show each place's two main EVs, most common first (`mainEv` returns the top two).
+
+### Added
+- With a Pokémon picked in the IV Calculator, the Routes tab highlights its two key stats (`roleFor().key`) and stars routes whose two main EVs are both of them (`evMatch`). The list redraws when the calculator's Pokémon changes.
+
 ## [2.0.1] - 2026-11-17
 
 ### Changed
