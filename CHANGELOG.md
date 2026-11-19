@@ -9,6 +9,20 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [2.0.6] - 2026-11-19
+
+### Changed
+- Side panels scale with the window below 1240px wide (`--side`, 0.6 to 1), giving the screen more room on small windows; the 721–1000px panel rules are gone.
+- Portrait windows up to 1100px wide (tablets held upright) use the phone layout. Breakpoints are `(max-width:720px),(orientation:portrait) and (max-width:1100px)` and the matching `WIDE` query.
+- Size steps go up to 175%. A step is only allowed while the screen keeps at least 300px of content width (`scaleRoom`); shrinking the window lowers the size and growing it restores the chosen one (`uiWant`, `fitScale`).
+- Desktop app opens at 1240×780 so it fits 768px-tall screens.
+
+### Added
+- Ctrl (or Cmd) + mouse wheel or trackpad pinch changes the size, like Ctrl + and Ctrl −.
+- Size buttons in the phone top bar.
+- Android: system font size no longer breaks the layout (`textZoom = 100`); it sets the starting size instead (`fontScale()` bridge).
+- `text-size-adjust:100%` so iPhones don't enlarge text when turned sideways.
+
 ## [2.0.5] - 2026-11-19
 
 ### Changed

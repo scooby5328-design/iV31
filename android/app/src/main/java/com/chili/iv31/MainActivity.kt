@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
             domStorageEnabled = true
             allowFileAccess = false
             allowContentAccess = false
+            textZoom = 100
         }
         webView.addJavascriptInterface(AppBridge(this, billing), "iv31Android")
         webView.webViewClient = object : WebViewClient() {

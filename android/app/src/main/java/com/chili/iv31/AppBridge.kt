@@ -14,4 +14,7 @@ class AppBridge(private val activity: MainActivity, private val billing: Billing
 
     @JavascriptInterface
     fun restore() = billing.restore()
+
+    @JavascriptInterface
+    fun fontScale(): Float = activity.resources.configuration.fontScale
 }
