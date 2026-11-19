@@ -20,6 +20,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Added
 - `showResults` scrolls a search box to the top when its results would be off screen (Poké Data, Routes, Secret Power).
 
+### Checksums (SHA-256)
+
+```
+c5f309e07db69324735bd3bbba4ae57bb16925f61c965383de43ef575533212c  iv31-Setup-2.0.4.exe
+7b58afe0e578936f605f846d3432de86e499dbb7118af9ec7a94eca9d95a9cc5  iv31-2.0.4-mac.zip
+a0b1f614b0540fb8de219bb5aeaed5f1cabb9463c75e7acd8a2736e1b48c1ff2  iv31-2.0.4-linux-x64.tar.gz
+41c3b60fb5643242e6d455971c01342d26e79590ddc02dcc1d77cc36f3fe82a8  iv31-2.0.4-linux-arm64.tar.gz
+08ff116c1e8b96d8eaca9cadd8086c1fde4740dc64ca3955f49c1aadefe5fa4b  iv31_2.0.4_amd64.deb
+1cba75960d78571acea4eb7daf2141471eb5762664b6292ad417ea9b093ce1f1  iv31_2.0.4_arm64.deb
+b81922c17456ffeecb96dc23bc1b1ae9a030c9aa76dcabe90b152dbf5ab85036  iv31-2.0.4-x86_64.AppImage
+9643e7f127a630ccc1ca7b7d97f5891caf506702400b088b77d455d2ed04ccc9  iv31-2.0.4-aarch64.AppImage
+```
+
 ## [2.0.3] - 2026-11-17
 
 ### Added
