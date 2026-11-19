@@ -9,6 +9,17 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [2.0.4] - 2026-11-19
+
+### Changed
+- Pokémon data page: two columns (`.dexcols`). Base stats with EVs it gives and the evolution line under it; training focus and where to find it beside them. Smaller header and number, icon Back/Forward, Notes box at the bottom (`trainNote`, `.pnotes`).
+- Route page: header, Connects to and Field moves beside the mini map (`.rt-top`); notes and sources at the bottom.
+- Explanations moved below the results on every page (`.pagenotes`): IV Calculator intro and tips, Poké Data legend and training hint (`#pdHint`), Routes notes (`#routeNotes`), Powers legends and key.
+- Tighter spacing on desktop and phone; Poké Data filters in two columns on phones; Powers sub-tabs on one row on phones.
+
+### Added
+- `showResults` scrolls a search box to the top when its results would be off screen (Poké Data, Routes, Secret Power).
+
 ## [2.0.3] - 2026-11-17
 
 ### Added

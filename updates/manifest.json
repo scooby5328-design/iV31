@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "2.0.3",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.3.neu",
+  "version": "2.0.4",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.4.neu",
   "data": {
-    "sha256": "01e72be18769e7e90f6c505b2ec91680e1a26176bdd12d1ff9829f346bbb53c4",
-    "size": 2301468,
-    "notes": "Pok\u00e9mon data pages show how and when each Pok\u00e9mon evolves, including regional and alternate branches.",
+    "sha256": "de5c7d09061f8b007b0b86b45d0578acae9a9704a49dc59eb197d1096ee129d8",
+    "size": 2306871,
+    "notes": "Tighter pages: controls and results on top, explanations at the bottom, and searches show results without scrolling.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

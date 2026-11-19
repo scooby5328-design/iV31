@@ -369,8 +369,8 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .evo .stage{padding:2px 8px;border-radius:6px;border:1px solid var(--surface0);background:var(--base)}
 .evo .stage.me{border-color:var(--mauve);color:var(--mauve);font-weight:600}
 .evo .arrow{color:var(--overlay)}
-.evohow{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:6px;font-size:13px}
-.evohow li{display:grid;grid-template-columns:minmax(84px,auto) minmax(0,1fr);gap:2px 10px;align-items:baseline;padding:6px 8px;border:1px solid var(--surface0);border-radius:6px;background:var(--mantle)}
+.evohow{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px;font-size:13px}
+.evohow li{display:grid;grid-template-columns:minmax(84px,auto) minmax(0,1fr);gap:2px 10px;align-items:baseline;padding:3px 8px;border:1px solid var(--surface0);border-radius:6px;background:var(--mantle)}
 .evohow li.me{border-color:var(--mauve)}
 .evohow .to{font-weight:600}
 .evohow .from{display:block;font-size:11px;font-weight:400;color:var(--overlay)}
@@ -592,33 +592,53 @@ td.iv.r-err{color:var(--red)}
 .star{place-items:center;border-radius:3px}
 a.dexlink{color:inherit;text-decoration:none;border-bottom:1px dotted var(--overlay);cursor:pointer}
 a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
-.dexnav{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between;margin-bottom:14px}
-.dexstep{display:flex;gap:6px;flex-wrap:wrap}
-.dexfind{display:flex;gap:6px;flex:1 1 280px;max-width:440px}
-.dexfind input,.dexfind select{flex:1 1 50%}
-.dexhead{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px 20px;align-items:center;padding:14px 16px;border:2px solid var(--surface0);border-radius:6px;background:var(--mantle);margin-bottom:12px}
-.dexno{font-family:var(--lcd);font-size:58px;line-height:.9;color:var(--mauve);text-shadow:var(--phos);padding:8px 14px;border:2px solid var(--surface1);border-radius:4px;background:var(--crust)}
-.dexname h2{font-family:var(--pixel);font-weight:400;font-size:clamp(20px,3vw,28px);letter-spacing:.02em;margin:0 0 6px;line-height:1.1}
+.dexnav{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.dexstep{display:flex;gap:4px;flex-wrap:wrap}
+.dexfind{display:flex;gap:6px;flex:1 1 260px;max-width:440px}
+.dexfind input,.dexfind select{flex:1 1 50%;min-width:0}
+.dexhead{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:6px 14px;align-items:center;padding:8px 10px;border:2px solid var(--surface0);border-radius:6px;background:var(--mantle);margin-bottom:8px}
+.dexno{font-family:var(--lcd);font-size:34px;line-height:.9;color:var(--mauve);text-shadow:var(--phos);padding:5px 10px;border:2px solid var(--surface1);border-radius:4px;background:var(--crust)}
+.dexname h2{font-family:var(--pixel);font-weight:400;font-size:clamp(18px,2.4vw,24px);letter-spacing:.02em;margin:0 0 4px;line-height:1.1}
 .dextypes{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.dexname .note-sm{margin:8px 0 0}
-.dexacts{display:flex;flex-direction:column;gap:6px}
+.dexacts{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end;max-width:320px}
 .dexmsg:empty{display:none}
-.dexmsg .verdict{margin:0 0 12px}
-.dexgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:12px}
-.dexcell{border:2px solid var(--surface0);border-radius:6px;background:var(--mantle);padding:12px 14px;min-width:0}
+.dexmsg .verdict{margin:0 0 8px}
+.dexgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:8px}
+.dexcols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;align-items:start}
+.dexcol{display:grid;gap:8px;min-width:0;align-content:start}
+#screen.narrow .dexcols{grid-template-columns:minmax(0,1fr)}
+@media (max-width:760px){.dexcols{grid-template-columns:minmax(0,1fr)}}
+.dexcell{border:2px solid var(--surface0);border-radius:6px;background:var(--mantle);padding:8px 10px;min-width:0}
 .dexcell.wide{grid-column:1/-1}
-.dexcell h3{font-family:var(--pixel);font-weight:400;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--mauve);margin:0 0 10px}
-.dexcell h3:not(:first-child){margin-top:16px}
-.dexcell .lbl{margin:10px 0 6px}
+.dexcell h3{font-family:var(--pixel);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mauve);margin:0 0 6px}
+.dexcell h3:not(:first-child){margin-top:10px;padding-top:8px;border-top:1px dashed var(--surface1)}
+.dexcell .lbl{margin:8px 0 4px}
 .dexcell .lbl:first-of-type{margin-top:0}
-.dexcell .places{max-height:320px;overflow:auto}
-.trainroutes{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
-.trainroutes li{border:1px solid var(--surface0);border-left:4px solid var(--acc);border-radius:2px;background:var(--base);padding:7px 10px}
+.tf-row{display:flex;gap:6px 18px;align-items:flex-start}
+.tf-row>div:first-child{flex:none}
+.tf-row>div{min-width:0}
+.tf-row .lbl{margin-top:0}
+.dexcell .natchips{gap:6px}
+.dexcell .natchip{padding:3px 8px}
+.pnotes{background:transparent;border-style:dashed}
+.pnotes p,.pagenotes p{margin:0 0 6px;font-size:12.5px;color:var(--subtext);line-height:1.5}
+.pnotes p:last-child,.pagenotes p:last-child{margin-bottom:0}
+.pnotes b,.pagenotes b{color:var(--text)}
+.pagenotes{margin-top:12px;padding:8px 10px;border:2px dashed var(--surface1);border-radius:6px}
+.pagenotes:empty,.pagenotes p:empty{display:none}
+.pagenotes h3{font-family:var(--pixel);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--mauve);margin:0 0 6px}
+.pagenotes .legend,.pagenotes .notes{margin:6px 0 0}
+.pagenotes .legend{border:0;background:transparent;padding:0}
+.pagenotes .legend p{font-size:12.5px;max-width:none}
+.pagenotes .notes:empty{display:none}
+.dexcell .places{max-height:260px;overflow:auto;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:2px 12px}
+.trainroutes{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:4px}
+.trainroutes li{border:1px solid var(--surface0);border-left:4px solid var(--acc);border-radius:2px;background:var(--base);padding:4px 8px}
 .tr-h{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}
 .tr-h b{color:var(--text)}
 .tr-rank{font-family:var(--pixel);font-size:10px;color:var(--acc-ink);background:var(--acc);border-radius:2px;padding:1px 5px}
 .tr-sum{margin-left:auto;font-size:12px;color:var(--subtext)}
-.tr-mons{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:5px;font-size:13px}
+.tr-mons{display:flex;flex-wrap:wrap;gap:2px 12px;margin-top:2px;font-size:13px}
 .tr-mon small{color:var(--subtext)}
 .tr-more{margin-top:8px}
 .tr-more summary{cursor:pointer;color:var(--acc);font-size:13px}
@@ -694,7 +714,8 @@ details.win{position:relative}
 .view{position:relative}
 .tip-btn.float{position:absolute;z-index:6;margin:0}
 .pdtools{margin-top:-4px}
-.pdtools .pdcols{display:flex;flex-direction:column;gap:4px}
+.pdtools .pdcols{display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px;padding-bottom:6px}
+.pdtools .pdcols .lbl{width:100%}
 .pdtools .pdcols .lbl{margin-bottom:0}
 .pdtools select{width:auto;min-width:150px}
 .tyb{all:unset;cursor:pointer;display:inline-block;margin:1px 3px 1px 0;border-radius:4px}
@@ -704,7 +725,7 @@ details.win{position:relative}
 .tyb.x4 .ty{box-shadow:0 0 0 2px var(--red)}
 .tyb.x4 .ty::before{content:"4× "}
 .sheet td.tyc{white-space:nowrap;min-width:140px}
-.sheet td.weakc{min-width:120px;max-width:220px;white-space:normal;line-height:1.7}
+.sheet td.weakc{min-width:170px;max-width:240px;white-space:normal;line-height:1.55}
 .weakc .ty{font-size:9px;padding:1px 5px}
 .mult{font-family:var(--lcd);font-size:19px;line-height:1;padding:0 6px;border-radius:3px}
 .mult.m4{color:var(--red);background:color-mix(in srgb,var(--red) 18%,transparent)}
@@ -745,7 +766,7 @@ details.win>summary:focus-visible{outline:2px solid var(--acc);outline-offset:2p
 .win.min{background:transparent;border:2px dashed var(--surface1);box-shadow:none}
 .titlebar .partycount{margin-left:auto}
 .titlebar .partycount+.minbtn{margin-left:10px}
-@media (max-width:760px){.dexhead{grid-template-columns:minmax(0,1fr)}.dexno{justify-self:start;font-size:44px}.dexacts{flex-direction:row;flex-wrap:wrap}details.win>summary .titlebar{padding-right:10px}details.win>summary .titlebar>span:first-child{padding-right:34px}}
+@media (max-width:760px){.dexhead{grid-template-columns:auto minmax(0,1fr)}.dexno{font-size:26px;padding:4px 8px}.dexacts{grid-column:1/-1;justify-content:flex-start;max-width:none}details.win>summary .titlebar{padding-right:10px}details.win>summary .titlebar>span:first-child{padding-right:34px}}
 .bar-top{position:sticky;top:0;z-index:10}
 .bar-inner{display:flex;gap:6px;font-family:var(--pixel);font-size:11px}
 .ws{display:flex}
@@ -850,10 +871,15 @@ a.place.prio{border-bottom:0}
 .hmchips{display:inline-flex;flex-wrap:wrap;gap:3px;vertical-align:middle}
 .hmchip{display:inline-block;font-family:var(--pixel);font-size:9px;letter-spacing:.04em;text-transform:uppercase;color:var(--crust);background:var(--teal);border-radius:2px;padding:2px 5px;white-space:nowrap}
 .rt-tag{font-size:11px;color:var(--peach);border:1px solid var(--peach);border-radius:2px;padding:0 4px;font-weight:400}
-.rt-head{display:flex;gap:14px;align-items:center;margin:10px 0 12px}
+.rt-head{display:flex;gap:10px;align-items:center;margin:0 0 6px}
+.rt-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:10px;align-items:start;margin-bottom:8px}
+#screen.narrow .rt-top{grid-template-columns:minmax(0,1fr)}
+.rt-info{min-width:0;padding:8px 10px;border:2px solid var(--surface0);border-radius:6px;background:var(--mantle)}
+.rt-sub{font-family:var(--pixel);font-weight:400;font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--mauve);margin:8px 0 4px;padding-top:6px;border-top:1px dashed var(--surface1)}
+.rt-info .rt-hm li{font-size:12.5px}
 .rt-head h2{margin:0}
-.rt-head .dexno{min-width:3.2em;text-align:center}
-.rt-best{margin:6px 0 0;font-size:13px;color:var(--subtext)}
+.rt-head .dexno{min-width:2.6em;text-align:center;font-size:28px;padding:4px 8px}
+.rt-best{margin:0;font-size:13px;color:var(--subtext)}
 .rt-area{font-family:var(--pixel);font-weight:400;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--text);margin:16px 0 6px;padding-top:10px;border-top:1px dashed var(--surface1)}
 .rt-area:first-of-type{border-top:0;padding-top:0}
 .rt-method{font-size:13px;color:var(--acc);margin:10px 0 4px}
@@ -863,9 +889,9 @@ a.place.prio{border-bottom:0}
 .rt-links{display:flex;flex-wrap:wrap;gap:6px 14px}
 .form{color:var(--subtext)}
 .rt-src{margin-top:12px}
-.minimap{margin:0 0 14px;padding:10px 12px;background:var(--crust);border:2px solid var(--surface1);border-radius:4px;box-shadow:inset 2px 2px 0 var(--bev-lo)}
-.minimap svg{display:block;width:100%;max-height:300px;image-rendering:pixelated;shape-rendering:crispEdges}
-.minimap figcaption{margin-top:8px;font-size:12px;color:var(--subtext);line-height:1.6}
+.minimap{margin:0;padding:6px 8px;background:var(--crust);border:2px solid var(--surface1);border-radius:4px;box-shadow:inset 2px 2px 0 var(--bev-lo)}
+.minimap svg{display:block;width:100%;max-height:250px;image-rendering:pixelated;shape-rendering:crispEdges}
+.minimap figcaption{margin-top:4px;font-size:11.5px;color:var(--subtext);line-height:1.6}
 .minimap figcaption b{color:var(--text)}
 .mm-land{fill:var(--green);fill-opacity:.55}
 .mm-sea{fill:var(--blue);fill-opacity:.55}
@@ -878,7 +904,49 @@ a.place.prio{border-bottom:0}
 .mm-key{display:inline-block;width:9px;height:9px;vertical-align:-1px;margin-left:4px}
 .mm-key.cur{background:var(--acc)}.mm-key.town{background:var(--text);opacity:.75}.mm-key.land{background:var(--green);opacity:.7}.mm-key.sea{background:var(--blue);opacity:.7}.mm-key.dot{background:var(--peach)}
 @media (prefers-reduced-motion:reduce){.mm-cur{animation:none}}
-@media (max-width:720px){.rt-q input{min-width:0;width:100%}.rt-q{flex:1 1 100%}.rtable .rt-x{min-width:7em}.rt-head{flex-direction:column;align-items:flex-start;gap:8px}.rt-head .dexno{font-size:26px;padding:6px 12px}.ws a{letter-spacing:0;font-size:8.5px}}
+.desk{padding:8px 10px 18px;gap:10px}
+.view,.tiles{gap:10px}
+.pane{padding:10px 12px}
+.titlebar{padding:5px 10px}
+.tools{gap:8px;margin-bottom:8px}
+.meta{margin-bottom:6px;gap:4px 14px}
+.row2{gap:8px;margin-bottom:10px}
+.legend{padding:8px 10px;margin-bottom:8px}
+.notes{gap:8px}
+.panel{padding:8px 10px;margin-top:8px}
+.summary{gap:8px;margin-top:10px}
+.lbl,label{margin-bottom:3px}
+.verdict{margin-top:8px;padding:8px 10px}
+.entry{padding-top:10px;margin-top:10px}
+.btn.add{margin-top:10px}
+select,input{padding-block:6px}
+.intro{gap:6px 14px}
+.intro .logo{font-size:30px;padding:2px 10px}
+.intro h1{font-size:clamp(15px,2vw,19px);margin:0 0 4px}
+.intro .sub{margin:0 0 4px;font-size:13px}
+input[type=search]{scroll-margin-top:72px}
+.sheet td{padding-block:4px}
+.prionote{margin:0 0 6px}
+.rt-h{margin:10px 0 4px}
+.rt-h:first-child{margin-top:0}
+@media (max-width:720px){
+  #screen>.desk{padding:8px 6px 16px}
+  .pane{padding:8px}
+  .titlebar{padding:4px 8px}
+  .seg{gap:3px}
+  .seg button{padding:4px 7px}
+  .pdtools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 8px;align-items:end}
+  .pdtools>*{min-width:0}
+  .pdtools .pdcols,.pdtools>#pdClear,.pdtools>div:has(#pdMode){grid-column:1/-1}
+  .pdtools select{width:100%}
+  .meta{font-size:12px}
+  .dexcell,.rt-info{padding:6px 8px}
+  .pagenotes{padding:6px 8px}
+  .titlebar.withtabs{flex-wrap:wrap;row-gap:4px}
+  .titlebar.withtabs .subtabs{order:3;width:100%;flex-wrap:nowrap}
+  .titlebar.withtabs .subtabs button{flex:1 1 0;min-width:0;padding:4px 3px;font-size:9px;letter-spacing:0}
+}
+@media (max-width:720px){.rt-q input{min-width:0;width:100%}.rt-q{flex:1 1 100%}.rtable .rt-x{min-width:7em}.rt-top{grid-template-columns:minmax(0,1fr)}.rt-head .dexno{font-size:22px;padding:4px 8px}.ws a{letter-spacing:0;font-size:8.5px}}
 </style>
 </head>
 <body>
@@ -925,18 +993,6 @@ a.place.prio{border-bottom:0}
 <main class="desk">
 
 <div class="view" id="view-calc">
-  <section class="win" id="intro">
-    <div class="win-body">
-      <div class="pane intro">
-        <div class="logo" aria-hidden="true">IV<span>/</span>31</div>
-        <div>
-          <h1 id="appTitle">iv<span>31</span> · Pokédex IV Checker</h1>
-          <p class="sub" id="introSub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Below you can compare several party members side by side and track EVs. Hidden Power is in the Powers tab. The game picker sets base stats, types and locations everywhere in the app.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <div class="tiles">
     <section class="win" id="summary" aria-labelledby="in-h">
       <div class="win-body">
@@ -957,7 +1013,6 @@ a.place.prio{border-bottom:0}
           <div class="plan" id="plan"></div>
           <div id="entries"></div>
           <button class="btn add" id="add" type="button">+ Add stats at another level</button>
-          <p class="tip">Checking again after it levels up narrows the ranges. Enter the numbers exactly as the Summary screen shows them.</p>
         </div>
       </div>
     </section>
@@ -1013,7 +1068,6 @@ a.place.prio{border-bottom:0}
     <div class="win-body">
       <div class="titlebar"><span id="party-h">Party comparison</span><span class="partycount" id="partyCount"></span></div>
       <div class="pane">
-        <p class="tip" id="partyIntro" style="margin-top:0">Compare the IVs of several Pokémon side by side. Press <b>+ Add party member</b> and fill in its Summary screen, or copy the Pokémon you entered above.</p>
         <div class="party-actions">
           <button class="btn primary small" id="partyAdd" type="button">+ Add party member</button>
           <button class="btn small" id="partyCopy" type="button">Copy from Summary screen</button>
@@ -1133,6 +1187,19 @@ a.place.prio{border-bottom:0}
     </div>
   </details>
 
+  <section class="win" id="intro">
+    <div class="win-body">
+      <div class="pane intro">
+        <div class="logo" aria-hidden="true">IV<span>/</span>31</div>
+        <div>
+          <h1 id="appTitle">iv<span>31</span> · Pokédex IV Checker</h1>
+          <p class="sub" id="introSub">Pick a Pokémon, its nature and the stats from its Summary screen to estimate its hidden IVs. Above you can compare several party members side by side and track EVs. Hidden Power is in the Powers tab. The game picker sets base stats, types and locations everywhere in the app.</p>
+          <p class="sub intro-tips">Enter the numbers exactly as the Summary screen shows them. Checking again after it levels up narrows the ranges. <b>Party comparison</b> compares the IVs of several Pokémon side by side: press <b>+ Add party member</b> and fill in its Summary screen, or copy the Pokémon you entered above.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <details class="win" id="guide">
     <summary><div class="titlebar"><span>How the IV calculator works</span></div></summary>
     <div class="win-body" style="border-radius:0 0 12px 12px">
@@ -1155,7 +1222,7 @@ a.place.prio{border-bottom:0}
 
 <div class="view" id="view-evs" hidden>
   <details class="win" id="mcwin">
-    <summary><div class="titlebar"><span id="mc-h">Matchup checker: check any one or two types</span></div></summary>
+    <summary><div class="titlebar"><span id="mc-h">Matchup checker</span></div></summary>
     <div class="win-body" style="border-radius:0 0 12px 12px">
       <div class="pane">
         <div class="row2">
@@ -1186,11 +1253,7 @@ a.place.prio{border-bottom:0}
           <div class="pdcols"><span class="lbl">Columns</span><label class="toggle" for="pdShowWeak"><input type="checkbox" id="pdShowWeak" checked> Weak to</label><label class="toggle" for="pdShowStrong"><input type="checkbox" id="pdShowStrong" checked> Strong against</label><label class="toggle loc" for="pdShowLoc"><input type="checkbox" id="pdShowLoc" checked> Found in</label></div>
           <button type="button" class="btn small" id="pdClear" hidden>Clear filters</button>
         </div>
-        <div class="legend">
-          <p id="evLegend"><b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.</p>
-          <div class="legend-keys" id="evLegendKeys" aria-hidden="true"><span class="ev c-hp">HP</span><span class="ev c-atk">Atk</span><span class="ev c-def">Def</span><span class="ev c-spa">SpA</span><span class="ev c-spd">SpD</span><span class="ev c-spe">Spe</span></div>
-        </div>
-        <div class="meta"><span id="evCount"></span><label class="toggle loc" for="evRoute"><input type="checkbox" id="evRoute"> Story order</label><label class="toggle" for="evWild"><input type="checkbox" id="evWild"> Only Pokémon found in this version</label><span>Click a column heading to sort</span></div>
+        <div class="meta"><span id="evCount"></span><label class="toggle loc" for="evRoute"><input type="checkbox" id="evRoute"> Story order</label><label class="toggle" for="evWild"><input type="checkbox" id="evWild"> Only Pokémon found in this version</label></div>
         <div class="datanote" id="evDataNote" hidden></div>
         <div class="prionote" id="pdPrioNote" hidden></div>
         <div class="sheet-wrap">
@@ -1199,7 +1262,15 @@ a.place.prio{border-bottom:0}
             <tbody id="evBody"></tbody>
           </table>
         </div>
-        <div class="notes" id="evNotes"></div>
+        <div class="pagenotes"><h3>How to read it</h3>
+        <div class="legend" id="pdLegend">
+          <p id="evLegend"><b>How to read it:</b> each colored square is a stat this Pokémon gives EVs in, and the number is how many you get for defeating it once. Two colored squares means you get both. <b>Found in</b> lists where it appears in the selected version, with how in grey. Tap <b>☆</b> to save it to Favorites.</p>
+          <div class="legend-keys" id="evLegendKeys" aria-hidden="true"><span class="ev c-hp">HP</span><span class="ev c-atk">Atk</span><span class="ev c-def">Def</span><span class="ev c-spa">SpA</span><span class="ev c-spd">SpD</span><span class="ev c-spe">Spe</span></div>
+        </div>
+          <p>Click a column heading to sort.</p>
+          <p id="pdHint"></p>
+          <div class="notes" id="evNotes"></div>
+        </div>
       </div>
 
     </div>
@@ -1254,19 +1325,15 @@ a.place.prio{border-bottom:0}
           <div class="summary" id="hpOut"></div>
           <div id="hpNote"></div>
         </div>
-        <div class="legend"><p id="phLegend"></p></div>
         <div class="sheet-wrap" id="phWrap"><table class="sheet ph" id="phTable"></table></div>
-        <div class="notes" id="phNotes"></div>
+        <div class="pagenotes"><h3>How it works</h3><div class="legend"><p id="phLegend"></p></div>
+          <div class="notes" id="phNotes"></div></div>
       </div>
       <div class="pane" id="pane-pw-ground" role="tabpanel">
         <div class="tools">
           <div class="grow" id="spSearchBox"><label for="spSearch">Area</label><input type="search" id="spSearch" placeholder="Search an area (e.g. Route 119)" autocomplete="off"></div>
           <div id="spFilterBox"><span class="lbl" id="spFilterLbl">Shows up as</span><div class="seg" id="spFilter" role="group" aria-labelledby="spFilterLbl"></div></div>
         </div>
-        <div class="legend">
-          <p id="spLegend"></p>
-        </div>
-        <div class="notes spkey" id="spKey"></div>
         <div class="meta" id="spMeta"></div>
         <div class="sheet-wrap" id="spWrap">
           <table class="sheet sp">
@@ -1274,7 +1341,11 @@ a.place.prio{border-bottom:0}
             <tbody id="spBody"></tbody>
           </table>
         </div>
-        <div class="notes" id="spNotes"></div>
+        <div class="pagenotes"><h3>How it works</h3>
+          <div class="legend"><p id="spLegend"></p></div>
+          <div class="notes spkey" id="spKey"></div>
+          <div class="notes" id="spNotes"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -1288,9 +1359,9 @@ a.place.prio{border-bottom:0}
         <div class="tools rt-tools">
           <label class="rt-q"><span class="lbl">Find a place</span><input type="search" id="routeQ" placeholder="Route 119, Mt. Pyre…" autocomplete="off"></label>
           <label><span class="lbl">Sort by</span><select id="routeSort"><option value="order">Route order</option><option value="hp">Most HP EVs</option><option value="atk">Most Attack EVs</option><option value="def">Most Defense EVs</option><option value="spa">Most Sp. Atk EVs</option><option value="spd">Most Sp. Def EVs</option><option value="spe">Most Speed EVs</option><option value="exp">Most EXP</option></select></label>
-          <p class="note-sm rt-for">Every place in <b id="routesGame"></b>. Tap one for its full page.</p>
         </div>
         <div id="routeList"></div>
+        <div class="pagenotes"><h3>Notes</h3><p>Every place in <b id="routesGame"></b>. Tap one for its full page. <b>Main EVs</b> are the two stats a place's Pokémon give most, most common first.</p><div id="routeNotes"></div></div>
       </div>
     </div>
   </section>
@@ -2219,8 +2290,11 @@ function trainHtml(i){
   if (!list.length) return `<p class="note-sm">No route in ${esc(i.ver)} has 2 or more wild Pokémon that give these EVs. Look for single Pokémon under Gives EVs in, in Poké Data.</p>`;
   const li = (r, k) => `<li><div class="tr-h"><span class="tr-rank">${k + 1}</span><b>★ ${placeLink(r.place)}</b><span class="tr-sum">${r.mons.length} of ${r.total} Pokémon here · ${r.per ? `best by ${esc(r.at)}` : `${r.pts} EV points`}</span></div><div class="tr-mons">${r.mons.map(m => `<span class="tr-mon">${dexLink(m.n)} <small>${givesText(m)}${m.how.length ? ` · ${esc(m.how.join(", "))}` : ""}</small></span>`).join("")}</div></li>`;
   const top = list.slice(0, 5), rest = list.slice(5);
-  return `<p class="note-sm">Routes in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. ${RD && RD.v[i.ver] ? "Routes rank by how many of those EVs you'll get at the best spot, counting how often each Pokémon appears." : "Routes rank higher when more of the Pokémon you'll meet there give the right EVs. EV points add up what one of each of those Pokémon gives."} Gifts, one-time and roaming Pokémon aren't counted, and neither are Safari Zones where you can't battle. Tap a route to open its page.</p>
-    <ol class="trainroutes">${top.map(li).join("")}</ol>${rest.length ? `<details class="tr-more"><summary>${rest.length} more route${rest.length > 1 ? "s" : ""}</summary><ol class="trainroutes" start="6">${rest.map((r, k) => li(r, k + 5)).join("")}</ol></details>` : ""}`;
+  return `<ol class="trainroutes">${top.map(li).join("")}</ol>${rest.length ? `<details class="tr-more"><summary>${rest.length} more route${rest.length > 1 ? "s" : ""}</summary><ol class="trainroutes" start="6">${rest.map((r, k) => li(r, k + 5)).join("")}</ol></details>` : ""}`;
+}
+function trainNote(i){
+  if (i.old || i.useEi !== i.ei || !LOCDATA.found[i.ver]) return "";
+  return `<b>Best routes:</b> places in ${esc(i.ver)} where 2 or more wild Pokémon give ${i.key.map(k => labelFor(k, i.g)).join(" or ")} EVs, best first. ${RD && RD.v[i.ver] ? "Routes rank by how many of those EVs you'll get at the best spot, counting how often each Pokémon appears." : "Routes rank higher when more of the Pokémon you'll meet there give the right EVs. EV points add up what one of each of those Pokémon gives."} Gifts, one-time and roaming Pokémon aren't counted, and neither are Safari Zones where you can't battle.`;
 }
 function foundCell(ver, n){
   if (!LOCDATA.found[ver]) return `<span class="none">No location data for ${esc(ver)}</span>`;
@@ -2278,10 +2352,9 @@ function renderSheet(keep){
   }
   else rows.sort(byCol);
   const showLoc = pd.loc && tier() !== "free" && !!LOCDATA.found[ver] && g > 2, pr = showLoc ? buildPrio() : (pdPrio = null, pdPrioSig = prioSig(), null), pn = $("pdPrioNote");
-  pn.hidden = !showLoc;
-  if (showLoc) pn.innerHTML = pr
-    ? `★ <b>Priority routes</b> for training <b>${esc(DEX[pr.target.num-1][0])}</b> (${pr.target.key.map(k => LABEL[k]).join(" and ")}) are highlighted under Found in. At each one, 2 or more Pokémon give EVs in those stats. ${esc(ver)} has ${pr.size} of them. Point at one to see which Pokémon. <a href="#calc">Change Pokémon</a>`
-    : `★ Pick a Pokémon in the <a href="#calc">IV Calculator</a> and the best routes for training its two key stats are highlighted under Found in.`;
+  pn.hidden = !(showLoc && pr);
+  if (showLoc && pr) pn.innerHTML = `★ Training <b>${esc(DEX[pr.target.num-1][0])}</b> (${pr.target.key.map(k => LABEL[k]).join(" and ")}): ${pr.size} priority route${pr.size === 1 ? "" : "s"} starred under Found in. <a href="#calc">Change Pokémon</a>`;
+  $("pdHint").innerHTML = !showLoc ? "" : pr ? `<b>Priority routes</b> are places where 2 or more Pokémon give EVs in your Pokémon's two key stats. Point at one to see which Pokémon.` : `<b>Training one Pokémon:</b> pick it in the <a href="#calc">IV Calculator</a> and the best routes for its two key stats are starred under Found in.`;
   savePd();
   $("evHead").innerHTML = colsFor(g).map(c => c.nosort
     ? `<th class="${c.n?"n":""}${c.cls?" "+c.cls:""}"><button type="button" disabled${c.aria?` aria-label="${c.aria}"`:""}>${c.label}</button></th>`
@@ -2348,7 +2421,15 @@ $("evBody").addEventListener("click", e => {
   const n = Number(b.dataset.n); expanded.has(n) ? expanded.delete(n) : expanded.add(n); renderSheet(true);
 });
 let evTimer = 0;
-evSearch.addEventListener("input", () => { clearTimeout(evTimer); evTimer = setTimeout(renderSheet, 120); });
+function showResults(input, target){
+  requestAnimationFrame(() => {
+    const t = $(target);
+    if (!t || !input.value.trim() || t.offsetParent === null) return;
+    const sc = screenEl(), vb = sc ? sc.getBoundingClientRect() : {top:0, bottom:innerHeight}, r = t.getBoundingClientRect();
+    if (r.top > vb.bottom - Math.min(280, (vb.bottom - vb.top) * .5) || r.top < vb.top) input.scrollIntoView({block:"start"});
+  });
+}
+evSearch.addEventListener("input", () => { clearTimeout(evTimer); evTimer = setTimeout(() => { renderSheet(); showResults(evSearch, "evBody"); }, 120); });
 evWild.addEventListener("change", () => { savePd(); renderSheet(); });
 
 function berryRule(ver, g){
@@ -2485,12 +2566,13 @@ function evoHowHtml(n, max, ver){
   const out = []; let layer = [root];
   while (layer.length){ layer = layer.flatMap(x => evoKids(x).filter(k => k <= max).map(k => [x, k])).map(([from, k]) => { out.push([from, k]); return k; }); }
   if (!out.length) return "";
+  const multi = new Set(out.map(o => o[0])).size > 1;
   return `<ul class="evohow">${out.map(([from, k]) => {
     const h = evoHow(k, ver) || {here:[]}, nm = esc(DEX[k-1][0]);
     const sideOnly = !h.here.length && h.other && !EVO.names.includes(h.where);
     const how = h.here.length ? h.here.map(t => `<span>${esc(t)}</span>`).join("") : sideOnly ? `<span class="none">No method listed for ${esc(ver)}</span>` : `<span class="none">Can't evolve in ${esc(ver)}</span>`;
     const alt = !h.here.length && h.other ? `<span class="alt">${sideOnly ? "Method in" : "In"} ${esc(h.where)}: ${h.other.map(esc).join(" or ")}</span>` : "";
-    return `<li${k === n ? ' class="me"' : ""}><span class="to">${k === n ? nm : `<a class="dexlink" href="#dex/${k}" data-dex="${k}">${nm}</a>`}<small class="from">from ${esc(DEX[from-1][0])}</small></span><span class="req">${how}</span>${alt}</li>`;
+    return `<li${k === n ? ' class="me"' : ""}><span class="to">${k === n ? nm : `<a class="dexlink" href="#dex/${k}" data-dex="${k}">${nm}</a>`}${multi ? `<small class="from">from ${esc(DEX[from-1][0])}</small>` : ""}</span><span class="req">${how}</span>${alt}</li>`;
   }).join("")}</ul>`;
 }
 function statHistory(n){
@@ -2540,35 +2622,39 @@ function renderDex(){
   const i = dexInfo(n), lowName = LABEL[i.role.lower], t = tier();
   const prev = n > 1 ? n - 1 : null, next = n < Math.min(DEX.length, ERAS[ERAS.length-1].max) ? n + 1 : null;
   const first = ERAS[introEra(n)];
-  const natWhy = i.old ? "" : `<p class="note-sm">Both raise a key stat and lower ${lowName}, which ${esc(i.role.finName)} doesn't need.${i.role.finName !== i.name ? ` Judged as ${esc(i.role.finName)}, ${i.role.fin.branched ? "one of its possible final evolutions" : "its final evolution"}.` : ""}</p>`;
-  const mult = i.old ? "" : `<p class="note-sm">Doubled with Pokérus or a Macho Brace. A Power item adds ${i.g >= 7 ? 8 : 4} to its stat.</p>`;
+  const natWhy = i.old ? "" : `<b>Proper nature:</b> both picks raise a key stat and lower ${lowName}, which ${esc(i.role.finName)} doesn't need.${i.role.finName !== i.name ? ` Judged as ${esc(i.role.finName)}, ${i.role.fin.branched ? "one of its possible final evolutions" : "its final evolution"}.` : ""}`;
+  const mult = i.old ? "" : `<b>EVs it gives:</b> doubled with Pokérus or a Macho Brace. A Power item adds ${i.g >= 7 ? 8 : 4} to its stat.`;
+  const notes = [`<b>Data shown:</b> first seen in Gen ${ROMAN[first.g]} · showing ${i.useEi === i.ei ? esc(i.ver) : `Gen ${ROMAN[i.g]}`} data${i.gennote ? ` (it isn't in ${esc(i.ver)})` : ""}. Change the game picker to see another game.`, natWhy, mult, trainNote(i)].filter(Boolean);
   body.innerHTML = `
     <div class="dexnav">
-      <div class="dexstep"><button type="button" class="btn small" id="dexBack">◂ Back</button><button type="button" class="btn small" id="dexFwd">Forward ▸</button></div>
-      <div class="dexstep">${prev ? `<a class="btn small" href="#dex/${prev}" data-dex="${prev}">◂ ${dexNo(prev)}</a>` : ""}${next ? `<a class="btn small" href="#dex/${next}" data-dex="${next}">${dexNo(next)} ▸</a>` : ""}</div>
+      <div class="dexstep"><button type="button" class="btn small" id="dexBack" aria-label="Back">◂</button><button type="button" class="btn small" id="dexFwd" aria-label="Forward">▸</button>${prev ? `<a class="btn small" href="#dex/${prev}" data-dex="${prev}">◂ ${dexNo(prev)}</a>` : ""}${next ? `<a class="btn small" href="#dex/${next}" data-dex="${next}">${dexNo(next)} ▸</a>` : ""}</div>
       <div class="dexfind"><input type="search" id="dexQ" placeholder="Jump to a Pokémon" autocomplete="off" aria-label="Jump to a Pokémon"><select id="dexSel" aria-label="Pokémon"></select></div>
     </div>
     <header class="dexhead">
       <div class="dexno">${dexNo(n)}</div>
-      <div class="dexname"><h2>${esc(i.name)}</h2><div class="dextypes">${typeChips(i.ts)}${starBtn(n)}</div>
-        <p class="note-sm">First seen in Gen ${ROMAN[first.g]} · showing ${i.useEi === i.ei ? esc(i.ver) : `Gen ${ROMAN[i.g]}`} data${i.gennote ? ` (it isn't in ${esc(i.ver)})` : ""}. Change the game picker.</p></div>
+      <div class="dexname"><h2>${esc(i.name)}</h2><div class="dextypes">${typeChips(i.ts)}${starBtn(n)}${i.gennote}</div></div>
       <div class="dexacts">
-        <button type="button" class="btn" data-open="${n}" data-era="${i.useEi}">Check its IVs</button>
-        ${t !== "free" ? `<button type="button" class="btn" id="dexParty">Add to party</button>` : ""}
-        ${t !== "free" && !i.old && i.ev.some(Boolean) ? `<button type="button" class="btn" id="dexEvc">Defeated one: add its EVs</button>` : ""}
+        <button type="button" class="btn small" data-open="${n}" data-era="${i.useEi}">Check its IVs</button>
+        ${t !== "free" ? `<button type="button" class="btn small" id="dexParty">Add to party</button>` : ""}
+        ${t !== "free" && !i.old && i.ev.some(Boolean) ? `<button type="button" class="btn small" id="dexEvc">Defeated one: add its EVs</button>` : ""}
       </div>
     </header>
     <div class="dexmsg" id="dexMsg"></div>
-    <div class="dexgrid">
-      <section class="dexcell"><h3>Base stats · Gen ${ROMAN[i.g]}</h3>${statBarsHtml(i)}</section>
-      <section class="dexcell"><h3>Training focus</h3>
-        <div class="lbl">The 2 stats to focus</div><div class="k2">${i.key.map(k=>`<span class="keychip">★ ${labelFor(k,i.g)}</span>`).join("")}</div>
-        <div class="lbl">Proper nature</div>${naturesHtml(i)}${natWhy}
-        <div class="lbl">Best routes to train it · ${esc(i.ver)}</div>${trainHtml(i)}</section>
-      <section class="dexcell"><h3>${i.old ? "Stat Exp it gives" : "EVs it gives"}</h3><div class="evrow">${evYieldHtml(i)}</div>${mult}
-        <h3>Evolution line</h3><div class="evo">${evoLine(n, i.EE.max)}</div>${evoHowHtml(n, i.EE.max, i.useEi === i.ei ? i.ver : i.EE.vers[0])}</section>
-      <section class="dexcell loc"><h3>Where to find it · ${esc(i.ver)}</h3>${foundHtml(i)}</section>
+    <div class="dexcols">
+      <div class="dexcol">
+        <section class="dexcell"><h3>Base stats · Gen ${ROMAN[i.g]}</h3>${statBarsHtml(i)}</section>
+        <section class="dexcell"><h3>${i.old ? "Stat Exp it gives" : "EVs it gives"}</h3><div class="evrow">${evYieldHtml(i)}</div>
+          <h3>Evolution line</h3><div class="evo">${evoLine(n, i.EE.max)}</div>${evoHowHtml(n, i.EE.max, i.useEi === i.ei ? i.ver : i.EE.vers[0])}</section>
+      </div>
+      <div class="dexcol">
+        <section class="dexcell"><h3>Training focus</h3>
+          <div class="tf-row"><div><div class="lbl">The 2 stats to focus</div><div class="k2">${i.key.map(k=>`<span class="keychip">★ ${labelFor(k,i.g)}</span>`).join("")}</div></div>
+          <div><div class="lbl">Proper nature</div>${naturesHtml(i)}</div></div>
+          <div class="lbl">Best routes to train it · ${esc(i.ver)}</div>${trainHtml(i)}</section>
+        <section class="dexcell loc"><h3>Where to find it · ${esc(i.ver)}</h3>${foundHtml(i)}</section>
+      </div>
       <section class="dexcell wide"><h3>Type matchups · Gen ${ROMAN[i.g]}</h3>${matchupHtml(i.ts, i.g)}</section>
+      <section class="dexcell wide pnotes"><h3>Notes</h3>${notes.map(x => `<p>${x}</p>`).join("")}</section>
     </div>`;
   const q = $("dexQ"), sel = $("dexSel");
   speciesOptions(sel, q, "Choose a Pokémon…");
@@ -2702,6 +2788,7 @@ function renderRoutes(){
   renderRoutes.sig = prioSig();
   const body = $("routeList"), ver = state.ver, g = era().g;
   $("routesGame").textContent = ver;
+  $("routeNotes").innerHTML = "";
   if (!RD){ body.innerHTML = `<p class="note-sm">Loading route data…</p>`; loadRoutes(); return; }
   const q = fold($("routeQ").value.trim());
   const places = routePlaces(ver).filter(p => !q || fold(p).includes(q));
@@ -2723,16 +2810,17 @@ function renderRoutes(){
     if (old && stat >= 0){ body.innerHTML = `<p class="note-sm">In Gen ${ROMAN[g]} every Pokémon gives Stat Exp in every stat, so EV sorting doesn't apply. Sort by EXP instead.</p>`; return; }
     const ranked = places.filter(p => (stat >= 0 ? sc.get(p).ev[stat] : sc.get(p).exp) > 0).sort((a, b) => stat >= 0 ? sc.get(b).ev[stat] - sc.get(a).ev[stat] : sc.get(b).exp - sc.get(a).exp);
     const tn = want ? `<p class="prionote">★ Training <b>${esc(DEX[tgt.num-1][0])}</b>: ${want.map(k => LABEL[k]).join(" and ")} are highlighted. <a href="#calc">Change Pokémon</a></p>` : "";
-    body.innerHTML = tn + `<p class="note-sm">${byExp ? "Ranked by the EXP one battle gives at the best spot on each route, counting how often each Pokémon appears." : `Ranked by how much ${LABEL[KEYS[stat]]} the Pokémon you'll meet give, at the best spot on each route. Main EVs are the two stats that route's Pokémon give most.`} Safari Zones without battles are left out.</p>
-      <div class="sheet-wrap"><table class="sheet rtable">${head(true)}<tbody>${ranked.map((p, i) => row(p, i + 1)).join("")}</tbody></table></div>`;
+    $("routeNotes").innerHTML = `<p><b>Ranking:</b> ${byExp ? "by the EXP one battle gives at the best spot on each route, counting how often each Pokémon appears." : `by how much ${LABEL[KEYS[stat]]} the Pokémon you'll meet give, at the best spot on each route.`} Safari Zones without battles are left out.</p>`;
+    body.innerHTML = tn + `<div class="sheet-wrap"><table class="sheet rtable">${head(true)}<tbody>${ranked.map((p, i) => row(p, i + 1)).join("")}</tbody></table></div>`;
     return;
   }
   const nums = places.filter(p => routeNo(p) !== null).sort((a, b) => routeNo(a) - routeNo(b) || a.localeCompare(b));
   const towns = places.filter(p => routeNo(p) === null && TOWN.test(p)).sort((a, b) => cmpPlace(placeKey(ver, a), placeKey(ver, b)));
   const special = places.filter(p => routeNo(p) === null && !TOWN.test(p)).sort((a, b) => cmpPlace(placeKey(ver, a), placeKey(ver, b)));
-  const sect = (title, list, note) => list.length ? `<h3 class="rt-h">${title} <small>${list.length}</small></h3>${note ? `<p class="note-sm">${note}</p>` : ""}<div class="sheet-wrap"><table class="sheet rtable">${head(false)}<tbody>${list.map(p => row(p, 0)).join("")}</tbody></table></div>` : "";
-  const tnote = want ? `<p class="prionote">★ Training <b>${esc(DEX[tgt.num-1][0])}</b>: its two key stats (${want.map(k => LABEL[k]).join(" and ")}) are highlighted, and routes where both are the main EVs get a ★. <a href="#calc">Change Pokémon</a></p>` : old ? "" : `<p class="note-sm">Pick a Pokémon in the <a href="#calc">IV Calculator</a> to highlight routes whose main EVs match its two key stats.</p>`;
-  body.innerHTML = tnote + sect("Routes", nums) + sect("Special areas", special, "Caves, mountains, forests and other places off the numbered routes, in story order.") + sect("Towns and cities", towns);
+  const sect = (title, list) => list.length ? `<h3 class="rt-h">${title} <small>${list.length}</small></h3><div class="sheet-wrap"><table class="sheet rtable">${head(false)}<tbody>${list.map(p => row(p, 0)).join("")}</tbody></table></div>` : "";
+  const tnote = want ? `<p class="prionote">★ Training <b>${esc(DEX[tgt.num-1][0])}</b>: its two key stats (${want.map(k => LABEL[k]).join(" and ")}) are highlighted, and routes where both are the main EVs get a ★. <a href="#calc">Change Pokémon</a></p>` : "";
+  $("routeNotes").innerHTML = (old || want ? "" : `<p><b>Training one Pokémon:</b> pick it in the <a href="#calc">IV Calculator</a> to highlight routes whose main EVs match its two key stats.</p>`) + (special.length ? `<p><b>Special areas</b> are caves, mountains, forests and other places off the numbered routes, in story order.</p>` : "");
+  body.innerHTML = tnote + sect("Routes", nums) + sect("Special areas", special) + sect("Towns and cities", towns);
 }
 function mainEv(s){
   return s.mix.map((v, i) => [v, i]).filter(x => x[0] > 0.0049).sort((a, b) => b[0] - a[0] || a[1] - b[1]).slice(0, 2).map(x => x[1]);
@@ -2758,7 +2846,7 @@ function miniMap(ver, place){
     ? `<rect class="mm-cur" x="${x * C + 2}" y="${y * C + 2}" width="${C - 4}" height="${C - 4}"/><rect class="mm-ring" x="${x * C - 2}" y="${y * C - 2}" width="${C + 4}" height="${C + 4}"/>`
     : `<rect class="mm-dot" x="${x * C + 4}" y="${y * C + 4}" width="${C - 8}" height="${C - 8}"/>`).join("")}</a>`).join("");
   return `<figure class="minimap"><svg viewBox="-4 -4 ${W + 8} ${H + 8}" role="group" aria-label="${esc(reg.name)} map with ${esc(place)} highlighted">${cells}${dots}</svg>
-    <figcaption><b>${esc(reg.name)}</b> · ${on ? `<span class="mm-key cur"></span> ${esc(place)}` : `${esc(place)} isn't marked on the region map`} · <span class="mm-key town"></span> towns <span class="mm-key land"></span> routes <span class="mm-key sea"></span> sea routes <span class="mm-key dot"></span> caves and other places. Tap a square to open it.</figcaption></figure>`;
+    <figcaption><b>${esc(reg.name)}</b> ${on ? `<span class="mm-key cur"></span> here` : `· not marked on the map`} <span class="mm-key town"></span> towns <span class="mm-key land"></span> routes <span class="mm-key sea"></span> sea <span class="mm-key dot"></span> caves and more</figcaption></figure>`;
 }
 const lvText = r => r.lo === r.hi ? `Lv. ${r.lo}` : `Lv. ${r.lo}–${r.hi}`;
 const evText = n => { const ev = DEX[n-1] && DEX[n-1][8] || []; const t = KEYS.map((k, i) => ev[i] ? `+${ev[i]} ${SHORT[k]}` : "").filter(Boolean); return t.length ? t.join(", ") : "—"; };
@@ -2768,7 +2856,7 @@ function renderRoute(){
   $("route-h").textContent = place || "Route";
   if (!RD){ body.innerHTML = `<p class="note-sm">Loading route data…</p>`; loadRoutes(); return; }
   const areas = rdAreas(ver, place), d = g3(ver, place) || {};
-  const nav = `<div class="dexnav"><div class="dexstep"><button type="button" class="btn small" id="rtBack">◂ Back</button><button type="button" class="btn small" id="rtFwd">Forward ▸</button></div><div class="dexstep"><a class="btn small" href="#routes">All routes</a></div></div>`;
+  const nav = `<div class="dexnav"><div class="dexstep"><button type="button" class="btn small" id="rtBack" aria-label="Back">◂</button><button type="button" class="btn small" id="rtFwd" aria-label="Forward">▸</button></div><div class="dexstep"><a class="btn small" href="#routes">All routes</a></div></div>`;
   if (!areas.length && !Object.keys(d).length){
     body.innerHTML = nav + `<div class="verdict">${esc(place)} isn't in iv31's route data for ${esc(ver)}. Change the game picker, or open <a href="#routes">every route in ${esc(ver)}</a>.</div>`;
     hookRouteNav(); return;
@@ -2797,17 +2885,26 @@ function renderRoute(){
   const links = (d.links || []).filter(p => !/^Roaming\b/.test(p));
   const detail = !!(RD.gen3 && RD.gen3[ver]);
   body.innerHTML = nav.replace(`<div class="dexstep"><a class="btn small" href="#routes">`, `${step}<div class="dexstep"><a class="btn small" href="#routes">`) + `
-    <header class="rt-head"><div><div class="dexno">${no !== null ? "R" + no : "◆"}</div></div><div><h2>${esc(place)}</h2><p class="note-sm">${esc(ver)}${noBattle ? " · <b>No battles here</b>: you throw balls and bait, so it gives no EVs or EXP" : ""}</p>
-      ${!old && mainEv(sc).length ? `<p class="rt-best">Main EVs here: ${mainEvHtml(sc)}${sc.exp ? ` · ≈${Math.round(sc.exp)} EXP per battle` : ""}</p>` : ""}</div></header>
-    ${miniMap(ver, place)}
+    <div class="rt-top">
+      <div class="rt-info">
+        <header class="rt-head"><div class="dexno">${no !== null ? "R" + no : "◆"}</div><div><h2>${esc(place)}</h2><p class="note-sm">${esc(ver)}${noBattle ? " · <b>No battles here</b>: no EVs or EXP" : ""}</p></div></header>
+        ${!old && mainEv(sc).length ? `<p class="rt-best">Main EVs: ${mainEvHtml(sc)}${sc.exp ? ` · ≈${Math.round(sc.exp)} EXP per battle` : ""}</p>` : ""}
+        <h3 class="rt-sub">Connects to</h3>${links.length ? `<div class="rt-links">${links.map(p => placeLink(p)).join("")}</div>` : `<p class="note-sm">${detail ? "Nothing else connects here." : `Connections for ${esc(ver)} are coming in a later update.`}</p>`}
+        <h3 class="rt-sub">Field moves</h3>${hmHtml}
+      </div>
+      ${miniMap(ver, place)}
+    </div>
     <div class="dexgrid">
       <section class="dexcell wide"><h3>Wild Pokémon</h3>${wildHtml}</section>
       <section class="dexcell"><h3>Hidden and special Pokémon</h3>${hidHtml}</section>
       <section class="dexcell"><h3>After the National Pokédex</h3>${natHtml}</section>
       <section class="dexcell"><h3>Items</h3>${detail ? itemList(d.items, "No item balls here.") : `<p class="note-sm">Item details for ${esc(ver)} are coming in a later update.</p>`}<h3>Hidden items</h3>${detail ? itemList(d.hidden, "No hidden items here.") : `<p class="note-sm">Coming in a later update.</p>`}</section>
-      <section class="dexcell"><h3>Field moves</h3>${hmHtml}<h3>Connects to</h3>${links.length ? `<div class="rt-links">${links.map(p => placeLink(p)).join("")}</div>` : `<p class="note-sm">${detail ? "Nothing else connects here." : `Connections for ${esc(ver)} are coming in a later update.`}</p>`}</section>
-    </div>
-    <p class="note-sm rt-src">Encounters and rates from PokeAPI. ${detail ? "Items, field moves, connections and the map come from the community's decompiled game source." : ""}</p>`;
+      <section class="dexcell wide pnotes"><h3>Notes</h3>
+        ${noBattle ? `<p><b>No battles:</b> here you throw balls and bait instead of battling, so it gives no EVs or EXP.</p>` : ""}
+        <p><b>Map:</b> the blinking square is ${esc(place)}. Tap any other square to open that place. <b>Rate</b> is the chance each time you meet a wild Pokémon that way.</p>
+        <p><b>Sources:</b> encounters and rates from PokeAPI. ${detail ? "Items, field moves, connections and the map come from the community's decompiled game source." : ""}</p>
+      </section>
+    </div>`;
   hookRouteNav();
 }
 function hookRouteNav(){
@@ -2963,7 +3060,7 @@ const RT_SORT_KEY = "iv31-routesort";
 try { const v = localStorage.getItem(RT_SORT_KEY); if (v && [...$("routeSort").options].some(o => o.value === v)) rtSort = v; } catch(_) {}
 $("routeSort").value = rtSort;
 $("routeSort").addEventListener("change", e => { rtSort = e.target.value; try { localStorage.setItem(RT_SORT_KEY, rtSort); } catch(_) {} renderRoutes(); });
-$("routeQ").addEventListener("input", () => renderRoutes());
+$("routeQ").addEventListener("input", () => { renderRoutes(); showResults($("routeQ"), "routeList"); });
 setTimeout(loadRoutes, 1200);
 $("navBack").addEventListener("click", () => navGo(-1));
 $("navFwd").addEventListener("click", () => navGo(1));
@@ -3564,8 +3661,8 @@ function setPwSub(sub){
 ["hp","sp","np"].forEach(k => $("tab-pw-" + k).addEventListener("click", () => setPwSub(k)));
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
-spSearch.addEventListener("input", renderSecret);
-const APP_VERSION = "2.0.3";
+spSearch.addEventListener("input", () => { renderSecret(); showResults(spSearch, "spWrap"); });
+const APP_VERSION = "2.0.4";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
