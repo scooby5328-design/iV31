@@ -1,11 +1,11 @@
 {
   "applicationId": "com.chili.iv31",
-  "version": "2.0.4",
-  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.4.neu",
+  "version": "2.0.5",
+  "resourcesURL": "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/iv31-2.0.5.neu",
   "data": {
-    "sha256": "de5c7d09061f8b007b0b86b45d0578acae9a9704a49dc59eb197d1096ee129d8",
-    "size": 2306871,
-    "notes": "Tighter pages: controls and results on top, explanations at the bottom, and searches show results without scrolling.",
+    "sha256": "f4c9c906e764cbffa2d6d3acfb7261696baaf1790e490b83b64c6764b1b4e89c",
+    "size": 2307801,
+    "notes": "Type matchups now sit under the evolution line on Pok\u00e9mon data pages.",
     "runtime": {
       "id": "nl6.10.0-1",
       "files": {

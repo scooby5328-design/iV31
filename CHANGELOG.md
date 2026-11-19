@@ -9,6 +9,11 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Planned
 - Side-by-side comparison of saved Pokémon
 
+## [2.0.5] - 2026-11-19
+
+### Changed
+- Pokémon data page: Type matchups moved into the left column under the evolution line (`.dexcell.mu`), with defending and attacking side by side and each type's own moves (`.mpers`) in two columns below.
+
 ## [2.0.4] - 2026-11-19
 
 ### Changed

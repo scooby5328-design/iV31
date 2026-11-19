@@ -315,6 +315,7 @@ details.win[open]>summary .titlebar{border-bottom:1px solid var(--surface0)}
 .mcols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
 .mside h4{margin:0 0 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--overlay)}
 .mper{margin-top:10px;padding-top:8px;border-top:1px dashed var(--surface0)}
+.mpers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:0 16px}
 .mper .mrow{margin-top:6px}
 .mnote{margin:12px 0 0}
 .mrow .k.x4{color:var(--red)}
@@ -621,6 +622,18 @@ a.dexlink:hover{color:var(--mauve);border-bottom-color:var(--mauve)}
 .dexcell .natchips{gap:6px}
 .dexcell .natchip{padding:3px 8px}
 .pnotes{background:transparent;border-style:dashed}
+.dexcell.mu .mcols{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+.dexcell.mu .mpers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px}
+.dexcell.mu .mper{border-top:0;padding-top:0;margin-top:0}
+.dexcell.mu .mrow .k{white-space:nowrap;font-size:11.5px}
+.dexcell.mu .mper>p{margin:0 0 2px}
+@media (max-width:420px){.dexcell.mu .mpers,.dexcell.mu .mcols{grid-template-columns:minmax(0,1fr)}}
+.dexcell.mu .mgrid{gap:4px}
+.dexcell.mu .mrow{grid-template-columns:66px minmax(0,1fr);gap:6px;font-size:12px}
+.dexcell.mu .mside h4{margin:0 0 4px;font-size:10px}
+.dexcell.mu .mnote{margin:8px 0 4px;padding-top:6px;border-top:1px dashed var(--surface1)}
+.dexcell.mu .mper .mrow{margin-top:3px}
+.dexcell.mu .mgrid[style]{margin-top:4px!important}
 .pnotes p,.pagenotes p{margin:0 0 6px;font-size:12.5px;color:var(--subtext);line-height:1.5}
 .pnotes p:last-child,.pagenotes p:last-child{margin-bottom:0}
 .pnotes b,.pagenotes b{color:var(--text)}
@@ -2493,7 +2506,7 @@ function matchupHtml(def, g){
     ${row("x4","4× weak",m.x4,"None")}${row("x2","2× weak",m.x2,"None")}${row("h","½ resist",m.h,"None")}${row("q","¼ resist",m.q,"None")}${row("z","Immune",m.z,"None")}</div></div>
     <div class="mside"><h4>Attacking: what its types hit hard</h4><div class="mgrid">
     ${row("x2s","2× strong",o.x2,"Nothing")}${def.length > 1 ? row("h","Only ½",o.h,"Nothing") : ""}${def.length > 1 ? row("z","Can't hit",o.z,"Nothing") : ""}</div>
-    ${def.length > 1 ? `<p class="note-sm mnote">With moves of both its types. Each type on its own:</p>${perType}` : `<div class="mgrid" style="margin-top:10px">${row("h","½ weak",o.per[0].h,"Nothing")}${row("z","No effect",o.per[0].z,"Nothing")}</div>`}</div></div>`;
+    ${def.length > 1 ? "" : `<div class="mgrid" style="margin-top:10px">${row("h","½ weak",o.per[0].h,"Nothing")}${row("z","No effect",o.per[0].z,"Nothing")}</div>`}</div></div>${def.length > 1 ? `<p class="note-sm mnote">Above: with moves of both its types. Each type on its own:</p><div class="mpers">${perType}</div>` : ""}`;
 }
 function renderMatchups(){
   const g = era().g, t1 = mcT1.value, t2 = mcT2.value;
@@ -2645,6 +2658,7 @@ function renderDex(){
         <section class="dexcell"><h3>Base stats · Gen ${ROMAN[i.g]}</h3>${statBarsHtml(i)}</section>
         <section class="dexcell"><h3>${i.old ? "Stat Exp it gives" : "EVs it gives"}</h3><div class="evrow">${evYieldHtml(i)}</div>
           <h3>Evolution line</h3><div class="evo">${evoLine(n, i.EE.max)}</div>${evoHowHtml(n, i.EE.max, i.useEi === i.ei ? i.ver : i.EE.vers[0])}</section>
+        <section class="dexcell mu"><h3>Type matchups · Gen ${ROMAN[i.g]}</h3>${matchupHtml(i.ts, i.g)}</section>
       </div>
       <div class="dexcol">
         <section class="dexcell"><h3>Training focus</h3>
@@ -2653,7 +2667,6 @@ function renderDex(){
           <div class="lbl">Best routes to train it · ${esc(i.ver)}</div>${trainHtml(i)}</section>
         <section class="dexcell loc"><h3>Where to find it · ${esc(i.ver)}</h3>${foundHtml(i)}</section>
       </div>
-      <section class="dexcell wide"><h3>Type matchups · Gen ${ROMAN[i.g]}</h3>${matchupHtml(i.ts, i.g)}</section>
       <section class="dexcell wide pnotes"><h3>Notes</h3>${notes.map(x => `<p>${x}</p>`).join("")}</section>
     </div>`;
   const q = $("dexQ"), sel = $("dexSel");
@@ -3662,7 +3675,7 @@ function setPwSub(sub){
 $("spFilter").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; spEnv = b.dataset.v; renderSecret(); });
 $("spHead").addEventListener("click", e => { const b = e.target.closest("button[data-c]"); if (!b) return; const c = b.dataset.c; if (spSort === c) spDir = -spDir; else { spSort = c; spDir = c === "area" || c === "kind" ? 1 : -1; } renderSecret(); });
 spSearch.addEventListener("input", () => { renderSecret(); showResults(spSearch, "spWrap"); });
-const APP_VERSION = "2.0.4";
+const APP_VERSION = "2.0.5";
 const UPDATE_BASE = "https://raw.githubusercontent.com/scooby5328-design/iv31/main/updates/";
 const UPDATE_MANIFEST = UPDATE_BASE + "manifest.json";
 const UPD_AUTO_KEY = "iv31-autoupdate", UPD_SKIP_KEY = "iv31-skip-version";
