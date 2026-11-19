@@ -14,6 +14,19 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 ### Changed
 - Pokémon data page: Type matchups moved into the left column under the evolution line (`.dexcell.mu`), with defending and attacking side by side and each type's own moves (`.mpers`) in two columns below.
 
+### Checksums (SHA-256)
+
+```
+af4501d0fe27f19d2ca3ad9d6078f303d8bd259a417fc4597a0b104320b23859  iv31-Setup-2.0.5.exe
+5bf4fc080fec879aed2e3ecd4784c5b64d2e18433ebde0a1694652260d4b9726  iv31-2.0.5-mac.zip
+cc729ba206e0bff96dd62b10c6884e7de43d1b96d328fc585c7a2e3f624c9eb7  iv31-2.0.5-linux-x64.tar.gz
+39446a35074473bd56b5db3fb047c052a563b748bff7691e2612a6eb224afcf7  iv31-2.0.5-linux-arm64.tar.gz
+648aeab968f3dfe8743338e2e9fc2365e5dd9a50820c262d325211b9d64100f9  iv31_2.0.5_amd64.deb
+e863c42cc678dc13f3eb99a2252f07cadc0e39c0d76d67bbc19f02664cf70541  iv31_2.0.5_arm64.deb
+920ec3734aba3aee398a83296b0d3b67795865e77fcfecdc94d4cf802688fa46  iv31-2.0.5-x86_64.AppImage
+5967431a0c3c29ce7f79b24a8f69fde04d53f9242ef491885c5aa2af8c4c83cd  iv31-2.0.5-aarch64.AppImage
+```
+
 ## [2.0.4] - 2026-11-19
 
 ### Changed
