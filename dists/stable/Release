@@ -1,0 +1,28 @@
+Architectures: amd64 arm64
+Codename: stable
+Components: main
+Date: Thu, 19 Nov 2026 14:19:36 +0000
+Description: iv31 Pokémon IV calculator
+Label: iv31
+Origin: iv31
+Suite: stable
+MD5Sum:
+ 435af667c8043a68daaeeb39a38e4d4e             3246 main/binary-amd64/Packages
+ 746394e2978e76c06fa6bb2958b22d00             1111 main/binary-amd64/Packages.gz
+ ae54e440f4074e001303b52f42f06989             3246 main/binary-arm64/Packages
+ 66ae82f4d991fa650ba7d10cfc50170e             1115 main/binary-arm64/Packages.gz
+SHA1:
+ 17027f446d97c835c39ff61ba6b2bff6342ef1df             3246 main/binary-amd64/Packages
+ 9d4ba85b4b4c1e26de5a2d66b6c01a24b88f0e23             1111 main/binary-amd64/Packages.gz
+ 71a949fa8ae4d76bdf05bbaaa8e272f1429d9363             3246 main/binary-arm64/Packages
+ bdb600b97a399e488fe7ac8f8f4bfc70d403f79c             1115 main/binary-arm64/Packages.gz
+SHA256:
+ 10e034890a74bb1851a9bc1d637c00c70bc6b09d3f82f79d365d39e6b6b5fee8             3246 main/binary-amd64/Packages
+ 33ed02affe2f206dc863b9b565d44efec434dc0be58e66808992f1bb09d99e07             1111 main/binary-amd64/Packages.gz
+ c21ef9a7f1ffa071fe844d88e12014114ad69f03208cb281a90e6366fff80c83             3246 main/binary-arm64/Packages
+ 14388f5da727a8bd2c13ec4cc1d78715df3e95d257712412d44c6c5f846be338             1115 main/binary-arm64/Packages.gz
+SHA512:
+ 12a1ff2417449da447796618b45770a9e22b8913164a1404e9ff88f36c8c87e5fa2405cf30a14e995b084c085256d6e4cb14c3559e7dab6dfbc6bdb091aa88a4             3246 main/binary-amd64/Packages
+ 4897ba3eb844afc13acb8b0af4270c0a133f9e180fea235e6b7381b7fbda19390760798c278ec6b5a5d2259e9e33633eb11b12e12588726fddbaf73549341827             1111 main/binary-amd64/Packages.gz
+ 8209993c35321f025278bf30e26ea4b9d7265ba5fda85834f6977d6992021039943dbfc1b4ca181576c042607d7a7b62a7e023910b6b83e19e07e11c31343820             3246 main/binary-arm64/Packages
+ fcfa0e266a85aef436d1b7e71565ef69ede73259cabfca78fe5a85d62a285310e960d52b12fccdbff896ab910bf04d26b64b3334f4da8cb1ed70148cf1621bbc             1115 main/binary-arm64/Packages.gz
